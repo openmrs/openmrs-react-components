@@ -15,5 +15,8 @@ node_modules
 *.log
 package-lock.json
 *.snap
-openmrs-contrib-reactcomponents*.tgz
+__snapshots__/*
+
+openmrs-contrib-reactcomponents.js
+openmrs-contrib-reactcomponents.min.js
 
