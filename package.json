@@ -45,5 +45,8 @@
     "prepublish": "npm run build",
     "test": "jest",
     "jest:update-snapshots": "jest -u"
-  }
+  },
+  "files": [
+    "lib/"
+  ]
 }
