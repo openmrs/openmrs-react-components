@@ -15,5 +15,5 @@ node_modules
 *.log
 package-lock.json
 *.snap
-openmrs-contrib-reactrefappcomponents-0.1.0.tgz
+openmrs-contrib-reactcomponents*.tgz
 

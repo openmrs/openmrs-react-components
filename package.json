@@ -1,5 +1,5 @@
 {
-  "name": "openmrs-contrib-reactrefappcomponents",
+  "name": "openmrs-contrib-reactcomponents",
   "version": "0.1.0",
   "description": "Common reusable OpenMRS Ref App components build in React",
   "main": "build/index.js",
@@ -27,6 +27,7 @@
     "lint": "eslint lib/**; exit 0",
     "lint:watch": "esw -w lib/**",
     "prepublish": "npm run build",
-    "test": "npm run lint && jest -u"
+    "test": "npm run lint && jest",
+    "jest:update-snapshots": "jest -u"
   }
 }
