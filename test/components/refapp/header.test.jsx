@@ -1,7 +1,7 @@
 
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Header from '../../../lib/components/refapp/Header';
+import Header from '../../../src/components/refapp/Header';
 
 describe("header", () => {
   
