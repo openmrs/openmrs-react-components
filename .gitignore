@@ -8,6 +8,7 @@
 out
 gen
 
+lib/*
 
 .DS_Store
 build
@@ -15,6 +16,5 @@ node_modules
 *.log
 package-lock.json
 *.snap
-lib/*
 openmrs-contrib-reactcomponents*.tgz
 
