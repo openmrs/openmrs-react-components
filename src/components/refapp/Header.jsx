@@ -4,7 +4,7 @@ function Header() {
   return (
     <div>
       <header>
-        Helloooooooo! World!
+        Hello World!
       </header>
     </div>
   );
