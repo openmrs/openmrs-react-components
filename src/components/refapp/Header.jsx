@@ -13,11 +13,11 @@ class Header extends React.Component {
     return (
       <div>
         <header>
-          test { this.props.session ? this.props.session.location : ''} out
+          { this.props.session && this.props.session.sessionLocation ? this.props.session.sessionLocation.display : ''}
         </header>
       </div>
     )};
 }
 
 
-export default connect( ({ session }) => ({ session }), { fetchCurrentSession })(Header);
+export default connect( ( {openmrs: { session } } ) => (  { session: session } ), { fetchCurrentSession })(Header);
