@@ -1,8 +1,8 @@
-const initialState = {}
+const initialState = {};
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case "SET_CURRENT_SESSION":
+    case "SESSION_FETCH_SUCCEEDED":
       return {
         ...action.session
       };
