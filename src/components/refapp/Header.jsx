@@ -1,18 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { SESSION_ACTIONS } from "../../actions/types";
 
 class Header extends React.Component {
 
   componentWillMount() {
-    this.props.dispatch({ type: "SESSION_FETCH_REQUESTED" });
+    this.props.dispatch({ type: SESSION_ACTIONS.FETCH_REQUESTED });
   }
 
   render() {
     return (
       <div>
         <header>
-          { this.props.session && this.props.session.sessionLocation ? this.props.session.sessionLocation.display : ''}
+          { this.props.session.sessionLocation ? this.props.session.sessionLocation.display : '' }
         </header>
       </div>
     );

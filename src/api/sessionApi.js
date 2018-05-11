@@ -1,6 +1,6 @@
 import { axiosInstance } from '../config';
 
-// TODO add error handling
+// TODO this makes things depend on appui
 
 const api = {
   fetchCurrentSession: () => {
