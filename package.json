@@ -16,6 +16,7 @@
     "react": "^16.3.2",
     "react-redux": "^5.0.1",
     "redux": "^3.6.0",
+    "redux-form": "^7.3.0",
     "redux-saga": "^0.16.0",
     "redux-thunk": "^2.2.0",
     "redux-types": "^2.0.3"

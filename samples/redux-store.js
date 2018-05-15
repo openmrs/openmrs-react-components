@@ -8,19 +8,20 @@
  */
 
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
-import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
-import { saga as openmrsSaga, reducers as openmrsReducers } from 'openmrs-contrib-reactcomponents';
-import reducers from './reducers';
+import { sagas as openmrsSagas, reducers as openmrsReducers } from 'openmrs-contrib-reactcomponents';
+import { reducer as reduxFormReducer } from 'redux-form'
+// import reducers from './reducers';
 
 const sagaMiddleware = createSagaMiddleware();
 
-const middlewares = [thunk, sagaMiddleware];
+const middlewares = [sagaMiddleware];
 
 const rootReducer = combineReducers({
-  orderEntry: reducers,
+  // owaNamespace: reducers,    // add your own reducers here under the namespace you chose
   openmrs: openmrsReducers,
+  form: reduxFormReducer
 })
 
 
@@ -34,6 +35,6 @@ export default () => {
     window.devToolsExtension && process.env.NODE_ENV !== 'production'
       ? window.devToolsExtension() : f => f,
   ));
-  sagaMiddleware.run(openmrsSaga);
+  sagaMiddleware.run(openmrsSagas);
   return store;
 };

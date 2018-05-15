@@ -3,7 +3,7 @@ import configureMockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Header from '../../../src/components/refapp/Header';
+import Header from '../../../src/components/header/Header';
 
 describe("header", () => {
 

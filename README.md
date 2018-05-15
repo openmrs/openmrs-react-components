@@ -3,8 +3,6 @@
 
 Steps to the react component within your React project
 
-**Note this is a work-in-progress, does not currently work**
-
 ### Add openmrs-contrib-reactcomponents as a dependency
 
 npm install openmrs-contrib-reactcomponents
@@ -17,10 +15,11 @@ npm install babel-polyfill
 
 Then make you you import 'babel-polyfill' in your entry file (ie index.js)
 
-### Add react-redux and react-saga as dependencies
+### Add react-redux, redux-saga and redux-form as dependencies
 
 npm install react-redux
 npm install redux-saga
+npm install redux-form
 
 Also recommended, redux-logger:
 
