@@ -1,17 +1,13 @@
-import { call, put, takeLatest, all } from 'redux-saga/effects';
-import { axiosInstance} from "../config";
+import { call, put, takeLatest } from 'redux-saga/effects';
 import loginApi from '../api/loginApi';
 import { LOGIN_ACTIONS } from "../actions/types";
 
 function* login(action) {
   try {
 
-    // TODO error handling, etc?
+    let response = yield call(loginApi.login, { username: action.username, password: action.password });
 
-    var response = yield call(loginApi.login, { username: action.username, password: action.password });
-
-    if (response.authenticated == true) {
-      axiosInstance.defaults.headers.common['Authorization'] = response.sessionId;
+    if (response.authenticated === true) {
       yield put({ type: LOGIN_ACTIONS.SUCCEEDED });
     }
     else {
@@ -24,9 +20,9 @@ function* login(action) {
 }
 
 
-function* watchLoginRequested() {
+function* loginSagas() {
   yield takeLatest(LOGIN_ACTIONS.REQUESTED, login)
 }
 
 
-export default watchLoginRequested;
+export default loginSagas;

@@ -12,8 +12,8 @@ function* fetchCurrentSession() {
   }
 }
 
-function* watchFetchCurrentSession() {
+function* sessionSagas() {
   yield takeLatest(SESSION_ACTIONS.FETCH_REQUESTED, fetchCurrentSession);
 }
 
-export default watchFetchCurrentSession;
+export default sessionSagas;

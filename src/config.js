@@ -9,8 +9,7 @@ export const axiosConfig = {
   baseURL: apiBaseUrl,
   headers: {
     'Content-Type': 'application/json'
-  },
-
+  }
 }
 
 export const axiosInstance = axios.create(axiosConfig);

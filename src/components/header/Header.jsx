@@ -13,7 +13,7 @@ class Header extends React.Component {
     return (
       <div>
         <header>
-          { this.props.session.sessionLocation ? this.props.session.sessionLocation.display : '' }
+          { this.props.session.user ? this.props.session.user.display : '' }
         </header>
       </div>
     );
