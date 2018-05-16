@@ -32,3 +32,10 @@ They should be injected under the "openmrs" namespace.
 See example store at samples/redux-store.js
 
 For an example of how to inject a Redux store, see samples/App.jsx
+
+
+# Other tips
+
+### To get around CORS issues when developing:
+
+https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi?hl=en

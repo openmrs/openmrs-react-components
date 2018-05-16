@@ -1,12 +1,17 @@
 import axios from 'axios';
 
+// TODO ability to specify URL of server
+
 const contextPath = window.location.href.split('/')[3];
 const apiBaseUrl = `/${contextPath}/ws/rest/v1`;
 
-export const axiosInstance = axios.create({
+export const axiosConfig = {
   baseURL: apiBaseUrl,
   headers: {
-    accept: 'application/json',
+    'Content-Type': 'application/json'
   },
-});
+
+}
+
+export const axiosInstance = axios.create(axiosConfig);
 

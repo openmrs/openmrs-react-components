@@ -39,9 +39,6 @@ const LoginForm = props => {
   )
 }
 
-LoginForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-};
 
 export default reduxForm({
   form: 'login-form' // a unique identifier for this form
