@@ -30,7 +30,7 @@ const LoginForm = props => {
       <div>
         <button
           disabled={pristine || submitting}
-          type="button"
+          type="submit"
         >
           Submit
         </button>
