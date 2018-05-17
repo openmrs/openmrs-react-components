@@ -14,7 +14,6 @@ lib/*
 build
 node_modules
 *.log
-package-lock.json
 *.snap
 openmrs-contrib-reactcomponents*.tgz
 
