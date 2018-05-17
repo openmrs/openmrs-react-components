@@ -14,8 +14,8 @@ describe("header", () => {
       {
         openmrs: {
           session: {
-            sessionLocation: {
-              display: "Emergency"
+            user: {
+              display: "Some user"
             }
           }
         }
