@@ -25,5 +25,8 @@ Header.propTypes = {
   session: PropTypes.object.isRequired
 };
 
-// TODO convert this to a mapStateToProps that looks cleaner
-export default connect( ( { openmrs: { session } } ) => (  { session: session } ))(Header);
+const mapStateToProps = (state) => {
+  return { session: state.openmrs.session };
+};
+
+export default connect(mapStateToProps)(Header);
