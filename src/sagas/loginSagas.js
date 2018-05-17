@@ -21,7 +21,7 @@ function* login(action) {
 
 
 function* loginSagas() {
-  yield takeLatest(LOGIN_ACTIONS.REQUESTED, login)
+  yield takeLatest(LOGIN_ACTIONS.REQUESTED, login);
 }
 
 

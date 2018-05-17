@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { LOGIN_ACTIONS } from "../../actions/types"
+import { LOGIN_ACTIONS } from "../../actions/types";
 import LoginForm from './LoginForm';
 
 class Login extends React.Component {
@@ -10,17 +10,17 @@ class Login extends React.Component {
 
   constructor(props) {
     super(props);
-    this.requestLogin = this.requestLogin.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
-  requestLogin(values) {
+  handleLogin(values) {
     this.props.dispatch({ type: LOGIN_ACTIONS.REQUESTED , username: values.username, password: values.password });
   }
 
   render() {
     return (
       <div>
-        <LoginForm onSubmit={ this.requestLogin  }/>
+        <LoginForm onSubmit={this.handleLogin} />
       </div>
     );
   }

@@ -10,8 +10,8 @@ const LoginForm = props => {
         <label>Username</label>
         <div>
           <Field
-            name="username"
             component="input"
+            name="username"
             type="text"
           />
         </div>
@@ -20,29 +20,42 @@ const LoginForm = props => {
         <label>Password</label>
         <div>
           <Field
-            name="password"
             component="input"
+            name="password"
             type="password"
           />
         </div>
       </div>
 
       <div>
-        <button type="submit" disabled={pristine || submitting}>
+        <button
+          disabled={pristine || submitting}
+          type="button"
+        >
           Submit
         </button>
-        <button type="button" disabled={pristine || submitting} onClick={reset}>
+        <button
+          disabled={pristine || submitting}
+          onClick={reset}
+        >
           Clear Values
         </button>
       </div>
     </form>
-  )
-}
+  );
+};
+
+LoginForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  pristine: PropTypes.bool.isRequired,
+  reset: PropTypes.func.isRequired,
+  submitting: PropTypes.bool.isRequired,
+};
 
 
 export default reduxForm({
   form: 'login-form' // a unique identifier for this form
-})(LoginForm)
+})(LoginForm);
 
 
 

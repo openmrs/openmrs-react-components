@@ -1,5 +1,5 @@
 
-import { axiosInstance } from "../config"
+import { axiosInstance } from "../config";
 
 const api = {
 
