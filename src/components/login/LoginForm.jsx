@@ -1,46 +1,54 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
+import { Button, ButtonToolbar, Grid, Row, Col } from 'react-bootstrap';
 
 const LoginForm = props => {
   const { handleSubmit, pristine, reset, submitting } = props;
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label>Username</label>
-        <div>
-          <Field
-            component="input"
-            name="username"
-            type="text"
-          />
-        </div>
-      </div>
-      <div>
-        <label>Password</label>
-        <div>
-          <Field
-            component="input"
-            name="password"
-            type="password"
-          />
-        </div>
-      </div>
-
-      <div>
-        <button
-          disabled={pristine || submitting}
-          type="submit"
-        >
-          Submit
-        </button>
-        <button
-          disabled={pristine || submitting}
-          onClick={reset}
-        >
-          Clear Values
-        </button>
-      </div>
+      <Grid>
+        <Row>
+          <Col>
+            <label>Username</label>
+            <Field
+              component="input"
+              name="username"
+              type="text"
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <label>Password</label>
+            <Field
+              component="input"
+              name="password"
+              type="password"
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <ButtonToolbar>
+              <Button
+                bsStyle="success"
+                disabled={pristine || submitting}
+                type="submit"
+              >
+                Submit
+              </Button>
+              <Button
+                bsStyle="danger"
+                disabled={pristine || submitting}
+                onClick={reset}
+              >
+                Clear Values
+              </Button>
+            </ButtonToolbar>
+          </Col>
+        </Row>
+      </Grid>
     </form>
   );
 };

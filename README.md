@@ -33,6 +33,23 @@ See example store at samples/redux-store.js
 
 For an example of how to inject a Redux store, see samples/App.jsx
 
+## Bootstrap
+
+UI components within the library generally use Bootstrap styles.  *However* the bootstrap css files are not included
+in the released bundle.  Library consumers must provide the Bootstrap styles (or their own alternatives) within there
+own app.
+
+For information on including the stylesheet, see:
+
+https://react-bootstrap.github.io/getting-started/introduction
+
+Note that you may also need to include react-bootstrap and react-dom as dependencies in the app that uses react components
+(TODO: confirm this?)
+
+If you are using the create-react-app template, you can install and use the Bootstrap CSS by following the steps here:
+
+https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-bootstrap
+
 
 # Other tips
 
