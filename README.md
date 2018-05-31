@@ -3,9 +3,9 @@
 
 Steps to the react component within your React project
 
-### Add openmrs-react-components as a dependency
+### Add @openmrs/react-components as a dependency
 
-npm install openmrs-react-components
+npm install @openmrs/react-components
 
 ### Add babel-polyfill as a dependency and import it
 
@@ -25,7 +25,7 @@ Also recommended, redux-logger:
 
 npm install redux-logger
 
-### Create or update a redux-store that injects the reducers and sagas provided by openmrs-react-components
+### Create or update a redux-store that injects the reducers and sagas provided by @openmrs/react-components
 
 They should be injected under the "openmrs" namespace.
 

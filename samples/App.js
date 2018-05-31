@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { Header } from 'openmrs-react-components';
+import { Header } from '@openmrs/react-components';
 import './App.css';
 import createStore from './redux-store';
 
