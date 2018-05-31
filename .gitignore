@@ -15,5 +15,5 @@ build
 node_modules
 *.log
 *.snap
-openmrs-contrib-reactcomponents*.tgz
+openmrs-react-components*.tgz
 

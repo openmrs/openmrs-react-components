@@ -1,5 +1,5 @@
 {
-  "name": "openmrs-contrib-reactcomponents",
+  "name": "@openmrs/react-components",
   "version": "0.1.0",
   "description": "Common reusable OpenMRS Ref App components build in React",
   "main": "./lib/index.js",

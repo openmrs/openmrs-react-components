@@ -3,9 +3,9 @@
 
 Steps to the react component within your React project
 
-### Add openmrs-contrib-reactcomponents as a dependency
+### Add openmrs-react-components as a dependency
 
-npm install openmrs-contrib-reactcomponents
+npm install openmrs-react-components
 
 ### Add babel-polyfill as a dependency and import it
 
@@ -25,7 +25,7 @@ Also recommended, redux-logger:
 
 npm install redux-logger
 
-### Create or update a redux-store that injects the reducers and sagas provided by openmrs-contrib-reactcomponents
+### Create or update a redux-store that injects the reducers and sagas provided by openmrs-react-components
 
 They should be injected under the "openmrs" namespace.
 
@@ -49,6 +49,11 @@ Note that you may also need to include react-bootstrap and react-dom as dependen
 If you are using the create-react-app template, you can install and use the Bootstrap CSS by following the steps here:
 
 https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-bootstrap
+
+# Publishing a new version
+
+npm run pack
+npm publish --access public
 
 
 # Other tips
