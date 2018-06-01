@@ -6,6 +6,8 @@ import { Redirect, Route } from 'react-router-dom';
 // will redirect to a Login Page if user is not authenicated
 // see sample/App.js for example of usage
 
+// TODO: make the "/login" pathname configurable via a prop?
+
 const AuthenicatedRoute = props => {
 
   if (props.session.authenticated === true) {
