@@ -1,21 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
-import { Header } from '@openmrs/react-components';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
-import createStore from './redux-store';
+import createStore from './store';
+import { AuthenticatedRoute, LoginPage } from '@openmrs/react-components';
+import SamplePage from './SamplePage';
 
 const store = createStore();
 
-class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <div className="App">
-          <Header />
-        </div>
-      </Provider>
-    );
-  }
+const App =  props => {
+  return (
+    <Provider store={store}>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/login" component={LoginPage}/>
+          <AuthenticatedRoute path="/" component={SamplePage}/>
+        </Switch>
+      </BrowserRouter>
+    </Provider>
+  );
 }
 
 export default App;
