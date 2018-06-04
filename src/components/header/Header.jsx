@@ -8,7 +8,7 @@ import { SESSION_ACTIONS } from "../../actions/types";
 class Header extends React.Component {
 
   // TODO do I really need this?
-  componentWillMount() {
+  componentDidMount() {
     this.props.dispatch({ type: SESSION_ACTIONS.FETCH_REQUESTED });
   }
 
