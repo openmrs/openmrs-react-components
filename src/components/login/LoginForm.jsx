@@ -10,7 +10,7 @@ const LoginForm = props => {
       <Grid>
         <Row>
           <Col>
-            <label>Username</label>
+            <label>Username: </label>
             <Field
               component="input"
               name="username"
@@ -20,7 +20,7 @@ const LoginForm = props => {
         </Row>
         <Row>
           <Col>
-            <label>Password</label>
+            <label>Password: </label>
             <Field
               component="input"
               name="password"

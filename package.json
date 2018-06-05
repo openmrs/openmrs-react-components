@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "ag-grid": "^17.1.1",
+    "ag-grid-react": "^17.1.0",
     "react": "^16.3.2",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.3.2",
@@ -48,7 +50,8 @@
     "react-hot-loader": "^4.1.2",
     "react-test-renderer": "^16.3.2",
     "redux-mock-store": "^1.5.1",
-    "style-loader": "^0.21.0"
+    "style-loader": "^0.21.0",
+    "webpack": "^4.11.0"
   },
   "scripts": {
     "build": "babel src -d lib",
