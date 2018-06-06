@@ -6,6 +6,10 @@ import 'ag-grid/dist/styles/ag-theme-balham.css';
 
 class DataGrid extends React.Component {
 
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
             <div

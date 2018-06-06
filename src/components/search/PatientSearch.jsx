@@ -25,13 +25,15 @@ class PatientSearch extends React.Component {
         return(
             <div>
                 <PatientSearchForm onSubmit={this.handleSubmit} />
+                <DataGrid columnDefs={this.props.columnDefs} rowData={this.props.rowData}/>
              </div>
         );
     }
 }
 
 PatientSearch.propTypes = {
-    representation: PropTypes.string.isRequired
+    representation: PropTypes.string.isRequired,
+    columnDefs: PropTypes.array.isRequired
 };
 
 PatientSearch.defaultProps = {
@@ -41,7 +43,7 @@ PatientSearch.defaultProps = {
 const mapStateToProps = (state) => {
     return {
         dispatch: state.dispatch,
-        results: state.openmrs.patientSearch
+        rowData: state.openmrs.patientSearch.results
     };
 };
 
