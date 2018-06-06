@@ -4,8 +4,8 @@ import { axiosInstance } from '../config';
 const api = {
 
     findPatient: (params) => {
-        return axiosInstance.get('patient?' + params.query)
-            .then((response) => response.data);
+        return axiosInstance.get('patient?q=' + params.query + "&v=" + params.representation)
+            .then((response) => response);
     },
 
 };

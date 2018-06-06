@@ -7,3 +7,5 @@ const fetchTypes = ['FETCH_SUCCEEDED', 'FETCH_PENDING', 'FETCH_FAILED', 'FETCH_R
 export const SESSION_ACTIONS = types('session', fetchTypes);
 
 export const LOGIN_ACTIONS = types('login', basicTypes);
+
+export const PATIENT_SEARCH_ACTIONS = types('patientSearch', basicTypes);

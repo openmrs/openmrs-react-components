@@ -10,17 +10,21 @@ import sessionReducer from './reducers/sessionReducer';
 import loginSagas from './sagas/loginSagas';
 import sessionSagas from './sagas/sessionSagas';
 import patientApi from './api/patientApi'
+import patientSearchSagas from "./sagas/patientSearchSagas";
+import patientSearchReducer from "./reducers/patientSearchReducer";
 
 
 const reducers = combineReducers({
-  session: sessionReducer
+    session: sessionReducer,
+    patientSearch: patientSearchReducer
 });
 
 const sagas = function*() {
-  yield all([
-    loginSagas(),
-    sessionSagas()
-  ]);
+    yield all([
+        loginSagas(),
+        sessionSagas(),
+        patientSearchSagas()
+    ]);
 };
 
 module.exports = {

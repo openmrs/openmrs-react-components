@@ -1,68 +1,48 @@
-import React, { Component } from 'react';
-import DataGrid from "../grid/DataGrid";
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Field, reduxForm } from 'redux-form';
-import { Button, ButtonToolbar, Grid, Row, Col } from 'react-bootstrap';
+import {connect} from "react-redux";
+import {  PATIENT_SEARCH_ACTIONS } from "../../actions/types";
+import PatientSearchForm from './PatientSearchForm';
+import DataGrid from "../grid/DataGrid";
 
-const PatientSearch = props => {
-    const { pristine, reset, submitting } = props;
+class PatientSearch extends React.Component {
 
-    const handleSubmit = () => {
-        console.log("handleSubmit");
+    constructor(props) {
+        super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    };
+
+    handleSubmit(values) {
+        this.props.dispatch({
+            type: PATIENT_SEARCH_ACTIONS.REQUESTED ,
+            query: values.query,
+            representation: this.props.representation
+        });
+    };
+
+    render() {
+
+        return(
+            <div>
+                <PatientSearchForm onSubmit={this.handleSubmit} />
+             </div>
+        );
     }
-
-    return(
-        <form onSubmit={handleSubmit}>
-            <Grid>
-                <Row>
-                    <Col>
-                        <label>Search: </label>
-                        <Field
-                            component="input"
-                            name="query"
-                            type="text"
-                        />
-                    </Col>
-                </Row>
-
-                <Row>
-                    <Col>
-                        <ButtonToolbar>
-                            <Button
-                                bsStyle="success"
-                                disabled={pristine || submitting}
-                                type="submit"
-                            >
-                                Search
-                            </Button>
-                            <Button
-                                bsStyle="danger"
-                                disabled={pristine || submitting}
-                                onClick={reset}
-                            >
-                                Clear Values
-                            </Button>
-                        </ButtonToolbar>
-                    </Col>
-                </Row>
-            </Grid>
-        </form>
-    );
-
 }
 
 PatientSearch.propTypes = {
-    representation: PropTypes.string.isRequired,
-    pristine: PropTypes.bool.isRequired,
-    reset: PropTypes.func.isRequired,
-    submitting: PropTypes.bool.isRequired
-}
+    representation: PropTypes.string.isRequired
+};
 
 PatientSearch.defaultProps = {
     representation: "custom:(uuid,id,display,identifiers:(uuid,identifier,identifierType:(uuid),preferred),person:(uuid,display,gender,age,birthdate,birthdateEstimated,dead,deathDate,causeOfDeath,names,addresses,attributes))"
-}
+};
 
+const mapStateToProps = (state) => {
+    return {
+        dispatch: state.dispatch,
+        results: state.openmrs.patientSearch
+    };
+};
 
-export default reduxForm({
-    form: 'search-form' // a unique identifier for this form
-})(PatientSearch);
+export default connect(mapStateToProps)(PatientSearch);
