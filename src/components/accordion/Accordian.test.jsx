@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Accordion from '../../../src/components/accordion/Accordian';
+import Accordion from './Accordian';
 
 let props;
 let mountedComponent;

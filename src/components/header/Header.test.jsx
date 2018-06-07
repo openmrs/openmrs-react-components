@@ -1,22 +1,29 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
+
 import configureMockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import LoginForm from '../../../src/components/login/LoginForm';
+import React from 'react';
+import renderer from 'react-test-renderer';
+import Header from './Header';
 
-
-
-describe ("loginForm", () => {
+describe("header", () => {
 
   const mockStore = configureMockStore();
 
   it ("should render correctly", () => {
-
-    const store = mockStore({});
+    const store = mockStore(
+      {
+        openmrs: {
+          session: {
+            user: {
+              display: "Some user"
+            }
+          }
+        }
+      });
 
     const rendered = renderer.create(
       <Provider store={store}>
-        <LoginForm />
+        <Header />
       </Provider>
     );
 
