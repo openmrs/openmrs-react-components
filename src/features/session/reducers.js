@@ -1,15 +1,16 @@
-import { SESSION_ACTIONS } from "../actions/types";
+
+import SESSION_TYPES from "./types";
 
 const initialState = {};
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SESSION_ACTIONS.FETCH_SUCCEEDED:
+    case SESSION_TYPES.FETCH_SUCCEEDED:
       return {
         ...action.session
       };
 
-    case SESSION_ACTIONS.FETCH_FAILED:
+    case SESSION_TYPES.FETCH_FAILED:
       return {
         error: {
           message: "Unable to load session"

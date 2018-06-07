@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { LOGIN_ACTIONS } from "../../actions/types";
 import LoginForm from './LoginForm';
+import { loginActions } from '../../features/login';
 
 class Login extends React.Component {
 
@@ -14,7 +14,7 @@ class Login extends React.Component {
   }
 
   handleLogin(values) {
-    this.props.dispatch({ type: LOGIN_ACTIONS.REQUESTED , username: values.username, password: values.password });
+    this.props.dispatch(loginActions.login(values.username, values.password));
   }
 
   render() {

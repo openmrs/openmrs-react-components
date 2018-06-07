@@ -1,43 +1,36 @@
 import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
+import Accordion from './components/accordion/Accordian';
 import Header from './components/header/Header';
 import Login from './components/login/Login';
 import LoginPage from './components/login/LoginPage';
 import PatientSearch from './components/search/PatientSearch';
 import AuthenticatedRoute from './components/routes/AuthenticatedRoute';
-import { SESSION_ACTIONS, LOGIN_ACTIONS } from './actions/types';
-import sessionReducer from './reducers/sessionReducer';
-import loginSagas from './sagas/loginSagas';
-import sessionSagas from './sagas/sessionSagas';
-import patientApi from './api/patientApi'
-import patientSearchSagas from "./sagas/patientSearchSagas";
-import patientSearchReducer from "./reducers/patientSearchReducer";
-import Accordion from './components/accordion/Accordian';
+import { sessionReducers, sessionSagas } from './features/session/';
+import { loginSagas } from './features/login';
+import { patientSearchReducers, patientSearchSagas } from "./features/patientSearch/";
 
 
 const reducers = combineReducers({
-    session: sessionReducer,
-    patientSearch: patientSearchReducer
+  session: sessionReducers,
+  patientSearch: patientSearchReducers
 });
 
-const sagas = function*() {
-    yield all([
-        loginSagas(),
-        sessionSagas(),
-        patientSearchSagas()
-    ]);
+const sagas = function* () {
+  yield all([
+    loginSagas(),
+    sessionSagas(),
+    patientSearchSagas()
+  ]);
 };
 
 module.exports = {
-    Header,
-    Login,
-    LoginPage,
-    PatientSearch,
-    AuthenticatedRoute,
-    SESSION_ACTIONS,
-    LOGIN_ACTIONS,
-    reducers,
-    sagas,
-    patientApi,
-    Accordion
+  Accordion,
+  Header,
+  Login,
+  LoginPage,
+  PatientSearch,
+  AuthenticatedRoute,
+  reducers,
+  sagas
 };

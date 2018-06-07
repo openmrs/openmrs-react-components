@@ -1,0 +1,11 @@
+
+export const BASIC_TYPES = [
+  'FETCH_SUCCEEDED',
+  'FETCH_PENDING',
+  'FETCH_FAILED',
+  'FETCH_REQUESTED',
+  'SUCCEEDED',
+  'PENDING',
+  'FAILED',
+  'REQUESTED'
+];
