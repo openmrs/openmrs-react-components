@@ -15,7 +15,7 @@
     "ag-grid": "^17.1.1",
     "ag-grid-react": "^17.1.0",
     "axios": "^0.18.0",
-    "react": "^16.3.2",
+    "react": "^16.4.0",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.3.2",
     "react-dom-factories": "^1.0.2",
@@ -45,6 +45,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
     "eslint-watch": "^3.1.4",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^22.4.3",
     "moxios": "^0.4.0",
     "prop-types": "^15.6.1",
@@ -63,6 +64,7 @@
     "test:update-snapshots": "jest -u"
   },
   "files": [
-    "lib/"
+    "lib/",
+    "assets"
   ]
 }
