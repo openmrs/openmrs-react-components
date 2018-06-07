@@ -12,7 +12,7 @@ import sessionSagas from './sagas/sessionSagas';
 import patientApi from './api/patientApi'
 import patientSearchSagas from "./sagas/patientSearchSagas";
 import patientSearchReducer from "./reducers/patientSearchReducer";
-import Accordion from './components/accordion';
+import Accordion from './components/accordion/Accordian';
 
 
 const reducers = combineReducers({
