@@ -12,6 +12,7 @@ import sessionSagas from './sagas/sessionSagas';
 import patientApi from './api/patientApi'
 import patientSearchSagas from "./sagas/patientSearchSagas";
 import patientSearchReducer from "./reducers/patientSearchReducer";
+import Accordion from './components/accordion';
 
 
 const reducers = combineReducers({
@@ -37,5 +38,6 @@ module.exports = {
     LOGIN_ACTIONS,
     reducers,
     sagas,
-    patientApi
+    patientApi,
+    Accordion
 };

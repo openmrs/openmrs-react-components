@@ -1,0 +1,47 @@
+.accordion.border {
+  border: 2px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+}
+
+.accordion .header {
+  cursor: pointer;
+  background-color: #F9F9F9;
+  border-bottom: 1px solid rgba(0,0,0,.125);
+  padding: 5px;
+  font-size: 1.2em;
+}
+
+.accordion .content {
+  padding: 0px 5px;
+    overflow-y: scroll;
+  max-height: 0px;
+  transition: all .5s ease;
+}
+
+.accordion .content.close {
+    max-height: 0;
+}
+
+.accordion .content.open {
+    max-height: 500px;
+}
+
+.rotate90 {
+  transform: rotate(90deg);
+}
+
+.rotate180 {
+  transform: rotate(180deg);
+}
+
+.icon-caret-up::before {
+  color: #AE8C79;
+  display: inline-block;
+  vertical-align: middle;
+  content: '\F0D8';
+  font-size: 12px;
+}
+
+a:hover {
+  text-decoration: none;
+}
