@@ -14,7 +14,7 @@ function* patientSearch(action) {
         if (response.status === 200) {
             yield put({
                 type: PATIENT_SEARCH_ACTIONS.SUCCEEDED,
-                results: response.data.results
+                results: action.parseResults ? action.parseResults(response.data.results) : response.data.results,
             });
         } else {
             yield put({ type: PATIENT_SEARCH_ACTIONS.FAILED, message: "Failed to find patients" });
