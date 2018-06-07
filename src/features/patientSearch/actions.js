@@ -1,8 +1,9 @@
 import PATIENT_SEARCH_TYPES from "./types";
 
-const patientSearch = (query, representation) => ( {
+const patientSearch = (query, parseResults, representation) => ( {
   type: PATIENT_SEARCH_TYPES.REQUESTED,
   query: query,
+  parseResults: parseResults,
   representation: representation
 } );
 

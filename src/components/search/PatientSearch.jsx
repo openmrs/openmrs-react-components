@@ -12,23 +12,20 @@ class PatientSearch extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   };
 
-    handleSubmit(values) {
-        this.props.dispatch({
-            type: PATIENT_SEARCH_ACTIONS.REQUESTED ,
-            query: values.query,
-            parseResults: this.props.parseResults, // the client could provide a callback function to parse the results returned by the REST API
-            representation: this.props.representation
-        });
-    };
+  handleSubmit(values) {
+    this.props.dispatch(patientSearchActions.patientSearch(values.query,
+      this.props.parseResults, // the client could provide a callback function to parse the results returned by the REST API
+      this.props.representation));
+  };
 
-    render() {
-        return(
-            <div>
-                <PatientSearchForm onSubmit={this.handleSubmit} />
-                <DataGrid columnDefs={this.props.columnDefs} rowData={this.props.rowData}/>
-             </div>
-        );
-    };
+  render() {
+    return(
+      <div>
+        <PatientSearchForm onSubmit={this.handleSubmit} />
+        <DataGrid columnDefs={this.props.columnDefs} rowData={this.props.rowData}/>
+      </div>
+    );
+  };
 }
 
 PatientSearch.propTypes = {

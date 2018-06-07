@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import PATIENT_SEARCH_TYPES from "./types";
-import patientSearchActions from "./actions";
+import patientSearchActions from './actions';
 import patientApi from "../../api/patientApi";
 
 
@@ -13,7 +13,7 @@ function* patientSearch(action) {
     });
 
     if (response.status === 200) {
-      yield put(patientSearchActions.patientSearchSucceeded(response.data.results));
+      yield put(patientSearchActions.patientSearchSucceeded(action.parseResults ? action.parseResults(response.data.results) : response.data.results));
     } else {
       yield put(patientSearchActions.patientSearchFailed("Failed to find patients"));
     }
