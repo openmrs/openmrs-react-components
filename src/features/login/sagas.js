@@ -1,7 +1,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import loginApi from '../../api/loginApi';
 import LOGIN_TYPES from './types';
-import loginActions from './actions'
+import loginActions from './actions';
 import { sessionActions } from "../session/index";
 
 function* login(action) {

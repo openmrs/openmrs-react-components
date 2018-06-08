@@ -19,4 +19,4 @@ export default {
   login,
   loginSucceeded,
   loginFailed
-}
+};
