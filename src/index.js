@@ -6,8 +6,10 @@ import Login from './components/login/Login';
 import LoginPage from './components/login/LoginPage';
 import PatientSearch from './components/search/PatientSearch';
 import AuthenticatedRoute from './components/routes/AuthenticatedRoute';
+import DataGrid from './components/grid/DataGrid';
 import { sessionReducers, sessionSagas } from './features/session/';
 import { loginSagas } from './features/login';
+import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
 import { patientSearchReducers, patientSearchSagas } from "./features/patientSearch/";
 
 
@@ -20,7 +22,8 @@ const sagas = function* () {
   yield all([
     loginSagas(),
     sessionSagas(),
-    patientSearchSagas()
+    patientSearchSagas(),
+    visitSagas()
   ]);
 };
 
@@ -31,6 +34,9 @@ module.exports = {
   LoginPage,
   PatientSearch,
   AuthenticatedRoute,
+  DataGrid,
+  VISIT_TYPES,
+  visitActions,
   reducers,
   sagas
 };
