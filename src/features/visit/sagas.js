@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import VISIT_TYPES from './types';
-import visitApi from '../../api/visitApi';
+import visitApi from '../../rest/visitRest';
 import visitActions from './actions';
 
 function* activeVisits(action) {

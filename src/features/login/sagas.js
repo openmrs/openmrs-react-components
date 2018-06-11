@@ -1,5 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import loginApi from '../../api/loginApi';
+import loginApi from '../../rest/loginRest';
 import LOGIN_TYPES from './types';
 import loginActions from './actions';
 import { sessionActions } from "../session/index";

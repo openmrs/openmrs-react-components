@@ -1,7 +1,7 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import PATIENT_SEARCH_TYPES from "./types";
 import patientSearchActions from './actions';
-import patientApi from "../../api/patientApi";
+import patientApi from "../../rest/patientRest";
 
 
 function* patientSearch(action) {
