@@ -10,33 +10,35 @@ import DataGrid from './components/grid/DataGrid';
 import { sessionReducers, sessionSagas } from './features/session/';
 import { loginSagas } from './features/login';
 import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
-import { patientSearchReducers, patientSearchSagas } from "./features/patientSearch/";
+import { PATIENT_SEARCH_TYPES, patientSearchActions, patientSearchReducers, patientSearchSagas } from "./features/patientSearch/";
 
 
 const reducers = combineReducers({
-  session: sessionReducers,
-  patientSearch: patientSearchReducers
+    session: sessionReducers,
+    patientSearch: patientSearchReducers
 });
 
 const sagas = function* () {
-  yield all([
-    loginSagas(),
-    sessionSagas(),
-    patientSearchSagas(),
-    visitSagas()
-  ]);
+    yield all([
+        loginSagas(),
+        sessionSagas(),
+        patientSearchSagas(),
+        visitSagas()
+    ]);
 };
 
 module.exports = {
-  Accordion,
-  Header,
-  Login,
-  LoginPage,
-  PatientSearch,
-  AuthenticatedRoute,
-  DataGrid,
-  VISIT_TYPES,
-  visitActions,
-  reducers,
-  sagas
+    Accordion,
+    Header,
+    Login,
+    LoginPage,
+    PatientSearch,
+    AuthenticatedRoute,
+    DataGrid,
+    VISIT_TYPES,
+    visitActions,
+    PATIENT_SEARCH_TYPES,
+    patientSearchActions,
+    reducers,
+    sagas
 };
