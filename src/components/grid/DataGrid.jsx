@@ -8,6 +8,27 @@ class DataGrid extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            rowSelection: "single"
+        };
+    }
+
+    onGridReady(params) {
+        this.gridApi = params.api;
+        this.gridColumnApi = params.columnApi;
+    }
+
+    onSelectionChanged() {
+        let selectedRows = this.gridApi.getSelectedRows();
+        let selectedRowsString = "";
+        let self = this;
+        selectedRows.forEach(function(selectedRow, index) {
+            if (index !== 0) {
+                selectedRowsString += ", ";
+            }
+            selectedRowsString += selectedRow.id + ", " + selectedRow.uuid;
+            self.props.onRowSelected(selectedRow);
+        });
     }
 
     render() {
@@ -19,9 +40,12 @@ class DataGrid extends React.Component {
                     width: '100%' }}
             >
                 <AgGridReact
-                    onGridReady={ params => this.gridApi = params.api }
+                    id="omrsGrid"
+                    onGridReady={ this.onGridReady.bind(this) }
+                    onSelectionChanged={this.onSelectionChanged.bind(this)}
                     enableSorting={true}
-                    rowSelection="multiple"
+                    rowClassRules="rowClassRules"
+                    rowSelection={this.state.rowSelection}
                     columnDefs={this.props.columnDefs}
                     rowData={this.props.rowData}>
                 </AgGridReact>
