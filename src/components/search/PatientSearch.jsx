@@ -23,6 +23,11 @@ class PatientSearch extends React.Component {
   onRowSelected(row) {
     this.props.dispatch(patientSearchActions.rowSelected(row));
 
+    // create any custom actions
+    if (this.props.rowSelectedActionCreators) {
+      this.props.rowSelectedActionCreators.forEach((f) => this.props.dispatch(f(row)));
+    }
+
   }
 
   render() {
@@ -44,7 +49,8 @@ PatientSearch.propTypes = {
   dispatch: PropTypes.func.isRequired,
   parseResults: PropTypes.func,
   representation: PropTypes.string.isRequired,
-  rowData: PropTypes.array
+  rowData: PropTypes.array,
+  rowSelectedActionCreators: PropTypes.array
 };
 
 PatientSearch.defaultProps = {
