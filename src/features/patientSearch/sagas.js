@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from "redux-saga/effects";
+import {call, put, takeLatest} from "redux-saga/effects";
 import PATIENT_SEARCH_TYPES from "./types";
 import patientSearchActions from './actions';
 import patientApi from "../../rest/patientRest";

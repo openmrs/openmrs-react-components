@@ -1,4 +1,3 @@
-
 export const BASIC_TYPES = [
   'FETCH_SUCCEEDED',
   'FETCH_PENDING',

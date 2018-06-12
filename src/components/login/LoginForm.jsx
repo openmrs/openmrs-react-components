@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Field, reduxForm } from 'redux-form';
-import { Button, ButtonToolbar, Grid, Row, Col } from 'react-bootstrap';
+import {Field, reduxForm} from 'redux-form';
+import {Button, ButtonToolbar, Grid, Row, Col} from 'react-bootstrap';
 
 const LoginForm = props => {
   const { handleSubmit, pristine, reset, submitting } = props;

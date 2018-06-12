@@ -1,7 +1,6 @@
-
 import SESSION_TYPES from "./types";
 
-const fetchSession = ( ) => ( {
+const fetchSession = () => ( {
   type: SESSION_TYPES.FETCH_REQUESTED
 } );
 

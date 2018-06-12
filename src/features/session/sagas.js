@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import {call, put, takeLatest} from 'redux-saga/effects';
 import sessionApi from '../../rest/sessionRest';
 import SESSION_TYPES from './types';
 import sessionActions from './actions';

@@ -1,4 +1,4 @@
-import VISIT_TYPES from "./types"
+import VISIT_TYPES from "./types";
 
 const fetchActiveVisits = (representation) => ( {
   type: VISIT_TYPES.ACTIVE_VISITS.FETCH_REQUESTED,

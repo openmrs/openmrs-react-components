@@ -1,26 +1,25 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import configureMockStore from 'redux-mock-store';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 import PatientSearchForm from './PatientSearchForm';
 
 
+describe("patientSearchForm", () => {
 
-describe ("patientSearchForm", () => {
+  const mockStore = configureMockStore();
 
-    const mockStore = configureMockStore();
+  it("should render correctly", () => {
 
-    it ("should render correctly", () => {
+    const store = mockStore({});
 
-        const store = mockStore({});
+    const rendered = renderer.create(
+      <Provider store={store}>
+        <PatientSearchForm/>
+      </Provider>
+    );
 
-        const rendered = renderer.create(
-            <Provider store={store}>
-                <PatientSearchForm />
-            </Provider>
-        );
-
-        expect(rendered.toJSON()).toMatchSnapshot();
-    });
+    expect(rendered.toJSON()).toMatchSnapshot();
+  });
 
 });

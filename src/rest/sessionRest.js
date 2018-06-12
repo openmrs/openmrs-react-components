@@ -1,4 +1,4 @@
-import { axiosInstance } from '../config';
+import {axiosInstance} from '../config';
 
 // TODO this makes things depend on appui
 

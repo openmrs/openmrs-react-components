@@ -6,11 +6,11 @@ import axios from 'axios';
 // otherwise doesn't set the address and gets the context path by examining the window object
 
 const serverAddress = (typeof process !== 'undefined' && typeof process.env !== 'undefined' &&
-  typeof process.env.REACT_APP_SERVER_ADDRESS  !== 'undefined' && process.env.REACT_APP_SERVER_ADDRESS !== null) ?
-  process.env.REACT_APP_SERVER_ADDRESS  : "";
+  typeof process.env.REACT_APP_SERVER_ADDRESS !== 'undefined' && process.env.REACT_APP_SERVER_ADDRESS !== null) ?
+  process.env.REACT_APP_SERVER_ADDRESS : "";
 
-const contextPath  = (typeof process !== 'undefined' && typeof process.env !== 'undefined' &&
-  typeof process.env.REACT_APP_SERVER_CONTEXT_PATH  !== 'undefined' && process.env.REACT_APP_SERVER_CONTEXT_PATH !== null) ?
+const contextPath = (typeof process !== 'undefined' && typeof process.env !== 'undefined' &&
+  typeof process.env.REACT_APP_SERVER_CONTEXT_PATH !== 'undefined' && process.env.REACT_APP_SERVER_CONTEXT_PATH !== null) ?
   process.env.REACT_APP_SERVER_CONTEXT_PATH : window.location.href.split('/')[3];
 
 const apiBaseUrl = `${serverAddress}${contextPath}/ws/rest/v1`;

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import LoginForm from './LoginForm';
-import { loginActions } from '../../features/login';
+import {loginActions} from '../../features/login';
 
 class Login extends React.Component {
 
@@ -20,7 +20,7 @@ class Login extends React.Component {
   render() {
     return (
       <div>
-        <LoginForm onSubmit={this.handleLogin} />
+        <LoginForm onSubmit={this.handleLogin}/>
       </div>
     );
   }

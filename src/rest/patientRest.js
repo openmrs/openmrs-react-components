@@ -1,12 +1,12 @@
-import { axiosInstance } from '../config';
+import {axiosInstance} from '../config';
 
 
 const api = {
 
-    findPatient: (params) => {
-        return axiosInstance.get('patient?q=' + params.query + "&v=" + params.representation)
-            .then((response) => response);
-    },
+  findPatient: (params) => {
+    return axiosInstance.get('patient?q=' + params.query + "&v=" + params.representation)
+      .then((response) => response);
+  },
 
 };
 
