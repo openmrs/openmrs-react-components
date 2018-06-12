@@ -5,6 +5,7 @@ import Header from './components/header/Header';
 import Login from './components/login/Login';
 import LoginPage from './components/login/LoginPage';
 import PatientSearch from './components/search/PatientSearch';
+import PatientInfo from './components/patient/PatientInfo';
 import AuthenticatedRoute from './components/routes/AuthenticatedRoute';
 import DataGrid from './components/grid/DataGrid';
 import { sessionReducers, sessionSagas } from './features/session/';
@@ -37,6 +38,7 @@ module.exports = {
   Header,
   Login,
   LoginPage,
+  PatientInfo,
   PatientSearch,
   AuthenticatedRoute,
   DataGrid,
