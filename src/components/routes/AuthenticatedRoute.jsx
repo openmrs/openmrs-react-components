@@ -1,6 +1,6 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {Redirect, Route} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Redirect, Route } from 'react-router-dom';
 
 // adapted from: https://reacttraining.com/react-router/web/example/auth-workflow
 // will redirect to a Login Page if user is not authenicated

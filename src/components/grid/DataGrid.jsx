@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {AgGridReact} from 'ag-grid-react';
+import React, { Component } from 'react';
+import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid/dist/styles/ag-grid.css';
 import 'ag-grid/dist/styles/ag-theme-balham.css';
 
@@ -41,15 +41,15 @@ class DataGrid extends React.Component {
         }}
       >
         <AgGridReact
+          columnDefs={this.props.columnDefs}
+          enableSorting
           id="omrsGrid"
           onGridReady={this.onGridReady.bind(this)}
           onSelectionChanged={this.onSelectionChanged.bind(this)}
-          enableSorting={true}
           rowClassRules="rowClassRules"
+          rowData={this.props.rowData}
           rowSelection={this.state.rowSelection}
-          columnDefs={this.props.columnDefs}
-          rowData={this.props.rowData}>
-        </AgGridReact>
+        />
       </div>
     );
   }

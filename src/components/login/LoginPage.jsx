@@ -1,6 +1,6 @@
 import React from 'react';
-import {Redirect} from 'react-router-dom';
-import {connect} from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Login from './Login';
 
@@ -8,10 +8,10 @@ const LoginPage = props => {
   const { from } = props.location.state || { from: { pathname: "/" } };
 
   if (props.session.authenticated === true) {
-    return <Redirect to={from}/>;
+    return <Redirect to={from} />;
   }
   else {
-    return <Login/>;
+    return <Login />;
   }
 };
 

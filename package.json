@@ -60,6 +60,7 @@
     "build": "babel src -d lib",
     "build:watch": "babel src -w -d lib",
     "lint": "eslint --ext js --ext jsx src test; exit 0",
+    "lint:fix": "eslint --fix --ext js --ext jsx src test; exit 0",
     "pack": "npm run build && npm pack",
     "test": "jest",
     "test:update-snapshots": "jest -u"
