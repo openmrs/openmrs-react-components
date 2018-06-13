@@ -11,6 +11,7 @@ import DataGrid from './components/grid/DataGrid';
 import { sessionReducers, sessionSagas } from './features/session/';
 import { loginSagas } from './features/login';
 import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
+import { GRID_TYPES, gridActions } from './features/grid';
 import {
   PATIENT_SEARCH_TYPES,
   patientSearchActions,
@@ -46,6 +47,8 @@ module.exports = {
   visitActions,
   PATIENT_SEARCH_TYPES,
   patientSearchActions,
+  GRID_TYPES,
+  gridActions,
   reducers,
   sagas
 };

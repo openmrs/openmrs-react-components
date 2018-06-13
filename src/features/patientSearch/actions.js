@@ -17,18 +17,8 @@ const patientSearchFailed = (message) => ( {
   message: message
 } );
 
-const rowSelected = (row) => ( {
-  type: PATIENT_SEARCH_TYPES.PATIENT_SELECTED,
-  row: row
-} );
-const clearSelection = () => ( {
-  type: PATIENT_SEARCH_TYPES.CLEAR_SELECTED
-} );
-
 export default {
   patientSearch,
   patientSearchSucceeded,
-  patientSearchFailed,
-  rowSelected,
-  clearSelection
+  patientSearchFailed
 };

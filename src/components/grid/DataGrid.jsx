@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { AgGridReact } from 'ag-grid-react';
+import { connect } from "react-redux";
+import { gridActions } from '../../features/grid';
 import 'ag-grid/dist/styles/ag-grid.css';
 import 'ag-grid/dist/styles/ag-theme-balham.css';
 
@@ -11,6 +13,7 @@ class DataGrid extends React.Component {
     this.state = {
       rowSelection: "single"
     };
+    this.onRowSelected = this.onRowSelected.bind(this);
   }
 
   onGridReady(params) {
@@ -27,8 +30,18 @@ class DataGrid extends React.Component {
         selectedRowsString += ", ";
       }
       selectedRowsString += selectedRow.id + ", " + selectedRow.uuid;
-      self.props.onRowSelected(selectedRow);
+      self.onRowSelected(selectedRow);
     });
+  }
+
+
+  onRowSelected(row) {
+    this.props.dispatch(gridActions.rowSelected(row));
+
+    // create any custom actions
+    if (this.props.rowSelectedActionCreators) {
+      this.props.rowSelectedActionCreators.forEach((f) => this.props.dispatch(f(row)));
+    }
   }
 
   render() {
@@ -55,4 +68,10 @@ class DataGrid extends React.Component {
   }
 }
 
-export default DataGrid;
+const mapStateToProps = (state) => {
+  return {
+    dispatch: state.dispatch
+  };
+};
+
+export default connect(mapStateToProps)(DataGrid);

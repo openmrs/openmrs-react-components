@@ -10,7 +10,6 @@ class PatientSearch extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.onRowSelected = this.onRowSelected.bind(this);
   };
 
   handleSubmit(values) {
@@ -20,24 +19,14 @@ class PatientSearch extends React.Component {
       this.props.representation));
   };
 
-  onRowSelected(row) {
-    this.props.dispatch(patientSearchActions.rowSelected(row));
-
-    // create any custom actions
-    if (this.props.rowSelectedActionCreators) {
-      this.props.rowSelectedActionCreators.forEach((f) => this.props.dispatch(f(row)));
-    }
-
-  }
-
   render() {
     return (
       <div>
         <PatientSearchForm onSubmit={this.handleSubmit} />
         <DataGrid
           columnDefs={this.props.columnDefs}
-          onRowSelected={this.onRowSelected}
           rowData={this.props.rowData}
+          rowSelectedActionCreators={this.props.rowSelectedActionCreators}
         />
       </div>
     );
