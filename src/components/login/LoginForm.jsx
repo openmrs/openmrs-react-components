@@ -47,24 +47,30 @@ const LoginForm = props => {
           </Row>
 
           <Row>
-            <Col>
-              <ButtonToolbar>
+            <FormGroup controlId="formSubmit">
+            <Col smOffset={2} sm={4}>
+            <ButtonToolbar>
                 <Button
                   bsStyle="success"
+                  bsSize="large"
                   disabled={pristine || submitting}
                   type="submit"
                 >
                   Submit
                 </Button>
+
+
                 <Button
                   bsStyle="danger"
+                  bsSize="large"
                   disabled={pristine || submitting}
                   onClick={reset}
                 >
                   Clear Values
                 </Button>
-              </ButtonToolbar>
+            </ButtonToolbar>
             </Col>
+            </FormGroup>
           </Row>
         </Grid>
       </Form>
