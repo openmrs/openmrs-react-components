@@ -1,55 +1,74 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
-import { Button, ButtonToolbar, Grid, Row, Col } from 'react-bootstrap';
+import { Button, ButtonToolbar, Grid, Row, Col, Form, FormGroup, FormControl, ControlLabel, Label } from 'react-bootstrap';
+
+
+const FieldInput = ({ input, meta, type, placeholder, min, max }) => {
+  return (
+    <FormControl
+      type={type}
+      placeholder={placeholder}
+      min={min}
+      max={max}
+      value={input.value}
+      onChange={input.onChange} />
+  )
+}
 
 const LoginForm = props => {
   const { handleSubmit, pristine, reset, submitting } = props;
   return (
-    <form onSubmit={handleSubmit}>
-      <Grid>
-        <Row>
-          <Col>
-            <label>Username: </label>
-            <Field
-              component="input"
-              name="username"
-              type="text"
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <label>Password: </label>
-            <Field
-              component="input"
-              name="password"
-              type="password"
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <ButtonToolbar>
-              <Button
-                bsStyle="success"
-                disabled={pristine || submitting}
-                type="submit"
-              >
-                Submit
-              </Button>
-              <Button
-                bsStyle="danger"
-                disabled={pristine || submitting}
-                onClick={reset}
-              >
-                Clear Values
-              </Button>
-            </ButtonToolbar>
-          </Col>
-        </Row>
-      </Grid>
-    </form>
+    <div>
+      <h3><Label>Login</Label></h3>
+      <Form horizontal onSubmit={handleSubmit}>
+        <Grid>
+
+          <Row>
+            <FormGroup controlId="formUsername">
+              <Col componentClass={ControlLabel} sm={2}>
+                Username
+              </Col>
+              <Col sm={4}>
+                <Field name="username" type='text' component={FieldInput} placeholder="username"  />
+              </Col>
+            </FormGroup>
+          </Row>
+
+          <Row>
+            <FormGroup controlId="formPassword">
+              <Col componentClass={ControlLabel} sm={2}>
+                Password
+              </Col>
+              <Col sm={4}>
+                <Field name="password" type='password' component={FieldInput} placeholder="password"  />
+              </Col>
+            </FormGroup>
+          </Row>
+
+          <Row>
+            <Col>
+              <ButtonToolbar>
+                <Button
+                  bsStyle="success"
+                  disabled={pristine || submitting}
+                  type="submit"
+                >
+                  Submit
+                </Button>
+                <Button
+                  bsStyle="danger"
+                  disabled={pristine || submitting}
+                  onClick={reset}
+                >
+                  Clear Values
+                </Button>
+              </ButtonToolbar>
+            </Col>
+          </Row>
+        </Grid>
+      </Form>
+    </div>
   );
 };
 
