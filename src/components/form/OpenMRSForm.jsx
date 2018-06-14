@@ -7,23 +7,14 @@ import { formActions } from '../../features/form';
 
 const OpenMRSForm = (props) => {
 
+  const { handleSubmit } = props;
 
-  /*
-  TODO probably remove this
-  const { pristine, reset, submitting, children } = props;
-
-  // TODO is this sketchy...? :)
-  const childrenWithProps = React.Children.map(children, child =>
-    React.cloneElement(child, child.type !== null && typeof child.type === 'function' ? { pristine, reset, submitting } : {}));
-*/
-
-  const handleSubmit = (values) => {
-    values.preventDefault(); // TODO why do we need this? try removing later?
+  const onSubmit = (values) => {
     props.dispatch(formActions.formSubmitted(values, props.patient, props.encounterType, props.visit, props.formSubmittedActionCreator));
   };
 
   return (
-    <Form horizontal onSubmit={handleSubmit}>
+    <Form horizontal onSubmit={handleSubmit(onSubmit)}>
       {props.children}
     </Form>
   );
@@ -40,3 +31,14 @@ export default connect(mapStateToProps)(reduxForm({
 })(OpenMRSForm));
 
 
+
+
+
+/*
+TODO probably remove this
+const { pristine, reset, submitting, children } = props;
+
+// TODO is this sketchy...? :)
+const childrenWithProps = React.Children.map(children, child =>
+  React.cloneElement(child, child.type !== null && typeof child.type === 'function' ? { pristine, reset, submitting } : {}));
+*/

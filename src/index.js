@@ -9,6 +9,7 @@ import PatientInfo from './components/patient/PatientInfo';
 import AuthenticatedRoute from './components/routes/AuthenticatedRoute';
 import DataGrid from './components/grid/DataGrid';
 import OpenMRSForm from './components/form/OpenMRSForm';
+import Obs from './components/form/Obs';
 import Submit from './components/form/Submit';
 import { sessionReducers, sessionSagas } from './features/session/';
 import { loginSagas } from './features/login';
@@ -49,6 +50,7 @@ module.exports = {
   DataGrid,
   OpenMRSForm,
   Submit,
+  Obs,
   VISIT_TYPES,
   visitActions,
   PATIENT_SEARCH_TYPES,
