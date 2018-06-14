@@ -17,11 +17,11 @@ const FieldInput = ({ input, meta, type, placeholder, min, max }) => {
 }
 
 const LoginForm = props => {
-  const { onSubmit, handleSubmit, pristine, reset, submitting } = props;
+  const { handleSubmit, pristine, reset, submitting } = props;
   return (
     <div>
       <h3><Label>Login</Label></h3>
-      <Form horizontal onSubmit={handleSubmit(onSubmit)}>
+      <Form horizontal onSubmit={handleSubmit}>
         <Grid>
 
           <Row>
