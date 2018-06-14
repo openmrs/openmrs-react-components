@@ -10,16 +10,21 @@ function* submit(action) {
   try {
 
     // TODO is this actually what we want to pass back in the success action (all the input data?)
-    let response = yield call(encounterRest.createEncounter, {
+    yield call(encounterRest.createEncounter, {
       encounter: {
-        encounterDatetime: new Date(),
+        encounterDatetime: new Date(),  // handle date?
         patient: action.patient.uuid,
         encounterType: action.encounterType.uuid,
-        visit: action.visit ? action.visit.uuid : null            // TODO does this work correctly if visit is null?
+        visit: action.visit ? action.visit.uuid : null
       }
     });
 
     yield put(formActions.formSubmitSucceeded(action.values, action.encounterType, action.patient));
+
+    if (action.formSubmittedActionCreator) {
+      yield put(action.formSubmittedActionCreator());
+    }
+
   }
   catch (e) {
     yield put(formActions.formSubmitFailed(action.values, action.encounterType, action.patient));
@@ -28,7 +33,7 @@ function* submit(action) {
 
 
 function *formSagas() {
-  // TODO take latest or take every
+  // TODO take latest or take every? create a "take first"?
   yield takeEvery(FORM_TYPES.SUBMIT, submit);
 }
 
