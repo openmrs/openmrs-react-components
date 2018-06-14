@@ -7,9 +7,19 @@ import { formActions } from '../../features/form';
 
 const OpenMRSForm = (props) => {
 
+
+  /*
+  TODO probably remove this
+  const { pristine, reset, submitting, children } = props;
+
+  // TODO is this sketchy... :)
+  const childrenWithProps = React.Children.map(children, child =>
+    React.cloneElement(child, child.type !== null && typeof child.type === 'function' ? { pristine, reset, submitting } : {}));
+*/
+
   const handleSubmit = (values) => {
     values.preventDefault(); // TODO why do we need this? try removing later?
-    props.dispatch(formActions.formSubmitted(values,props.patient, props.encounterType));
+    props.dispatch(formActions.formSubmitted(values, props.patient, props.encounterType, props.visit));
   };
 
   return (

@@ -12,6 +12,7 @@ import OpenMRSForm from './components/form/OpenMRSForm';
 import Submit from './components/form/Submit';
 import { sessionReducers, sessionSagas } from './features/session/';
 import { loginSagas } from './features/login';
+import { formSagas } from './features/form';
 import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
 import { GRID_TYPES, gridActions } from './features/grid';
 import {
@@ -32,7 +33,8 @@ const sagas = function* () {
     loginSagas(),
     sessionSagas(),
     patientSearchSagas(),
-    visitSagas()
+    visitSagas(),
+    formSagas()
   ]);
 };
 
