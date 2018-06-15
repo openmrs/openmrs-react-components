@@ -11,7 +11,7 @@ const api = {
   createVisit: (params) => {
     return axiosInstance.post('visit', params.visit)
       .then((response) => {
-        if (response.status !== '201') {
+        if (response.status != '201') {
           throw response;
         }
       });
