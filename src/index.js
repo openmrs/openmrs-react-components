@@ -9,7 +9,7 @@ import PatientInfo from './components/patient/PatientInfo';
 import AuthenticatedRoute from './components/routes/AuthenticatedRoute';
 import DataGrid from './components/grid/DataGrid';
 import OpenMRSForm from './components/form/OpenMRSForm';
-import CheckinForm from './components/form/CheckinForm';
+import FieldInput from './components/form/FieldInput'
 import Obs from './components/form/Obs';
 import Submit from './components/form/Submit';
 import { sessionReducers, sessionSagas } from './features/session/';
@@ -52,7 +52,7 @@ module.exports = {
   AuthenticatedRoute,
   DataGrid,
   OpenMRSForm,
-  CheckinForm,
+  FieldInput,
   Submit,
   Obs,
   VISIT_TYPES,
