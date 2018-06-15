@@ -12,6 +12,12 @@ class PatientSearch extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   };
 
+  componentWillMount(){
+    if (this.props.searchQuery !== undefined && this.props.searchQuery.length > 0) {
+      this.handleSubmit({query: this.props.searchQuery});
+    }
+  }
+
   handleSubmit(values) {
     this.props.dispatch(patientSearchActions.patientSearch(
       values.query,

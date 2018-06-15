@@ -9,12 +9,14 @@ import PatientInfo from './components/patient/PatientInfo';
 import AuthenticatedRoute from './components/routes/AuthenticatedRoute';
 import DataGrid from './components/grid/DataGrid';
 import OpenMRSForm from './components/form/OpenMRSForm';
+import CheckinForm from './components/form/CheckinForm';
 import Obs from './components/form/Obs';
 import Submit from './components/form/Submit';
 import { sessionReducers, sessionSagas } from './features/session/';
 import { loginSagas } from './features/login';
 import { formSagas } from './features/form';
 import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
+import { PATIENT_TYPES, patientActions, patientSagas } from './features/patient';
 import { GRID_TYPES, gridActions } from './features/grid';
 import {
   PATIENT_SEARCH_TYPES,
@@ -35,7 +37,8 @@ const sagas = function* () {
     sessionSagas(),
     patientSearchSagas(),
     visitSagas(),
-    formSagas()
+    formSagas(),
+    patientSagas()
   ]);
 };
 
@@ -49,6 +52,7 @@ module.exports = {
   AuthenticatedRoute,
   DataGrid,
   OpenMRSForm,
+  CheckinForm,
   Submit,
   Obs,
   VISIT_TYPES,
@@ -57,6 +61,8 @@ module.exports = {
   patientSearchActions,
   GRID_TYPES,
   gridActions,
+  PATIENT_TYPES,
+  patientActions,
   reducers,
   sagas
 };
