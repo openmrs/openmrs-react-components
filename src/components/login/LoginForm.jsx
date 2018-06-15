@@ -1,20 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
-import { Button, ButtonToolbar, Grid, Row, Col, Form, FormGroup, FormControl, ControlLabel, Label } from 'react-bootstrap';
+import FieldInput from '../uicommons';
+import { Button, ButtonToolbar, Grid, Row, Col, Form, FormGroup, ControlLabel, Label } from 'react-bootstrap';
 
-
-const FieldInput = ({ input, meta, type, placeholder, min, max }) => {
-  return (
-    <FormControl
-      type={type}
-      placeholder={placeholder}
-      min={min}
-      max={max}
-      value={input.value}
-      onChange={input.onChange} />
-  )
-}
 
 const LoginForm = props => {
   const { handleSubmit, pristine, reset, submitting } = props;
