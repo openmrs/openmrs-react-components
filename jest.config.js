@@ -1,6 +1,7 @@
 module.exports = {
   verbose: true,
   roots: ['<rootDir>'],
+  setupTestFrameworkScriptFile: "<rootDir>/src/setupTests.js",
   moduleFileExtensions: [
     'js',
     'jsx'
