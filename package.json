@@ -64,7 +64,8 @@
     "lint:fix": "eslint --fix --ext js --ext jsx src test; exit 0",
     "pack": "npm run build && npm pack",
     "test": "jest",
-    "test:update-snapshots": "jest -u"
+    "test:update-snapshots": "jest -u",
+    "test:watch": "jest --watch"
   },
   "files": [
     "lib/",
