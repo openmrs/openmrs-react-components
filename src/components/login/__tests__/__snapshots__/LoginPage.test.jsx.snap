@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Component: Login renders Login if not authenticated 1`] = `
+exports[`Component: LoginPage renders Login if not authenticated 1`] = `
 <Provider
   store={
     Object {

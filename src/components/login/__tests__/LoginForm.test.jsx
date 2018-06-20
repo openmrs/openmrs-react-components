@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import LoginForm from '../LoginForm';
 
 
-describe("loginForm", () => {
+describe("Component: LoginForm", () => {
 
   const mockStore = configureMockStore();
 

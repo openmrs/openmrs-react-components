@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`loginForm should render correctly 1`] = `
+exports[`Component: LoginForm should render correctly 1`] = `
 <div>
   <h3>
     <span

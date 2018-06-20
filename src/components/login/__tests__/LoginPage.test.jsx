@@ -22,7 +22,7 @@ const loginPage = () => {
   return mountedComponent;
 };
 
-describe('Component: Login', () => {
+describe('Component: LoginPage', () => {
   beforeEach(() => {
     mountedComponent = undefined;
   });
