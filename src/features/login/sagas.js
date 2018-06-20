@@ -2,8 +2,9 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import loginApi from '../../rest/loginRest';
 import LOGIN_TYPES from './types';
 import loginActions from './actions';
-import { sessionActions } from "../session/index";
+import { sessionActions } from "../session";
 
+// we export this for testing
 function* login(action) {
   try {
 
