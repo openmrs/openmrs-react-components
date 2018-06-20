@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: Accordion renders properly 1`] = `
+<div
+  className="accordion "
+>
+  <div
+    className="header"
+    onClick={[Function]}
+    role="button"
+    tabIndex={0}
+  >
+    <a>
+      <span>
+        <img
+          className="rotate90"
+          height="12px"
+          src="test-file-stub"
+          width="12px"
+        />
+      </span>
+        
+      Header
+    </a>
+  </div>
+  <div
+    className="content open"
+  >
+    <h1>
+      I love this
+    </h1>
+  </div>
+</div>
+`;
