@@ -2,10 +2,10 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import configureMockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import LoginForm from './LoginForm';
+import PatientSearchForm from '../PatientSearchForm';
 
 
-describe("loginForm", () => {
+describe("patientSearchForm", () => {
 
   const mockStore = configureMockStore();
 
@@ -15,7 +15,7 @@ describe("loginForm", () => {
 
     const rendered = renderer.create(
       <Provider store={store}>
-        <LoginForm />
+        <PatientSearchForm />
       </Provider>
     );
 

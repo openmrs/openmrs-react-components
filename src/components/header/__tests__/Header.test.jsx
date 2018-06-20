@@ -1,21 +1,28 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
 import configureMockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import PatientSearchForm from './PatientSearchForm';
+import React from 'react';
+import renderer from 'react-test-renderer';
+import Header from '../Header';
 
-
-describe("patientSearchForm", () => {
+describe("header", () => {
 
   const mockStore = configureMockStore();
 
   it("should render correctly", () => {
-
-    const store = mockStore({});
+    const store = mockStore(
+      {
+        openmrs: {
+          session: {
+            user: {
+              display: "Some user"
+            }
+          }
+        }
+      });
 
     const rendered = renderer.create(
       <Provider store={store}>
-        <PatientSearchForm />
+        <Header />
       </Provider>
     );
 

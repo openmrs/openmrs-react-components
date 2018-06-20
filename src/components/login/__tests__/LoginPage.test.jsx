@@ -3,8 +3,8 @@ import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import configureMockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import LoginPage from './LoginPage';
-import Login from './Login';
+import LoginPage from '../LoginPage';
+import Login from '../Login';
 
 
 let props, store;
