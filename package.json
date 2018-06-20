@@ -73,5 +73,14 @@
   "files": [
     "lib/",
     "assets"
-  ]
+  ],
+  "jest":  {
+    "verbose": true,
+    "roots": ["<rootDir>"],
+    "setupTestFrameworkScriptFile": "<rootDir>/src/setupTests.js",
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ]
+  }
 }
