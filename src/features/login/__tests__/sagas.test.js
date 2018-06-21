@@ -1,5 +1,5 @@
-import loginSagas from "../sagas";
 import SagaTester from 'redux-saga-tester';
+import loginSagas from "../sagas";
 import loginActions from '../actions';
 import { sessionActions } from "../../session";
 
@@ -14,13 +14,13 @@ describe('login sagas', () => {
     sagaTester.start(loginSagas);
   });
 
-  it('tests the login saga workflow with valid credentials', () => {
+  it('login saga workflow with valid credentials should succeed', () => {
     sagaTester.dispatch(loginActions.login('valid_username','valid_password'));
     expect(sagaTester.getCalledActions()).toContainEqual(sessionActions.fetchSession());
     expect(sagaTester.getCalledActions()).toContainEqual(loginActions.loginSucceeded());
   });
 
-  it('tests the login saga workflow with invalid credentials', () => {
+  it('login saga workflow with invalid credentials should fail', () => {
     sagaTester.dispatch(loginActions.login('bad_username','bad_password'));
     expect(sagaTester.getCalledActions()).toContainEqual(loginActions.loginFailed("Invalid credentials"));
   });

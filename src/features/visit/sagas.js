@@ -11,17 +11,11 @@ function* activeVisits(action) {
       representation: action.representation
     });
 
-    if (response.status === 200) {
-      yield put(visitActions.fetchActiveVisitsSucceeded(response.data.results));
-    } else {
-      yield put(visitActions.fetchActiveVisitsFailed("Failed to fetch active visits"));
-    }
-
+    yield put(visitActions.fetchActiveVisitsSucceeded(response.results));
   }
   catch (e) {
     yield put(visitActions.fetchActiveVisitsFailed(e.message));
   }
-
 
 }
 

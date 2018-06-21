@@ -9,7 +9,7 @@ const api = {
     else {
       return {
         authenticated: false
-      }
+      };
     }
   }
 

@@ -11,7 +11,7 @@ const fetchActiveVisitsSucceeded = (visits) => ( {
 } );
 
 const fetchActiveVisitsFailed = () => ( {
-  type: VISIT_TYPES.ACTIVE_VISITS.FETCH_SUCCEEDED
+  type: VISIT_TYPES.ACTIVE_VISITS.FETCH_FAILED
 } );
 
 export default {
