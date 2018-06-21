@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: DataGrid renders properly 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <Connect(DataGrid)
+    dispatch={[Function]}
+    rowData={Array []}
+  >
+    <DataGrid
+      dispatch={[Function]}
+      rowData={Array []}
+    >
+      <div
+        className="ag-theme-balham"
+        style={
+          Object {
+            "height": "600px",
+            "width": "100%",
+          }
+        }
+      >
+        <AgGridReact
+          enableSorting={true}
+          id="omrsGrid"
+          onGridReady={[Function]}
+          onSelectionChanged={[Function]}
+          rowClassRules="rowClassRules"
+          rowData={Array []}
+          rowSelection="single"
+        >
+          <div
+            style={
+              Object {
+                "height": "100%",
+              }
+            }
+          />
+        </AgGridReact>
+      </div>
+    </DataGrid>
+  </Connect(DataGrid)>
+</Provider>
+`;
