@@ -12,12 +12,7 @@ function* patientSearch(action) {
       representation: action.representation
     });
 
-    if (response.status === 200) {
-      yield put(patientSearchActions.patientSearchSucceeded(action.parseResults ? action.parseResults(response.data.results) : response.data.results));
-    } else {
-      yield put(patientSearchActions.patientSearchFailed("Failed to find patients"));
-    }
-
+    yield put(patientSearchActions.patientSearchSucceeded(action.parseResults ? action.parseResults(response.results) : response.results));
   }
   catch (e) {
     yield put(patientSearchActions.patientSearchFailed(e.message));

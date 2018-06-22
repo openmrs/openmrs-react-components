@@ -5,7 +5,14 @@ const api = {
 
   findPatient: (params) => {
     return axiosInstance.get('patient?q=' + params.query + "&v=" + params.representation)
-      .then((response) => response);
+      .then((response) => {
+        if (response.status !== 200) {
+          throw response;
+        }
+        else {
+          return response.data;
+        }
+      });
   },
 
 };
