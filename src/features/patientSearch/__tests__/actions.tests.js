@@ -1,7 +1,9 @@
 import patientSearchActions from '../actions';
 import PATIENT_SEARCH_TYPES from '../types';
 
-describe('visit actions', () => {
+describe('patient search actions', () => {
+
+  const parseResultsMock = jest.fn();
 
   it('should create a patient search action', () => {
 
@@ -12,7 +14,7 @@ describe('visit actions', () => {
       representation: "some_representation"
     };
 
-    expect(patientSearchActions.patientSearch("some_query", null, "some_representation")).toEqual(expectedAction);
+    expect(patientSearchActions.patientSearch("some_query", parseResultsMock, "some_representation")).toEqual(expectedAction);
 
   });
 

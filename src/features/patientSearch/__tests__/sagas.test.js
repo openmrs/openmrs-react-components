@@ -8,8 +8,6 @@ describe('patient search sagas', () => {
 
   let sagaTester = null;
 
-  const parseResultsMock = jest.fn();
-
   beforeEach(() => {
     sagaTester = new SagaTester({});
     sagaTester.start(patientSearchSagas);
