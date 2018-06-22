@@ -9,7 +9,8 @@
     "presets": [
       "react",
       "es2015"
-    ]
+    ],
+    "ignore": "\\.test\\.js"
   },
   "dependencies": {
     "ag-grid": "^17.1.1",
@@ -44,7 +45,6 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.4",
-    "sinon": "^6.0.0",
     "eslint": "^4.19.1",
     "eslint-loader": "^2.0.0",
     "eslint-plugin-import": "^2.11.0",
@@ -56,9 +56,11 @@
     "moxios": "^0.4.0",
     "prop-types": "^15.6.1",
     "react-hot-loader": "^4.1.2",
+    "react-mock-router": "^1.0.15",
     "react-test-renderer": "^16.3.2",
     "redux-mock-store": "^1.5.1",
     "redux-saga-tester": "^1.0.379",
+    "sinon": "^6.0.0",
     "style-loader": "^0.21.0",
     "webpack": "^4.11.0"
   },

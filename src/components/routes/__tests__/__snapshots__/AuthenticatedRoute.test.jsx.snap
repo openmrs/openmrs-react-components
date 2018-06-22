@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: Authenticated Route renders properly when session authenicated 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <MockRouter
+    createHref={[Function]}
+    location=""
+    params={Object {}}
+    path=""
+    push={[Function]}
+    replace={[Function]}
+    url=""
+  >
+    <Connect(AuthenicatedRoute)
+      component={[Function]}
+      path="some_path"
+      redirectOnLogin="/"
+    >
+      <AuthenicatedRoute
+        component={[Function]}
+        dispatch={[Function]}
+        path="some_path"
+        redirectOnLogin="/"
+        session={
+          Object {
+            "authenticated": true,
+          }
+        }
+      >
+        <Route
+          component={[Function]}
+          path="some_path"
+        />
+      </AuthenicatedRoute>
+    </Connect(AuthenicatedRoute)>
+  </MockRouter>
+</Provider>
+`;
+
+exports[`Component: Authenticated Route renders properly when session not authenicated 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <MockRouter
+    createHref={[Function]}
+    location=""
+    params={Object {}}
+    path=""
+    push={[Function]}
+    replace={[Function]}
+    url=""
+  >
+    <Connect(AuthenicatedRoute)
+      component={[Function]}
+      path="some_path"
+      redirectOnLogin="/"
+    >
+      <AuthenicatedRoute
+        component={[Function]}
+        dispatch={[Function]}
+        path="some_path"
+        redirectOnLogin="/"
+        session={
+          Object {
+            "authenticated": false,
+          }
+        }
+      >
+        <Redirect
+          push={false}
+          to={
+            Object {
+              "pathname": "/login",
+              "state": Object {
+                "from": "/",
+              },
+            }
+          }
+        />
+      </AuthenicatedRoute>
+    </Connect(AuthenicatedRoute)>
+  </MockRouter>
+</Provider>
+`;
