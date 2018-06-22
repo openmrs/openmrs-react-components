@@ -3,6 +3,8 @@ import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import configureMockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import MockRouter from 'react-mock-router';
 import LoginPage from '../LoginPage';
 import Login from '../Login';
 
@@ -16,7 +18,9 @@ const loginPage = () => {
   if (!mountedComponent) {
     mountedComponent = mount(
       <Provider store={store}>
-        <LoginPage {...props} />
+        <MockRouter>
+          <LoginPage {...props} />
+        </MockRouter>
       </Provider>);
   }
   return mountedComponent;
@@ -38,6 +42,7 @@ describe('Component: LoginPage', () => {
         }
       }
     );
+
     props = {
       location: {
         state: ""
@@ -48,10 +53,36 @@ describe('Component: LoginPage', () => {
     expect(loginPage().find(Login).length).toBe(1);
   });
 
-  // figure out how to test the rendering of the Redirect
-/*  it('renders Redirect if patient authenticated', () => {
+  it('renders Redirect if patient authenticated', () => {
 
-  });*/
+    const expectedTo = {
+      pathname: "login"
+    };
+
+    store = mockStore(
+      {
+        openmrs: {
+          session: {
+            authenticated: true
+          }
+        }
+      }
+    );
+
+    props = {
+      location: {
+        state: {
+          from: {
+            pathname: "login"
+          }
+        }
+      }
+    };
+
+    expect(toJson(loginPage())).toMatchSnapshot();
+    expect(loginPage().find(Redirect).length).toBe(1);
+    expect(loginPage().find(Redirect).props().to).toEqual(expectedTo);
+  });
 
 
 });
