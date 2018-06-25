@@ -22,6 +22,8 @@ describe('login sagas', () => {
 
   it('login saga workflow with invalid credentials should fail', () => {
     sagaTester.dispatch(loginActions.login('bad_username','bad_password'));
+    expect(sagaTester.getCalledActions()).not.toContainEqual(sessionActions.fetchSession());
+    expect(sagaTester.getCalledActions()).not.toContainEqual(loginActions.loginSucceeded());
     expect(sagaTester.getCalledActions()).toContainEqual(loginActions.loginFailed("Invalid credentials"));
   });
 

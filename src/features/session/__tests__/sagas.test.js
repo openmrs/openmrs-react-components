@@ -1,6 +1,6 @@
-import sessionSagas from "../sagas";
 import SagaTester from 'redux-saga-tester';
 import sessionActions from '../actions';
+import sessionSagas from "../sagas";
 
 jest.mock('../../../rest/sessionRest');
 

@@ -9,15 +9,14 @@ const formSubmitted = (values, patient, encounterType, visit, formSubmittedActio
   formSubmittedActionCreator: formSubmittedActionCreator
 });
 
-const formSubmitSucceeded = (values) => ( {
+const formSubmitSucceeded = (formSubmittedActionCreator) => ( {
   type: FORM_TYPES.SUBMIT_SUCCEEDED,
-  values: values
+  formSubmittedActionCreator: formSubmittedActionCreator
 });
 
 
-const formSubmitFailed = (values) => ( {
-  type: FORM_TYPES.SUBMIT_FAILED,
-  values: values
+const formSubmitFailed = () => ( {
+  type: FORM_TYPES.SUBMIT_FAILED
 });
 
 export default {
