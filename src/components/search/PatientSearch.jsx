@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
-import { patientSearchActions } from '../../features/patientSearch';
+import { patientSearchActions } from '../../features/search';
 import PatientSearchForm from './PatientSearchForm';
 import DataGrid from "../grid/DataGrid";
 

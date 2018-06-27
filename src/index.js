@@ -24,7 +24,7 @@ import {
   patientSearchActions,
   patientSearchReducers,
   patientSearchSagas
-} from "./features/patientSearch/";
+} from "./features/search/";
 
 
 const reducers = combineReducers({
