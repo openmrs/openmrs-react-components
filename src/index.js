@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
+import Patient from './domain/Patient';
 import Accordion from './components/accordion/Accordian';
 import Header from './components/header/Header';
 import Login from './components/login/Login';
@@ -43,6 +44,7 @@ const sagas = function* () {
 };
 
 module.exports = {
+  Patient,
   Accordion,
   Header,
   Login,
