@@ -49,7 +49,7 @@ PatientSearch.propTypes = {
 };
 
 PatientSearch.defaultProps = {
-  representation: "custom:(uuid,id,display,identifiers:(uuid,identifier,identifierType:(uuid),preferred),person:(uuid,display,gender,age,birthdate,birthdateEstimated,dead,deathDate,causeOfDeath,names,addresses,attributes))"
+  representation: "full"
 };
 
 const mapStateToProps = (state) => {
