@@ -1,4 +1,4 @@
-import Patient from '../Patient'
+import Patient from '../Patient';
 
 describe('Domain Object: Patient', () => {
 
