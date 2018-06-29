@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import LoginForm from './LoginForm';
 import { loginActions } from '../../features/login';
+import { errorsActions } from '../../features/errors';
 
 class Login extends React.Component {
 
@@ -14,6 +15,7 @@ class Login extends React.Component {
   }
 
   handleLogin(values) {
+    this.props.dispatch(errorsActions.clearErrors());
     this.props.dispatch(loginActions.login(values.username, values.password));
   }
 

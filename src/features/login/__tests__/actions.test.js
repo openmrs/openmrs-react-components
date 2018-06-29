@@ -24,7 +24,9 @@ describe('login actions', () => {
   it('should create login failed', () => {
     const expectedAction = {
       type: LOGIN_TYPES.FAILED,
-      message: "someerror"
+      error: {
+        message: "someerror"
+      }
     };
     expect(loginActions.loginFailed("someerror")).toEqual(expectedAction);
   });

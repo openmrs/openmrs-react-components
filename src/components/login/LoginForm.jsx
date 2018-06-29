@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import FieldInput from '../form/FieldInput';
+import Errors from '../errors/Errors';
 import { Button, ButtonToolbar, Grid, Row, Col, Form, FormGroup, ControlLabel, Label } from 'react-bootstrap';
 
 
@@ -10,6 +11,7 @@ const LoginForm = props => {
   return (
     <div>
       <h3><Label>Login</Label></h3>
+      <Errors/>
       <Form horizontal onSubmit={handleSubmit}>
         <Grid>
 

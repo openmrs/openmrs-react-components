@@ -209,6 +209,11 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                             </span>
                           </Label>
                         </h3>
+                        <Connect(Errors)>
+                          <Errors
+                            dispatch={[Function]}
+                          />
+                        </Connect(Errors)>
                         <Form
                           bsClass="form"
                           componentClass="form"

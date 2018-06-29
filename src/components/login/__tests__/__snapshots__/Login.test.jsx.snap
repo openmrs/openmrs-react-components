@@ -180,6 +180,12 @@ exports[`Component: Login renders properly 1`] = `
                       </span>
                     </Label>
                   </h3>
+                  <Connect(Errors)>
+                    <Errors
+                      dispatch={[Function]}
+                      errors={null}
+                    />
+                  </Connect(Errors)>
                   <Form
                     bsClass="form"
                     componentClass="form"

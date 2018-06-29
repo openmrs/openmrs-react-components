@@ -10,12 +10,14 @@ import PatientInfo from './components/patient/PatientInfo';
 import AuthenticatedRoute from './components/routes/AuthenticatedRoute';
 import DataGrid from './components/grid/DataGrid';
 import OpenMRSForm from './components/form/OpenMRSForm';
-import FieldInput from './components/form/FieldInput'
+import FieldInput from './components/form/FieldInput';
 import Obs from './components/form/Obs';
 import Submit from './components/form/Submit';
+import Errors from './components/errors/Errors';
 import { sessionReducers, sessionSagas } from './features/session/';
 import { loginSagas } from './features/login';
 import { formSagas } from './features/form';
+import { errorsActions, errorsReducers } from './features/errors';
 import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
 import { PATIENT_TYPES, patientActions, patientSagas } from './features/patient';
 import { GRID_TYPES, gridActions } from './features/grid';
@@ -29,7 +31,8 @@ import {
 
 const reducers = combineReducers({
   session: sessionReducers,
-  patientSearch: patientSearchReducers
+  patientSearch: patientSearchReducers,
+  errors: errorsReducers
 });
 
 const sagas = function* () {
@@ -57,6 +60,7 @@ module.exports = {
   FieldInput,
   Submit,
   Obs,
+  Errors,
   VISIT_TYPES,
   visitActions,
   PATIENT_SEARCH_TYPES,

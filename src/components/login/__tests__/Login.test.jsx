@@ -5,6 +5,7 @@ import configureMockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import Login from '../Login';
 import LoginForm from '../LoginForm';
+import { errorsActions } from '../../../features/errors';
 
 let props, store;
 let mountedComponent;
@@ -37,6 +38,7 @@ describe('Component: Login', () => {
   it('onSubmit triggers login action', () => {
     const onSubmit = login().find(LoginForm).props().onSubmit;
     onSubmit({ username: "somename", password: "somepassword" });
+    expect(store.getActions()).toContainEqual(errorsActions.clearErrors());
     expect(store.getActions()).toContainEqual({"password": "somepassword", "type": "login/REQUESTED", "username": "somename"});
   });
 

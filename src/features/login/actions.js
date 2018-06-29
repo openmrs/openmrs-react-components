@@ -12,7 +12,9 @@ const loginSucceeded = () => ( {
 
 const loginFailed = (message) => ( {
   type: LOGIN_TYPES.FAILED,
-  message: message
+  error: {
+    message: message
+  }
 } );
 
 export default {
