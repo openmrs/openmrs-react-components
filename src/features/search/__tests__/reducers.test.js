@@ -39,4 +39,20 @@ describe('patient search reducers', () => {
 
   });
 
+  it('should clear patient search results', () => {
+
+    expect(reducers(
+      { results: [
+        {
+          "uuid": "some_uuid"
+        },
+        {
+          "uuid": "another_uuid"
+        }
+      ] }, {
+        type: PATIENT_SEARCH_TYPES.CLEAR_SEARCH
+      })).toEqual({});
+
+  });
+
 });

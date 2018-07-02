@@ -16,6 +16,9 @@ export default (state = initialState, action) => {
         }
       };
 
+    case PATIENT_SEARCH_TYPES.CLEAR_SEARCH:
+      return {};
+
     default:
       return state;
   }

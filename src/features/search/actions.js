@@ -17,8 +17,13 @@ const patientSearchFailed = (message) => ( {
   message: message
 } );
 
+const clearPatientSearch = () => ( {
+  type: PATIENT_SEARCH_TYPES.CLEAR_SEARCH
+});
+
 export default {
   patientSearch,
   patientSearchSucceeded,
-  patientSearchFailed
+  patientSearchFailed,
+  clearPatientSearch
 };

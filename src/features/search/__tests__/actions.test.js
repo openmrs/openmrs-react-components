@@ -44,4 +44,14 @@ describe('patient search actions', () => {
 
     expect(patientSearchActions.patientSearchFailed("some_message")).toEqual(expectedAction);
   });
+
+  it('should create a clear patient search action', () => {
+
+    const expectedAction = {
+      type: PATIENT_SEARCH_TYPES.CLEAR_SEARCH
+    };
+
+    expect(patientSearchActions.clearPatientSearch()).toEqual(expectedAction);
+  });
+
 });
