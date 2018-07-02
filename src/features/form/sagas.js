@@ -50,7 +50,14 @@ function* submit(action) {
 
 function* submitSucceeded(action) {
   if (action.formSubmittedActionCreator) {
-    yield put(action.formSubmittedActionCreator());
+    if (typeof action.formSubmittedActionCreator === "function") {
+      yield put(action.formSubmittedActionCreator());
+    }
+    else if (Array.isArray(action.formSubmittedActionCreator)) {
+      for (let i = 0; i < action.formSubmittedActionCreator.length; i++) {
+        yield put(action.formSubmittedActionCreator[i]());
+      }
+    }
   }
 }
 

@@ -68,4 +68,33 @@ describe('form sagas', () => {
     expect(sagaTester.getCalledActions()).not.toContainEqual(formSubmittedActionCreator());
   });
 
+  it('should handle form submitted action creator that is an array of creators', () => {
+
+    const anotherFormSubmittedActionCreator = jest.fn(() => { return { type:'ANOTHER_ACTION_TYPE' };});
+
+    const values =  { 'obs|path=first-obs|concept=first-obs-uuid': 100 ,
+      'obs|path=first-obs|concept=first-obs-uuid': 200 }  ;
+
+    const patient = {
+      uuid: "some_patient_uuid"
+    };
+
+    const encounterType = {
+      uuid: "some_encounter_type_uuid"
+    };
+
+    const visit = {
+      uuid: "some_visit_uuid"
+    };
+
+    sagaTester.dispatch(formActions.formSubmitted(values, patient, encounterType, visit, [ formSubmittedActionCreator, anotherFormSubmittedActionCreator ]));
+    expect(encounterRest.createEncounter).toHaveBeenCalledTimes(1);  // TODO would be good if we could actually test what it is was called with here, but the newDate() causes issues
+    expect(sagaTester.getCalledActions()).toContainEqual(formActions.formSubmitSucceeded([ formSubmittedActionCreator, anotherFormSubmittedActionCreator ]));
+    expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitFailed());
+    expect(formSubmittedActionCreator.mock.calls.length).toBe(1);
+    expect(sagaTester.getCalledActions()).toContainEqual(formSubmittedActionCreator());
+    expect(anotherFormSubmittedActionCreator.mock.calls.length).toBe(1);
+    expect(sagaTester.getCalledActions()).toContainEqual(anotherFormSubmittedActionCreator());
+  });
+
 });
