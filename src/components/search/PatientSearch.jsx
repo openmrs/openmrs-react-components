@@ -54,7 +54,7 @@ PatientSearch.defaultProps = {
 
 const mapStateToProps = (state) => {
   return {
-    rowData: state.openmrs.patientSearch.results
+    rowData: state.openmrs.patientSearch.results ? state.openmrs.patientSearch.results : []
   };
 };
 
