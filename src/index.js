@@ -69,6 +69,7 @@ module.exports = {
   gridActions,
   PATIENT_TYPES,
   patientActions,
+  errorsActions,
   reducers,
   sagas
 };
