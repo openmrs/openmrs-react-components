@@ -46,8 +46,8 @@ class DataGrid extends React.Component {
 
   render() {
     return (
+      // the consuming app should provide a wrapping style as described here: https://www.ag-grid.com/react-more-details/
       <div
-        className="ag-theme-balham"
         style={{
           height: '600px',
           width: '100%'
