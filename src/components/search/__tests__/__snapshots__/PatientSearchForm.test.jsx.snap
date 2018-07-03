@@ -2,6 +2,7 @@
 
 exports[`patientSearchForm should render correctly 1`] = `
 <form
+  className=""
   onSubmit={[Function]}
 >
   <div
@@ -11,48 +12,59 @@ exports[`patientSearchForm should render correctly 1`] = `
       className="row"
     >
       <div
-        className=""
+        className="form-group"
       >
-        <label>
-          Search: 
+        <label
+          className="control-label"
+          htmlFor={undefined}
+        >
+          Search
         </label>
-        <input
-          name="query"
-          onBlur={[Function]}
-          onChange={[Function]}
-          onDragStart={[Function]}
-          onDrop={[Function]}
-          onFocus={[Function]}
-          type="text"
-          value=""
-        />
+        <div
+          className=""
+        >
+          <input
+            name="query"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onDragStart={[Function]}
+            onDrop={[Function]}
+            onFocus={[Function]}
+            type="text"
+            value=""
+          />
+        </div>
       </div>
     </div>
     <div
       className="row"
     >
       <div
-        className=""
+        className="form-group"
       >
         <div
-          className="btn-toolbar"
-          role="toolbar"
+          className=""
         >
-          <button
-            className="btn btn-success"
-            disabled={true}
-            type="submit"
+          <div
+            className="btn-toolbar"
+            role="toolbar"
           >
-            Search
-          </button>
-          <button
-            className="btn btn-danger"
-            disabled={true}
-            onClick={[Function]}
-            type="button"
-          >
-            Clear Values
-          </button>
+            <button
+              className="btn btn-lg btn-success"
+              disabled={true}
+              type="submit"
+            >
+              Search
+            </button>
+            <button
+              className="btn btn-lg btn-danger"
+              disabled={true}
+              onClick={[Function]}
+              type="button"
+            >
+              Clear Values
+            </button>
+          </div>
         </div>
       </div>
     </div>

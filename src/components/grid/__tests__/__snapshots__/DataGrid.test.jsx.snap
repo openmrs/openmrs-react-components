@@ -22,7 +22,6 @@ exports[`Component: DataGrid renders properly 1`] = `
       rowData={Array []}
     >
       <div
-        className="ag-theme-balham"
         style={
           Object {
             "height": "600px",
