@@ -7,6 +7,7 @@ const Submit = (props) => {
 
   return (
     <Button
+      bsSize="large"
       bsStyle="success"
       disabled={submitting}
       type="submit"
