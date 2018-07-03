@@ -28,10 +28,6 @@ class Errors extends React.Component {
 
 }
 
-Errors.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
-
 const mapStateToProps = (state) => {
   return {
     errors: state.openmrs ? state.openmrs.errors : null

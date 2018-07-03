@@ -24,7 +24,6 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   session: PropTypes.object.isRequired
 };
 

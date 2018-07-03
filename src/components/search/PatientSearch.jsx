@@ -42,7 +42,6 @@ class PatientSearch extends React.Component {
 
 PatientSearch.propTypes = {
   columnDefs: PropTypes.array.isRequired,
-  dispatch: PropTypes.func.isRequired,
   parseResults: PropTypes.func,
   representation: PropTypes.string.isRequired,
   rowData: PropTypes.array,
@@ -55,7 +54,6 @@ PatientSearch.defaultProps = {
 
 const mapStateToProps = (state) => {
   return {
-    dispatch: state.dispatch,
     rowData: state.openmrs.patientSearch.results
   };
 };

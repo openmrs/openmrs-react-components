@@ -20,13 +20,7 @@ const OpenMRSForm = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    dispatch: state.dispatch
-  };
-};
-
-export default connect(mapStateToProps)(reduxForm({
+export default connect()(reduxForm({
   form: 'openmrs-form' // TODO need to figure out how to make this unique!
 })(OpenMRSForm));
 

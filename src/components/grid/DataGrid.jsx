@@ -68,10 +68,4 @@ class DataGrid extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    dispatch: state.dispatch
-  };
-};
-
-export default connect(mapStateToProps)(DataGrid);
+export default connect()(DataGrid);
