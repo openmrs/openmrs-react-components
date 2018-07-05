@@ -6,7 +6,6 @@ import Header from './components/header/Header';
 import Login from './components/login/Login';
 import LoginPage from './components/login/LoginPage';
 import PatientSearch from './components/search/PatientSearch';
-import PatientInfo from './components/patient/PatientInfo';
 import AuthenticatedRoute from './components/routes/AuthenticatedRoute';
 import DataGrid from './components/grid/DataGrid';
 import OpenMRSForm from './components/form/OpenMRSForm';
@@ -19,7 +18,6 @@ import { loginSagas } from './features/login';
 import { formSagas } from './features/form';
 import { errorsActions, errorsReducers } from './features/errors';
 import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
-import { PATIENT_TYPES, patientActions, patientSagas } from './features/patient';
 import { GRID_TYPES, gridActions } from './features/grid';
 import {
   PATIENT_SEARCH_TYPES,
@@ -27,6 +25,11 @@ import {
   patientSearchReducers,
   patientSearchSagas
 } from "./features/search/";
+import encounterRest from './rest/encounterRest';
+import patientRest from './rest/patientRest';
+import loginRest from './rest/loginRest';
+import sessionRest from './rest/sessionRest';
+import visitRest from './rest/visitRest';
 
 
 const reducers = combineReducers({
@@ -41,8 +44,7 @@ const sagas = function* () {
     sessionSagas(),
     patientSearchSagas(),
     visitSagas(),
-    formSagas(),
-    patientSagas()
+    formSagas()
   ]);
 };
 
@@ -52,7 +54,6 @@ module.exports = {
   Header,
   Login,
   LoginPage,
-  PatientInfo,
   PatientSearch,
   AuthenticatedRoute,
   DataGrid,
@@ -67,9 +68,12 @@ module.exports = {
   patientSearchActions,
   GRID_TYPES,
   gridActions,
-  PATIENT_TYPES,
-  patientActions,
   errorsActions,
+  encounterRest,
+  loginRest,
+  patientRest,
+  sessionRest,
+  visitRest,
   reducers,
   sagas
 };
