@@ -22,7 +22,7 @@ function* submit(action) {
   try {
 
     let encounter = {
-      encounterDatetime: new Date(),  // handle date?
+      // TODO: handle encounter date if submitted
       patient: action.patient.uuid,
       encounterType: action.encounterType.uuid,
       visit: action.visit ? action.visit.uuid : null
