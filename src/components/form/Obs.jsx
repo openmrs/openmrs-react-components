@@ -18,7 +18,8 @@ const FieldInput = ({ input, meta, type, placeholder, min, max }) => {
 const Obs = (props) => {
 
   return (
-    <Field name={`obs|path=${props.path}|concept=${props.concept}`} type='text' component={FieldInput} />
+    // TODO: type should be controlled based on datatype of concept
+    <Field name={`obs|path=${props.path}|concept=${props.concept}`} type='number' component={FieldInput} />
   );
 
 };
