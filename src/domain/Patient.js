@@ -23,6 +23,10 @@ class Patient {
     return this.age;
   }
 
+  getBirthdate() {
+    return this.birthdate;
+  }
+
   getPreferredIdentifiers() {
     return this.preferredIdentifiers;
   }
@@ -33,6 +37,7 @@ class Patient {
     patient.uuid = restRep.uuid;
     patient.gender = restRep.person ? restRep.person.gender : undefined;
     patient.age = restRep.person ? restRep.person.age : undefined;
+    patient.birthdate = restRep.person ? restRep.person.birthdate : undefined;
 
     patient.name = restRep.person.preferredName ? {
       givenName: restRep.person.preferredName.givenName,
