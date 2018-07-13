@@ -584,10 +584,11 @@ describe('Domain Object: Patient', () => {
     expect(patient.getUuid()).toBe("cda61f89-c342-4caf-88c3-d0f829a7b43a");
     expect(patient.getGender()).toBe("M");
     expect(patient.getAge()).toBe(24);
+    expect(patient.getBirthdate()).toBe("1994-01-01T00:00:00.000-0500");
     expect(patient.getName().givenName).toBe("Neil");
     expect(patient.getName().familyName).toBe("Young");
     expect(patient.getName().middleName).toBeNull();
-    expect(patient.getPreferredIdentifiers().length).toBe(2);
+    expect(patient.getPreferredIdentifiers().length).toBe(7);
     expect(patient.getPreferredIdentifiers()).toContainEqual({ identifier: "Y2A5H1", identifierType: "a541af1e-105c-40bf-b345-ba1fd6a59b85"});
     expect(patient.getPreferredIdentifiers()).toContainEqual({ identifier: "TH000002", identifierType: "e66645eb-03a8-4991-b4ce-e87318e37566"});
 

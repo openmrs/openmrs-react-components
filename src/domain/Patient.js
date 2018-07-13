@@ -1,4 +1,3 @@
-
 // Domain Object for Patient: given a (full?) REST representation of a patient, creates a simplified view of them
 // TODO this is *not* React specific and should be moved into another library?
 // TODO is a full rep too big, we need to use a smaller size?
@@ -9,6 +8,10 @@ class Patient {
 
   getUuid() {
     return this.uuid;
+  }
+
+  getId() {
+    return this.id;
   }
 
   getName() {
@@ -31,9 +34,10 @@ class Patient {
     return this.preferredIdentifiers;
   }
 
-  static createFromRestRep(restRep) {
+  static createFromRestRep(restRep, encounters) {
     let patient = new Patient();
 
+    patient.id = restRep.id;
     patient.uuid = restRep.uuid;
     patient.gender = restRep.person ? restRep.person.gender : undefined;
     patient.age = restRep.person ? restRep.person.age : undefined;
@@ -46,15 +50,16 @@ class Patient {
     } : undefined;
 
     patient.preferredIdentifiers = restRep.identifiers.filter((identifier) => {
-      return identifier.preferred && !identifier.voided;
+      return !identifier.voided;
     }).map((identifier) => {
       return { identifier: identifier.identifier, identifierType: identifier.identifierType.uuid };
     });
 
+    patient.encounters = (typeof encounters !== 'undefined') ? encounters : undefined;
+
     return patient;
   }
 }
-
 
 
 export default Patient;
