@@ -30,8 +30,8 @@ class Patient {
     return this.birthdate;
   }
 
-  getPreferredIdentifiers() {
-    return this.preferredIdentifiers;
+  getIdentifiers() {
+    return this.identifiers;
   }
 
   static createFromRestRep(restRep, encounters) {
@@ -49,7 +49,7 @@ class Patient {
       familyName: restRep.person.preferredName.familyName
     } : undefined;
 
-    patient.preferredIdentifiers = restRep.identifiers.filter((identifier) => {
+    patient.identifiers = restRep.identifiers.filter((identifier) => {
       return !identifier.voided;
     }).map((identifier) => {
       return { identifier: identifier.identifier, identifierType: identifier.identifierType.uuid };

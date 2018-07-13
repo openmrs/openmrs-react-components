@@ -574,7 +574,7 @@ describe('Domain Object: Patient', () => {
 
     expect(patient.getUuid()).toBeUndefined();
     expect(patient.getName()).toBeUndefined();
-    expect(patient.getPreferredIdentifiers()).toBeUndefined();
+    expect(patient.getIdentifiers()).toBeUndefined();
   });
 
   it('should create patient from full REST rep', () => {
@@ -588,9 +588,9 @@ describe('Domain Object: Patient', () => {
     expect(patient.getName().givenName).toBe("Neil");
     expect(patient.getName().familyName).toBe("Young");
     expect(patient.getName().middleName).toBeNull();
-    expect(patient.getPreferredIdentifiers().length).toBe(7);
-    expect(patient.getPreferredIdentifiers()).toContainEqual({ identifier: "Y2A5H1", identifierType: "a541af1e-105c-40bf-b345-ba1fd6a59b85"});
-    expect(patient.getPreferredIdentifiers()).toContainEqual({ identifier: "TH000002", identifierType: "e66645eb-03a8-4991-b4ce-e87318e37566"});
+    expect(patient.getIdentifiers().length).toBe(7);
+    expect(patient.getIdentifiers()).toContainEqual({ identifier: "Y2A5H1", identifierType: "a541af1e-105c-40bf-b345-ba1fd6a59b85"});
+    expect(patient.getIdentifiers()).toContainEqual({ identifier: "TH000002", identifierType: "e66645eb-03a8-4991-b4ce-e87318e37566"});
 
   });
 
