@@ -15,6 +15,19 @@ const api = {
       });
   },
 
+  getPatientActiveVisit: (params) => {
+    return axiosInstance.get("visit?includeInactive=false&patient=" + params.patientUuid
+      + ( params.representation ? "&v=" + params.representation : ''))
+      .then((response) => {
+        if (response.status !== 200) {
+          throw response;
+        }
+        else {
+          return response.data;
+        }
+      });
+  },
+
   createVisit: (params) => {
     return axiosInstance.post('visit', params.visit)
       .then((response) => {

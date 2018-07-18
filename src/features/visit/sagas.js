@@ -19,10 +19,28 @@ function* activeVisits(action) {
 
 }
 
+function* patientActiveVisit(action) {
+
+  try {
+
+    let response = yield call(visitApi.getPatientActiveVisit, {
+      patientUuid: action.patientUuid,
+      representation: action.representation
+    });
+
+    yield put(visitActions.fetchPatientActiveVisitSucceeded(response.results[0]));
+  }
+  catch (e) {
+    yield put(visitActions.fetchPatientActiveVisitFailed(e.message));
+  }
+
+}
+
 
 function* visitSagas() {
   // TODO take latest, or take all?
   yield takeLatest(VISIT_TYPES.ACTIVE_VISITS.FETCH_REQUESTED, activeVisits);
+  yield takeLatest(VISIT_TYPES.PATIENT_ACTIVE_VISIT.FETCH_REQUESTED, patientActiveVisit);
 }
 
 export default visitSagas;
