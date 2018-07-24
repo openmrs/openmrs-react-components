@@ -24,7 +24,15 @@ const login = () => {
 
 describe('Component: Login', () => {
   beforeEach(() => {
-    store = mockStore({});
+    store = mockStore(
+      {
+        dispatch: {},
+        openmrs: {
+          loginLocations: {
+            list: []
+          }
+        }
+      });
     mountedComponent = undefined;
   });
 

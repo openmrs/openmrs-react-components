@@ -2,6 +2,9 @@ const api = {
 
   fetchCurrentSession: () => {
     return undefined;
+  },
+  setSessionLocation: (params) => {
+    return undefined;
   }
 };
 

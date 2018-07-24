@@ -11,11 +11,20 @@ describe("Component: LoginForm", () => {
 
   it("should render correctly", () => {
 
-    const store = mockStore({});
+    const store = mockStore(
+      {
+        dispatch: {},
+        openmrs: {
+          loginLocations: {
+            list: []
+          }
+        }
+      });
+    const locations = [];
 
     const rendered = renderer.create(
       <Provider store={store}>
-        <LoginForm />
+        <LoginForm locations={locations}/>
       </Provider>
     );
 

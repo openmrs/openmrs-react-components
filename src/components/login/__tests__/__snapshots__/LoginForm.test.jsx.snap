@@ -78,6 +78,36 @@ exports[`Component: LoginForm should render correctly 1`] = `
         <div
           className="form-group"
         >
+          <label
+            className="col-sm-2 control-label"
+            htmlFor="formLocationSelect"
+          >
+            Location
+          </label>
+          <div
+            className="col-sm-4"
+          >
+            <div>
+              <select
+                disabled={undefined}
+                name="location"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onDragStart={[Function]}
+                onDrop={[Function]}
+                onFocus={[Function]}
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="form-group"
+        >
           <div
             className="col-sm-4 col-sm-offset-2"
           >

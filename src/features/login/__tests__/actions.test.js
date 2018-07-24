@@ -7,23 +7,24 @@ describe('login actions', () => {
 
   it('should create login action', () => {
     const expectedAction = {
-      type: LOGIN_TYPES.REQUESTED,
+      type: LOGIN_TYPES.LOGIN.REQUESTED,
       username: "someusername",
-      password: "somepassword"
+      password: "somepassword",
+      location: "somelocation"
     };
-    expect(loginActions.login("someusername", "somepassword")).toEqual(expectedAction);
+    expect(loginActions.login("someusername", "somepassword", "somelocation")).toEqual(expectedAction);
   });
 
   it('should create login succeeded action', () => {
     const expectedAction = {
-      type: LOGIN_TYPES.SUCCEEDED
+      type: LOGIN_TYPES.LOGIN.SUCCEEDED
     };
     expect(loginActions.loginSucceeded()).toEqual(expectedAction);
   });
 
   it('should create login failed', () => {
     const expectedAction = {
-      type: LOGIN_TYPES.FAILED,
+      type: LOGIN_TYPES.LOGIN.FAILED,
       error: {
         message: "someerror"
       }

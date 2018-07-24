@@ -11,7 +11,7 @@ import DataGrid from './components/grid/DataGrid';
 import FieldInput from './components/form/FieldInput';
 import Errors from './components/errors/Errors';
 import { sessionReducers, sessionSagas } from './features/session/';
-import { loginSagas } from './features/login';
+import { LOGIN_TYPES, loginReducers, loginSagas } from './features/login';
 import { errorsActions, errorsReducers } from './features/errors';
 import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
 import { GRID_TYPES, gridActions } from './features/grid';
@@ -30,6 +30,7 @@ import visitRest from './rest/visitRest';
 
 const reducers = combineReducers({
   session: sessionReducers,
+  loginLocations: loginReducers,
   patientSearch: patientSearchReducers,
   errors: errorsReducers
 });

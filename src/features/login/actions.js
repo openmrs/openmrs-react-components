@@ -1,17 +1,39 @@
 import LOGIN_TYPES from "./types";
 
-const login = (username, password) => ( {
-  type: LOGIN_TYPES.REQUESTED,
+const login = (username, password, location) => ( {
+  type: LOGIN_TYPES.LOGIN.REQUESTED,
   username: username,
-  password: password
+  password: password,
+  location: location
 } );
 
 const loginSucceeded = () => ( {
-  type: LOGIN_TYPES.SUCCEEDED
+  type: LOGIN_TYPES.LOGIN.SUCCEEDED
 } );
 
 const loginFailed = (message) => ( {
-  type: LOGIN_TYPES.FAILED,
+  type: LOGIN_TYPES.LOGIN.FAILED,
+  error: {
+    message: message
+  }
+} );
+
+const getLoginLocations = () => ( {
+    type: LOGIN_TYPES.LOGIN_LOCATIONS.REQUESTED
+  } );
+
+const getLoginLocationsSucceeded = (locations) => ( {
+  type: LOGIN_TYPES.LOGIN_LOCATIONS.SUCCEEDED,
+  locations: locations.map((location) => {
+    return {
+      value: location.uuid,
+      label: location.display
+    };
+  })
+} );
+
+const getLoginLocationsFailed = (message) => ( {
+  type: LOGIN_TYPES.LOGIN_LOCATIONS.FAILED,
   error: {
     message: message
   }
@@ -20,5 +42,8 @@ const loginFailed = (message) => ( {
 export default {
   login,
   loginSucceeded,
-  loginFailed
+  loginFailed,
+  getLoginLocations,
+  getLoginLocationsSucceeded,
+  getLoginLocationsFailed
 };

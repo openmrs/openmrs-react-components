@@ -38,6 +38,9 @@ describe('Component: LoginPage', () => {
         openmrs: {
           session: {
             authenticated: false
+          },
+          loginLocations: {
+            list: []
           }
         }
       }
@@ -46,7 +49,8 @@ describe('Component: LoginPage', () => {
     props = {
       location: {
         state: ""
-      }
+      },
+      locations: []
     };
 
     expect(toJson(loginPage())).toMatchSnapshot();
@@ -64,6 +68,9 @@ describe('Component: LoginPage', () => {
         openmrs: {
           session: {
             authenticated: true
+          },
+          loginLocations: {
+            list: []
           }
         }
       }
@@ -76,7 +83,8 @@ describe('Component: LoginPage', () => {
             pathname: "login"
           }
         }
-      }
+      },
+      locations: []
     };
 
     expect(toJson(loginPage())).toMatchSnapshot();
