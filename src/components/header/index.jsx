@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import sessionActions from '../../features/session';
-import locationActions from '../../features/location';
+import loginActions from '../../features/login';
 import View from './View';
 
 export class Header extends React.Component {
@@ -16,9 +16,7 @@ export class Header extends React.Component {
 
   componentWillMount() {
     this.props.dispatch(sessionActions.fetchSession());
-    this.props.dispatch(locationActions.fetchLocations());
-    // this.props.fetchCurrentSession();
-    // this.props.fetchLocations();
+    this.props.dispatch(loginActions.getLoginLocations());
   }
 
   toggleState = (key, value) => {

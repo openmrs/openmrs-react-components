@@ -46,7 +46,6 @@ const sagas = function* () {
   yield all([
     loginSagas(),
     sessionSagas(),
-    locationSagas(),
     patientSearchSagas(),
     visitSagas()
   ]);
