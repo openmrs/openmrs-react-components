@@ -48,14 +48,14 @@ export class Header extends React.Component {
               tabIndex="0"
             >
               <i className="icon-user small" />
-              {this.currentUser}
+              {this.props.currentUser}
 
               <i className="icon-caret-down appui-icon-caret-down link" />
               <i 
                 className="icon-caret-up link appui-toggle"
                 style={{ display: "none" }}
               />
-              {this.userDropdown &&
+              {this.state.userDropdown &&
                 <ul id="user-account-menu">
                   <li>
                     <a
@@ -73,19 +73,19 @@ export class Header extends React.Component {
                 onClick={() => { this.toggleState("locationDropdown"); }}
               >
                 <i className="icon-map-marker small" />
-                <span id="selected-location">{this.currentLocation.display}</span>
+                <span id="selected-location">{this.props.currentLocation.display}</span>
 
                 <i className="link icon-caret-down" />
               </a>
-              {this.locationDropdown &&
+              {this.state.locationDropdown &&
                 <div>
                   <ul className="location-container">
-                    {this.locations.map(location => (
+                    {this.props.locations.map(location => (
                       <li
-                        className={location.display === this.currentLocation.display ? "selected" : ""}
+                        className={location.display === this.props.currentLocation.display ? "selected" : ""}
                         key={location.uuid}
                         onClick={() => {
-                          this.setCurrentLocation(location.uuid);
+                          // this.props.setCurrentLocation(location.uuid);
                           this.toggleState("locationDropdown", false);
                         }}
                         role="button"
@@ -123,10 +123,8 @@ const mapStateToProps = (state) => {
 Header.propTypes = {
   currentLocation: PropTypes.shape().isRequired,
   currentUser: PropTypes.string,
-  fetchCurrentSession: PropTypes.func.isRequired,
-  fetchLocations: PropTypes.func.isRequired,
   locations: PropTypes.array.isRequired,
-  setCurrentLocation: PropTypes.func.isRequired,
+  // setCurrentLocation: PropTypes.func.isRequired,
 };
 
 Header.defaultProps = {
