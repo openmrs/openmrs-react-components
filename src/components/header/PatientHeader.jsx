@@ -15,6 +15,7 @@ export class PatientHeader extends PureComponent {
   }
 
   componentDidMount() {
+    // TODO: would need to run a saga to get initiate this, for now just pass props
     // const query = new URLSearchParams(this.props.location.search);
     // const patientUuid = query.get('patient');
     // this.props.fetchPatientRecord(patientUuid);
@@ -167,7 +168,6 @@ export class PatientHeader extends PureComponent {
   }
 
   render() {
-    console.log('pop', this.props);
     const {
       patient,
       note,
@@ -190,21 +190,26 @@ const mapStateToProps = state => ({
 });
 
 const actionCreators = {
+  // TODO: this would need to be removed once incoporate making this component smart
 //   fetchPatientRecord,
 //   fetchPatientNote,
 };
 
 PatientHeader.propTypes = {
   currentOrderTypeText: PropTypes.string.isRequired,
-  patient: PropTypes.shape({}).isRequired,
-  //   fetchPatientNote: PropTypes.func.isRequired,
-  //   fetchPatientRecord: PropTypes.func.isRequired,
   location: PropTypes.shape().isRequired,
   note: PropTypes.array,
+  patient: PropTypes.shape({}).isRequired,
+  // TODO: need to remove comments
+  //   fetchPatientNote: PropTypes.func.isRequired,
+  //   fetchPatientRecord: PropTypes.func.isRequired,
+  
 };
 
 PatientHeader.defaultProps = {
   note: [],
 };
-
+/* TODO: this should be needed cos we would be connecting
+to local redux state and exporting reducers and sagas but for now, just pass props
+*/
 export default connect(mapStateToProps, actionCreators)(PatientHeader);
