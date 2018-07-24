@@ -33,6 +33,7 @@ See example store at samples/redux-store.js
 
 For an example of how to inject a Redux store, see samples/App.jsx
 
+For a documentation of how to use the components check out the [readme](https://github.com/openmrs/openmrs-react-components/tree/OEUI_183/src/components#patientheader) for components
 
 ## Bootstrap
 
@@ -49,7 +50,7 @@ Note that you may also need to include react-bootstrap and react-dom as dependen
 
 If you are using the create-react-app template, you can install and use the Bootstrap CSS by following the steps here:
 
-https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-bootstrap
+https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/[README]().md#adding-bootstrap
 
 # Publishing a new version
 
