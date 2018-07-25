@@ -111,8 +111,8 @@ export class Header extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { currentLocation, currentUser } = state.sessionReducer;
-  const { locationTags } = state.locationReducer;
+  const { currentLocation, currentUser } = state.session;
+  const { locationTags } = state.loginLocations;
   return {
     currentLocation,
     currentUser,
@@ -124,7 +124,7 @@ Header.propTypes = {
   currentLocation: PropTypes.shape().isRequired,
   currentUser: PropTypes.string,
   locations: PropTypes.array.isRequired,
-  // setCurrentLocation: PropTypes.func.isRequired,
+  // TODO: Add setCurrentLocation functionality,
 };
 
 Header.defaultProps = {
