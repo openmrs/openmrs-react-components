@@ -85,7 +85,7 @@ export class Header extends React.Component {
                         className={location.display === this.props.currentLocation.display ? "selected" : ""}
                         key={location.uuid}
                         onClick={() => {
-                          // this.props.setCurrentLocation(location.uuid);
+                          this.props.dispatch(sessionActions.setSession(location.uuid));
                           this.toggleState("locationDropdown", false);
                         }}
                         role="button"
@@ -111,8 +111,8 @@ export class Header extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { currentLocation, currentUser } = state.session;
-  const { locationTags } = state.loginLocations;
+  const { currentLocation, currentUser } = state.openmrs.session;
+  const { locationTags } = state.openmrs.loginLocations;
   return {
     currentLocation,
     currentUser,
@@ -124,7 +124,6 @@ Header.propTypes = {
   currentLocation: PropTypes.shape().isRequired,
   currentUser: PropTypes.string,
   locations: PropTypes.array.isRequired,
-  // TODO: Add setCurrentLocation functionality,
 };
 
 Header.defaultProps = {

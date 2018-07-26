@@ -15,6 +15,18 @@ export default (state = {}, action) => {
           message: "Unable to load session"
         }
       };
+      
+    case SESSION_TYPES.SET_SUCCEEDED:
+      return {
+        ...action.sessionLocation
+      };
+
+    case SESSION_TYPES.SET_FAILED:
+      return {
+        error: {
+          message: "Unable to set session"
+        }
+      };
 
     default:
       return state;
