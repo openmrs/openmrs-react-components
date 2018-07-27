@@ -1,0 +1,156 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: List renders properly 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <List
+    dispatch={[Function]}
+    rowData={Array []}
+  >
+    <div>
+      <h3>
+        <Label
+          bsClass="label"
+          bsStyle="default"
+        >
+          <span
+            className="label label-default"
+          >
+            List
+          </span>
+        </Label>
+      </h3>
+      <Connect(DataGrid)
+        columnDefs={
+          Array [
+            Object {
+              "field": "uuid",
+              "headerName": "uuid",
+              "hide": true,
+            },
+            Object {
+              "field": "name.givenName",
+              "headerName": "Given Name",
+            },
+            Object {
+              "field": "name.familyName",
+              "headerName": "Family Name",
+            },
+            Object {
+              "field": "gender",
+              "headerName": "Gender",
+            },
+            Object {
+              "field": "age",
+              "headerName": "Age",
+            },
+          ]
+        }
+        rowData={Array []}
+        rowSelectedActionCreators={
+          Array [
+            [Function],
+          ]
+        }
+      >
+        <DataGrid
+          columnDefs={
+            Array [
+              Object {
+                "field": "uuid",
+                "headerName": "uuid",
+                "hide": true,
+              },
+              Object {
+                "field": "name.givenName",
+                "headerName": "Given Name",
+              },
+              Object {
+                "field": "name.familyName",
+                "headerName": "Family Name",
+              },
+              Object {
+                "field": "gender",
+                "headerName": "Gender",
+              },
+              Object {
+                "field": "age",
+                "headerName": "Age",
+              },
+            ]
+          }
+          dispatch={[Function]}
+          rowData={Array []}
+          rowSelectedActionCreators={
+            Array [
+              [Function],
+            ]
+          }
+        >
+          <div
+            style={
+              Object {
+                "height": "600px",
+                "width": "100%",
+              }
+            }
+          >
+            <AgGridReact
+              columnDefs={
+                Array [
+                  Object {
+                    "field": "uuid",
+                    "headerName": "uuid",
+                    "hide": true,
+                  },
+                  Object {
+                    "field": "name.givenName",
+                    "headerName": "Given Name",
+                  },
+                  Object {
+                    "field": "name.familyName",
+                    "headerName": "Family Name",
+                  },
+                  Object {
+                    "field": "gender",
+                    "headerName": "Gender",
+                  },
+                  Object {
+                    "field": "age",
+                    "headerName": "Age",
+                  },
+                ]
+              }
+              enableSorting={true}
+              id="omrsGrid"
+              onGridReady={[Function]}
+              onSelectionChanged={[Function]}
+              rowClassRules="rowClassRules"
+              rowData={Array []}
+              rowSelection="single"
+            >
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                  }
+                }
+              />
+            </AgGridReact>
+          </div>
+        </DataGrid>
+      </Connect(DataGrid)>
+    </div>
+  </List>
+</Provider>
+`;
