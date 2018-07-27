@@ -61,13 +61,23 @@ describe('sessionReducer', () => {
   });
 
   it('should return the sessionLocation info', () => {
-    const sessionInfo = sessionReducer({}, {
+    const initialState = {
+      currentLocation: {}
+    };
+    const sessionInfo = sessionReducer(initialState, {
       type: SESSION_TYPES.SET_SUCCEEDED,
-      sessionLocation: sampleSession
+      currentSession:{
+        user:{
+          display:'New User'
+        },
+        sessionLocation:{
+          display:'Laboratory'
+        }
+      },
     });
 
-    expect(sessionInfo.sessionLocation).toBe("sampleLocation");
-
+    expect(sessionInfo.currentUser).toEqual('New User');
+    expect(sessionInfo.currentLocation.display).toEqual('Laboratory');
   });
 
   it('should return Unable to set session', () => {

@@ -14,14 +14,14 @@ const fetchSessionFailed = (message) => ( {
   message: message
 } );
 
-const setSession = (sessionLocation) => ( {
+const setSessionLocation = (sessionLocation) => ( {
   type: SESSION_TYPES.SET_REQUESTED,
   sessionLocation
 } );
 
 const setSessionSucceeded = (session) => ( {
   type: SESSION_TYPES.SET_SUCCEEDED,
-  currentSession: session
+  session
 } );
 
 const setSessionFailed = (message) => ( {
@@ -35,5 +35,5 @@ export default {
   fetchSessionFailed,
   setSessionSucceeded,
   setSessionFailed,
-  setSession
+  setSessionLocation
 };

@@ -7,7 +7,7 @@ const api = {
     return axiosInstance.get(`appui/session`)
       .then((response) => response.data);
   },
-  setCurrentSession: (sessionLocation) => {
+  setCurrentSessionLocation: (sessionLocation) => {
     return axiosInstance.post('appui/session', { location: sessionLocation })
       .then( (response) => {
         return response.data;

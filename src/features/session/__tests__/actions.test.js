@@ -32,13 +32,13 @@ describe('session actions', () => {
       type: SESSION_TYPES.SET_REQUESTED,
       sessionLocation: "Amani_hospital", 
     };
-    expect(sessionActions.setSession("Amani_hospital")).toEqual(expectedAction);
+    expect(sessionActions.setSessionLocation("Amani_hospital")).toEqual(expectedAction);
   });
 
   it('should create set session succeeded action', () => {
     const expectedAction = {
       type: "session/SET_SUCCEEDED",
-      currentSession: "Amani_hospital",
+      session: "Amani_hospital",
     };
     expect(sessionActions.setSessionSucceeded("Amani_hospital")).toEqual(expectedAction);
   });

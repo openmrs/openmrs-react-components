@@ -13,7 +13,7 @@ export class Header extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.dispatch(sessionActions.fetchSession());
     this.props.dispatch(loginActions.getLoginLocations());
   }
@@ -85,7 +85,7 @@ export class Header extends React.Component {
                         className={location.display === this.props.currentLocation.display ? "selected" : ""}
                         key={location.uuid}
                         onClick={() => {
-                          this.props.dispatch(sessionActions.setSession(location.uuid));
+                          this.props.dispatch(sessionActions.setSessionLocation(location.uuid));
                           this.toggleState("locationDropdown", false);
                         }}
                         role="button"
@@ -112,11 +112,12 @@ export class Header extends React.Component {
 
 const mapStateToProps = (state) => {
   const { currentLocation, currentUser } = state.openmrs.session;
-  const { locationTags } = state.openmrs.loginLocations;
+  const  locations = state.openmrs.loginLocations;
+  
   return {
     currentLocation,
     currentUser,
-    locations: locationTags,
+    locations
   };
 };
 
