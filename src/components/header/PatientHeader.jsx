@@ -26,7 +26,7 @@ export class PatientHeader extends PureComponent {
     this.setState(() => ({
       showContactInfo: !this.state.showContactInfo,
     }));
-  }
+  };
   renderDemographics() {
     const {
       props: {
