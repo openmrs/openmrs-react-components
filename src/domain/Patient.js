@@ -34,7 +34,7 @@ class Patient {
     return this.identifiers;
   }
 
-  static createFromRestRep(restRep, encounters) {
+  static createFromRestRep(restRep, activeVisit) {
     let patient = new Patient();
 
     patient.id = restRep.id;
@@ -55,7 +55,7 @@ class Patient {
       return { identifier: identifier.identifier, identifierType: identifier.identifierType.uuid };
     });
 
-    patient.encounters = (typeof encounters !== 'undefined') ? encounters : undefined;
+    patient.activeVisit = (typeof activeVisit !== 'undefined') ? activeVisit :undefined;
 
     return patient;
   }
