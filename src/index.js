@@ -5,6 +5,7 @@ import visitRestRepToPatientObjConverter from './domain/patient/converters/visit
 import patientObjByEncounterTypeFilter from './domain/patient/filters/patientObjByEncounterTypeFilter';
 import Accordion from './components/accordion/Accordian';
 import Header from './components/header/Header';
+import List from './components/list/List';
 import Login from './components/login/Login';
 import LoginPage from './components/login/LoginPage';
 import PatientSearch from './components/search/PatientSearch';
@@ -54,6 +55,7 @@ module.exports = {
   createListReducer,
   Accordion,
   Header,
+  List,
   Login,
   LoginPage,
   PatientSearch,
