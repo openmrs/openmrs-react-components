@@ -30,7 +30,8 @@ describe('Component: List', () => {
     // in an actual implementation of a list, these would be mapped in
     props = {
       rowData: [],
-      dispatch: () => {}
+      dispatch: () => {},
+      fetchListActionCreator: () => {}
     };
     store = mockStore({});
     mountedComponent = undefined;
@@ -39,9 +40,6 @@ describe('Component: List', () => {
   it('renders properly', () => {
     expect(toJson(list())).toMatchSnapshot();
     expect(list().find(DataGrid).length).toBe(1);
-    expect(list().find(DataGrid).props().rowSelectedActionCreators.length).toBe(1);
-    expect(list().find(DataGrid).props().rowSelectedActionCreators[0].name).toBe("redirectToInfoPageActionCreator");
-    expect(list().find(DataGrid).props().rowSelectedActionCreators[0]().payload.args[0]).toBe("/");
     expect(List.prototype.componentDidMount.calledOnce).toBe(true);
   });
 });

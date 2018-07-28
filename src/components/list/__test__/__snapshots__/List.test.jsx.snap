@@ -14,8 +14,36 @@ exports[`Component: List renders properly 1`] = `
   }
 >
   <List
+    columnDefs={
+      Array [
+        Object {
+          "field": "uuid",
+          "headerName": "uuid",
+          "hide": true,
+        },
+        Object {
+          "field": "name.givenName",
+          "headerName": "Given Name",
+        },
+        Object {
+          "field": "name.familyName",
+          "headerName": "Family Name",
+        },
+        Object {
+          "field": "gender",
+          "headerName": "Gender",
+        },
+        Object {
+          "field": "age",
+          "headerName": "Age",
+        },
+      ]
+    }
+    delayInterval={10000}
     dispatch={[Function]}
+    fetchListActionCreator={[Function]}
     rowData={Array []}
+    title="List"
   >
     <div>
       <h3>
@@ -57,11 +85,6 @@ exports[`Component: List renders properly 1`] = `
           ]
         }
         rowData={Array []}
-        rowSelectedActionCreators={
-          Array [
-            [Function],
-          ]
-        }
       >
         <DataGrid
           columnDefs={
@@ -91,11 +114,6 @@ exports[`Component: List renders properly 1`] = `
           }
           dispatch={[Function]}
           rowData={Array []}
-          rowSelectedActionCreators={
-            Array [
-              [Function],
-            ]
-          }
         >
           <div
             style={
