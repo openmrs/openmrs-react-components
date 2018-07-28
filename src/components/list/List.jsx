@@ -1,5 +1,5 @@
 import React from 'react';
-import { push } from 'connected-react-router';
+import PropTypes from 'prop-types';
 import { Label } from 'react-bootstrap';
 import DataGrid from '../grid/DataGrid';
 
@@ -7,14 +7,14 @@ class List extends React.Component {
 
   componentDidMount() {
 
-    if (this.fetchListAction() !== undefined) {
-      this.props.dispatch(this.fetchListAction());
+    if (this.props.fetchListActionCreator !== undefined) {
+      this.props.fetchListActionCreator();
       this.interval = setInterval(() =>
-        this.props.dispatch(this.fetchListAction()), this.delayInterval());
+        this.props.fetchListActionCreator(), this.props.delayInterval);
     }
 
-    if (this.fetchOtherActions() !== undefined) {
-      this.fetchOtherActions().forEach((action) => this.props.dispatch(action));
+    if (this.props.onMountOtherActionCreators !== undefined) {
+      this.props.onMountOtherActionCreators.forEach((action) =>action());
     }
 
   }
@@ -22,50 +22,41 @@ class List extends React.Component {
   componentWillUnmount() {
     clearInterval(this.interval);
   }
-
-  columnDefs() {
-    return [
-      { headerName: 'uuid', hide: true, field: 'uuid' },
-      { headerName: 'Given Name', field: 'name.givenName' },
-      { headerName: 'Family Name', field: 'name.familyName' },
-      { headerName: 'Gender', field: 'gender' },
-      { headerName: 'Age', field: 'age' }
-    ];
-  }
-
-  delayInterval() {
-    return 10000;
-  }
-
-  fetchListAction() {
-    return undefined;  // needs to be overwritten in implementing classes
-  }
-
-  fetchOtherActions() {
-    return undefined;
-  }
-
-  redirectToInfoPageActionCreator() {
-    return push('/'); // needs to be overwritten in implementing classed
-  }
-
-  title() {
-    return "List";
-  }
-
+  
   render() {
     return (
       <div>
-        <h3><Label>{this.title()}</Label></h3>
+        <h3><Label>{this.props.title}</Label></h3>
         <DataGrid
-          columnDefs={this.columnDefs()}
+          columnDefs={this.props.columnDefs}
           rowData={this.props.rowData}
-          rowSelectedActionCreators={[this.redirectToInfoPageActionCreator]}
+          rowSelectedActionCreators={this.props.rowSelectedActionCreators}
         />
       </div>
     );
   }
-
 }
+
+List.propTypes = {
+  columnDefs: PropTypes.array.isRequired,
+  delayInterval: PropTypes.number.isRequired,
+  fetchListActionCreator: PropTypes.func.isRequired,
+  onMountOtherActionCreators: PropTypes.array,
+  rowData: PropTypes.array.isRequired,
+  rowSelectedActionCreators: PropTypes.array,
+  title: PropTypes.string.isRequired
+};
+
+List.defaultProps = {
+  columnDefs:  [
+    { headerName: 'uuid', hide: true, field: 'uuid' },
+    { headerName: 'Given Name', field: 'name.givenName' },
+    { headerName: 'Family Name', field: 'name.familyName' },
+    { headerName: 'Gender', field: 'gender' },
+    { headerName: 'Age', field: 'age' }
+  ],
+  delayInterval: 10000,
+  title: 'List'
+};
 
 export default List;
