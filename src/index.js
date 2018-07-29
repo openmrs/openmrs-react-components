@@ -15,7 +15,6 @@ import FieldInput from './components/form/FieldInput';
 import Errors from './components/errors/Errors';
 import createListReducer from './features/list/createListReducer';
 import { sessionReducers, sessionSagas } from './features/session/';
-import { locationReducers, locationSagas } from './features/location';
 import { loginReducers, loginSagas } from './features/login';
 import { errorsActions, errorsReducers } from './features/errors';
 import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
@@ -35,7 +34,6 @@ import visitRest from './rest/visitRest';
 
 
 const reducers = combineReducers({
-  location: locationReducers,
   session: sessionReducers,
   loginLocations: loginReducers,
   patientSearch: patientSearchReducers,

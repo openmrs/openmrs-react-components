@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import sessionActions from '../../features/session';
-import loginActions from '../../features/login';
+import { sessionActions } from '../../features/session';
+import { loginActions } from '../../features/login';
 
 export class Header extends React.Component {
   constructor(props) {
@@ -112,7 +112,7 @@ export class Header extends React.Component {
 
 const mapStateToProps = (state) => {
   const { currentLocation, currentUser } = state.openmrs.session;
-  const  locations = state.openmrs.loginLocations;
+  const locations = state.openmrs.loginLocations;
   
   return {
     currentLocation,
