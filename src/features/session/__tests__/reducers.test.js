@@ -66,14 +66,12 @@ describe('sessionReducer', () => {
     };
     const sessionInfo = sessionReducer(initialState, {
       type: SESSION_TYPES.SET_SUCCEEDED,
-      currentSession:{
-        user:{
-          display:'New User'
-        },
-        sessionLocation:{
-          display:'Laboratory'
-        }
+      user:{
+        display:'New User'
       },
+      sessionLocation:{
+        display:'Laboratory'
+      }
     });
 
     expect(sessionInfo.currentUser).toEqual('New User');
