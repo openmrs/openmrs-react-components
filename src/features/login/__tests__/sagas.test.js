@@ -20,7 +20,7 @@ describe('login sagas', () => {
     sagaTester.dispatch(loginActions.login('valid_username','valid_password', 'valid_location'));
     expect(sagaTester.getCalledActions()).toContainEqual(loginActions.loginSucceeded());
     expect(sagaTester.getCalledActions()).not.toContainEqual(loginActions.loginFailed("Invalid username or password"));
-    expect(sagaTester.getCalledActions()).not.toContainEqual(reset('login-form'))
+    expect(sagaTester.getCalledActions()).not.toContainEqual(reset('login-form'));
   });
 
   it('login saga workflow with invalid credentials should fail', () => {
