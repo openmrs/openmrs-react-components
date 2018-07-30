@@ -7,7 +7,7 @@ describe('sessionReducer', () => {
     "authenticated": true,
     "locale": "en_GB",
     "currentProvider": null,
-    "sessionLocation": null,
+    "sessionLocation": 'sampleLocation',
     "user": {
       "uuid": "1a519576-f284-413e-8b96-1c13256ff8e1",
       "display": "test",
@@ -57,6 +57,36 @@ describe('sessionReducer', () => {
     });
 
     expect(sessionInfo.error.message).toBe("Unable to load session");
+
+  });
+
+  it('should return the sessionLocation info', () => {
+    const initialState = {
+      currentLocation: {}
+    };
+    const sessionInfo = sessionReducer(initialState, {
+      type: SESSION_TYPES.SET_SUCCEEDED,
+      user:{
+        display:'New User'
+      },
+      sessionLocation:{
+        display:'Laboratory'
+      }
+    });
+
+    expect(sessionInfo.currentUser).toEqual('New User');
+    expect(sessionInfo.currentLocation.display).toEqual('Laboratory');
+  });
+
+  it('should return Unable to set session', () => {
+    const sessionInfo = sessionReducer({}, {
+      type: SESSION_TYPES.SET_FAILED,
+      error: {
+        message: "Unable to set session"
+      }
+    });
+
+    expect(sessionInfo.error.message).toBe("Unable to set session");
 
   });
 

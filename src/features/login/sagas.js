@@ -15,8 +15,8 @@ function* login(action) {
     let response = yield call(loginApi.login, { username: action.username, password: action.password });
 
     if (response.authenticated === true) {
-      let sessionLocation = {location: action.location};
-      let sessionResponse = yield call(sessionApi.setSessionLocation, {location: sessionLocation});
+      let sessionLocation = { location: action.location };
+      let sessionResponse = yield call(sessionApi.setSessionLocation, { location: sessionLocation });
       yield put(sessionActions.fetchSessionSucceeded(sessionResponse));
       yield put(loginActions.loginSucceeded());
     }
@@ -32,11 +32,11 @@ function* login(action) {
 }
 
 function* loginLocations(action) {
-  try{
+  try {
 
     let response = yield call(locationApi.fetchLoginLocations);
     if (response.results.length > 0 ) {
-        yield put(loginActions.getLoginLocationsSucceeded(response.results));
+      yield put(loginActions.getLoginLocationsSucceeded(response.results));
     }
 
   }

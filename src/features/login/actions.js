@@ -19,8 +19,8 @@ const loginFailed = (message) => ( {
 } );
 
 const getLoginLocations = () => ( {
-    type: LOGIN_TYPES.LOGIN_LOCATIONS.REQUESTED
-  } );
+  type: LOGIN_TYPES.LOGIN_LOCATIONS.REQUESTED
+} );
 
 const getLoginLocationsSucceeded = (locations) => ( {
   type: LOGIN_TYPES.LOGIN_LOCATIONS.SUCCEEDED,

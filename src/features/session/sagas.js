@@ -13,8 +13,19 @@ function* fetchCurrentSession() {
   }
 }
 
+function* setSession(sessionLocation) {
+  try {
+    const session = yield call(sessionApi.setCurrentSessionLocation, { location: sessionLocation });
+    yield put(sessionActions.setSessionSucceeded(session));
+  }
+  catch (e) {
+    yield put(sessionActions.setSessionFailed(e.message));
+  }
+}
+
 function* sessionSagas() {
   yield takeLatest(SESSION_TYPES.FETCH_REQUESTED, fetchCurrentSession);
+  yield takeLatest(SESSION_TYPES.SET_REQUESTED, setSession);
 }
 
 export default sessionSagas;

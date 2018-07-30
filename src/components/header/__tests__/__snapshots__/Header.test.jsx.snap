@@ -3,7 +3,81 @@
 exports[`header should render correctly 1`] = `
 <div>
   <header>
-    Some user
+    <div
+      className="logo"
+    >
+      <a
+        href="../../referenceapplication/home.page"
+      >
+        <img
+          alt=""
+          src="../../ms/uiframework/resource/uicommons/images/logo/openmrs-with-title-small.png"
+        />
+      </a>
+    </div>
+    <ul
+      className="user-options"
+    >
+      <li
+        className="identifier"
+        onClick={[Function]}
+        role="button"
+        style={
+          Object {
+            "cursor": "pointer",
+          }
+        }
+        tabIndex="0"
+      >
+        <i
+          className="icon-user small"
+        />
+        admin
+        <i
+          className="icon-caret-down appui-icon-caret-down link"
+        />
+        <i
+          className="icon-caret-up link appui-toggle"
+          style={
+            Object {
+              "display": "none",
+            }
+          }
+        />
+      </li>
+      <li
+        className="change-location"
+      >
+        <a
+          href="#"
+          onClick={[Function]}
+        >
+          <i
+            className="icon-map-marker small"
+          />
+          <span
+            id="selected-location"
+          >
+            Laboratory
+          </span>
+          <i
+            className="link icon-caret-down"
+          />
+        </a>
+      </li>
+      <li
+        className="logout"
+      >
+        <a
+          href="../../appui/header/logout.action?successUrl=undefined"
+        >
+          Logout
+          <i
+            className="icon-signout small"
+          />
+        </a>
+      </li>
+    </ul>
   </header>
 </div>
 `;

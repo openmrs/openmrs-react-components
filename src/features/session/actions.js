@@ -14,8 +14,26 @@ const fetchSessionFailed = (message) => ( {
   message: message
 } );
 
+const setSessionLocation = (sessionLocation) => ( {
+  type: SESSION_TYPES.SET_REQUESTED,
+  sessionLocation
+} );
+
+const setSessionSucceeded = (session) => ( {
+  type: SESSION_TYPES.SET_SUCCEEDED,
+  session
+} );
+
+const setSessionFailed = (message) => ( {
+  type: SESSION_TYPES.SET_FAILED,
+  message: message
+} );
+
 export default {
   fetchSession,
   fetchSessionSucceeded,
-  fetchSessionFailed
+  fetchSessionFailed,
+  setSessionSucceeded,
+  setSessionFailed,
+  setSessionLocation
 };

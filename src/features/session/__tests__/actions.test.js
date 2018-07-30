@@ -27,4 +27,28 @@ describe('session actions', () => {
     expect(sessionActions.fetchSessionFailed("someerror")).toEqual(expectedAction);
   });
 
+  it('should create session set action', () => {
+    const expectedAction = {
+      type: SESSION_TYPES.SET_REQUESTED,
+      sessionLocation: "Amani_hospital", 
+    };
+    expect(sessionActions.setSessionLocation("Amani_hospital")).toEqual(expectedAction);
+  });
+
+  it('should create set session succeeded action', () => {
+    const expectedAction = {
+      type: "session/SET_SUCCEEDED",
+      session: "Amani_hospital",
+    };
+    expect(sessionActions.setSessionSucceeded("Amani_hospital")).toEqual(expectedAction);
+  });
+
+  it('should create set session failed', () => {
+    const expectedAction = {
+      type: SESSION_TYPES.SET_FAILED,
+      message: "someerror"
+    };
+    expect(sessionActions.setSessionFailed("someerror")).toEqual(expectedAction);
+  });
+
 });

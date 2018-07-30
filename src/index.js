@@ -29,6 +29,7 @@ import encounterRest from './rest/encounterRest';
 import patientRest from './rest/patientRest';
 import loginRest from './rest/loginRest';
 import sessionRest from './rest/sessionRest';
+import locationRest from './rest/locationRest';
 import visitRest from './rest/visitRest';
 
 
@@ -74,6 +75,7 @@ module.exports = {
   loginRest,
   patientRest,
   sessionRest,
+  locationRest,
   visitRest,
   reducers,
   sagas
