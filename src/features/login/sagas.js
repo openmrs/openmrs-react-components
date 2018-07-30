@@ -16,7 +16,7 @@ function* login(action) {
 
     if (response.authenticated === true) {
       let sessionLocation = { location: action.location };
-      let sessionResponse = yield call(sessionApi.setSessionLocation, { location: sessionLocation });
+      let sessionResponse = yield call(sessionApi.setCurrentSessionLocation, { location: sessionLocation });
       yield put(sessionActions.fetchSessionSucceeded(sessionResponse));
       yield put(loginActions.loginSucceeded());
     }

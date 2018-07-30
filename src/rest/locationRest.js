@@ -15,17 +15,6 @@ const api = {
       });
   },
 
-  setCurrentSessionLocation: (params) => {
-    return axiosInstance.post(`appui/session`, params.location)
-      .then((response) => {
-        if (response.status !== 200) {
-          throw response;
-        }
-        else {
-          return response.data;
-        }
-      });
-  }
 };
 
 export default api;
