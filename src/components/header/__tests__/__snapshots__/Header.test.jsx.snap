@@ -69,7 +69,7 @@ exports[`header should render correctly 1`] = `
         className="logout"
       >
         <a
-          href="../../appui/header/logout.action?successUrl=undefined"
+          href="../../appui/header/logout.action?successUrl="
         >
           Logout
           <i

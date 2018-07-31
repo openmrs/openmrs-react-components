@@ -18,10 +18,7 @@ export default (state = {}, action) => {
       
     case SESSION_TYPES.SET_SUCCEEDED:
       return {
-        ...state,
-        currentUser: action.user ? action.user.display : '',
-        currentLocation: action.sessionLocation,
-        currentProvider: action.currentProvider,
+        ...action.session
       };
 
     case SESSION_TYPES.SET_FAILED:

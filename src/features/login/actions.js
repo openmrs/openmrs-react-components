@@ -26,8 +26,8 @@ const getLoginLocationsSucceeded = (locations) => ( {
   type: LOGIN_TYPES.LOGIN_LOCATIONS.SUCCEEDED,
   locations: locations.map((location) => {
     return {
-      value: location.uuid,
-      label: location.display
+      uuid: location.uuid,
+      display: location.display
     };
   })
 } );
