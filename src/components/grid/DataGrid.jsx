@@ -14,6 +14,7 @@ class DataGrid extends React.Component {
       rowSelection: "single"
     };
     this.onRowSelected = this.onRowSelected.bind(this);
+    this.filterGrid = this.filterGrid.bind(this);
   }
 
   onGridReady(params) {
@@ -44,6 +45,10 @@ class DataGrid extends React.Component {
     }
   }
 
+  filterGrid(event) {
+    this.gridApi.setQuickFilter(event.target.value);
+  }
+
   render() {
     return (
       // the consuming app should provide a wrapping style as described here: https://www.ag-grid.com/react-more-details/
@@ -53,6 +58,10 @@ class DataGrid extends React.Component {
           width: '100%'
         }}
       >
+        <label>
+          Search:
+          <input type="text" onChange={this.filterGrid}/>
+        </label>
         <AgGridReact
           columnDefs={this.props.columnDefs}
           enableSorting

@@ -29,6 +29,13 @@ exports[`Component: DataGrid renders properly 1`] = `
           }
         }
       >
+        <label>
+          Search:
+          <input
+            onChange={[Function]}
+            type="text"
+          />
+        </label>
         <AgGridReact
           enableSorting={true}
           id="omrsGrid"
