@@ -13,8 +13,9 @@ function* fetchCurrentSession() {
   }
 }
 
-function* setSession(sessionLocation) {
+function* setSession(action) {
   try {
+    const sessionLocation = { location: action.sessionLocation };
     const session = yield call(sessionApi.setCurrentSessionLocation, { location: sessionLocation });
     yield put(sessionActions.setSessionSucceeded(session));
   }

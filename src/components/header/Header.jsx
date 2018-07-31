@@ -48,7 +48,7 @@ export class Header extends React.Component {
               tabIndex="0"
             >
               <i className="icon-user small" />
-              {this.props.currentUser}
+              {this.props.user.display}
 
               <i className="icon-caret-down appui-icon-caret-down link" />
               <i 
@@ -73,7 +73,7 @@ export class Header extends React.Component {
                 onClick={() => { this.toggleState("locationDropdown"); }}
               >
                 <i className="icon-map-marker small" />
-                <span id="selected-location">{this.props.currentLocation.display}</span>
+                <span id="selected-location">{this.props.sessionLocation.display}</span>
 
                 <i className="link icon-caret-down" />
               </a>
@@ -82,7 +82,7 @@ export class Header extends React.Component {
                   <ul className="location-container">
                     {this.props.locations.map(location => (
                       <li
-                        className={location.display === this.props.currentLocation.display ? "selected" : ""}
+                        className={location.display === this.props.sessionLocation.display ? "selected" : ""}
                         key={location.uuid}
                         onClick={() => {
                           this.props.dispatch(sessionActions.setSessionLocation(location.uuid));
@@ -111,24 +111,28 @@ export class Header extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { currentLocation, currentUser } = state.openmrs.session;
-  const locations = state.openmrs.loginLocations;
+  const { sessionLocation, user } = state.openmrs.session;
+  const locations = state.openmrs.loginLocations.list;
   
   return {
-    currentLocation,
-    currentUser,
+    sessionLocation,
+    user,
     locations
   };
 };
 
 Header.propTypes = {
-  currentLocation: PropTypes.shape().isRequired,
-  currentUser: PropTypes.string,
   locations: PropTypes.array.isRequired,
+  sessionLocation: PropTypes.shape({ display: PropTypes.string }),
+  user: PropTypes.shape({ display: PropTypes.string }),
 };
 
 Header.defaultProps = {
-  currentUser: '',
+  locations: [],
+  sessionLocation: {
+    display: '',
+  },
+  user: { display: '' }
 };
 
 export default connect(mapStateToProps)(Header);

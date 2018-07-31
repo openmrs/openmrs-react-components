@@ -9,7 +9,7 @@ describe("header", () => {
   const mockStore = configureMockStore();
 
   it("should render correctly", () => {
-    const currentLocation= {
+    const sessionLocation = {
       uuid: '7fdfa2cb-bc95-405a-88c6-32b7673c0453',
       display: 'Laboratory',
       name: 'Laboratory',
@@ -28,7 +28,7 @@ describe("header", () => {
       address5: null,
       address6: null,
     };
-    const currentUser = 'admin';
+    const user = { display: 'admin' };
     const locations= 
     [
       {
@@ -46,8 +46,8 @@ describe("header", () => {
       {
         openmrs: {
           session: {
-            currentLocation,
-            currentUser
+            sessionLocation,
+            user
           },
           loginLocations: locations
         }
