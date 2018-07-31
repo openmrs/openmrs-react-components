@@ -13,7 +13,11 @@ const contextPath = (typeof process !== 'undefined' && typeof process.env !== 'u
   typeof process.env.REACT_APP_SERVER_CONTEXT_PATH !== 'undefined' && process.env.REACT_APP_SERVER_CONTEXT_PATH !== null) ?
   process.env.REACT_APP_SERVER_CONTEXT_PATH : window.location.href.split('/')[3];
 
-const apiBaseUrl = `${serverAddress}/${contextPath}/ws/rest/v1`;
+
+const apiBaseUrl = serverAddress
+  + (contextPath.startsWith("/") ? '' : '/')
+  + contextPath
+  + "/ws/rest/v1";
 
 export const axiosConfig = {
   baseURL: apiBaseUrl,
