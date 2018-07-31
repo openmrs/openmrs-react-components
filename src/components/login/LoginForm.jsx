@@ -14,8 +14,8 @@ let LoginForm = props => {
     <div>
       <select {...input} disabled={disabled}>
         { options.map(option =>
-          <option key={option.value} value={option.value}>
-            {option.label}
+          <option key={option.uuid} value={option.uuid}>
+            {option.display}
           </option>
         )}
       </select>
