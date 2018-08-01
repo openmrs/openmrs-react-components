@@ -10,12 +10,15 @@ export class Header extends React.Component {
     this.state = {
       userDropdown: false,
       locationDropdown: false,
+      logoLinkUrl: "../../referenceapplication/home.page",
+      logoIconUrl: "../../ms/uiframework/resource/uicommons/images/logo/openmrs-with-title-small.png",
     };
   }
 
   componentDidMount() {
     this.props.dispatch(sessionActions.fetchSession());
     this.props.dispatch(loginActions.getLoginLocations());
+    this.props.dispatch(loginActions.getLoginLogoLinks());
   }
 
   toggleState = (key, value) => {
@@ -26,15 +29,28 @@ export class Header extends React.Component {
 
   render() {
     const contextPath = window.location.href.split('/')[3];
-
+    let logoLinkUrl = null;
+    let logoIconUrl = null;
+    const { headerLogoLinks } = this.props;
+    if (headerLogoLinks.hasOwnProperty('logoLinkUrl') && typeof(headerLogoLinks.logoLinkUrl) === 'string') {
+      logoLinkUrl = this.props.headerLogoLinks.logoLinkUrl;
+    } else {
+      logoLinkUrl = this.state.logoLinkUrl;
+    }
+    if (headerLogoLinks.hasOwnProperty('logoIconUrl') && typeof(headerLogoLinks.logoIconUrl) === 'string') {
+      logoIconUrl = this.props.headerLogoLinks.logoIconUrl;
+    } else {
+      logoIconUrl = this.state.logoIconUrl;
+    }
+    
     return (
       <div>
         <header>
           <div className="logo">
-            <a href="../../referenceapplication/home.page">
+            <a href={logoLinkUrl}>
               <img 
                 alt="" 
-                src="../../ms/uiframework/resource/uicommons/images/logo/openmrs-with-title-small.png"
+                src={logoIconUrl}
               />
             </a>
           </div>
@@ -112,19 +128,24 @@ export class Header extends React.Component {
 
 const mapStateToProps = (state) => {
   const { sessionLocation, user } = state.openmrs.session;
-  const locations = state.openmrs.loginLocations.list;
+  const { list, headerLogoLinks } = state.openmrs.loginLocations;
   
   return {
     sessionLocation,
     user,
-    locations
+    locations: list,
+    headerLogoLinks
   };
 };
 
 Header.propTypes = {
+  headerLogoLinks: PropTypes.shape({
+    logoIconUrl: PropTypes.string,
+    logoLinkUrl: PropTypes.string
+  }),
   locations: PropTypes.array.isRequired,
   sessionLocation: PropTypes.shape({ display: PropTypes.string }),
-  user: PropTypes.shape({ display: PropTypes.string }),
+  user: PropTypes.shape({ display: PropTypes.string })
 };
 
 Header.defaultProps = {
@@ -132,7 +153,8 @@ Header.defaultProps = {
   sessionLocation: {
     display: '',
   },
-  user: { display: '' }
+  user: { display: '' },
+  headerLogoLinks: {}
 };
 
 export default connect(mapStateToProps)(Header);
