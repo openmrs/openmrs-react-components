@@ -196,7 +196,6 @@ const actionCreators = {
 };
 
 PatientHeader.propTypes = {
-  currentOrderTypeText: PropTypes.string.isRequired,
   location: PropTypes.shape().isRequired,
   note: PropTypes.array,
   patient: PropTypes.shape({}).isRequired,
