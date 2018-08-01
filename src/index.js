@@ -6,6 +6,7 @@ import patientObjByEncounterTypeFilter from './domain/patient/filters/patientObj
 import Accordion from './components/accordion/Accordian';
 import Header from './components/header/Header';
 import List from './components/list/List';
+import PatientHeader from './components/header/PatientHeader';
 import Login from './components/login/Login';
 import LoginPage from './components/login/LoginPage';
 import PatientSearch from './components/search/PatientSearch';
@@ -57,6 +58,7 @@ module.exports = {
   Accordion,
   Header,
   List,
+  PatientHeader,
   Login,
   LoginPage,
   PatientSearch,
