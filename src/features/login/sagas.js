@@ -45,7 +45,6 @@ function* loginLocations(action) {
   }
 }
 
-
 function* loginSagas() {
   yield takeLatest(LOGIN_TYPES.LOGIN.REQUESTED, login);
   yield takeLatest(LOGIN_TYPES.LOGIN_LOCATIONS.REQUESTED, loginLocations);

@@ -31,5 +31,4 @@ describe('login actions', () => {
     };
     expect(loginActions.loginFailed("someerror")).toEqual(expectedAction);
   });
-
 });

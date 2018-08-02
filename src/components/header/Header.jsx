@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { sessionActions } from '../../features/session';
 import { loginActions } from '../../features/login';
+import { headerActions } from '../../features/header';
 
 export class Header extends React.Component {
   constructor(props) {
@@ -16,6 +17,7 @@ export class Header extends React.Component {
   componentDidMount() {
     this.props.dispatch(sessionActions.fetchSession());
     this.props.dispatch(loginActions.getLoginLocations());
+    this.props.dispatch(headerActions.getHeaderLogoLinks());
   }
 
   toggleState = (key, value) => {
@@ -26,15 +28,15 @@ export class Header extends React.Component {
 
   render() {
     const contextPath = window.location.href.split('/')[3];
-
+      
     return (
       <div>
         <header>
           <div className="logo">
-            <a href="../../referenceapplication/home.page">
+            <a href={this.props.logoLinkUrl}>
               <img 
                 alt="" 
-                src="../../ms/uiframework/resource/uicommons/images/logo/openmrs-with-title-small.png"
+                src={this.props.logoIconUrl}
               />
             </a>
           </div>
@@ -112,19 +114,24 @@ export class Header extends React.Component {
 
 const mapStateToProps = (state) => {
   const { sessionLocation, user } = state.openmrs.session;
-  const locations = state.openmrs.loginLocations.list;
+  const { list } = state.openmrs.loginLocations;
+  const { logoLinkUrl, logoIconUrl } = state.openmrs.header.headerLogoLinks;
   
   return {
     sessionLocation,
+    logoLinkUrl,
+    logoIconUrl,
     user,
-    locations
+    locations: list,
   };
 };
 
 Header.propTypes = {
   locations: PropTypes.array.isRequired,
+  logoIconUrl: PropTypes.string,
+  logoLinkUrl: PropTypes.string,
   sessionLocation: PropTypes.shape({ display: PropTypes.string }),
-  user: PropTypes.shape({ display: PropTypes.string }),
+  user: PropTypes.shape({ display: PropTypes.string })
 };
 
 Header.defaultProps = {
@@ -132,7 +139,9 @@ Header.defaultProps = {
   sessionLocation: {
     display: '',
   },
-  user: { display: '' }
+  user: { display: '' },
+  logoLinkUrl: "../../referenceapplication/home.page",
+  logoIconUrl: "../../ms/uiframework/resource/uicommons/images/logo/openmrs-with-title-small.png",
 };
 
 export default connect(mapStateToProps)(Header);

@@ -49,7 +49,13 @@ describe("header", () => {
             sessionLocation,
             user
           },
-          loginLocations: locations
+          loginLocations: locations,
+          header: {
+            headerLogoLinks: {
+              logoLinkUrl: "../../referenceapplication/home.page",
+              logoIconUrl: "../../ms/uiframework/resource/uicommons/images/logo/openmrs-with-title-small.png"
+            },
+          },
         }
       });
 
