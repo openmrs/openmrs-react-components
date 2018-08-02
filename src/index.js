@@ -17,6 +17,7 @@ import Errors from './components/errors/Errors';
 import createListReducer from './features/list/createListReducer';
 import { sessionReducers, sessionSagas } from './features/session/';
 import { loginReducers, loginSagas } from './features/login';
+import { headerReducers, headerSagas } from './features/header';
 import { errorsActions, errorsReducers } from './features/errors';
 import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
 import { GRID_TYPES, gridActions } from './features/grid';
@@ -37,6 +38,7 @@ import visitRest from './rest/visitRest';
 const reducers = combineReducers({
   session: sessionReducers,
   loginLocations: loginReducers,
+  header: headerReducers,
   patientSearch: patientSearchReducers,
   errors: errorsReducers
 });
@@ -46,7 +48,8 @@ const sagas = function* () {
     loginSagas(),
     sessionSagas(),
     patientSearchSagas(),
-    visitSagas()
+    visitSagas(),
+    headerSagas()
   ]);
 };
 

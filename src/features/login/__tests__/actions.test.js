@@ -31,36 +31,4 @@ describe('login actions', () => {
     };
     expect(loginActions.loginFailed("someerror")).toEqual(expectedAction);
   });
-
-  it('should create get login location links action', () => {
-    const expectedAction = {
-      type: LOGIN_TYPES.LOGIN_LOGO_LINKS.REQUESTED,
-    };
-    expect(loginActions.getLoginLogoLinks()).toEqual(expectedAction);
-  });
-
-  it('should create get login location links succeeded action', () => {
-    const expectedAction = {
-      type: LOGIN_TYPES.LOGIN_LOGO_LINKS.SUCCEEDED,
-      links: { 
-        logoLinkUrl: 'sampleLogoLinkUrl',
-        logoIconUrl: 'sampleLogoIconUrl'
-      }
-    };
-    expect(loginActions.getLoginLogoLinksSucceeded({ 
-      logoLinkUrl: 'sampleLogoLinkUrl',
-      logoIconUrl: 'sampleLogoIconUrl'
-    })).toEqual(expectedAction);
-  });
-
-  it('should create login location links failed', () => {
-    const expectedAction = {
-      type: LOGIN_TYPES.LOGIN_LOGO_LINKS.FAILED,
-      error: {
-        message: "someerror"
-      }
-    };
-    expect(loginActions.getLoginLogoLinksFailed("someerror")).toEqual(expectedAction);
-  });
-
 });

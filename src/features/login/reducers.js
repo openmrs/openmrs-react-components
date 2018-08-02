@@ -16,21 +16,6 @@ export default (state = initialState, action) => {
         }
       };
 
-    case LOGIN_TYPES.LOGIN_LOGO_LINKS.SUCCEEDED:
-      return Object.assign({}, state, {
-        headerLogoLinks: { 
-          logoLinkUrl: action.links[0].extensionParams['logo-link-url'],
-          logoIconUrl: action.links[0].extensionParams['logo-icon-url']
-        }
-      });
-
-    case LOGIN_TYPES.LOGIN_LOGO_LINKS.FETCH_FAILED:
-      return {
-        error: {
-          message: "Unable to load login logo links"
-        }
-      };
-
     default:
       return state;
   }

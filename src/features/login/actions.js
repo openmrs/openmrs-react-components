@@ -39,30 +39,11 @@ const getLoginLocationsFailed = (message) => ( {
   }
 } );
 
-const getLoginLogoLinks = () => ( {
-  type: LOGIN_TYPES.LOGIN_LOGO_LINKS.REQUESTED
-} );
-
-const getLoginLogoLinksSucceeded = (links) => ( {
-  type: LOGIN_TYPES.LOGIN_LOGO_LINKS.SUCCEEDED,
-  links
-} );
-
-const getLoginLogoLinksFailed = (message) => ( {
-  type: LOGIN_TYPES.LOGIN_LOGO_LINKS.FAILED,
-  error: {
-    message: message
-  }
-} );
-
 export default {
   login,
   loginSucceeded,
   loginFailed,
   getLoginLocations,
   getLoginLocationsSucceeded,
-  getLoginLocationsFailed,
-  getLoginLogoLinks,
-  getLoginLogoLinksSucceeded,
-  getLoginLogoLinksFailed
+  getLoginLocationsFailed
 };

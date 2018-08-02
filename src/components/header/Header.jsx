@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { sessionActions } from '../../features/session';
 import { loginActions } from '../../features/login';
+import { headerActions } from '../../features/header';
 
 export class Header extends React.Component {
   constructor(props) {
@@ -10,15 +11,13 @@ export class Header extends React.Component {
     this.state = {
       userDropdown: false,
       locationDropdown: false,
-      logoLinkUrl: "../../referenceapplication/home.page",
-      logoIconUrl: "../../ms/uiframework/resource/uicommons/images/logo/openmrs-with-title-small.png",
     };
   }
 
   componentDidMount() {
     this.props.dispatch(sessionActions.fetchSession());
     this.props.dispatch(loginActions.getLoginLocations());
-    this.props.dispatch(loginActions.getLoginLogoLinks());
+    this.props.dispatch(headerActions.getHeaderLogoLinks());
   }
 
   toggleState = (key, value) => {
@@ -29,28 +28,15 @@ export class Header extends React.Component {
 
   render() {
     const contextPath = window.location.href.split('/')[3];
-    let logoLinkUrl = null;
-    let logoIconUrl = null;
-    const { headerLogoLinks } = this.props;
-    if (headerLogoLinks.hasOwnProperty('logoLinkUrl') && typeof(headerLogoLinks.logoLinkUrl) === 'string') {
-      logoLinkUrl = this.props.headerLogoLinks.logoLinkUrl;
-    } else {
-      logoLinkUrl = this.state.logoLinkUrl;
-    }
-    if (headerLogoLinks.hasOwnProperty('logoIconUrl') && typeof(headerLogoLinks.logoIconUrl) === 'string') {
-      logoIconUrl = this.props.headerLogoLinks.logoIconUrl;
-    } else {
-      logoIconUrl = this.state.logoIconUrl;
-    }
-    
+      
     return (
       <div>
         <header>
           <div className="logo">
-            <a href={logoLinkUrl}>
+            <a href={this.props.logoLinkUrl}>
               <img 
                 alt="" 
-                src={logoIconUrl}
+                src={this.props.logoIconUrl}
               />
             </a>
           </div>
@@ -128,22 +114,22 @@ export class Header extends React.Component {
 
 const mapStateToProps = (state) => {
   const { sessionLocation, user } = state.openmrs.session;
-  const { list, headerLogoLinks } = state.openmrs.loginLocations;
+  const { list } = state.openmrs.loginLocations;
+  const { logoLinkUrl, logoIconUrl } = state.openmrs.header.headerLogoLinks;
   
   return {
     sessionLocation,
+    logoLinkUrl,
+    logoIconUrl,
     user,
     locations: list,
-    headerLogoLinks
   };
 };
 
 Header.propTypes = {
-  headerLogoLinks: PropTypes.shape({
-    logoIconUrl: PropTypes.string,
-    logoLinkUrl: PropTypes.string
-  }),
   locations: PropTypes.array.isRequired,
+  logoIconUrl: PropTypes.string,
+  logoLinkUrl: PropTypes.string,
   sessionLocation: PropTypes.shape({ display: PropTypes.string }),
   user: PropTypes.shape({ display: PropTypes.string })
 };
@@ -154,7 +140,8 @@ Header.defaultProps = {
     display: '',
   },
   user: { display: '' },
-  headerLogoLinks: {}
+  logoLinkUrl: "../../referenceapplication/home.page",
+  logoIconUrl: "../../ms/uiframework/resource/uicommons/images/logo/openmrs-with-title-small.png",
 };
 
 export default connect(mapStateToProps)(Header);

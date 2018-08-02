@@ -45,25 +45,9 @@ function* loginLocations(action) {
   }
 }
 
-function* loginLocationLink(action) {
-  try {
-
-    let response = yield call(locationApi.fetchLoginLogoLinks);
-    if (response.results.length > 0 ) {
-      yield put(loginActions.getLoginLogoLinksSucceeded(response.results));
-    }
-
-  }
-  catch (e) {
-    yield put(loginActions.getLoginLogoLinksFailed(e.message));
-  }
-}
-
-
 function* loginSagas() {
   yield takeLatest(LOGIN_TYPES.LOGIN.REQUESTED, login);
   yield takeLatest(LOGIN_TYPES.LOGIN_LOCATIONS.REQUESTED, loginLocations);
-  yield takeLatest(LOGIN_TYPES.LOGIN_LOGO_LINKS.REQUESTED, loginLocationLink);
 }
 
 
