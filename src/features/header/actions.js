@@ -4,9 +4,9 @@ const getHeaderLogoLinks = () => ( {
   type: HEADER_TYPES.LOGO_LINKS.REQUESTED
 } );
 
-const getHeaderLogoLinksSucceeded = (links) => ( {
+const getHeaderLogoLinksSucceeded = (extensions) => ( {
   type: HEADER_TYPES.LOGO_LINKS.SUCCEEDED,
-  links
+  payload: extensions
 } );
 
 const getHeaderLogoLinksFailed = (message) => ( {

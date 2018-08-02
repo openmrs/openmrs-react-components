@@ -13,7 +13,7 @@ describe('header actions', () => {
   it('should create get login location links succeeded action', () => {
     const expectedAction = {
       type: HEADER_TYPES.LOGO_LINKS.SUCCEEDED,
-      links: { 
+      payload: { 
         logoLinkUrl: 'sampleLogoLinkUrl',
         logoIconUrl: 'sampleLogoIconUrl'
       }

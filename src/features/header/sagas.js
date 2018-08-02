@@ -8,7 +8,7 @@ function* getHeaderLogoLinks(action) {
 
     let response = yield call(appFrameworkApi.fetchHeaderLogoLinks);
     if (response.results.length > 0 ) {
-      yield put(headerActions.getHeaderLogoLinksSucceeded(response.results));
+      yield put(headerActions.getHeaderLogoLinksSucceeded(response.results[0]));
     }
 
   }
