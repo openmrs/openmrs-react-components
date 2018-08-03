@@ -10,8 +10,11 @@ function* activeVisits(action) {
     let response = yield call(visitApi.getActiveVisits, {
       representation: action.representation
     });
-
-    yield put(visitActions.fetchActiveVisitsSucceeded(response.results));
+    let filteredResults = response.results;
+    if (action.location) {
+      filteredResults = response.results.filter(visit => visit.location.uuid === action.location);
+    }
+    yield put(visitActions.fetchActiveVisitsSucceeded(filteredResults));
   }
   catch (e) {
     yield put(visitActions.fetchActiveVisitsFailed(e.message));

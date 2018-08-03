@@ -1,8 +1,9 @@
 import VISIT_TYPES from "./types";
 
-const fetchActiveVisits = (representation) => ( {
+const fetchActiveVisits = (representation, location) => ( {
   type: VISIT_TYPES.ACTIVE_VISITS.FETCH_REQUESTED,
-  representation: representation
+  representation: representation,
+  location: location
 } );
 
 const fetchActiveVisitsSucceeded = (visits) => ( {

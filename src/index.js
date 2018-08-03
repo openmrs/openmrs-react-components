@@ -3,6 +3,7 @@ import { all } from 'redux-saga/effects';
 import Patient from './domain/patient/Patient';
 import visitRestRepToPatientObjConverter from './domain/patient/converters/visitRestRepToPatientObjConverter';
 import patientObjByEncounterTypeFilter from './domain/patient/filters/patientObjByEncounterTypeFilter';
+import patientObjByVisitLocationFilter from './domain/patient/filters/patientObjByVisitLocationFilter';
 import Accordion from './components/accordion/Accordian';
 import Header from './components/header/Header';
 import List from './components/list/List';
@@ -57,6 +58,7 @@ module.exports = {
   Patient,
   visitRestRepToPatientObjConverter,
   patientObjByEncounterTypeFilter,
+  patientObjByVisitLocationFilter,
   createListReducer,
   Accordion,
   Header,
