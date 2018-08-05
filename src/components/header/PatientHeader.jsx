@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 // import { fetchPatientRecord, fetchPatientNote } from '../../actions/patient';
 
-import dateFns, { distanceInWordsToNow } from 'date-fns';
+import dateFns from 'date-fns';
 
 
 export class PatientHeader extends PureComponent {
@@ -127,32 +127,6 @@ export class PatientHeader extends PureComponent {
           }
         </h1>
       </div>
-    )
-  }
-
-  renderSecondLineFrangments() {
-    const { note } = this.props;
-    return (
-      <div className="secondLineFragments">
-        <div className="clickToEditObs">
-          <div className="firstLine">
-            <span className="note-wrapper">
-              <span>
-                <pre className="preformatted-note">{note[0].value}</pre>
-              </span>
-            </span>
-          </div>
-          <div className="details secondLine">
-            <span className="created-by">{note[0].auditInfo.creator.display}
-            </span>&nbsp;
-            <span className="created-date">
-              {distanceInWordsToNow(note[0].auditInfo.dateCreated, {
-                includeSeconds: true, addSuffix: true,
-              })}
-            </span>
-          </div>
-        </div>
-      </div>
     );
   }
 
@@ -169,8 +143,7 @@ export class PatientHeader extends PureComponent {
 
   render() {
     const {
-      patient,
-      note,
+      patient
     } = this.props;
     return (
       <div>
@@ -178,7 +151,6 @@ export class PatientHeader extends PureComponent {
           {patient && this.renderDemographics()}
           {patient && this.renderPatientIdentifier()}
         </div>
-        {note.length && this.renderSecondLineFrangments()}
       </div>
     );
   }
@@ -197,7 +169,6 @@ const actionCreators = {
 
 PatientHeader.propTypes = {
   location: PropTypes.shape().isRequired,
-  note: PropTypes.array,
   patient: PropTypes.shape({}).isRequired,
   // TODO: need to remove comments
   //   fetchPatientNote: PropTypes.func.isRequired,
@@ -205,9 +176,6 @@ PatientHeader.propTypes = {
   
 };
 
-PatientHeader.defaultProps = {
-  note: [],
-};
 /* TODO: this should be needed cos we would be connecting
 to local redux state and exporting reducers and sagas but for now, just pass props
 */
