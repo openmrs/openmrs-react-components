@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import '../../../assets/css/header.css';
 import { sessionActions } from '../../features/session';
 import { loginActions } from '../../features/login';
 import { headerActions } from '../../features/header';

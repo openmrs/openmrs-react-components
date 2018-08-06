@@ -1,0 +1,36 @@
+/* *
+ * Css for Header Component
+*/
+
+.location-container {
+  display: block;
+  background: white;
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 320px;
+  border: 2px solid #006056;
+  right: 0px;
+  width: 97.5%;
+}
+
+.location-container li {
+  color: #007fff;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.location-container li:hover {
+  background: #007fff;
+  color: white;
+}
+
+.location-container li.selected {
+  background: #007fff;
+  color: white;
+}
+
+.change-location a {
+  outline: none;
+}
