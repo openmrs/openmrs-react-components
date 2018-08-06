@@ -1,0 +1,14 @@
+/* *
+ * Css for PatientHeader Component
+*/
+
+.patient-header {
+  position: relative;
+  overflow: inherit;
+  background: #F9F9F9;
+  z-index: 0;
+  border-bottom: 2px solid #EEE;
+  margin: 10px;
+  padding: 5px 10px;
+  min-height: 60px;
+}

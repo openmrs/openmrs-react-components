@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import '../../../assets/css/patientHeader.css';
 // import { fetchPatientRecord, fetchPatientNote } from '../../actions/patient';
 
 import dateFns, { distanceInWordsToNow } from 'date-fns';
