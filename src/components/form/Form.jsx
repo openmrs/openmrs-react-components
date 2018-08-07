@@ -12,6 +12,8 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.containerRef = React.createRef();
+
+    // ToastrAction requires reducer to be defined at top level of consuming app, see:
     // https://github.com/diegoddox/react-redux-toastr
     this.formSubmittedActionCreators =
       [
