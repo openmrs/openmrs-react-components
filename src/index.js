@@ -6,7 +6,6 @@ import patientObjByEncounterTypeFilter from './domain/patient/filters/patientObj
 import patientObjByVisitLocationFilter from './domain/patient/filters/patientObjByVisitLocationFilter';
 import Accordion from './components/accordion/Accordian';
 import Header from './components/header/Header';
-import Form from './components/form/Form';
 import List from './components/list/List';
 import PatientHeader from './components/header/PatientHeader';
 import Login from './components/login/Login';
@@ -20,7 +19,6 @@ import createListReducer from './features/list/createListReducer';
 import { sessionReducers, sessionSagas } from './features/session/';
 import { loginReducers, loginSagas } from './features/login';
 import { headerReducers, headerSagas } from './features/header';
-import { formSagas } from './features/form';
 import { errorsActions, errorsReducers } from './features/errors';
 import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
 import { GRID_TYPES, gridActions } from './features/grid';
@@ -48,12 +46,11 @@ const reducers = combineReducers({
 
 const sagas = function* () {
   yield all([
-    formSagas(),
-    headerSagas(),
     loginSagas(),
     sessionSagas(),
     patientSearchSagas(),
     visitSagas(),
+    headerSagas()
   ]);
 };
 
@@ -66,7 +63,6 @@ module.exports = {
   Accordion,
   Header,
   List,
-  Form,
   PatientHeader,
   Login,
   LoginPage,
