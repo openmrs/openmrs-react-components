@@ -9,7 +9,6 @@ out
 gen
 
 lib/*
-!lib/bahmni-form-controls-v0.92.0.tgz
 
 .DS_Store
 build
