@@ -15,7 +15,7 @@
     "ag-grid": "^17.1.1",
     "ag-grid-react": "^17.1.0",
     "axios": "^0.18.0",
-    "bahmni-form-controls": "file:src/bahmni-form-controls-v0.92.0.tgz",
+    "bahmni-form-controls": "file:lib/bahmni-form-controls-v0.92.0.tgz",
     "connected-react-router": "^4.3.0",
     "date-fns": "^1.29.0",
     "react": "^16.4.0",
