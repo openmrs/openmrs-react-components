@@ -4,7 +4,7 @@
 
 .patient-header {
   position: relative;
-  overflow: inherit;
+  overflow: auto;
   background: #F9F9F9;
   z-index: 0;
   border-bottom: 2px solid #EEE;
