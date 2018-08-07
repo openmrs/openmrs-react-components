@@ -74,7 +74,8 @@
     "pack": "npm run build && npm pack",
     "test": "jest",
     "test:update-snapshots": "jest -u",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "ci-publish": "ci-publish"
   },
   "files": [
     "lib/",
