@@ -35,6 +35,15 @@ const api = {
           throw response;
         }
       });
+  },
+
+  closeVisit: (params) => {
+    return axiosInstance.post('visit/' + params.visit.uuid, { stopDatetime: params.visit.stopDatetime })
+      .then((response) => {
+        if (response.status !== 200) {
+          throw response;
+        }
+      });
   }
 };
 
