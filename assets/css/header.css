@@ -19,6 +19,10 @@
   color: #007fff;
   padding: 5px;
   cursor: pointer;
+  width: 32%;
+  text-align: left;
+  border-bottom: 1px #EBEBED ridge;
+  margin: 5px 10px !important;
 }
 
 .location-container li:hover {
