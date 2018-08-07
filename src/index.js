@@ -66,7 +66,7 @@ module.exports = {
   Accordion,
   Header,
   List,
- // Form,
+  Form,
   PatientHeader,
   Login,
   LoginPage,
