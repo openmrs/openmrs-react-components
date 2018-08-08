@@ -6,11 +6,11 @@ const byEncounterTypeFilter = (encounterTypeUuid) => {
 
   return (patient) => {
 
-    if (!encounterTypeUuid || !patient.activeVisit || !patient.activeVisit.encounters || patient.activeVisit.encounters.size === 0) {
+    if (!encounterTypeUuid || !patient.visit || !patient.visit.encounters || patient.visit.encounters.size === 0) {
       return true;
     }
     else {
-      return !(patient.activeVisit.encounters.some(e => e.encounterType.uuid === encounterTypeUuid && !e.voided));
+      return !(patient.visit.encounters.some(e => e.encounterType.uuid === encounterTypeUuid && !e.voided));
     }
 
   };

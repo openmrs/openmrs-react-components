@@ -2042,10 +2042,10 @@ describe('createListReducer', () => {
     expect(queue.length).toBe(2);
     expect(queue[0].getName().givenName).toBe("Bob");
     expect(queue[0].getName().familyName).toBe("Dylan");
-    expect(queue[0].activeVisit.uuid).toBe("6501cbf1-42f3-4b2f-83bc-ed562e019af8");
+    expect(queue[0].visit.uuid).toBe("6501cbf1-42f3-4b2f-83bc-ed562e019af8");
     expect(queue[1].getName().givenName).toBe("Neil");
     expect(queue[1].getName().familyName).toBe("Young");
-    expect(queue[1].activeVisit.uuid).toBe("e81fe098-5b7f-4085-bc76-39918c8df2f6");
+    expect(queue[1].visit.uuid).toBe("e81fe098-5b7f-4085-bc76-39918c8df2f6");
 
   });
 
@@ -2064,7 +2064,7 @@ describe('createListReducer', () => {
     expect(queue.length).toBe(1);
     expect(queue[0].getName().givenName).toBe("Bob");
     expect(queue[0].getName().familyName).toBe("Dylan");
-    expect(queue[0].activeVisit.uuid).toBe("6501cbf1-42f3-4b2f-83bc-ed562e019af8");
+    expect(queue[0].visit.uuid).toBe("6501cbf1-42f3-4b2f-83bc-ed562e019af8");
 
   });
 
@@ -2083,7 +2083,7 @@ describe('createListReducer', () => {
     expect(queue.length).toBe(1);
     expect(queue[0].getName().givenName).toBe("Neil");
     expect(queue[0].getName().familyName).toBe("Young");
-    expect(queue[0].activeVisit.uuid).toBe("e81fe098-5b7f-4085-bc76-39918c8df2f6");
+    expect(queue[0].visit.uuid).toBe("e81fe098-5b7f-4085-bc76-39918c8df2f6");
 
   });
 

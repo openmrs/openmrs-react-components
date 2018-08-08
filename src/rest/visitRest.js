@@ -15,6 +15,20 @@ const api = {
       });
   },
 
+  getVisitsStartedBeforeDate: (params) => {
+    return axiosInstance.get("visit?includeInactive=true" +
+      ( params.representation ? "&v=" + params.representation : '') +
+      ( params.fromStartDate ? "&fromStartDate=" + params.fromStartDate : ''))
+      .then((response) => {
+        if (response.status !== 200) {
+          throw response;
+        }
+        else {
+          return response.data;
+        }
+      });
+  },
+
   getPatientActiveVisit: (params) => {
     return axiosInstance.get("visit?includeInactive=false&patient=" + params.patientUuid
       + ( params.representation ? "&v=" + params.representation : ''))

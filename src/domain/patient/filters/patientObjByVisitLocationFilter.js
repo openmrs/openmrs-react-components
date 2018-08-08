@@ -6,11 +6,11 @@ const byVisitLocationFilter = (locationUuid) => {
 
   return (patient) => {
 
-    if (!locationUuid || !patient.activeVisit || !patient.activeVisit.location ) {
+    if (!locationUuid || !patient.visit || !patient.visit.location ) {
       return true;
     }
     else {
-      return (patient.activeVisit.location.uuid === locationUuid );
+      return (patient.visit.location.uuid === locationUuid );
     }
 
   };

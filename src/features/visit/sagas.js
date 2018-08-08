@@ -22,6 +22,27 @@ function* activeVisits(action) {
 
 }
 
+function* inactiveVisits(action) {
+
+  try {
+
+    let response = yield call(visitApi.getVisitsStartedBeforeDate, {
+      representation: action.representation,
+      fromStartDate: action.fromStartDate
+    });
+    let filteredResults = response.results.filter(visit => visit.stopDatetime !== null);
+
+    if (action.location) {
+      filteredResults = filteredResults.filter(visit => visit.location.uuid === action.location);
+    }
+    yield put(visitActions.fetchInactiveVisitsSucceeded(filteredResults));
+  }
+  catch (e) {
+    yield put(visitActions.fetchInactiveVisitsFailed(e.message));
+  }
+
+}
+
 function* patientActiveVisit(action) {
 
   try {
@@ -43,6 +64,7 @@ function* patientActiveVisit(action) {
 function* visitSagas() {
   // TODO take latest, or take all?
   yield takeLatest(VISIT_TYPES.ACTIVE_VISITS.FETCH_REQUESTED, activeVisits);
+  yield takeLatest(VISIT_TYPES.INACTIVE_VISITS.FETCH_REQUESTED, inactiveVisits);
   yield takeLatest(VISIT_TYPES.PATIENT_ACTIVE_VISIT.FETCH_REQUESTED, patientActiveVisit);
 }
 
