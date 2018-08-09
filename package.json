@@ -27,6 +27,7 @@
     "react-router-dom": "^4.3.1",
     "redux": "^3.6.0",
     "redux-form": "^7.3.0",
+    "redux-form-material-ui": "^5.0.0-beta.3",
     "redux-saga": "^0.16.0",
     "redux-types": "^2.0.3",
     "typeface-roboto": "0.0.54",
