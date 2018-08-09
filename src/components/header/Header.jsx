@@ -29,15 +29,27 @@ export class Header extends React.Component {
 
   render() {
     const contextPath = window.location.href.split('/')[3];
+    let logoIconUrl;
+    let logoLinkUrl;
+    if (this.props.logoIconUrl.startsWith('../')) {
+      logoIconUrl = this.props.logoIconUrl;
+    } else {
+      logoIconUrl = `../..${this.props.logoIconUrl}`;
+    }
+    if (this.props.logoLinkUrl.startsWith('../')) {
+      logoLinkUrl = this.props.logoLinkUrl;
+    } else {
+      logoLinkUrl = `../..${this.props.logoLinkUrl}`;
+    }
       
     return (
       <div>
         <header>
           <div className="logo">
-            <a href={this.props.logoLinkUrl}>
+            <a href={logoLinkUrl}>
               <img 
                 alt="" 
-                src={this.props.logoIconUrl}
+                src={logoIconUrl}
               />
             </a>
           </div>
