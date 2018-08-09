@@ -2,105 +2,84 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import FieldInput from '../form/FieldInput';
+import Button from '@material-ui/core/Button';
+import InputLabel from '@material-ui/core/InputLabel';
+import Typography from '@material-ui/core/Typography';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
 import Errors from '../errors/Errors';
-import { Button, ButtonToolbar, Grid, Row, Col, Form, FormGroup, FormControl, ControlLabel, Label } from 'react-bootstrap';
 
 
 let LoginForm = props => {
   const { handleSubmit, pristine, reset, submitting, locations } = props;
 
-  const Select = ({ input, options, disabled }) => (
-    <div>
-      <select {...input} disabled={disabled}>
-        { options.map(option =>
-          <option key={option.uuid} value={option.uuid}>
-            {option.display}
-          </option>
-        )}
-      </select>
-
-    </div>
+  const renderSelect = ({
+    input,
+    meta: { touched, error },
+    children,
+    ...custom
+  }) => (
+    <Select
+      {...input}
+      onChange={(event, index, value) => input.onChange(value)}
+      children={children}
+      {...custom}
+    />
   );
+
+  const renderTextField = ({
+    input,
+    meta: { touched, error },
+    ...custom
+  }) => (
+    <TextField
+      {...input}
+      {...custom}
+    />
+  );
+
 
   return (
     <div>
-      <h3><Label>Login</Label></h3>
-      <Errors/>
-      <Form horizontal onSubmit={handleSubmit}>
-        <Grid>
+      <div>
+        <Typography variant="headline">Login</Typography>
+      </div>
+      <Errors />
 
-          <Row>
-            <FormGroup controlId="formUsername">
-              <Col componentClass={ControlLabel} sm={2}>
-                Username
-              </Col>
-              <Col sm={4}>
-                <Field name="username" type='text' component={FieldInput} placeholder="username"  />
-              </Col>
-            </FormGroup>
-          </Row>
+      <div>
 
-          <Row>
-            <FormGroup controlId="formPassword">
-              <Col componentClass={ControlLabel} sm={2}>
-                Password
-              </Col>
-              <Col sm={4}>
-                <Field name="password" type='password' component={FieldInput} placeholder="password"  />
-              </Col>
-            </FormGroup>
-          </Row>
-
-          <Row>
-            <FormGroup controlId="formLocationSelect">
-              <Col componentClass={ControlLabel} sm={2}>
-                Location
-              </Col>
-              <Col sm={4}>
-                <Field name="location" options={ locations } component={Select} >
-
-                </Field>
-
-              </Col>
-            </FormGroup>
-          </Row>
-
-          <Row>
-            <FormGroup controlId="formSubmit">
-            <Col smOffset={2} sm={4}>
-            <ButtonToolbar>
-                <Button
-                  bsStyle="success"
-                  bsSize="large"
-                  disabled={pristine || submitting}
-                  type="submit"
-                >
-                  Submit
-                </Button>
-
-
-                <Button
-                  bsStyle="danger"
-                  bsSize="large"
-                  disabled={pristine || submitting}
-                  onClick={reset}
-                >
-                  Clear Values
-                </Button>
-            </ButtonToolbar>
-            </Col>
-            </FormGroup>
-          </Row>
-        </Grid>
-      </Form>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <Field name="username" component={renderTextField} label="Username" type="text" />
+          </div>
+          <div>
+            <Field name="password" component={renderTextField} label="Password" type="password"/>
+          </div>
+          <div>
+            <FormControl>
+              <InputLabel>Location</InputLabel>
+              <Field id="location" name="location" options={ locations } component={renderSelect}>
+                <MenuItem value="" />
+                { locations.map(option =>
+                  <MenuItem key={option.uuid} value={option.uuid}>{option.display}</MenuItem>
+                )}
+              </Field>
+            </FormControl>
+          </div>
+          <div>
+            <Button size="large" variant="contained" disabled={pristine || submitting} type="submit">Submit</Button>
+            <Button size="large" variant="contained" disabled={pristine || submitting} onClick={reset}>Clear Values</Button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
 
 LoginForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  pristine: PropTypes.bool.isRequired,
   reset: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   locations: PropTypes.array.isRequired

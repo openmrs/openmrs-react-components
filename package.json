@@ -12,6 +12,8 @@
     ]
   },
   "dependencies": {
+    "@material-ui/core": "^1.4.3",
+    "@material-ui/icons": "^2.0.1",
     "ag-grid": "^17.1.1",
     "ag-grid-react": "^17.1.0",
     "axios": "^0.18.0",
@@ -27,6 +29,7 @@
     "redux-form": "^7.3.0",
     "redux-saga": "^0.16.0",
     "redux-types": "^2.0.3",
+    "typeface-roboto": "0.0.54",
     "uuid": "^3.2.1"
   },
   "devDependencies": {

@@ -35,7 +35,15 @@ For an example of how to inject a Redux store, see samples/App.jsx
 
 For a documentation of how to use the components check out the [readme](https://github.com/openmrs/openmrs-react-components/tree/OEUI_183/src/components#patientheader) for components
 
+## Material-UI
+
+UI components with
+
+Install typeface-roboto???
+
 ## Bootstrap
+
+(Legacy: we are migrating some/many of the components to use Material UI)
 
 UI components within the library generally use Bootstrap styles.  *However* the bootstrap css files are not included
 in the released bundle.  Library consumers must provide the Bootstrap styles (or their own alternatives) within there
