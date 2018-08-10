@@ -52,8 +52,8 @@ describe("header", () => {
           loginLocations: locations,
           header: {
             headerLogoLinks: {
-              logoLinkUrl: "../../referenceapplication/home.page",
-              logoIconUrl: "../../ms/uiframework/resource/uicommons/images/logo/openmrs-with-title-small.png"
+              logoLinkUrl: "openmrs/referenceapplication/home.page",
+              logoIconUrl: "openmrs/ms/uiframework/resource/uicommons/images/logo/openmrs-with-title-small.png"
             },
           },
         }

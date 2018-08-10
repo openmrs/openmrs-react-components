@@ -100,7 +100,7 @@ export class Header extends React.Component {
               }
             </li>
             <li className="logout">
-              <a href={`../../appui/header/logout.action?successUrl=${contextPath}`}>
+              <a href={`/${contextPath}/appui/header/logout.action?successUrl=${contextPath}`}>
                 Logout
                 <i className="icon-signout small" />
               </a>
