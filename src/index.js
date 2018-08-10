@@ -34,6 +34,7 @@ import loginRest from './rest/loginRest';
 import sessionRest from './rest/sessionRest';
 import locationRest from './rest/locationRest';
 import visitRest from './rest/visitRest';
+import reportingRest from './rest/reportingRest';
 
 
 const reducers = combineReducers({
@@ -84,6 +85,7 @@ module.exports = {
   sessionRest,
   locationRest,
   visitRest,
+  reportingRest,
   reducers,
   sagas
 };

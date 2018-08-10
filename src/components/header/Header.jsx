@@ -29,15 +29,14 @@ export class Header extends React.Component {
 
   render() {
     const contextPath = window.location.href.split('/')[3];
-      
     return (
       <div>
         <header>
           <div className="logo">
-            <a href={this.props.logoLinkUrl}>
+            <a href={`/${contextPath}${this.props.logoLinkUrl}`}>
               <img 
                 alt="" 
-                src={this.props.logoIconUrl}
+                src={`/${contextPath}${this.props.logoIconUrl}`}
               />
             </a>
           </div>
@@ -101,7 +100,7 @@ export class Header extends React.Component {
               }
             </li>
             <li className="logout">
-              <a href={`../../appui/header/logout.action?successUrl=${contextPath}`}>
+              <a href={`/${contextPath}/appui/header/logout.action?successUrl=${contextPath}`}>
                 Logout
                 <i className="icon-signout small" />
               </a>
@@ -141,8 +140,8 @@ Header.defaultProps = {
     display: '',
   },
   user: { display: '' },
-  logoLinkUrl: "../../referenceapplication/home.page",
-  logoIconUrl: "../../ms/uiframework/resource/uicommons/images/logo/openmrs-with-title-small.png",
+  logoLinkUrl: "/referenceapplication/home.page",
+  logoIconUrl: "/ms/uiframework/resource/uicommons/images/logo/openmrs-with-title-small.png",
 };
 
 export default connect(mapStateToProps)(Header);

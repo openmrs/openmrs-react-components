@@ -7,11 +7,11 @@ exports[`header should render correctly 1`] = `
       className="logo"
     >
       <a
-        href="../../referenceapplication/home.page"
+        href="/openmrs/referenceapplication/home.page"
       >
         <img
           alt=""
-          src="../../ms/uiframework/resource/uicommons/images/logo/openmrs-with-title-small.png"
+          src="/openmrs/ms/uiframework/resource/uicommons/images/logo/openmrs-with-title-small.png"
         />
       </a>
     </div>
@@ -69,7 +69,7 @@ exports[`header should render correctly 1`] = `
         className="logout"
       >
         <a
-          href="../../appui/header/logout.action?successUrl="
+          href="//appui/header/logout.action?successUrl="
         >
           Logout
           <i

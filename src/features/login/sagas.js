@@ -1,8 +1,8 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { reset } from 'redux-form';
-import loginApi from '../../rest/loginRest';
-import sessionApi from '../../rest/sessionRest';
-import locationApi from '../../rest/locationRest';
+import loginRest from '../../rest/loginRest';
+import sessionRest from '../../rest/sessionRest';
+import locationRest from '../../rest/locationRest';
 import LOGIN_TYPES from './types';
 import loginActions from './actions';
 import { sessionActions } from "../session";
@@ -12,11 +12,11 @@ import { sessionActions } from "../session";
 function* login(action) {
   try {
 
-    let response = yield call(loginApi.login, { username: action.username, password: action.password });
+    let response = yield call(loginRest.login, { username: action.username, password: action.password });
 
     if (response.authenticated === true) {
       let sessionLocation = { location: action.location };
-      let sessionResponse = yield call(sessionApi.setCurrentSessionLocation, { location: sessionLocation });
+      let sessionResponse = yield call(sessionRest.setCurrentSessionLocation, { location: sessionLocation });
       yield put(sessionActions.fetchSessionSucceeded(sessionResponse));
       yield put(loginActions.loginSucceeded());
     }
@@ -34,7 +34,7 @@ function* login(action) {
 function* loginLocations(action) {
   try {
 
-    let response = yield call(locationApi.fetchLoginLocations);
+    let response = yield call(locationRest.fetchLoginLocations);
     if (response.results.length > 0 ) {
       yield put(loginActions.getLoginLocationsSucceeded(response.results));
     }
