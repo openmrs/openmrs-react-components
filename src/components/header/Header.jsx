@@ -29,27 +29,14 @@ export class Header extends React.Component {
 
   render() {
     const contextPath = window.location.href.split('/')[3];
-    let logoIconUrl;
-    let logoLinkUrl;
-    if (this.props.logoIconUrl.startsWith('../')) {
-      logoIconUrl = this.props.logoIconUrl;
-    } else {
-      logoIconUrl = `../..${this.props.logoIconUrl}`;
-    }
-    if (this.props.logoLinkUrl.startsWith('../')) {
-      logoLinkUrl = this.props.logoLinkUrl;
-    } else {
-      logoLinkUrl = `../..${this.props.logoLinkUrl}`;
-    }
-      
     return (
       <div>
         <header>
           <div className="logo">
-            <a href={logoLinkUrl}>
+            <a href={`/${contextPath}${this.props.logoLinkUrl}`}>
               <img 
                 alt="" 
-                src={logoIconUrl}
+                src={`/${contextPath}${this.props.logoIconUrl}`}
               />
             </a>
           </div>
@@ -153,8 +140,8 @@ Header.defaultProps = {
     display: '',
   },
   user: { display: '' },
-  logoLinkUrl: "../../referenceapplication/home.page",
-  logoIconUrl: "../../ms/uiframework/resource/uicommons/images/logo/openmrs-with-title-small.png",
+  logoLinkUrl: "/referenceapplication/home.page",
+  logoIconUrl: "/ms/uiframework/resource/uicommons/images/logo/openmrs-with-title-small.png",
 };
 
 export default connect(mapStateToProps)(Header);
