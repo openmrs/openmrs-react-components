@@ -23,7 +23,8 @@ export const axiosConfig = {
   baseURL: apiBaseUrl,
   headers: {
     'Content-Type': 'application/json'
-  }
+  },
+  withCredentials: true
 };
 
 export const axiosInstance = axios.create(axiosConfig);
