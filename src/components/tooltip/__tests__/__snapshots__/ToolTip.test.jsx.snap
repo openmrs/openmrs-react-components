@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: TestsToolTip should render correctly 1`] = `
+<span
+  className="tooltip-text"
+>
+  <p>
+    mockToolTipHeader
+  </p>
+  <div>
+    <span>
+      samplea
+    </span>
+    <span>
+      sampleb
+    </span>
+    <span>
+      samplec
+    </span>
+  </div>
+</span>
+`;
+
+exports[`Component: TestsToolTip should render without toolTipBody 1`] = `
+<span
+  className="tooltip-text"
+>
+  <p>
+    mockToolTipHeader
+  </p>
+  <div />
+</span>
+`;
+
+exports[`Component: TestsToolTip should render without toolTipHeader 1`] = `
+<span
+  className="tooltip-text"
+>
+  <div>
+    <span>
+      samplea
+    </span>
+    <span>
+      sampleb
+    </span>
+    <span>
+      samplec
+    </span>
+  </div>
+</span>
+`;
