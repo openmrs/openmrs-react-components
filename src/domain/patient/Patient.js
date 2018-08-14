@@ -60,33 +60,6 @@ class Patient {
     return patient;
   }
 
-  static createFromReportingRestRep(restRep) {
-    let patient = new Patient();
-
-    patient.uuid = restRep.patient_uuid;
-    patient.gender = restRep.gender;
-    patient.age = restRep.age;
-    patient.birthdate = restRep.birthdate;
-
-    patient.name =  {
-      givenName: restRep.first_name,
-      familyName: restRep.last_name
-    } ;
-
-    patient.identifiers = {
-      artNumber: restRep.art_number,
-      eidNumber: restRep.eid_number,
-      ncdNumber: restRep.ncd_number
-    };
-
-    patient.chw = restRep.vhw;
-    patient.village = restRep.village;
-
-    patient.actions = restRep.actions;
-    patient.alert = restRep.alert;
-
-    return patient;
-  }
 }
 
 

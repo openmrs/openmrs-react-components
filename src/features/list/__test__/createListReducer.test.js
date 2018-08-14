@@ -2054,7 +2054,7 @@ describe('createListReducer', () => {
     const reducer = createListReducer(VISIT_TYPES.ACTIVE_VISITS.FETCH_SUCCEEDED,
       'visits',
       [visitRestRepToPatientObjConverter()],
-      [byEncounterTypeFilter('4fb47712-34a6-40d2-8ed3-e153abbd25b7')]);
+      [byEncounterTypeFilter('4fb47712-34a6-40d2-8ed3-e153abbd25b7', 'exclude')]);
 
     const queue = reducer([], {
       type:VISIT_TYPES.ACTIVE_VISITS.FETCH_SUCCEEDED,
@@ -2073,7 +2073,7 @@ describe('createListReducer', () => {
     const reducer = createListReducer(VISIT_TYPES.ACTIVE_VISITS.FETCH_SUCCEEDED,
       'visits',
       [visitRestRepToPatientObjConverter()],
-      [byEncounterTypeFilter('4fb47712-34a6-40d2-8ed3-e153abbd25b7')]);
+      [byEncounterTypeFilter('4fb47712-34a6-40d2-8ed3-e153abbd25b7', 'exclude')]);
 
     const queue = reducer([], {
       type:VISIT_TYPES.ACTIVE_VISITS.FETCH_SUCCEEDED,
