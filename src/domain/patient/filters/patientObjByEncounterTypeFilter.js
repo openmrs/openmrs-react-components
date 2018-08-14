@@ -1,16 +1,20 @@
 
-// creates a filter that filters out all patient that have a encounter of the matching type within their active visit
+// creates a filter that filters patients based on whether encounter of the matching type within their active visit
+// filterType = 'include': include if the visit has an encounter of that type
+// filterType = 'exclude': exclude if the visit has an encounter of that type
 
 
-const byEncounterTypeFilter = (encounterTypeUuid) => {
+const byEncounterTypeFilter = (encounterTypeUuid, filterType = 'include') => {
 
   return (patient) => {
 
     if (!encounterTypeUuid || !patient.visit || !patient.visit.encounters || patient.visit.encounters.size === 0) {
-      return true;
+      return filterType.toLowerCase() === 'include' ? false : true;
     }
     else {
-      return !(patient.visit.encounters.some(e => e.encounterType.uuid === encounterTypeUuid && !e.voided));
+      return filterType.toLowerCase() === 'include' ?
+        patient.visit.encounters.some(e => e.encounterType.uuid === encounterTypeUuid && !e.voided) :
+        !patient.visit.encounters.some(e => e.encounterType.uuid === encounterTypeUuid && !e.voided);
     }
 
   };

@@ -25,7 +25,6 @@ exports[`Component: DataGrid renders properly 1`] = `
         style={
           Object {
             "height": "600px",
-            "width": "100%",
           }
         }
       >

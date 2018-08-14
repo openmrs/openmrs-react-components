@@ -54,8 +54,7 @@ class DataGrid extends React.Component {
       // the consuming app should provide a wrapping style as described here: https://www.ag-grid.com/react-more-details/
       <div
         style={{
-          height: '600px',
-          width: '100%'
+          height: '600px'
         }}
       >
         <label>

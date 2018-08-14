@@ -54,6 +54,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
               >
                 <ReduxForm
                   dispatch={[Function]}
+                  isFormComplete={false}
                   locations={Array []}
                   onSubmit={[Function]}
                 >
@@ -64,6 +65,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                     forceUnregisterOnUnmount={false}
                     form="login-form"
                     getFormState={[Function]}
+                    isFormComplete={false}
                     keepDirtyOnReinitialize={false}
                     locations={Array []}
                     onSubmit={[Function]}
@@ -123,6 +125,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                       initialize={[Function]}
                       initialized={false}
                       invalid={false}
+                      isFormComplete={false}
                       keepDirtyOnReinitialize={false}
                       locations={Array []}
                       onSubmit={[Function]}
@@ -193,6 +196,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                         initialize={[Function]}
                         initialized={false}
                         invalid={false}
+                        isFormComplete={false}
                         locations={Array []}
                         onSubmit={[Function]}
                         pristine={true}
@@ -286,6 +290,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                             >
                                               <Field
                                                 component={[Function]}
+                                                id="username"
                                                 name="username"
                                                 placeholder="username"
                                                 type="text"
@@ -341,6 +346,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                                       "initialize": [Function],
                                                       "initialized": false,
                                                       "invalid": false,
+                                                      "isFormComplete": false,
                                                       "keepDirtyOnReinitialize": false,
                                                       "locations": Array [],
                                                       "onSubmit": [Function],
@@ -387,6 +393,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                                     }
                                                   }
                                                   component={[Function]}
+                                                  id="username"
                                                   name="username"
                                                   normalize={[Function]}
                                                   placeholder="username"
@@ -443,6 +450,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                                         "initialize": [Function],
                                                         "initialized": false,
                                                         "invalid": false,
+                                                        "isFormComplete": false,
                                                         "keepDirtyOnReinitialize": false,
                                                         "locations": Array [],
                                                         "onSubmit": [Function],
@@ -492,6 +500,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                                     component={[Function]}
                                                     dirty={false}
                                                     dispatch={[Function]}
+                                                    id="username"
                                                     name="username"
                                                     normalize={[Function]}
                                                     placeholder="username"
@@ -499,6 +508,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                                     type="text"
                                                   >
                                                     <FieldInput
+                                                      id="username"
                                                       input={
                                                         Object {
                                                           "name": "username",
@@ -602,6 +612,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                             >
                                               <Field
                                                 component={[Function]}
+                                                id="password"
                                                 name="password"
                                                 placeholder="password"
                                                 type="password"
@@ -657,6 +668,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                                       "initialize": [Function],
                                                       "initialized": false,
                                                       "invalid": false,
+                                                      "isFormComplete": false,
                                                       "keepDirtyOnReinitialize": false,
                                                       "locations": Array [],
                                                       "onSubmit": [Function],
@@ -703,6 +715,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                                     }
                                                   }
                                                   component={[Function]}
+                                                  id="password"
                                                   name="password"
                                                   normalize={[Function]}
                                                   placeholder="password"
@@ -759,6 +772,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                                         "initialize": [Function],
                                                         "initialized": false,
                                                         "invalid": false,
+                                                        "isFormComplete": false,
                                                         "keepDirtyOnReinitialize": false,
                                                         "locations": Array [],
                                                         "onSubmit": [Function],
@@ -808,6 +822,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                                     component={[Function]}
                                                     dirty={false}
                                                     dispatch={[Function]}
+                                                    id="password"
                                                     name="password"
                                                     normalize={[Function]}
                                                     placeholder="password"
@@ -815,6 +830,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                                     type="password"
                                                   >
                                                     <FieldInput
+                                                      id="password"
                                                       input={
                                                         Object {
                                                           "name": "password",
@@ -918,6 +934,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                             >
                                               <Field
                                                 component={[Function]}
+                                                id="location"
                                                 name="location"
                                                 options={Array []}
                                               >
@@ -972,6 +989,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                                       "initialize": [Function],
                                                       "initialized": false,
                                                       "invalid": false,
+                                                      "isFormComplete": false,
                                                       "keepDirtyOnReinitialize": false,
                                                       "locations": Array [],
                                                       "onSubmit": [Function],
@@ -1018,6 +1036,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                                     }
                                                   }
                                                   component={[Function]}
+                                                  id="location"
                                                   name="location"
                                                   normalize={[Function]}
                                                   options={Array []}
@@ -1073,6 +1092,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                                         "initialize": [Function],
                                                         "initialized": false,
                                                         "invalid": false,
+                                                        "isFormComplete": false,
                                                         "keepDirtyOnReinitialize": false,
                                                         "locations": Array [],
                                                         "onSubmit": [Function],
@@ -1122,12 +1142,14 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                                     component={[Function]}
                                                     dirty={false}
                                                     dispatch={[Function]}
+                                                    id="location"
                                                     name="location"
                                                     normalize={[Function]}
                                                     options={Array []}
                                                     pristine={true}
                                                   >
                                                     <Select
+                                                      id="location"
                                                       input={
                                                         Object {
                                                           "name": "location",
@@ -1170,7 +1192,14 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                                           onDrop={[Function]}
                                                           onFocus={[Function]}
                                                           value=""
-                                                        />
+                                                        >
+                                                          <option
+                                                            key="0"
+                                                            value=""
+                                                          >
+                                                            Select Location
+                                                          </option>
+                                                        </select>
                                                       </div>
                                                     </Select>
                                                   </ConnectedField>

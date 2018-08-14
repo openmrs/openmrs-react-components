@@ -97,7 +97,13 @@ exports[`Component: LoginForm should render correctly 1`] = `
                 onDrop={[Function]}
                 onFocus={[Function]}
                 value=""
-              />
+              >
+                <option
+                  value=""
+                >
+                  Select Location
+                </option>
+              </select>
             </div>
           </div>
         </div>

@@ -46,8 +46,11 @@ class List extends React.Component {
 
     if (this.props.fetchListActionCreator !== undefined) {
       this.props.fetchListActionCreator();
-      this.interval = setInterval(() =>
-        this.props.fetchListActionCreator(), this.props.delayInterval);
+
+      if (this.props.delayInterval !== undefined && this.props.delayInterval > 0) {
+        this.interval = setInterval(() =>
+          this.props.fetchListActionCreator(), this.props.delayInterval);
+      }
     }
 
     if (this.props.onMountOtherActionCreators !== undefined) {
@@ -59,14 +62,22 @@ class List extends React.Component {
   componentWillUnmount() {
     clearInterval(this.interval);
   }
-  
+
+  applyFilters(list, filters) {
+    if (filters.length === 0) {
+      return list;
+    } else {
+      return this.applyFilters(list.filter(filters[filters.length - 1]), filters.slice(0, -1));
+    }
+  };
+
   render() {
     return (
       <div>
         <h3><Label>{this.props.title}</Label></h3>
         <DataGrid
           columnDefs={this.props.columnDefs}
-          rowData={this.props.rowData}
+          rowData={this.applyFilters(this.props.rowData, this.props.filters)}
           rowSelectedActionCreators={this.props.rowSelectedActionCreators}
         />
       </div>
@@ -76,8 +87,9 @@ class List extends React.Component {
 
 List.propTypes = {
   columnDefs: PropTypes.array.isRequired,
+  filters: PropTypes.array,
   delayInterval: PropTypes.number.isRequired,
-  fetchListActionCreator: PropTypes.func.isRequired,
+  fetchListActionCreator: PropTypes.func,
   onMountOtherActionCreators: PropTypes.array,
   rowData: PropTypes.array.isRequired,
   rowSelectedActionCreators: PropTypes.array,
@@ -93,7 +105,8 @@ List.defaultProps = {
     { headerName: 'Age', field: 'age' }
   ],
   delayInterval: 10000,
-  title: 'List'
+  title: 'List',
+  filters: []
 };
 
 export default List;
