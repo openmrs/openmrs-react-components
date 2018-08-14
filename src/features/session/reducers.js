@@ -1,4 +1,6 @@
 import SESSION_TYPES from "./types";
+import { REHYDRATE } from 'redux-persist';
+import { axiosInstance } from "../../config";
 
 const initialState = {};
 
@@ -6,7 +8,8 @@ export default (state = {}, action) => {
   switch (action.type) {
     case SESSION_TYPES.FETCH_SUCCEEDED:
       return {
-        ...action.session
+        ...action.session,
+        ...action.authorization
       };
 
     case SESSION_TYPES.FETCH_FAILED:
@@ -27,6 +30,12 @@ export default (state = {}, action) => {
           message: "Unable to set session"
         }
       };
+
+    case REHYDRATE:
+      if (action.payload && action.payload.openmrs.session.authenticated && action.payload.openmrs.session.authorization){
+        axiosInstance.defaults.headers.common['Authorization'] = action.payload.openmrs.session.authorization;
+      }
+      return state;
 
     default:
       return state;

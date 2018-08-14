@@ -4,9 +4,10 @@ const fetchSession = () => ( {
   type: SESSION_TYPES.FETCH_REQUESTED
 } );
 
-const fetchSessionSucceeded = (session) => ( {
+const fetchSessionSucceeded = (session, authorization) => ( {
   type: SESSION_TYPES.FETCH_SUCCEEDED,
-  session: session
+  session,
+  authorization
 } );
 
 const fetchSessionFailed = (message) => ( {

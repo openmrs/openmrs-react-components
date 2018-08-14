@@ -12,12 +12,13 @@ import { sessionActions } from "../session";
 function* login(action) {
   try {
 
-    let response = yield call(loginRest.login, { username: action.username, password: action.password });
+    var authorization = { 'authorization' : "Basic " + btoa(action.username + ':' + action.password) };
+    let response = yield call(loginRest.login, authorization);
 
     if (response.authenticated === true) {
       let sessionLocation = { location: action.location };
       let sessionResponse = yield call(sessionRest.setCurrentSessionLocation, { location: sessionLocation });
-      yield put(sessionActions.fetchSessionSucceeded(sessionResponse));
+      yield put(sessionActions.fetchSessionSucceeded(sessionResponse, authorization));
       yield put(loginActions.loginSucceeded());
     }
     else {
