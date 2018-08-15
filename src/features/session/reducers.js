@@ -1,6 +1,4 @@
 import SESSION_TYPES from "./types";
-import { REHYDRATE } from 'redux-persist';
-import { axiosInstance } from "../../config";
 
 const initialState = {};
 
@@ -31,11 +29,12 @@ export default (state = {}, action) => {
         }
       };
 
-    case REHYDRATE:
-      if (action.payload && action.payload.openmrs.session.authenticated && action.payload.openmrs.session.authorization){
-        axiosInstance.defaults.headers.common['Authorization'] = action.payload.openmrs.session.authorization;
-      }
-      return state;
+    case SESSION_TYPES.SET_AUTHORIZATION_FAILED:
+      return {
+        error: {
+          message: "Unable to set authorization"
+        }
+      };
 
     default:
       return state;
