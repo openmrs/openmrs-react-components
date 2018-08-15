@@ -1,7 +1,7 @@
 const api = {
 
   login: (params) => {
-    if (params.username === "valid_username" && params.password === "valid_password") {
+    if (params.authorization === "Basic dmFsaWRfdXNlcm5hbWU6dmFsaWRfcGFzc3dvcmQ=") {
       return {
         authenticated:true
       };

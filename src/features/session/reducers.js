@@ -29,13 +29,6 @@ export default (state = {}, action) => {
         }
       };
 
-    case SESSION_TYPES.SET_AUTHORIZATION_FAILED:
-      return {
-        error: {
-          message: "Unable to set authorization"
-        }
-      };
-
     default:
       return state;
   }

@@ -33,7 +33,7 @@ function* setAuthorization(action) {
     }
   }
   catch (e) {
-    yield put(sessionActions.setAuthorizationFailed(e.message));
+    yield put(sessionActions.setSessionFailed(e.message));
   }
 }
 
