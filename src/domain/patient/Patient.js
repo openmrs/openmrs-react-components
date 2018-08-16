@@ -43,7 +43,7 @@ class Patient {
     patient.age = restRep.person ? restRep.person.age : undefined;
     patient.birthdate = restRep.person ? restRep.person.birthdate : undefined;
 
-    patient.name = restRep.person.preferredName ? {
+    patient.name = restRep.person && restRep.person.preferredName ? {
       givenName: restRep.person.preferredName.givenName,
       middleName: restRep.person.preferredName.middleName,
       familyName: restRep.person.preferredName.familyName
