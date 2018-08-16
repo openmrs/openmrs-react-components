@@ -49,11 +49,12 @@ class Patient {
       familyName: restRep.person.preferredName.familyName
     } : undefined;
 
-    patient.identifiers = restRep.identifiers.filter((identifier) => {
-      return !identifier.voided;
-    }).map((identifier) => {
-      return { identifier: identifier.identifier, identifierType: identifier.identifierType.uuid };
-    });
+    patient.identifiers = restRep.identifiers ?
+      restRep.identifiers.filter((identifier) => {
+        return !identifier.voided;
+      }).map((identifier) => {
+        return { identifier: identifier.identifier, identifierType: identifier.identifierType.uuid };
+      }) : undefined;
 
     patient.visit = (typeof visit !== 'undefined') ? visit :undefined;
 
