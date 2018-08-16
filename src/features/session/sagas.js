@@ -4,6 +4,7 @@ import SESSION_TYPES from './types';
 import sessionActions from './actions';
 import { axiosInstance } from "../../config";
 import { REHYDRATE } from "redux-persist";
+import * as R from 'ramda';
 
 function* fetchCurrentSession() {
   try {
@@ -28,8 +29,9 @@ function* setSession(action) {
 
 function* setAuthorization(action) {
   try {
-    if (action.payload && action.payload.openmrs.session.authenticated && action.payload.openmrs.session.authorization) {
-      axiosInstance.defaults.headers.common['Authorization'] = action.payload.openmrs.session.authorization;
+    if (R.path(['payload', 'openmrs', 'session', 'authenticated'], action)){
+      var authorization = R.path(['payload', 'openmrs', 'session', 'authorization'], action);
+      axiosInstance.defaults.headers.common['Authorization'] = authorization;
     }
   }
   catch (e) {

@@ -12,6 +12,7 @@ import ToolTip from './components/tooltip/ToolTip';
 import LoadingView from './components/loading/LoadingView';
 import Login from './components/login/Login';
 import LoginPage from './components/login/LoginPage';
+import Logout from './components/login/Logout';
 import PatientSearch from './components/search/PatientSearch';
 import AuthenticatedRoute from './components/routes/AuthenticatedRoute';
 import DataGrid from './components/grid/DataGrid';
@@ -19,7 +20,7 @@ import FieldInput from './components/form/FieldInput';
 import Errors from './components/errors/Errors';
 import createListReducer from './features/list/createListReducer';
 import { sessionReducers, sessionSagas } from './features/session/';
-import { loginReducers, loginSagas } from './features/login';
+import { LOGIN_TYPES, loginReducers, loginSagas } from './features/login';
 import { headerReducers, headerSagas } from './features/header';
 import { errorsActions, errorsReducers } from './features/errors';
 import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
@@ -37,7 +38,6 @@ import sessionRest from './rest/sessionRest';
 import locationRest from './rest/locationRest';
 import visitRest from './rest/visitRest';
 import reportingRest from './rest/reportingRest';
-
 
 const reducers = combineReducers({
   session: sessionReducers,
@@ -70,6 +70,8 @@ module.exports = {
   PatientHeader,
   Login,
   LoginPage,
+  Logout,
+  LOGIN_TYPES,
   LoadingView,
   PatientSearch,
   AuthenticatedRoute,

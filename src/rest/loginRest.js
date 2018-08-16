@@ -9,6 +9,13 @@ const api = {
       .then((response) => response.data);
   },
 
+  logout: () => {
+
+    delete axiosInstance.defaults.headers.common['Authorization'];
+    return axiosInstance.delete('session')
+      .then((response) => response.data);
+  }
+
 };
 
 export default api;

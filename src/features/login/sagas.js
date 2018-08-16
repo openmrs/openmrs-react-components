@@ -46,9 +46,20 @@ function* loginLocations(action) {
   }
 }
 
+function* logout(action) {
+  try {
+    yield call(loginRest.logout);
+    yield put(loginActions.logoutSucceeded());
+  }
+  catch (e) {
+    yield put(loginActions.logoutFailed(e.message));
+  }
+}
+
 function* loginSagas() {
   yield takeLatest(LOGIN_TYPES.LOGIN.REQUESTED, login);
   yield takeLatest(LOGIN_TYPES.LOGIN_LOCATIONS.REQUESTED, loginLocations);
+  yield takeLatest(LOGIN_TYPES.LOGOUT.REQUESTED, logout);
 }
 
 
