@@ -10,9 +10,12 @@ const FieldInput = ({ input, type, componentClass, placeholder, min, max }) => {
       min={min}
       max={max}
       value={input.value}
-      onChange={input.onChange} />
-  )
+      onChange={input.onChange}
+    />
+  );
 };
 
 export default FieldInput;
+
+
 
