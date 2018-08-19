@@ -62,10 +62,10 @@ function* submitSucceeded(action) {
 }
 
 
-function *formSagas() {
+function *openmrsFormSagas() {
   // TODO take latest or take every? create a "take first"?
   yield takeEvery(FORM_TYPES.SUBMIT, submit);
   yield takeEvery(FORM_TYPES.SUBMIT_SUCCEEDED, submitSucceeded);
 }
 
-export default formSagas;
+export default openmrsFormSagas;

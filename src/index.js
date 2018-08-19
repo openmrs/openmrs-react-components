@@ -24,7 +24,7 @@ import Errors from './components/errors/Errors';
 import createListReducer from './features/list/createListReducer';
 import { sessionReducers, sessionSagas } from './features/session/';
 import { LOGIN_TYPES, loginReducers, loginSagas } from './features/login';
-import { formSagas } from './features/form';
+import { openmrsFormSagas, formActions } from './features/form';
 import { headerReducers, headerSagas } from './features/header';
 import { errorsActions, errorsReducers } from './features/errors';
 import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
@@ -58,7 +58,7 @@ const sagas = function* () {
     patientSearchSagas(),
     visitSagas(),
     headerSagas(),
-    formSagas()
+    openmrsFormSagas()
   ]);
 };
 
@@ -86,6 +86,7 @@ module.exports = {
   Obs,
   Submit,
   Errors,
+  formActions,
   VISIT_TYPES,
   visitActions,
   PATIENT_SEARCH_TYPES,

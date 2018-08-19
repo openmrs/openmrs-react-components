@@ -1,6 +1,6 @@
 import SagaTester from 'redux-saga-tester';
 import formActions from '../actions';
-import formSagas from '../sagas';
+import openmrsFormSagas from '../sagas';
 import encounterRest from '../../../rest/encounterRest';
 
 jest.mock('../../../rest/encounterRest');
@@ -13,7 +13,7 @@ describe('form sagas', () => {
 
   beforeEach(() => {
     sagaTester = new SagaTester({});
-    sagaTester.start(formSagas);
+    sagaTester.start(openmrsFormSagas);
     formSubmittedActionCreator = jest.fn(() => { return { type:'SOME_ACTION_TYPE' };});
     encounterRest.createEncounter = jest.fn(encounterRest.createEncounter);   // for some reason, we need to wrap this in jest.fn here, not in the mock itself
   });
