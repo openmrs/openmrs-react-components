@@ -22,10 +22,10 @@ import Obs from './components/form/Obs';
 import Submit from './components/form/Submit';
 import Errors from './components/errors/Errors';
 import createListReducer from './features/list/createListReducer';
-import { sessionReducers, sessionSagas } from './features/session/';
-import { LOGIN_TYPES, loginReducers, loginSagas } from './features/login';
+import { sessionReducers, sessionSagas, sessionActions } from './features/session/';
+import { LOGIN_TYPES, loginReducers, loginSagas, loginActions } from './features/login';
 import { openmrsFormSagas, formActions } from './features/form';
-import { headerReducers, headerSagas } from './features/header';
+import { headerReducers, headerSagas, headerActions } from './features/header';
 import { errorsActions, errorsReducers } from './features/errors';
 import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
 import { GRID_TYPES, gridActions } from './features/grid';
@@ -102,5 +102,8 @@ module.exports = {
   visitRest,
   reportingRest,
   reducers,
-  sagas
+  sagas,
+  loginActions,
+  sessionActions,
+  headerActions
 };
