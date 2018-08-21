@@ -11,6 +11,10 @@
       "es2015"
     ]
   },
+  "peerDependencies": {
+    "react": "^16.4.0",
+    "react-dom": "^16.3.2"
+  },
   "dependencies": {
     "ag-grid": "^17.1.1",
     "ag-grid-react": "^17.1.0",
@@ -18,9 +22,7 @@
     "connected-react-router": "^4.3.0",
     "date-fns": "^1.29.0",
     "ramda": "^0.25.0",
-    "react": "^16.4.0",
     "react-bootstrap": "^0.32.1",
-    "react-dom": "^16.3.2",
     "react-dom-factories": "^1.0.2",
     "react-redux": "^5.0.1",
     "react-router-dom": "^4.3.1",
@@ -59,6 +61,8 @@
     "moxios": "^0.4.0",
     "npm-snapshot": "^1.0.0",
     "prop-types": "^15.6.1",
+    "react": "^16.4.0",
+    "react-dom": "^16.3.2",
     "react-hot-loader": "^4.1.2",
     "react-mock-router": "^1.0.15",
     "react-test-renderer": "^16.3.2",
@@ -74,6 +78,7 @@
     "lint": "eslint --ext js --ext jsx src test; exit 0",
     "lint:fix": "eslint --fix --ext js --ext jsx src test; exit 0",
     "pack": "npm run build && npm pack",
+    "prepare": "rm -rf ./lib && npm run build",
     "test": "jest",
     "test:update-snapshots": "jest -u",
     "test:watch": "jest --watch",
