@@ -18,6 +18,7 @@ import AuthenticatedRoute from './components/routes/AuthenticatedRoute';
 import DataGrid from './components/grid/DataGrid';
 import OpenMRSForm from './components/form/OpenMRSForm';
 import FieldInput from './components/form/FieldInput';
+import ButtonGroup from './components/form/ButtonGroup';
 import Obs from './components/form/Obs';
 import Submit from './components/form/Submit';
 import Errors from './components/errors/Errors';
@@ -83,6 +84,7 @@ module.exports = {
   DataGrid,
   OpenMRSForm,
   FieldInput,
+  ButtonGroup,
   Obs,
   Submit,
   Errors,
