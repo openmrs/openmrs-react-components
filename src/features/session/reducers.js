@@ -19,7 +19,8 @@ export default (state = {}, action) => {
       
     case SESSION_TYPES.SET_SUCCEEDED:
       return {
-        ...action.session
+        ...action.session,
+        ...action.authorization
       };
 
     case SESSION_TYPES.SET_FAILED:

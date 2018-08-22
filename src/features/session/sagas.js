@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest, select } from 'redux-saga/effects';
 import sessionApi from '../../rest/sessionRest';
 import SESSION_TYPES from './types';
 import sessionActions from './actions';
@@ -20,7 +20,8 @@ function* setSession(action) {
   try {
     const sessionLocation = { location: action.sessionLocation };
     const session = yield call(sessionApi.setCurrentSessionLocation, { location: sessionLocation });
-    yield put(sessionActions.setSessionSucceeded(session));
+    const authorization = yield select(state => state.openmrs.session.authorization);
+    yield put(sessionActions.setSessionSucceeded(session, { authorization : authorization }));
   }
   catch (e) {
     yield put(sessionActions.setSessionFailed(e.message));

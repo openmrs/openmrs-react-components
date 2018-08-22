@@ -20,9 +20,10 @@ const setSessionLocation = (sessionLocation) => ( {
   sessionLocation
 } );
 
-const setSessionSucceeded = (session) => ( {
+const setSessionSucceeded = (session, authorization) => ( {
   type: SESSION_TYPES.SET_SUCCEEDED,
-  session
+  session,
+  authorization
 } );
 
 const setSessionFailed = (message) => ( {

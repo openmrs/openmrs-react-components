@@ -6,6 +6,7 @@ import patientObjByEncounterTypeFilter from './domain/patient/filters/patientObj
 import patientObjByVisitLocationFilter from './domain/patient/filters/patientObjByVisitLocationFilter';
 import Accordion from './components/accordion/Accordian';
 import Header from './components/header/Header';
+import LocationMenu from './components/header/LocationMenu';
 import List from './components/list/List';
 import PatientHeader from './components/header/PatientHeader';
 import ToolTip from './components/tooltip/ToolTip';
@@ -71,6 +72,7 @@ module.exports = {
   createListReducer,
   Accordion,
   Header,
+  LocationMenu,
   List,
   ToolTip,
   PatientHeader,
