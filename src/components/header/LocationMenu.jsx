@@ -1,11 +1,8 @@
 import React from 'react';
-import { NavDropdown, MenuItem } from 'react-bootstrap';
+import { NavDropdown } from 'react-bootstrap';
 //import { sessionActions } from '../../features/session';
 
 export class LocationMenu extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (
