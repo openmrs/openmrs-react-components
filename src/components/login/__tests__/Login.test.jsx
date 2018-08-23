@@ -4,7 +4,7 @@ import toJson from 'enzyme-to-json';
 import configureMockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import Login from '../Login';
-import LoginForm from '../LoginForm';
+import LoginFormAlt from '../LoginFormAlt';
 import { errorsActions } from '../../../features/errors';
 
 let props, store;
@@ -38,13 +38,13 @@ describe('Component: Login', () => {
 
   it('renders properly', () => {
     expect(toJson(login())).toMatchSnapshot();
-    expect(login().find(LoginForm).length).toBe(1);
-    expect(login().find(LoginForm).props().onSubmit.length).toBe(1);
-    expect(login().find(LoginForm).props().onSubmit.name).toBe("bound handleLogin");
+    expect(login().find(LoginFormAlt).length).toBe(1);
+    expect(login().find(LoginFormAlt).props().onSubmit.length).toBe(1);
+    expect(login().find(LoginFormAlt).props().onSubmit.name).toBe("bound handleLogin");
   });
 
   it('onSubmit triggers login action', () => {
-    const onSubmit = login().find(LoginForm).props().onSubmit;
+    const onSubmit = login().find(LoginFormAlt).props().onSubmit;
     onSubmit({ username: "somename", password: "somepassword" });
     expect(store.getActions()).toContainEqual(errorsActions.clearErrors());
     expect(store.getActions()).toContainEqual({"password": "somepassword", "type": "login/REQUESTED", "username": "somename"});

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import LoginForm from './LoginForm';
+import LoginFormAlt from './LoginFormAlt';
 import { loginActions } from '../../features/login';
 import { errorsActions } from '../../features/errors';
 
@@ -23,7 +23,7 @@ class Login extends React.Component {
   render() {
     return (
       <div>
-        <LoginForm onSubmit={this.handleLogin} />
+        <LoginFormAlt onSubmit={this.handleLogin} />
       </div>
     );
   }
