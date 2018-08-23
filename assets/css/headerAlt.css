@@ -1,0 +1,35 @@
+/* *
+ * Css for Header Component
+*/
+.header {
+    border-radius: 5px;
+    font-size: medium;
+}
+
+#navbarIcon {
+    vertical-align: middle;
+}
+
+#navItemIcon {
+    margin-right: 7px;
+}
+
+.container {
+    padding-left: 15px;
+    padding-right: 30px;
+    width: auto;
+}
+
+.logo {
+    max-height: 48px;
+}
+
+.change-location a {
+    outline: none;
+}
+
+.navbar-nav li a {
+    line-height: 48px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}

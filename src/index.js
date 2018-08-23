@@ -6,6 +6,7 @@ import patientObjByEncounterTypeFilter from './domain/patient/filters/patientObj
 import patientObjByVisitLocationFilter from './domain/patient/filters/patientObjByVisitLocationFilter';
 import Accordion from './components/accordion/Accordian';
 import Header from './components/header/Header';
+import HeaderAlt from './components/header/HeaderAlt';
 import LocationMenu from './components/header/LocationMenu';
 import List from './components/list/List';
 import PatientHeader from './components/header/PatientHeader';
@@ -24,7 +25,7 @@ import Obs from './components/form/Obs';
 import Submit from './components/form/Submit';
 import Errors from './components/errors/Errors';
 import createListReducer from './features/list/createListReducer';
-import { sessionReducers, sessionSagas, sessionActions } from './features/session/';
+import { SESSION_TYPES, sessionReducers, sessionSagas, sessionActions } from './features/session/';
 import { LOGIN_TYPES, loginReducers, loginSagas, loginActions } from './features/login';
 import { openmrsFormSagas, formActions } from './features/form';
 import { headerReducers, headerSagas, headerActions } from './features/header';
@@ -72,6 +73,7 @@ module.exports = {
   createListReducer,
   Accordion,
   Header,
+  HeaderAlt,
   LocationMenu,
   List,
   ToolTip,
@@ -109,5 +111,6 @@ module.exports = {
   sagas,
   loginActions,
   sessionActions,
+  SESSION_TYPES,
   headerActions
 };

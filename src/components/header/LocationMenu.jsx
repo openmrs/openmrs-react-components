@@ -1,17 +1,18 @@
 import React from 'react';
-import { NavDropdown } from 'react-bootstrap';
-//import { sessionActions } from '../../features/session';
+import { NavDropdown, MenuItem } from 'react-bootstrap';
+import { sessionActions } from '../../features/session';
 
 export class LocationMenu extends React.Component {
 
   render() {
+    var locations_array = this.props.locations.filter(location => location.uuid !== this.props.sessionLocation.uuid);
     return (
-      <NavDropdown eventkey={1}
-        //title={this.props.title}
-        //id="dropdown"
-        //noCaret={this.props.noCaret}
+      <NavDropdown
+        title={this.props.title}
+        id="dropdown"
+        noCaret={this.props.noCaret}
       >
-        {/*this.props.locations.map(location => (
+        {locations_array.map(location => (
           <MenuItem key={location.uuid}
                     onSelect={() => {
                       this.props.dispatch(sessionActions.setSessionLocation(location.uuid));
@@ -19,7 +20,7 @@ export class LocationMenu extends React.Component {
           >
             {location.display}
           </MenuItem>))
-        */}
+        }
       </NavDropdown>
 
     );
