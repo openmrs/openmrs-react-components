@@ -5,7 +5,7 @@ import { Field, reduxForm, formValueSelector } from 'redux-form';
 import FieldInput from '../form/FieldInput';
 import Errors from '../errors/Errors';
 import '../../../assets/css/loginForm.css';
-import { Button, ButtonToolbar, Grid, Row, Col, Form, FormControl, HelpBlock, FormGroup, ControlLabel, Label } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 
 let LoginFormAlt = props => {
