@@ -11,6 +11,7 @@ export class LocationMenu extends React.Component {
         title={this.props.title}
         id="dropdown"
         noCaret={this.props.noCaret}
+        onSelect={this.props.onSelect}
       >
         {locations_array.map(location => (
           <MenuItem key={location.uuid}

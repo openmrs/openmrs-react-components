@@ -9,34 +9,68 @@ import LocationMenu from './LocationMenu';
 
 
 export class HeaderAlt extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      expanded: false,
+    };
+    this.handleToggle = this.handleToggle.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
+  }
+
+  handleToggle(expanded){
+    if (this.state.expanded === expanded){
+      this.setState(() => ({ expanded: !expanded }));
+    }
+    else {
+      this.setState(() => ({ expanded: expanded }));
+    }
+  }
+
+  handleSelect(){
+    this.setState(() => ({ expanded: false}));
+  }
+
 
   render() {
     return (
-      <Navbar className="header" fixedTop >
-        <Navbar.Header>
-          <Nav pullLeft id="nav">
-            <NavBarMenu
-              pathname={this.props.pathname}
-              pageOptions={this.props.navMenuPages}
-              title={<FontAwesomeIcon icon="bars" size="2x" id='navbarIcon'/>}
-              noCaret={true}
-            />
-            <NavItem href={"#/"}>
-              <img
-                className="logo"
-                alt=""
-                src={this.props.logo}
+      <Navbar
+        className="header"
+        fixedTop
+        onToggle={this.handleToggle}
+      >
+        <Navbar.Toggle>
+          <FontAwesomeIcon icon="caret-down" size="2x" id='navbarIcon'/>
+        </Navbar.Toggle>
+        <Navbar.Collapse in={this.state.expanded}>
+          <Navbar.Header>
+            <Nav pullLeft id="nav">
+              <NavBarMenu
+                pathname={this.props.pathname}
+                pageOptions={this.props.navMenuPages}
+                title={<FontAwesomeIcon icon="bars" size="2x" id='navbarIcon'/>}
+                noCaret
+                onSelect={this.handleSelect}
               />
-            </NavItem>
-          </Nav>
-          <Navbar.Toggle/>
-        </Navbar.Header>
-        <Navbar.Collapse>
+              <NavItem
+                href={"#/"}
+                onSelect={this.handleSelect}
+              >
+                <img
+                  className="logo"
+                  alt=""
+                  src={this.props.logo}
+                />
+              </NavItem>
+            </Nav>
+          </Navbar.Header>
+
           <Nav pullRight id="nav">
             <LocationMenu
               id="dropdown"
               locations={this.props.locations ? this.props.locations : []}
               sessionLocation={this.props.sessionLocation}
+              onSelect={this.handleSelect}
               dispatch={this.props.dispatch}
               title={
                 <span>
@@ -49,6 +83,7 @@ export class HeaderAlt extends React.Component {
               pathname={this.props.pathname}
               pageOptions={this.props.userMenuPages}
               id="dropdown"
+              onSelect={this.handleSelect}
               title={
                 <span>
                   <FontAwesomeIcon icon="user" size="lg" id="navItemIcon"/>

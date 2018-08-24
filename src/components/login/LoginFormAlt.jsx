@@ -47,7 +47,7 @@ let LoginFormAlt = props => {
         />
       </div>
       <div className="bottomPanelItemContainer">
-        <Button
+        <Button className="loginButton"
           type="submit"
           disabled={pristine || submitting || !isFormComplete}
         >

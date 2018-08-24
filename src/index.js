@@ -45,6 +45,9 @@ import sessionRest from './rest/sessionRest';
 import locationRest from './rest/locationRest';
 import visitRest from './rest/visitRest';
 import reportingRest from './rest/reportingRest';
+import { library as fontAwesomeLibrary } from '@fortawesome/fontawesome-svg-core';
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
+fontAwesomeLibrary.add( faCaretDown );
 
 const reducers = combineReducers({
   session: sessionReducers,

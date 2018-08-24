@@ -13,9 +13,10 @@ class NavBarMenu extends React.Component {
         title={this.props.title}
         id="dropdown"
         noCaret={this.props.noCaret}
+        onSelect={this.props.onSelect}
       >
         {page_path_array.map( path => (
-          <MenuItem key={path} href={"#" + path}>
+          <MenuItem eventKey={path} key={path} href={"#" + path}>
             {this.props.pageOptions[path].icon &&
               <FontAwesomeIcon icon={this.props.pageOptions[path].icon} size="lg" id="navItemIcon"/>
             }
