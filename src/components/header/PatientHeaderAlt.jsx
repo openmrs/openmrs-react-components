@@ -6,8 +6,7 @@ import '../../../assets/css/patientHeader.css';
 
 import dateFns from 'date-fns';
 
-
-export class PatientHeader extends PureComponent {
+export class PatientHeaderAlt extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -40,7 +39,7 @@ export class PatientHeader extends PureComponent {
             <span className="PersonName-givenName">{person.personName.givenName}&nbsp;&nbsp;</span>
             <em>Given</em>
           </span>
-  
+
           {
             person.personName.middleName &&
             <span>
@@ -48,12 +47,12 @@ export class PatientHeader extends PureComponent {
               <em>Middle</em>
             </span>
           }
-  
+
           <span>
             <span className="PersonName-familyName">{person.personName.familyName}</span>
             <em>Family Name</em>
           </span>
-  
+
           &nbsp;
           <span className="gender-age">
             <span>{person.gender === 'M' ? "Male" : "Female"}&nbsp;</span>
@@ -81,9 +80,9 @@ export class PatientHeader extends PureComponent {
               }
             </a>
           </span>
-  
+
           <div className="firstLineFragments" />
-  
+
           {showContactInfo &&
           <div
             className=""
@@ -104,7 +103,7 @@ export class PatientHeader extends PureComponent {
                 </span>
                 <em>Telephone Number</em>
               </span>
-                &nbsp;&nbsp;
+              &nbsp;&nbsp;
               <small
                 className="edit-info"
                 id="contact-info-inline-edit"
@@ -160,16 +159,16 @@ const actionCreators = {
 //   fetchPatientNote,
 };
 
-PatientHeader.propTypes = {
+PatientHeaderAlt.propTypes = {
   location: PropTypes.shape().isRequired,
   patient: PropTypes.shape({}).isRequired,
   // TODO: need to remove comments
   //   fetchPatientNote: PropTypes.func.isRequired,
   //   fetchPatientRecord: PropTypes.func.isRequired,
-  
+
 };
 
 /* TODO: this should be needed cos we would be connecting
 to local redux state and exporting reducers and sagas but for now, just pass props
 */
-export default connect(mapStateToProps, actionCreators)(PatientHeader);
+export default connect(mapStateToProps, actionCreators)(PatientHeaderAlt);

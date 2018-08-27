@@ -4,7 +4,7 @@ import toJson from 'enzyme-to-json';
 import configureMockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import Login from '../Login';
-import LoginFormAlt from '../LoginFormAlt';
+import LoginFormAlt from '../LoginForm';
 import { errorsActions } from '../../../features/errors';
 
 let props, store;

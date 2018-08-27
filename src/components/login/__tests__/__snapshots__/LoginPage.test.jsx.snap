@@ -58,7 +58,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                   locations={Array []}
                   onSubmit={[Function]}
                 >
-                  <Connect(Form(LoginFormAlt))
+                  <Connect(Form(LoginForm))
                     destroyOnUnmount={true}
                     dispatch={[Function]}
                     enableReinitialize={false}
@@ -79,7 +79,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                     touchOnChange={false}
                     updateUnregisteredFields={false}
                   >
-                    <Form(LoginFormAlt)
+                    <Form(LoginForm)
                       anyTouched={false}
                       array={
                         Object {
@@ -163,7 +163,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                       validExceptSubmit={true}
                       values={Object {}}
                     >
-                      <LoginFormAlt
+                      <LoginForm
                         anyTouched={false}
                         array={
                           Object {
@@ -1082,9 +1082,9 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                             </Button>
                           </div>
                         </form>
-                      </LoginFormAlt>
-                    </Form(LoginFormAlt)>
-                  </Connect(Form(LoginFormAlt))>
+                      </LoginForm>
+                    </Form(LoginForm)>
+                  </Connect(Form(LoginForm))>
                 </ReduxForm>
               </Connect(ReduxForm)>
             </div>

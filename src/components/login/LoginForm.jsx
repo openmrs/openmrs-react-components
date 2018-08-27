@@ -4,16 +4,18 @@ import { connect } from 'react-redux';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import FieldInput from '../form/FieldInput';
 import Errors from '../errors/Errors';
-import { Button, ButtonToolbar, Grid, Row, Col, Form, FormGroup, FormControl, ControlLabel, Label } from 'react-bootstrap';
+import '../../../assets/css/loginForm.css';
+import { Button } from 'react-bootstrap';
 
 
 let LoginForm = props => {
   const { handleSubmit, pristine, reset, submitting, locations, isFormComplete } = props;
 
-  const Select = ({ input, options, disabled }) => (
+
+  const Select = ({ input, options, disabled, placeholder }) => (
     <div>
-      <select {...input} disabled={disabled}>
-        <option key={0} value={''}>Select Location</option>
+      <select {...input} disabled={disabled} class="locationSelector">
+        <option key={0} value={''}>{placeholder}</option>
         { options.map(option =>
           <option key={option.uuid} value={option.uuid}>
             {option.display}
@@ -24,84 +26,37 @@ let LoginForm = props => {
     </div>
   );
 
-  return (
-    <div>
-      <h3><Label>Login</Label></h3>
-      <Errors/>
-      <Form horizontal onSubmit={handleSubmit}>
-        <Grid>
-
-          <Row>
-            <FormGroup controlId="formUsername">
-              <Col componentClass={ControlLabel} sm={2}>
-                Username
-              </Col>
-              <Col sm={4}>
-                <Field name="username" id="username" type='text' component={FieldInput} placeholder="username"  />
-              </Col>
-            </FormGroup>
-          </Row>
-
-          <Row>
-            <FormGroup controlId="formPassword">
-              <Col componentClass={ControlLabel} sm={2}>
-                Password
-              </Col>
-              <Col sm={4}>
-                <Field name="password" id="password" type='password' component={FieldInput} placeholder="password"  />
-              </Col>
-            </FormGroup>
-          </Row>
-
-          <Row>
-            <FormGroup controlId="formLocationSelect">
-              <Col componentClass={ControlLabel} sm={2}>
-                Location
-              </Col>
-              <Col sm={4}>
-                <Field
-                  name="location"
-                  id="location"
-                  options={ locations }
-                  component={ Select }
-                >
-
-                </Field>
-
-              </Col>
-            </FormGroup>
-          </Row>
-
-          <Row>
-            <FormGroup controlId="formSubmit">
-            <Col smOffset={2} sm={4}>
-            <ButtonToolbar>
-                <Button
-                  bsStyle="success"
-                  bsSize="large"
-                  disabled={pristine || submitting || !isFormComplete}
-                  type="submit"
-                >
-                  Submit
-                </Button>
-
-
-                <Button
-                  bsStyle="danger"
-                  bsSize="large"
-                  disabled={pristine || submitting}
-                  onClick={reset}
-                >
-                  Clear Values
-                </Button>
-            </ButtonToolbar>
-            </Col>
-            </FormGroup>
-          </Row>
-        </Grid>
-      </Form>
-    </div>
+  return(
+    <form className="panel" onSubmit={handleSubmit} >
+        <Errors />
+      <div className="midPanelItemContainer">
+        <Field
+          name="username" id="username" type='text' component={FieldInput} placeholder="Username"  />
+      </div>
+      <div className="midPanelItemContainer">
+        <Field
+          name="password" id="password" type='password' component={FieldInput} placeholder="Password"  />
+      </div>
+      <div className="midPanelItemContainer">
+        <Field
+          name="location"
+          id="location"
+          options={ locations }
+          component={ Select }
+          placeholder="Select Location"
+        />
+      </div>
+      <div className="bottomPanelItemContainer">
+        <Button className="loginButton"
+          type="submit"
+          disabled={pristine || submitting || !isFormComplete}
+        >
+          Login
+        </Button>
+      </div>
+    </form>
   );
+
 };
 
 LoginForm.propTypes = {
@@ -113,10 +68,10 @@ LoginForm.propTypes = {
 };
 
 LoginForm = reduxForm({
-  form: 'login-form'  // a unique identifier for this form
+  form: 'login-form-alt'  // a unique identifier for this form
 })(LoginForm);
 
-const selector = formValueSelector('login-form');
+const selector = formValueSelector('login-form-alt');
 
 export default connect(state => {
   const { username, password, location } = selector(state, 'username', 'password', 'location');
