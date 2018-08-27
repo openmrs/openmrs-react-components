@@ -3,58 +3,13 @@
 // TODO is a full rep too big, we need to use a smaller size?
 import * as R from 'ramda';
 
-class Patient {
 
-  getUuid() { return this.uuid; }
 
-  setUuid(uuid){ this.uuid = uuid; }
+const patient = {
 
-  getId() { return this.id; }
+  createFromRestRep: (restRep, visit) => {
 
-  setId(id) { this.id = id; }
-
-  getName() { return this.name; }
-
-  setName(name){ this.name = name; }
-
-  getGender() { return this.gender; }
-
-  setGender(gender) { this.gender = gender; }
-
-  getAge() { return this.age; }
-
-  setAge(age) { this.age = age; }
-
-  getBirthdate() { return this.birthdate; }
-
-  setBirthdate(birthdate) { this.birthdate = birthdate; }
-
-  getIdentifiers() { return this.identifiers; }
-
-  setIdentifiers(identifiers) { this.identifiers = identifiers; }
-
-  addIdentifier(identifier, identifierType) {
-    this.identifiers.push({ identifier: identifier, identifierType: identifierType});
-  }
-
-  getChw() { return this.chw; }
-
-  setChw(chw) { this.chw = chw; }
-
-  getVillage() { return this.village; }
-
-  setVillage(village) { this.village = village; }
-
-  getActions() { return this.actions; }
-
-  setActions(actions) { this.actions = actions; }
-
-  getAlert() { return this.alert; }
-
-  setAlert(alert) { this.alert = alert; }
-
-  static createFromRestRep(restRep, visit) {
-    let patient = new Patient();
+    let patient = {};
 
     patient.id = restRep.id;
     patient.uuid = restRep.uuid;
@@ -108,7 +63,14 @@ class Patient {
     return patient;
   }
 
-}
+
+};
+
+export default patient;
 
 
-export default Patient;
+
+
+
+
+
