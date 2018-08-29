@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import '../../../assets/css/patientHeader.css';
-// import { fetchPatientRecord, fetchPatientNote } from '../../actions/patient';
+import patientUtil from '../../domain/patient/patientUtil';
 
 import dateFns from 'date-fns';
 
@@ -19,52 +19,42 @@ export class PatientHeaderAlt extends PureComponent {
       showContactInfo: !this.state.showContactInfo,
     }));
   };
+
   renderDemographics() {
-    const {
-      props: {
-        patient: {
-          person,
-          patientId,
-          attributes,
-        }
-      },
-      state: {
-        showContactInfo
-      }
-    } = this;
+    let patient = this.props.patient;
     return (
       <div className="demographics">
         <h1 className="name">
           <span>
-            <span className="PersonName-givenName">{person.personName.givenName}&nbsp;&nbsp;</span>
+            <span className="PersonName-givenName">{patientUtil.getGivenName(patient)}&nbsp;&nbsp;</span>
             <em>Given</em>
           </span>
 
           {
-            person.personName.middleName &&
+            patientUtil.getMiddleName(patient) &&
             <span>
-              <span className="PersonName-middleName">{person.personName.middleName}&nbsp;&nbsp;</span>
+              <span className="PersonName-middleName">{patientUtil.getMiddleName(patient)}&nbsp;&nbsp;</span>
               <em>Middle</em>
             </span>
           }
 
           <span>
-            <span className="PersonName-familyName">{person.personName.familyName}</span>
+            <span className="PersonName-familyName">{patientUtil.getFamilyName(patient)}</span>
             <em>Family Name</em>
           </span>
 
           &nbsp;
           <span className="gender-age">
-            <span>{person.gender === 'M' ? "Male" : "Female"}&nbsp;</span>
+            <span>{patient.gender === 'M' ? "Male" : "Female"}&nbsp;</span>
             <span>
-              {person.age} year(s) ({dateFns.format(new Date(person.birthdate), 'DD[.]MMM[.]YYYY')})
+              {patient.age} year(s) ({dateFns.format(new Date(patient.birthdate), 'DD[.]MMM[.]YYYY')})
             </span>
             <span
               className="edit-info"
               id="edit-patient-demographics"
             >
               <small>
-                <a href={`../../registrationapp/editSection.page?patientId=${patientId}&sectionId=demographics&appId=referenceapplication.registrationapp.registerPatient`}>Edit</a>
+                <a href={`../../registrationapp/editSection.page?patientId=${patient.id}&sectionId=demographics&appId=referenceapplication.registrationapp.registerPatient`}>Edit</a>
               </small>
             </span>
             <a
@@ -74,7 +64,7 @@ export class PatientHeaderAlt extends PureComponent {
               role="button"
               tabIndex="0"
             >
-              {showContactInfo ?
+              {this.state.showContactInfo ?
                 <span>Hide Contact Info <i className="toggle-icon icon-caret-up small" /></span> :
                 <span>Show contact info <i className="toggle-icon icon-caret-up small rotate180" /></span>
               }
@@ -83,23 +73,23 @@ export class PatientHeaderAlt extends PureComponent {
 
           <div className="firstLineFragments" />
 
-          {showContactInfo &&
+          {this.state.showContactInfo &&
           <div
             className=""
             id="contactInfoContent"
           >
             <div className="contact-info-inline">
               <span>
-                {person.preferredAddress.display}
-                {person.preferredAddress.cityVillage && ` , ${person.preferredAddress.cityVillage}`}
-                {person.preferredAddress.stateProvince && `,${person.preferredAddress.stateProvince}`}
-                {person.preferredAddress.country && `,${person.preferredAddress.country}`}
-                {person.preferredAddress.postalCode && `,${person.preferredAddress.postalCode}`}
+                {patientUtil.getAddressDisplay(patient)}
+                {patientUtil.getCityVillage(patient) && ` , ${patientUtil.getCityVillage(patient)}`}
+                {patientUtil.getStateProvince(patient) && `,${patientUtil.getStateProvince(patient)}`}
+                {patientUtil.getCountry(patient) && `,${patientUtil.getCountry(patient)}`}
+                {patientUtil.getPostalCode(patient) && `,${patientUtil.getPostalCode(patient)}`}
                 <em>Address</em>
               </span>
               <span className="left-margin">
                 <span id="coreapps-telephoneNumber">
-                  {attributes[0] ? attributes[0].value : ''}
+                  {patientUtil.getTelephoneNumber(patient)}
                 </span>
                 <em>Telephone Number</em>
               </span>
@@ -109,7 +99,7 @@ export class PatientHeaderAlt extends PureComponent {
                 id="contact-info-inline-edit"
               >
                 <a
-                  href={`../../registrationapp/editSection.page?patientId=${patientId}&sectionId=contactInfo&appId=referenceapplication.registrationapp.registerPatient`}
+                  href={`../../registrationapp/editSection.page?patientId=${patient.id}&sectionId=contactInfo&appId=referenceapplication.registrationapp.registerPatient`}
                 >
                   Edit
                 </a>
@@ -123,52 +113,40 @@ export class PatientHeaderAlt extends PureComponent {
   }
 
   renderPatientIdentifier() {
-    const { patient } = this.props;
+    let patient = this.props.patient;
     return (
       <div className="identifiers">
         <em>Patient ID</em>
-        <span>{patient.patientIdentifier.identifier}</span>
+        <span>{patient.identifiers[0].identifier}</span>
         <br />
       </div>
     );
   }
 
   render() {
-    const {
-      patient
-    } = this.props;
-    return (
-      <div>
-        <div className="patient-header ">
-          {patient && this.renderDemographics()}
-          {patient && this.renderPatientIdentifier()}
+    const { patient } = this.props;
+    if ( patient
+      && (typeof patient !== 'undefined')
+      && (typeof patient.name !== 'undefined') ) {
+      return (
+        <div>
+          <div className="patient-header ">
+            {patient && this.renderDemographics()}
+            {patient && this.renderPatientIdentifier()}
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
+    return null;
   }
 }
 
 const mapStateToProps = state => ({
-  patient: state.patientReducer.patient,
-  note: state.noteReducer.note,
+  patient: state.selectedPatient ? state.patients[state.selectedPatient] : null
 });
 
-const actionCreators = {
-  // TODO: this would need to be removed once incoporate making this component smart
-//   fetchPatientRecord,
-//   fetchPatientNote,
-};
-
 PatientHeaderAlt.propTypes = {
-  location: PropTypes.shape().isRequired,
   patient: PropTypes.shape({}).isRequired,
-  // TODO: need to remove comments
-  //   fetchPatientNote: PropTypes.func.isRequired,
-  //   fetchPatientRecord: PropTypes.func.isRequired,
-
 };
 
-/* TODO: this should be needed cos we would be connecting
-to local redux state and exporting reducers and sagas but for now, just pass props
-*/
-export default connect(mapStateToProps, actionCreators)(PatientHeaderAlt);
+export default connect(mapStateToProps)(PatientHeaderAlt);

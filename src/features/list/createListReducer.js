@@ -11,7 +11,7 @@
     * converters: one or more converters that can transform elements in the list
     * filters: one or more filters that can be used to filter the list
 
-  Example converter that, given a OpenMRS Visit represention, creates a Patient domain object (see Patient.js):
+  Example converter that, given a OpenMRS Visit represention, creates a Patient domain object (see patientUtil.js):
     * https://github.com/openmrs/openmrs-react-components/blob/master/src/domain/patient/converters/visitRestRepToPatientObjConverter.js
 
   Example filter that, given a list of Patients, filters out those that have an encounter of a certain type within their active visit:

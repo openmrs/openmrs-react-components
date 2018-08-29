@@ -2,6 +2,7 @@ import createListReducer from '../createListReducer';
 import visitRestRepToPatientObjConverter from '../../../domain/patient/converters/visitRestRepToPatientObjConverter';
 import byEncounterTypeFilter from '../../../domain/patient/filters/patientObjByEncounterTypeFilter';
 import VISIT_TYPES from "../../visit/types";
+import patientUtil from "../../../domain/patient/patientUtil";
 
 describe('createListReducer', () => {
 
@@ -2040,11 +2041,11 @@ describe('createListReducer', () => {
     });
 
     expect(queue.length).toBe(2);
-    expect(queue[0].getName().givenName).toBe("Bob");
-    expect(queue[0].getName().familyName).toBe("Dylan");
+    expect(patientUtil.getGivenName(queue[0])).toBe("Bob");
+    expect(patientUtil.getFamilyName(queue[0])).toBe("Dylan");
     expect(queue[0].visit.uuid).toBe("6501cbf1-42f3-4b2f-83bc-ed562e019af8");
-    expect(queue[1].getName().givenName).toBe("Neil");
-    expect(queue[1].getName().familyName).toBe("Young");
+    expect(patientUtil.getGivenName(queue[1])).toBe("Neil");
+    expect(patientUtil.getFamilyName(queue[1])).toBe("Young");
     expect(queue[1].visit.uuid).toBe("e81fe098-5b7f-4085-bc76-39918c8df2f6");
 
   });
@@ -2062,8 +2063,8 @@ describe('createListReducer', () => {
     });
 
     expect(queue.length).toBe(1);
-    expect(queue[0].getName().givenName).toBe("Bob");
-    expect(queue[0].getName().familyName).toBe("Dylan");
+    expect(patientUtil.getGivenName(queue[0])).toBe("Bob");
+    expect(patientUtil.getFamilyName(queue[0])).toBe("Dylan");
     expect(queue[0].visit.uuid).toBe("6501cbf1-42f3-4b2f-83bc-ed562e019af8");
 
   });
@@ -2081,8 +2082,8 @@ describe('createListReducer', () => {
     });
 
     expect(queue.length).toBe(1);
-    expect(queue[0].getName().givenName).toBe("Neil");
-    expect(queue[0].getName().familyName).toBe("Young");
+    expect(patientUtil.getGivenName(queue[0])).toBe("Neil");
+    expect(patientUtil.getFamilyName(queue[0])).toBe("Young");
     expect(queue[0].visit.uuid).toBe("e81fe098-5b7f-4085-bc76-39918c8df2f6");
 
   });

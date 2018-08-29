@@ -13,7 +13,7 @@ import DataGrid from '../grid/DataGrid';
   The UI display element is ag-Grid: https://www.ag-grid.com/best-react-data-grid/
 
   Props:
-    * columnDefs: columns to display (default/sample provided, based on Patient.js domain object), passed on directly to DataGrid
+    * columnDefs: columns to display (default/sample provided, based on patientUtil.js domain object), passed on directly to DataGrid
     * delayInterval: the delay interval before re-triggering the fetchListActionCreator (to force a refresh of the list) (default is 10000ms)
       if null or 0, no refresh is scheduled
     * fetchListActionCreator: action creator to call on mount, and every subsequent {delayInterval} ms

@@ -1,9 +1,9 @@
-import Patient from "../Patient";
+import patientUtil from "../patientUtil";
 
 const visitRestRepToPatientObjConverter = () => {
 
   return (visit) => {
-    return Patient.createFromRestRep(visit.patient, visit);
+    return patientUtil.createFromRestRep(visit.patient, visit);
   };
 
 };

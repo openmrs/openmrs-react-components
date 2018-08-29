@@ -1,4 +1,5 @@
-import Patient from '../patient/Patient';
+import patientUtil from '../patient/patientUtil';
+import { ATTRIBUTE_TYPES } from '../patient/constants';
 
 describe('Domain Object: Patient', () => {
 
@@ -568,30 +569,101 @@ describe('Domain Object: Patient', () => {
     "resourceVersion": "1.8"
   };
 
-  it('should create empty patient', () => {
+  const patient1 =
+    {
+      id : '1',
+      uuid : 'A1',
+      gender : 'M',
+      age : 24,
+      birthdate : '1994-01-01T00:00:00.000-0500',
+      name : {
+        givenName : 'givenName',
+        middleName : 'middleName',
+        familyName : 'familyName',
+      },
+      address : {
+        display : 'addressDisplay',
+        cityVillage : 'addressCityVillage',
+        stateProvince : 'addressStateProvince',
+        country : 'addressCountry',
+        postalCode : 'addressPostalCode'
+      },
+      identifiers : [
+        {
+          identifier : 'identifier',
+          identifierType : 'identifierTypeUuid'
+        }
+      ],
+      attributes : [
+        {
+          display: '9176-7635',
+          uuid: 'B1',
+          value: '91767645',
+          attributeType: ATTRIBUTE_TYPES.telephoneNumber
+        }
+      ],
+      // TODO The following are implementation specific things which will be refactored and removed
+      actions : 'actions',
+      alert : 'alert',
+      chw : 'chw',
+      village: 'village'
+    };
 
-    const patient = new Patient();
+  const identifier1 = { identifier: "123", identifierType: "A2"};
 
-    expect(patient.getUuid()).toBeUndefined();
-    expect(patient.getName()).toBeUndefined();
-    expect(patient.getIdentifiers()).toBeUndefined();
-  });
+  const identifier2 = { identifier: "456", identifierType: "A3"};
 
   it('should create patient from full REST rep', () => {
 
-    const patient = Patient.createFromRestRep(patientFullRep);
+    const patient = patientUtil.createFromRestRep(patientFullRep);
 
-    expect(patient.getUuid()).toBe("cda61f89-c342-4caf-88c3-d0f829a7b43a");
-    expect(patient.getGender()).toBe("M");
-    expect(patient.getAge()).toBe(24);
-    expect(patient.getBirthdate()).toBe("1994-01-01T00:00:00.000-0500");
-    expect(patient.getName().givenName).toBe("Neil");
-    expect(patient.getName().familyName).toBe("Young");
-    expect(patient.getName().middleName).toBeNull();
-    expect(patient.getIdentifiers().length).toBe(7);
-    expect(patient.getIdentifiers()).toContainEqual({ identifier: "Y2A5H1", identifierType: "a541af1e-105c-40bf-b345-ba1fd6a59b85"});
-    expect(patient.getIdentifiers()).toContainEqual({ identifier: "TH000002", identifierType: "e66645eb-03a8-4991-b4ce-e87318e37566"});
+    expect(patient.uuid).toBe("cda61f89-c342-4caf-88c3-d0f829a7b43a");
+    expect(patient.gender).toBe("M");
+    expect(patient.age).toBe(24);
+    expect(patient.birthdate).toBe("1994-01-01T00:00:00.000-0500");
+    expect(patientUtil.getGivenName(patient)).toBe("Neil");
+    expect(patientUtil.getFamilyName(patient)).toBe("Young");
+    expect(patientUtil.getMiddleName(patient)).toBeNull();
+    expect(patient.identifiers.length).toBe(7);
+    expect(patient.identifiers).toContainEqual({ identifier: "Y2A5H1", identifierType: "a541af1e-105c-40bf-b345-ba1fd6a59b85"});
+    expect(patient.identifiers).toContainEqual({ identifier: "TH000002", identifierType: "e66645eb-03a8-4991-b4ce-e87318e37566"});
+    expect(patientUtil.getAddressDisplay(patient)).toBe("Cange");
+    expect(patientUtil.getCityVillage(patient)).toBe("Cerca Cavajal");
+    expect(patientUtil.getStateProvince(patient)).toBe("Centre");
+    expect(patientUtil.getCountry(patient)).toBe("Haiti");
+    expect(patientUtil.getPostalCode(patient)).toBeNull();
 
+  });
+
+  it('should add identifier to patient with existing identifiers', () => {
+    var testPatient = Object.assign({}, patient1);
+    expect(testPatient.identifiers.length).toBe(1);
+    patientUtil.addIdentifier(identifier1.identifier, identifier1.identifierType, testPatient);
+    expect(testPatient.identifiers.length).toBe(2);
+    expect(testPatient.identifiers).toContainEqual(identifier1);
+    expect(testPatient.identifiers).toContainEqual({ identifier : 'identifier', identifierType : 'identifierTypeUuid' });
+  });
+
+  it('should add identifier to patient without existing identifiers', () => {
+    var testPatient = {id : "1"};
+    testPatient = patientUtil.addIdentifier(identifier1.identifier, identifier1.identifierType, testPatient);
+    expect(testPatient.identifiers.length).toBe(1);
+    expect(testPatient.identifiers).toContainEqual(identifier1);
+    patientUtil.addIdentifier(identifier2.identifier, identifier2.identifierType, testPatient);
+    expect(testPatient.identifiers.length).toBe(2);
+    expect(testPatient.identifiers).toContainEqual(identifier2);
+    var testPatient = {};
+    testPatient = patientUtil.addIdentifier(identifier1.identifier, identifier1.identifierType, testPatient);
+    expect(testPatient.identifiers.length).toBe(1);
+    expect(testPatient.identifiers).toContainEqual(identifier1);
+    patientUtil.addIdentifier(identifier2.identifier, identifier2.identifierType, testPatient);
+    expect(testPatient.identifiers.length).toBe(2);
+    expect(testPatient.identifiers).toContainEqual(identifier2);
+  });
+
+  it('should get telephone number', () => {
+    var testPatient = Object.assign({}, patient1);
+    expect(patientUtil.getTelephoneNumber(testPatient)).toBe('91767645');
   });
 
 });

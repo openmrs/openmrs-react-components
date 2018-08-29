@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
-import Patient from './domain/patient/Patient';
+import patientUtil from './domain/patient/patientUtil';
 import visitRestRepToPatientObjConverter from './domain/patient/converters/visitRestRepToPatientObjConverter';
 import patientObjByEncounterTypeFilter from './domain/patient/filters/patientObjByEncounterTypeFilter';
 import patientObjByVisitLocationFilter from './domain/patient/filters/patientObjByVisitLocationFilter';
@@ -10,6 +10,7 @@ import HeaderAlt from './components/header/HeaderAlt';
 import LocationMenu from './components/header/LocationMenu';
 import List from './components/list/List';
 import PatientHeader from './components/header/PatientHeader';
+import PatientHeaderAlt from './components/header/PatientHeaderAlt';
 import ToolTip from './components/tooltip/ToolTip';
 import LoadingView from './components/loading/LoadingView';
 import Login from './components/login/Login';
@@ -69,7 +70,7 @@ const sagas = function* () {
 };
 
 module.exports = {
-  Patient,
+  patientUtil,
   visitRestRepToPatientObjConverter,
   patientObjByEncounterTypeFilter,
   patientObjByVisitLocationFilter,
@@ -81,6 +82,7 @@ module.exports = {
   List,
   ToolTip,
   PatientHeader,
+  PatientHeaderAlt,
   Login,
   LoginPage,
   Logout,
