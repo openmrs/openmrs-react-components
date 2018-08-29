@@ -1,11 +1,15 @@
-// Domain Object for Patient: given a (full?) REST representation of a patient, creates a simplified view of them
+
 // TODO this is *not* React specific and should be moved into another library?
 // TODO is a full rep too big, we need to use a smaller size?
 import * as R from 'ramda';
 import { ATTRIBUTE_TYPES } from './constants';
 
 /*
-Expects patient plain javascript object in the form:
+
+Given the full REST representation of an object, this class provides a util method "createFromRestRep" that
+formats it into a simplified form.
+
+Also provides util methods to operate on a Patient in this new form
 
 {
   id : $id,
