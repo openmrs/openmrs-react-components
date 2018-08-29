@@ -47,17 +47,17 @@ export class PatientHeaderAlt extends PureComponent {
           <span className="gender-age">
             <span>{patient.gender === 'M' ? "Male" : "Female"}&nbsp;</span>
             <span>
-              {patient.age} year(s) ({dateFns.format(new Date(patient.birthdate), 'DD[.]MMM[.]YYYY')})
+              {patient.age} year(s) {/*({dateFns.format(new Date(patient.birthdate), 'DD[.]MMM[.]YYYY')})*/}
             </span>
-            <span
+           {/* <span
               className="edit-info"
               id="edit-patient-demographics"
             >
               <small>
                 <a href={`../../registrationapp/editSection.page?patientId=${patient.id}&sectionId=demographics&appId=referenceapplication.registrationapp.registerPatient`}>Edit</a>
               </small>
-            </span>
-            <a
+            </span>*/}
+           {/* <a
               className="contact-info-label expanded"
               id="patient-header-contactInfo"
               onClick={() => { this.toggleDetailsView(); }}
@@ -68,7 +68,7 @@ export class PatientHeaderAlt extends PureComponent {
                 <span>Hide Contact Info <i className="toggle-icon icon-caret-up small" /></span> :
                 <span>Show contact info <i className="toggle-icon icon-caret-up small rotate180" /></span>
               }
-            </a>
+            </a>*/}
           </span>
 
           <div className="firstLineFragments" />
