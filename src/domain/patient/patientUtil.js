@@ -1,6 +1,7 @@
 
 // TODO this is *not* React specific and should be moved into another library?
 // TODO is a full rep too big, we need to use a smaller size?
+// TODO do we actually want to start storing the uuids for things like identifiers here? would be relevant if we ant to start using these utils to update
 import * as R from 'ramda';
 import { ATTRIBUTE_TYPES } from './constants';
 
@@ -47,6 +48,10 @@ Also provides util methods to operate on a Patient in this new form
     }
     ...
   ],
+  visit: {
+    ... if a visit is passed in along with a patient to the createPatientFromRestRep, it will be stored here
+        intended as a means to store the active visit as a top-level element on a patient record
+  }
   // TODO The following are implementation specific things which will be refactored and removed
   actions : $actions,
   alert : $alert,
@@ -65,7 +70,9 @@ const patientUtil = {
 
   addIdentifier: (identifier, identifierType, patient) => {
     if (R.path(['identifiers'], patient)){
-      patient.identifiers.push({ identifier: identifier, identifierType: identifierType });
+      if (!patient.identifiers.some((i) => i.identifier === identifier && i.identifierType === identifierType)) {
+        patient.identifiers.push({ identifier: identifier, identifierType: identifierType });
+      }
     }
     else if (patient) {
       patient.identifiers = [ { identifier: identifier, identifierType: identifierType } ];
@@ -76,9 +83,23 @@ const patientUtil = {
     return patient;
   },
 
+  // finds identifier based on type, just returns first match
+  getIdentifier: (patient, identifierTypeUuid) => {
+    const identifier = patientUtil.getIdentifiers(patient, identifierTypeUuid);
+    return identifier ? identifier[0] : null;
+  },
+
+  getIdentifiers: (patient, identifierTypeUuid) => {
+    return patient.identifiers
+      .filter((i) => i.identifierType === identifierTypeUuid)
+      .map((i) => i.identifier);
+  },
+
   getAddressDisplay: (patient) => { return R.path(['address', 'display'], patient); },
 
   getCityVillage: (patient) => { return R.path(['address', 'cityVillage'], patient); },
+
+  getCountyDistrict: (patient) => { return R.path(['address', 'countyDistrict'], patient); },
 
   getStateProvince: (patient) => { return R.path(['address', 'stateProvince'], patient); },
 
@@ -86,6 +107,21 @@ const patientUtil = {
 
   getPostalCode: (patient) => { return R.path(['address', 'postalCode'], patient); },
 
+  getAddress1: (patient) =>  { return R.path(['address', 'address1'], patient); },
+
+  getAddress2: (patient) =>  { return R.path(['address', 'address2'], patient); },
+
+  getAddress3: (patient) =>  { return R.path(['address', 'address3'], patient); },
+
+  getAddress4: (patient) =>  { return R.path(['address', 'address4'], patient); },
+
+  getAddress5: (patient) =>  { return R.path(['address', 'address5'], patient); },
+
+  getAddress6: (patient) =>  { return R.path(['address', 'address6'], patient); },
+
+  // TODO cut-and-paste for address fields 7 to 15, or create this dynamically?
+
+  // TODO make getter for any attribute type
   getTelephoneNumber: (patient) => {
     var attribute = patient.attributes.find((attribute) => {
       return (attribute.attributeType === ATTRIBUTE_TYPES.telephoneNumber); });
@@ -116,19 +152,24 @@ const patientUtil = {
         return !identifier.voided;
       }).map((identifier) => {
         return { identifier: identifier.identifier, identifierType: identifier.identifierType.uuid };
-      }) : undefined;
-
-    patient.visit = (typeof visit !== 'undefined') ? visit :undefined;
+      }) : [];
 
     // Preferred Address
 
     patient.address = R.path(['person', 'preferredAddress'], restRep) ? {
       display: restRep.person.preferredAddress.display,
       cityVillage: restRep.person.preferredAddress.cityVillage,
+      countyDistrict: restRep.person.preferredAddress.countyDistrict,
       stateProvince: restRep.person.preferredAddress.stateProvince,
       country: restRep.person.preferredAddress.country,
-      postalCode: restRep.person.preferredAddress.postalCode
-    } : undefined;
+      postalCode: restRep.person.preferredAddress.postalCode,
+      address1: restRep.person.preferredAddress.address1,
+      address2: restRep.person.preferredAddress.address2,
+      address3: restRep.person.preferredAddress.address3,
+      address4: restRep.person.preferredAddress.address4,
+      address5: restRep.person.preferredAddress.address5,
+      address6: restRep.person.preferredAddress.address6
+    } : {};
 
     // Attributes
 
@@ -142,7 +183,11 @@ const patientUtil = {
           value: attribute.value,
           attributeType: attribute.attributeType,
         };
-      }) : undefined;
+      }) : [];
+
+
+    // add in the visit, if it has been specified
+    patient.visit = (typeof visit !== 'undefined') ? visit :undefined;
 
     return patient;
   }
