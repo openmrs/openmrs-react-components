@@ -117,6 +117,7 @@ exports[`Component: List renders properly 1`] = `
           rowData={Array []}
         >
           <div
+            id="omrsGrid"
             style={
               Object {
                 "height": "600px",
@@ -131,6 +132,7 @@ exports[`Component: List renders properly 1`] = `
               />
             </label>
             <AgGridReact
+              animateRows={true}
               columnDefs={
                 Array [
                   Object {

@@ -53,6 +53,7 @@ class DataGrid extends React.Component {
     return (
       // the consuming app should provide a wrapping style as described here: https://www.ag-grid.com/react-more-details/
       <div
+        id="omrsGrid"
         style={{
           height: '600px'
         }}
@@ -63,6 +64,7 @@ class DataGrid extends React.Component {
         </label>
         <AgGridReact
           columnDefs={this.props.columnDefs}
+          animateRows={true}
           enableSorting
           id="omrsGrid"
           onGridReady={this.onGridReady.bind(this)}

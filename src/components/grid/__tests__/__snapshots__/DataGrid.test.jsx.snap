@@ -22,6 +22,7 @@ exports[`Component: DataGrid renders properly 1`] = `
       rowData={Array []}
     >
       <div
+        id="omrsGrid"
         style={
           Object {
             "height": "600px",
@@ -36,6 +37,7 @@ exports[`Component: DataGrid renders properly 1`] = `
           />
         </label>
         <AgGridReact
+          animateRows={true}
           enableSorting={true}
           id="omrsGrid"
           onGridReady={[Function]}
