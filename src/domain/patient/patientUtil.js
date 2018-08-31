@@ -29,12 +29,16 @@ Also provides util methods to operate on a Patient in this new form
     stateProvince : $stateProvince,
     country : $country,
     postalCode : $postalCode
+    ...
   },
   identifiers : [
     ...
     {
       identifier : $identifier,
-      identifierType : $identifierTypeUuid
+      identifierType : {
+        uuid: $uuid,
+        // TODO add display and/or name?
+      }
     }
     ...
   ],
@@ -44,7 +48,10 @@ Also provides util methods to operate on a Patient in this new form
       display: $display,
       uuid: $uuid,
       value: $value,
-      attributeType: $uuid
+      attributeType: {
+        uuid: $uuid,
+        // TODO add display and/or name?
+      }
     }
     ...
   ],
@@ -70,7 +77,7 @@ const patientUtil = {
 
   addIdentifier: (identifier, identifierType, patient) => {
     if (R.path(['identifiers'], patient)){
-      if (!patient.identifiers.some((i) => i.identifier === identifier && i.identifierType === identifierType)) {
+      if (!patient.identifiers.some((i) => i.identifier === identifier && i.identifierType.uuid === identifierType.uuid)) {
         patient.identifiers.push({ identifier: identifier, identifierType: identifierType });
       }
     }
@@ -84,14 +91,14 @@ const patientUtil = {
   },
 
   // finds identifier based on type, just returns first match
-  getIdentifier: (patient, identifierTypeUuid) => {
-    const identifier = patientUtil.getIdentifiers(patient, identifierTypeUuid);
+  getIdentifier: (patient, identifierType) => {
+    const identifier = patientUtil.getIdentifiers(patient, identifierType);
     return identifier ? identifier[0] : null;
   },
 
-  getIdentifiers: (patient, identifierTypeUuid) => {
+  getIdentifiers: (patient, identifierType) => {
     return patient.identifiers
-      .filter((i) => i.identifierType === identifierTypeUuid)
+      .filter((i) => i.identifierType.uuid === identifierType.uuid)
       .map((i) => i.identifier);
   },
 
@@ -124,7 +131,7 @@ const patientUtil = {
   // TODO make getter for any attribute type
   getTelephoneNumber: (patient) => {
     var attribute = patient.attributes.find((attribute) => {
-      return (attribute.attributeType === ATTRIBUTE_TYPES.telephoneNumber); });
+      return (attribute.attributeType.uuid === ATTRIBUTE_TYPES.telephoneNumber.uuid); });
     return (R.path(['value'], attribute));
   },
 
@@ -151,7 +158,12 @@ const patientUtil = {
       restRep.identifiers.filter((identifier) => {
         return !identifier.voided;
       }).map((identifier) => {
-        return { identifier: identifier.identifier, identifierType: identifier.identifierType.uuid };
+        return {
+          identifier: identifier.identifier,
+          identifierType: {
+            uuid: identifier.identifierType.uuid
+          }
+        };
       }) : [];
 
     // Preferred Address
@@ -181,7 +193,9 @@ const patientUtil = {
           display: attribute.display,
           uuid: attribute.uuid,
           value: attribute.value,
-          attributeType: attribute.attributeType,
+          attributeType: {
+            uuid: attribute.attributeType.uuid
+          },
         };
       }) : [];
 

@@ -3,7 +3,7 @@ import { ATTRIBUTE_TYPES } from '../patient/constants';
 
 describe('Domain Object: Patient', () => {
 
-  let patientFullRep, patient1, identifier1, identifier2, identifier3;
+  let patientFullRep, patient1, identifier1, identifier2, identifier3, identifierType1, identifierType2, identifierType3;
 
   beforeEach(() => {
 
@@ -595,7 +595,9 @@ describe('Domain Object: Patient', () => {
         identifiers: [
           {
             identifier: 'identifier',
-            identifierType: 'identifierTypeUuid'
+            identifierType: {
+              uuid: 'identifierTypeUuid'
+            }
           }
         ],
         attributes: [
@@ -603,7 +605,9 @@ describe('Domain Object: Patient', () => {
             display: '9176-7635',
             uuid: 'B1',
             value: '91767645',
-            attributeType: ATTRIBUTE_TYPES.telephoneNumber
+            attributeType:{
+              uuid: '14d4f066-15f5-102d-96e4-000c29c2a5d7'
+            }
           }
         ],
         // TODO The following are implementation specific things which will be refactored and removed
@@ -613,11 +617,15 @@ describe('Domain Object: Patient', () => {
         village: 'village'
       };
 
-    identifier1 = { identifier: "123", identifierType: "A2" };
+    identifier1 = "123"
+    identifierType1 = { uuid: "A2"} ;
 
-    identifier2 = { identifier: "456", identifierType: "A3" };
+    identifier2 = "456";
+    identifierType2 = { uuid: "A3"} ;
 
-    identifier3 =  { identifier: "789", identifierType: "A3" };
+    identifier3 =  "789";
+    identifierType3 = { uuid: "A3"} ;
+
   });
 
   it('should create patient from full REST rep', () => {
@@ -632,8 +640,8 @@ describe('Domain Object: Patient', () => {
     expect(patientUtil.getFamilyName(patient)).toBe("Young");
     expect(patientUtil.getMiddleName(patient)).toBeNull();
     expect(patient.identifiers.length).toBe(7);
-    expect(patient.identifiers).toContainEqual({ identifier: "Y2A5H1", identifierType: "a541af1e-105c-40bf-b345-ba1fd6a59b85"});
-    expect(patient.identifiers).toContainEqual({ identifier: "TH000002", identifierType: "e66645eb-03a8-4991-b4ce-e87318e37566"});
+    expect(patient.identifiers).toContainEqual({ identifier: "Y2A5H1", identifierType: { uuid: "a541af1e-105c-40bf-b345-ba1fd6a59b85" } }) ;
+    expect(patient.identifiers).toContainEqual({ identifier: "TH000002", identifierType: { uuid: "e66645eb-03a8-4991-b4ce-e87318e37566" } });
     expect(patientUtil.getAddressDisplay(patient)).toBe("Cange");
     expect(patientUtil.getCityVillage(patient)).toBe("Cerca Cavajal");
     expect(patientUtil.getStateProvince(patient)).toBe("Centre");
@@ -649,54 +657,50 @@ describe('Domain Object: Patient', () => {
   it('should add identifier to patient with existing identifiers', () => {
     var testPatient = Object.assign({}, patient1);
     expect(testPatient.identifiers.length).toBe(1);
-    patientUtil.addIdentifier(identifier1.identifier, identifier1.identifierType, testPatient);
+    patientUtil.addIdentifier(identifier1, identifierType1, testPatient);
     expect(testPatient.identifiers.length).toBe(2);
-    expect(testPatient.identifiers).toContainEqual(identifier1);
-    expect(testPatient.identifiers).toContainEqual({ identifier : 'identifier', identifierType : 'identifierTypeUuid' });
-    expect(patientUtil.getIdentifier(testPatient, "identifierTypeUuid")).toBe('identifier');
-    expect(patientUtil.getIdentifier(testPatient, "A2")).toBe('123');
+    expect(patientUtil.getIdentifier(testPatient, { uuid: "identifierTypeUuid" })).toBe('identifier');
+    expect(patientUtil.getIdentifier(testPatient, { uuid: "A2" })).toBe('123');
   });
 
   it('should add identifier to patient without existing identifiers', () => {
     var testPatient = {id : "1"};
-    testPatient = patientUtil.addIdentifier(identifier1.identifier, identifier1.identifierType, testPatient);
+    testPatient = patientUtil.addIdentifier(identifier1, identifierType1, testPatient);
     expect(testPatient.identifiers.length).toBe(1);
-    expect(testPatient.identifiers).toContainEqual(identifier1);
-    patientUtil.addIdentifier(identifier2.identifier, identifier2.identifierType, testPatient);
+    expect(patientUtil.getIdentifier(testPatient, identifierType1)).toBe('123');
+    patientUtil.addIdentifier(identifier2, identifierType2, testPatient);
     expect(testPatient.identifiers.length).toBe(2);
-    expect(testPatient.identifiers).toContainEqual(identifier2);
+    expect(patientUtil.getIdentifier(testPatient, identifierType2)).toBe('456');
     var testPatient = {};
-    testPatient = patientUtil.addIdentifier(identifier1.identifier, identifier1.identifierType, testPatient);
-    expect(testPatient.identifiers.length).toBe(1);
-    expect(testPatient.identifiers).toContainEqual(identifier1);
-    patientUtil.addIdentifier(identifier2.identifier, identifier2.identifierType, testPatient);
-    expect(testPatient.identifiers.length).toBe(2);
-    expect(testPatient.identifiers).toContainEqual(identifier2);
   });
 
   it('should not duplicate an identifier', () => {
     var testPatient = Object.assign({}, patient1);
     expect(testPatient.identifiers.length).toBe(1);
-    patientUtil.addIdentifier(identifier1.identifier, identifier1.identifierType, testPatient);
-    patientUtil.addIdentifier(identifier1.identifier, identifier1.identifierType, testPatient);
+    patientUtil.addIdentifier(identifier1, identifierType1, testPatient);
+    patientUtil.addIdentifier(identifier1, identifierType1, testPatient);
     expect(testPatient.identifiers.length).toBe(2);
-    expect(testPatient.identifiers).toContainEqual(identifier1);
-    expect(testPatient.identifiers).toContainEqual({ identifier : 'identifier', identifierType : 'identifierTypeUuid' });
+    expect(patientUtil.getIdentifier(testPatient, identifierType1)).toBe('123');
   });
 
   it('should fetch multiple identifiers', () => {
     var testPatient = Object.assign({}, patient1);
     // add two identifiers of the same type
-    patientUtil.addIdentifier(identifier2.identifier, identifier2.identifierType, testPatient);
-    patientUtil.addIdentifier(identifier3.identifier, identifier3.identifierType, testPatient);
+    patientUtil.addIdentifier(identifier2, identifierType2, testPatient);
+    patientUtil.addIdentifier(identifier3, identifierType3, testPatient);
     expect(testPatient.identifiers.length).toBe(3);
-    expect(patientUtil.getIdentifiers(testPatient, "A3")).toContain(identifier2.identifier);
-    expect(patientUtil.getIdentifiers(testPatient, "A3")).toContain(identifier3.identifier);
+    expect(patientUtil.getIdentifiers(testPatient, { uuid: "A3"})).toContain("456");
+    expect(patientUtil.getIdentifiers(testPatient, { uuid: "A3"})).toContain("789");
   });
 
   it('should get telephone number', () => {
     var testPatient = Object.assign({}, patient1);
     expect(patientUtil.getTelephoneNumber(testPatient)).toBe('91767645');
   });
+
+  /*it('should get telephone number from unconverted patient', () => {
+    var testPatient = patientUtil.createFromRestRep(patientFullRep, null);
+    expect(patientUtil.getTelephoneNumber(testPatient)).toBe('23');
+  });*/
 
 });
