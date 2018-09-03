@@ -1,11 +1,8 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import '../../../assets/css/patientHeader.css';
-// import { fetchPatientRecord, fetchPatientNote } from '../../actions/patient';
 
 import dateFns from 'date-fns';
-
 
 export class PatientHeader extends PureComponent {
   constructor(props) {
@@ -149,27 +146,8 @@ export class PatientHeader extends PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  patient: state.patientReducer.patient,
-  note: state.noteReducer.note,
-});
-
-const actionCreators = {
-  // TODO: this would need to be removed once incoporate making this component smart
-//   fetchPatientRecord,
-//   fetchPatientNote,
-};
-
 PatientHeader.propTypes = {
-  location: PropTypes.shape().isRequired,
   patient: PropTypes.shape({}).isRequired,
-  // TODO: need to remove comments
-  //   fetchPatientNote: PropTypes.func.isRequired,
-  //   fetchPatientRecord: PropTypes.func.isRequired,
-  
 };
 
-/* TODO: this should be needed cos we would be connecting
-to local redux state and exporting reducers and sagas but for now, just pass props
-*/
-export default connect(mapStateToProps, actionCreators)(PatientHeader);
+export default PatientHeader;
