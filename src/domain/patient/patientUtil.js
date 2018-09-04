@@ -3,6 +3,7 @@
 // TODO is a full rep too big, we need to use a smaller size?
 // TODO do we actually want to start storing the uuids for things like identifiers here? would be relevant if we ant to start using these utils to update
 import * as R from 'ramda';
+import  { cloneDeep } from 'lodash';
 import { ATTRIBUTE_TYPES } from './constants';
 
 /*
@@ -69,7 +70,7 @@ Also provides util methods to operate on a Patient in this new form
 
 const patientUtil = {
 
-  getGivenName: (patient) => { return R.path(['name', 'givenName'], patient); },
+  getGivenName: (patient) =>  { return R.path(['name', 'givenName'], patient); },
 
   getMiddleName: (patient) => { return R.path(['name', 'middleName'], patient); },
 
@@ -136,8 +137,14 @@ const patientUtil = {
   },
 
   createFromRestRep: (restRep, visit) => {
+
+    if (restRep._openmrsClass === 'Patient') {
+      return cloneDeep(restRep);
+    }
+
     let patient = {};
 
+    patient._openmrsClass = 'Patient';
     patient.id = restRep.id;
     patient.uuid = restRep.uuid;
     patient.gender = R.path(['person', 'gender'], restRep);

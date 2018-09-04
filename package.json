@@ -25,6 +25,7 @@
     "connected-react-router": "^4.3.0",
     "date-fns": "^1.29.0",
     "i": "^0.3.6",
+    "lodash": "^4.17.10",
     "npm": "^6.4.0",
     "ramda": "^0.25.0",
     "react-bootstrap": "^0.32.1",

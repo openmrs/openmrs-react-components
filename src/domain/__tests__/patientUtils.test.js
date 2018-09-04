@@ -632,6 +632,7 @@ describe('Domain Object: Patient', () => {
 
     const patient = patientUtil.createFromRestRep(patientFullRep);
 
+    expect(patient._openmrsClass).toBe("Patient");
     expect(patient.uuid).toBe("cda61f89-c342-4caf-88c3-d0f829a7b43a");
     expect(patient.gender).toBe("M");
     expect(patient.age).toBe(24);
@@ -653,6 +654,35 @@ describe('Domain Object: Patient', () => {
     expect(patientUtil.getAddress3(patient)).toBe("Rang");
 
   });
+
+  it('create from REST rep should be idempotent but always return new object', () => {
+
+    const patient1 = patientUtil.createFromRestRep(patientFullRep);
+    const patient2 = patientUtil.createFromRestRep(patient1);
+
+    expect(patient1).not.toBe(patient2);
+    expect(patient2.uuid).toBe("cda61f89-c342-4caf-88c3-d0f829a7b43a");
+    expect(patient2.gender).toBe("M");
+    expect(patient2.age).toBe(24);
+    expect(patient2.birthdate).toBe("1994-01-01T00:00:00.000-0500");
+    expect(patientUtil.getGivenName(patient2)).toBe("Neil");
+    expect(patientUtil.getFamilyName(patient2)).toBe("Young");
+    expect(patientUtil.getMiddleName(patient2)).toBeNull();
+    expect(patient2.identifiers.length).toBe(7);
+    expect(patient2.identifiers).toContainEqual({ identifier: "Y2A5H1", identifierType: { uuid: "a541af1e-105c-40bf-b345-ba1fd6a59b85" } }) ;
+    expect(patient2.identifiers).toContainEqual({ identifier: "TH000002", identifierType: { uuid: "e66645eb-03a8-4991-b4ce-e87318e37566" } });
+    expect(patientUtil.getAddressDisplay(patient2)).toBe("Cange");
+    expect(patientUtil.getCityVillage(patient2)).toBe("Cerca Cavajal");
+    expect(patientUtil.getStateProvince(patient2)).toBe("Centre");
+    expect(patientUtil.getCountry(patient2)).toBe("Haiti");
+    expect(patientUtil.getCountyDistrict(patient2)).toBe("county");
+    expect(patientUtil.getPostalCode(patient2)).toBe("code");
+    expect(patientUtil.getAddress1(patient2)).toBe("Cange");
+    expect(patientUtil.getAddress2(patient2)).toBeNull();
+    expect(patientUtil.getAddress3(patient2)).toBe("Rang");
+
+  });
+
 
   it('should add identifier to patient with existing identifiers', () => {
     var testPatient = Object.assign({}, patient1);
@@ -697,10 +727,5 @@ describe('Domain Object: Patient', () => {
     var testPatient = Object.assign({}, patient1);
     expect(patientUtil.getTelephoneNumber(testPatient)).toBe('91767645');
   });
-
-  /*it('should get telephone number from unconverted patient', () => {
-    var testPatient = patientUtil.createFromRestRep(patientFullRep, null);
-    expect(patientUtil.getTelephoneNumber(testPatient)).toBe('23');
-  });*/
 
 });
