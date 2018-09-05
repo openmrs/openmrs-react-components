@@ -55,7 +55,7 @@ export class PatientHeader extends PureComponent {
         ) : (
           this.props.identifierTypesToDisplay.map((identifierType) => {
             let identifier = patientUtil.getIdentifier(this.patient, identifierType);
-            return identifier ? <span>{identifier}</span> : "";
+            return identifier ? <span key="{identifier}">{identifier}</span> : "";
           })
         )}
         <br />

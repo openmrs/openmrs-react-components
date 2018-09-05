@@ -687,8 +687,9 @@ describe("patientHeader", () => {
     ];
 
     expect(patientHeader().find('div').length).toBeGreaterThan(0);   // just make sure something renders
-    expect(patientHeader().find('.identifiers span').text()).toContain("first-identifier");
-    expect(patientHeader().find('.identifiers span').text()).toContain("third-identifier");
+    expect(patientHeader().find('.identifiers span').length).toBe(2);
+    expect(patientHeader().find('.identifiers').text()).toContain("first-identifier");
+    expect(patientHeader().find('.identifiers').text()).toContain("third-identifier");
   });
 
 
