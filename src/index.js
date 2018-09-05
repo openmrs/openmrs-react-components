@@ -30,6 +30,7 @@ import { SESSION_TYPES, sessionReducers, sessionSagas, sessionActions } from './
 import { LOGIN_TYPES, loginReducers, loginSagas, loginActions } from './features/login';
 import { openmrsFormSagas, formActions } from './features/form';
 import { headerReducers, headerSagas, headerActions } from './features/header';
+import { patientHeaderSagas, patientHeaderReducers } from './features/patientHeader';
 import { errorsActions, errorsReducers } from './features/errors';
 import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
 import { GRID_TYPES, gridActions } from './features/grid';
@@ -55,7 +56,8 @@ const reducers = combineReducers({
   loginLocations: loginReducers,
   header: headerReducers,
   patientSearch: patientSearchReducers,
-  errors: errorsReducers
+  errors: errorsReducers,
+  patientHeader: patientHeaderReducers
 });
 
 const sagas = function* () {
@@ -65,6 +67,7 @@ const sagas = function* () {
     patientSearchSagas(),
     visitSagas(),
     headerSagas(),
+    patientHeaderSagas(),
     openmrsFormSagas()
   ]);
 };

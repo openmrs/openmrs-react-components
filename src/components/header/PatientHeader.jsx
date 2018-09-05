@@ -1,8 +1,11 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import dateFns from 'date-fns';
+
+import { patientHeaderActions } from '../../features/patientHeader';
 import '../../../assets/css/patientHeader.css';
 
-import dateFns from 'date-fns';
 
 export class PatientHeader extends PureComponent {
   constructor(props) {
@@ -10,6 +13,10 @@ export class PatientHeader extends PureComponent {
     this.state = {
       showContactInfo: false,
     };
+  }
+
+  componentDidMount() {
+    this.props.dispatch(patientHeaderActions.getPatient(this.props.patientUuid));
   }
 
   toggleDetailsView = () => {
@@ -150,4 +157,33 @@ PatientHeader.propTypes = {
   patient: PropTypes.shape({}).isRequired,
 };
 
-export default PatientHeader;
+const mapStateToProps = (state) => {
+  const { patient } = state.openmrs.patientHeader;
+  
+  return {
+    patient
+  };
+};
+
+PatientHeader.propTypes = {
+  patient: PropTypes.shape({}).isRequired,
+  patientUuid: PropTypes.string.isRequired
+};
+
+PatientHeader.defaultProps = {
+  patient: {
+    person: {
+      personName: {
+        givenName: '',
+        familyName: '',
+      },
+      preferredAddress: {},
+    },
+    patientIdentifier: {
+      identifier: '',
+    },
+  },
+  patientUuid: ''
+};
+
+export default connect(mapStateToProps)(PatientHeader);
