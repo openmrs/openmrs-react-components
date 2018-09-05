@@ -20,6 +20,9 @@ class DataGrid extends React.Component {
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
+    if (this.props.onRowCount) {
+      this.props.onRowCount(this.gridApi.getModel().getRowCount());
+    }
   }
 
   onSelectionChanged() {
@@ -35,6 +38,11 @@ class DataGrid extends React.Component {
     });
   }
 
+  onDataRowChanged() {
+    if (this.props.onRowCount) {
+      this.props.onRowCount(this.gridApi.getModel().getRowCount());
+    }
+  }
 
   onRowSelected(row) {
     this.props.dispatch(gridActions.rowSelected(row));
@@ -71,6 +79,7 @@ class DataGrid extends React.Component {
           onSelectionChanged={this.onSelectionChanged.bind(this)}
           rowClassRules="rowClassRules"
           rowData={this.props.rowData}
+          rowDataChanged={ this.onDataRowChanged.bind(this) }
           rowSelection={this.state.rowSelection}
         />
       </div>

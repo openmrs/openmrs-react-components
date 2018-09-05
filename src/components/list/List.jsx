@@ -75,6 +75,7 @@ class List extends React.Component {
         <DataGrid
           columnDefs={this.props.columnDefs}
           rowData={this.applyFilters(this.props.rowData, this.props.filters)}
+          onRowCount={this.props.onRowCount}
           rowSelectedActionCreators={this.props.rowSelectedActionCreators}
         />
       </div>
@@ -89,6 +90,7 @@ List.propTypes = {
   fetchListActionCreator: PropTypes.func,
   onMountOtherActionCreators: PropTypes.array,
   rowData: PropTypes.array.isRequired,
+  onRowCount: PropTypes.func,
   rowSelectedActionCreators: PropTypes.array,
   title: PropTypes.string.isRequired
 };
