@@ -39,7 +39,8 @@ Also provides util methods to operate on a Patient in this new form
       identifierType : {
         uuid: $uuid,
         // TODO add display and/or name?
-      }
+      },
+      preferred: $preferred
     }
     ...
   ],
@@ -76,17 +77,17 @@ const patientUtil = {
 
   getFamilyName: (patient) => { return R.path(['name', 'familyName'], patient); },
 
-  addIdentifier: (identifier, identifierType, patient) => {
+  addIdentifier: (patient, identifier, identifierType, preferred = false) => {
     if (R.path(['identifiers'], patient)){
       if (!patient.identifiers.some((i) => i.identifier === identifier && i.identifierType.uuid === identifierType.uuid)) {
-        patient.identifiers.push({ identifier: identifier, identifierType: identifierType });
+        patient.identifiers.push({ identifier: identifier, identifierType: identifierType, preferred: preferred ? true : false });
       }
     }
     else if (patient) {
-      patient.identifiers = [ { identifier: identifier, identifierType: identifierType } ];
+      patient.identifiers = [ { identifier: identifier, identifierType: identifierType, preferred: preferred ? true : false } ];
     }
     else {
-      patient = { identifiers : [ { identifier: identifier, identifierType: identifierType } ] };
+      patient = { identifiers : [ { identifier: identifier, identifierType: identifierType, preferred: preferred ? true : false } ] };
     }
     return patient;
   },
@@ -101,6 +102,13 @@ const patientUtil = {
     return patient.identifiers
       .filter((i) => i.identifierType.uuid === identifierType.uuid)
       .map((i) => i.identifier);
+  },
+
+  // just gets the first identifier marked as preferred
+  getPreferredIdentifier: (patient) => {
+    const identifier = patient.identifiers
+      .find((i) => i.preferred);
+    return identifier ? identifier.identifier : null;
   },
 
   getAddressDisplay: (patient) => { return R.path(['address', 'display'], patient); },
@@ -138,6 +146,10 @@ const patientUtil = {
 
   createFromRestRep: (restRep, visit) => {
 
+    if (restRep == null) {
+      return null;
+    }
+
     if (restRep._openmrsClass === 'Patient') {
       return cloneDeep(restRep);
     }
@@ -169,7 +181,8 @@ const patientUtil = {
           identifier: identifier.identifier,
           identifierType: {
             uuid: identifier.identifierType.uuid
-          }
+          },
+          preferred: identifier.preferred ? true : false
         };
       }) : [];
 
