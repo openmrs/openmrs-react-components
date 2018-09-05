@@ -50,7 +50,14 @@ export class PatientHeader extends PureComponent {
     return (
       <div className="identifiers">
         <em>Patient ID</em>
-        <span>{patientUtil.getPreferredIdentifier(this.patient)}</span>
+        {!this.props.identifierTypesToDisplay ? (
+          <span>{patientUtil.getPreferredIdentifier(this.patient)}</span>
+        ) : (
+          this.props.identifierTypesToDisplay.map((identifierType) => {
+            let identifier = patientUtil.getIdentifier(this.patient, identifierType);
+            return identifier ? <span>{identifier}</span> : "";
+          })
+        )}
         <br />
       </div>
     );
@@ -74,6 +81,7 @@ export class PatientHeader extends PureComponent {
 }
 
 PatientHeader.propTypes = {
+  identifierTypesToDisplay: PropTypes.array,
   patient: PropTypes.shape({})
 };
 

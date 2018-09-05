@@ -595,10 +595,25 @@ const patient =
     },
     identifiers: [
       {
-        identifier: 'identifier',
+        identifier: 'first-identifier',
         identifierType: {
-          uuid: 'identifierTypeUuid'
-        }
+          uuid: 'first-identifierTypeUuid'
+        },
+        preferred: false
+      },
+      {
+        identifier: 'second-identifier',
+        identifierType: {
+          uuid: 'second-identifierTypeUuid'
+        },
+        preferred: true
+      },
+      {
+        identifier: 'third-identifier',
+        identifierType: {
+          uuid: 'third-identifierTypeUuid'
+        },
+        preferred: false
       }
     ],
     attributes: [
@@ -646,6 +661,7 @@ describe("patientHeader", () => {
     expect(patientHeader().find('.age').text()).toContain("24 year(s)");
     expect(patientHeader().find('.age').text()).toContain("01 Jan 1994");
     expect(patientHeader().find('.gender').text()).toContain("Male");
+    expect(patientHeader().find('.identifiers span').text()).toBe("second-identifier");
   });
 
   it('should render properly if REST rep passed in', () => {
@@ -656,6 +672,23 @@ describe("patientHeader", () => {
     expect(patientHeader().find('.age').text()).toContain("24 year(s)");
     expect(patientHeader().find('.age').text()).toContain("01 Jan 1994");
     expect(patientHeader().find('.gender').text()).toContain("Male");
+    expect(patientHeader().find('.identifiers span').text()).toBe("Y2A5H1");
+  });
+
+  it('should specific identifiers if identifier properties passed', () => {
+    props.patient = patient;
+    props.identifierTypesToDisplay = [
+      {
+        uuid: "first-identifierTypeUuid"
+      },
+      {
+        uuid: "third-identifierTypeUuid"
+      }
+    ];
+
+    expect(patientHeader().find('div').length).toBeGreaterThan(0);   // just make sure something renders
+    expect(patientHeader().find('.identifiers span').text()).toContain("first-identifier");
+    expect(patientHeader().find('.identifiers span').text()).toContain("third-identifier");
   });
 
 
