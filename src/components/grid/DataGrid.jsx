@@ -17,12 +17,15 @@ class DataGrid extends React.Component {
     this.filterGrid = this.filterGrid.bind(this);
   }
 
+  updateRowCount() {
+    if (this.props.onRowCount && this.gridApi) {
+      this.props.onRowCount(this.gridApi.getModel().getRowCount());
+    }
+  }
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-    if (this.props.onRowCount) {
-      this.props.onRowCount(this.gridApi.getModel().getRowCount());
-    }
+    this.updateRowCount();
   }
 
   onSelectionChanged() {
@@ -39,9 +42,7 @@ class DataGrid extends React.Component {
   }
 
   onDataRowChanged() {
-    if (this.props.onRowCount) {
-      this.props.onRowCount(this.gridApi.getModel().getRowCount());
-    }
+    this.updateRowCount();
   }
 
   onRowSelected(row) {
@@ -51,6 +52,10 @@ class DataGrid extends React.Component {
     if (this.props.rowSelectedActionCreators) {
       this.props.rowSelectedActionCreators.forEach((f) => this.props.dispatch(f(row)));
     }
+  }
+
+  onFilterChanged() {
+    this.updateRowCount();
   }
 
   filterGrid(event) {
@@ -79,7 +84,8 @@ class DataGrid extends React.Component {
           onSelectionChanged={this.onSelectionChanged.bind(this)}
           rowClassRules="rowClassRules"
           rowData={this.props.rowData}
-          rowDataChanged={ this.onDataRowChanged.bind(this) }
+          onRowDataChanged={ this.onDataRowChanged.bind(this) }
+          onFilterChanged = { this.onFilterChanged.bind(this) }
           rowSelection={this.state.rowSelection}
         />
       </div>
