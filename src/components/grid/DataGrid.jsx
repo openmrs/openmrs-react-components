@@ -22,10 +22,20 @@ class DataGrid extends React.Component {
       this.props.onRowCount(this.gridApi.getModel().getRowCount());
     }
   }
+
+  autoSizeAll() {
+    var allColumnIds = [];
+    this.gridColumnApi.getAllColumns().forEach(function(column) {
+      allColumnIds.push(column.colId);
+    });
+    this.gridColumnApi.autoSizeColumns(allColumnIds);
+  }
+
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.updateRowCount();
+    this.autoSizeAll();
   }
 
   onSelectionChanged() {
@@ -78,6 +88,7 @@ class DataGrid extends React.Component {
         <AgGridReact
           columnDefs={this.props.columnDefs}
           animateRows={true}
+          enableFiltering={ true }
           enableSorting
           id="omrsGrid"
           onGridReady={this.onGridReady.bind(this)}
