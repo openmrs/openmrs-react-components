@@ -39,13 +39,9 @@ if (!window.intl) {
 const withLocalisation = (WrappedComponent) => {
   class HOC extends React.PureComponent {
     render() {
-
-      // Define user's language. Different browsers have the user locale defined
-      // on different fields on the `navigator` object, so we make sure to account
-      // for these different by checking all of them
       const language = this.props.locale;
 
-      // Split locales with a region code
+      // Split locales with a region code ie en_GB becomes en
       const languageWithoutRegionCode = language.toLowerCase().split(/[_-]+/)[0];
 
       // Try full locale, try locale without region code, fallback to 'en'
