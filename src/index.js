@@ -22,6 +22,7 @@ import OpenMRSForm from './components/form/OpenMRSForm';
 import FieldInput from './components/form/FieldInput';
 import ButtonGroup from './components/form/ButtonGroup';
 import SortableTable from './components/table/SortableTable';
+import CustomDatePicker from './components/widgets/CustomDatePicker';
 import Obs from './components/form/Obs';
 import Submit from './components/form/Submit';
 import Errors from './components/errors/Errors';
@@ -94,6 +95,7 @@ module.exports = {
   FieldInput,
   ButtonGroup,
   SortableTable,
+  CustomDatePicker,
   Obs,
   Submit,
   Errors,
