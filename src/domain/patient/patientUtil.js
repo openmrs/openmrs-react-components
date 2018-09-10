@@ -3,6 +3,7 @@
 // TODO is a full rep too big, we need to use a smaller size?
 // TODO do we actually want to start storing the uuids for things like identifiers here? would be relevant if we ant to start using these utils to update
 import * as R from 'ramda';
+import  { cloneDeep } from 'lodash';
 import { ATTRIBUTE_TYPES } from './constants';
 
 /*
@@ -29,12 +30,17 @@ Also provides util methods to operate on a Patient in this new form
     stateProvince : $stateProvince,
     country : $country,
     postalCode : $postalCode
+    ...
   },
   identifiers : [
     ...
     {
       identifier : $identifier,
-      identifierType : $identifierTypeUuid
+      identifierType : {
+        uuid: $uuid,
+        // TODO add display and/or name?
+      },
+      preferred: $preferred
     }
     ...
   ],
@@ -44,7 +50,10 @@ Also provides util methods to operate on a Patient in this new form
       display: $display,
       uuid: $uuid,
       value: $value,
-      attributeType: $uuid
+      attributeType: {
+        uuid: $uuid,
+        // TODO add display and/or name?
+      }
     }
     ...
   ],
@@ -62,37 +71,44 @@ Also provides util methods to operate on a Patient in this new form
 
 const patientUtil = {
 
-  getGivenName: (patient) => { return R.path(['name', 'givenName'], patient); },
+  getGivenName: (patient) =>  { return R.path(['name', 'givenName'], patient); },
 
   getMiddleName: (patient) => { return R.path(['name', 'middleName'], patient); },
 
   getFamilyName: (patient) => { return R.path(['name', 'familyName'], patient); },
 
-  addIdentifier: (identifier, identifierType, patient) => {
+  addIdentifier: (patient, identifier, identifierType, preferred = false) => {
     if (R.path(['identifiers'], patient)){
-      if (!patient.identifiers.some((i) => i.identifier === identifier && i.identifierType === identifierType)) {
-        patient.identifiers.push({ identifier: identifier, identifierType: identifierType });
+      if (!patient.identifiers.some((i) => i.identifier === identifier && i.identifierType.uuid === identifierType.uuid)) {
+        patient.identifiers.push({ identifier: identifier, identifierType: identifierType, preferred: preferred ? true : false });
       }
     }
     else if (patient) {
-      patient.identifiers = [ { identifier: identifier, identifierType: identifierType } ];
+      patient.identifiers = [ { identifier: identifier, identifierType: identifierType, preferred: preferred ? true : false } ];
     }
     else {
-      patient = { identifiers : [ { identifier: identifier, identifierType: identifierType } ] };
+      patient = { identifiers : [ { identifier: identifier, identifierType: identifierType, preferred: preferred ? true : false } ] };
     }
     return patient;
   },
 
   // finds identifier based on type, just returns first match
-  getIdentifier: (patient, identifierTypeUuid) => {
-    const identifier = patientUtil.getIdentifiers(patient, identifierTypeUuid);
+  getIdentifier: (patient, identifierType) => {
+    const identifier = patientUtil.getIdentifiers(patient, identifierType);
     return identifier ? identifier[0] : null;
   },
 
-  getIdentifiers: (patient, identifierTypeUuid) => {
+  getIdentifiers: (patient, identifierType) => {
     return patient.identifiers
-      .filter((i) => i.identifierType === identifierTypeUuid)
+      .filter((i) => i.identifierType.uuid === identifierType.uuid)
       .map((i) => i.identifier);
+  },
+
+  // just gets the first identifier marked as preferred
+  getPreferredIdentifier: (patient) => {
+    const identifier = patient.identifiers
+      .find((i) => i.preferred);
+    return identifier ? identifier.identifier : null;
   },
 
   getAddressDisplay: (patient) => { return R.path(['address', 'display'], patient); },
@@ -124,13 +140,23 @@ const patientUtil = {
   // TODO make getter for any attribute type
   getTelephoneNumber: (patient) => {
     var attribute = patient.attributes.find((attribute) => {
-      return (attribute.attributeType === ATTRIBUTE_TYPES.telephoneNumber); });
+      return (attribute.attributeType.uuid === ATTRIBUTE_TYPES.telephoneNumber.uuid); });
     return (R.path(['value'], attribute));
   },
 
   createFromRestRep: (restRep, visit) => {
+
+    if (restRep == null) {
+      return null;
+    }
+
+    if (restRep._openmrsClass === 'Patient') {
+      return cloneDeep(restRep);
+    }
+
     let patient = {};
 
+    patient._openmrsClass = 'Patient';
     patient.id = restRep.id;
     patient.uuid = restRep.uuid;
     patient.gender = R.path(['person', 'gender'], restRep);
@@ -151,7 +177,13 @@ const patientUtil = {
       restRep.identifiers.filter((identifier) => {
         return !identifier.voided;
       }).map((identifier) => {
-        return { identifier: identifier.identifier, identifierType: identifier.identifierType.uuid };
+        return {
+          identifier: identifier.identifier,
+          identifierType: {
+            uuid: identifier.identifierType.uuid
+          },
+          preferred: identifier.preferred ? true : false
+        };
       }) : [];
 
     // Preferred Address
@@ -181,7 +213,9 @@ const patientUtil = {
           display: attribute.display,
           uuid: attribute.uuid,
           value: attribute.value,
-          attributeType: attribute.attributeType,
+          attributeType: {
+            uuid: attribute.attributeType.uuid
+          },
         };
       }) : [];
 

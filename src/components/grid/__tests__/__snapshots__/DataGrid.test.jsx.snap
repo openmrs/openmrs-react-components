@@ -44,6 +44,7 @@ exports[`Component: DataGrid renders properly 1`] = `
           onSelectionChanged={[Function]}
           rowClassRules="rowClassRules"
           rowData={Array []}
+          rowDataChanged={[Function]}
           rowSelection="single"
         >
           <div

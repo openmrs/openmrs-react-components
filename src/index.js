@@ -10,7 +10,6 @@ import HeaderAlt from './components/header/HeaderAlt';
 import LocationMenu from './components/header/LocationMenu';
 import List from './components/list/List';
 import PatientHeader from './components/header/PatientHeader';
-import PatientHeaderAlt from './components/header/PatientHeaderAlt';
 import ToolTip from './components/tooltip/ToolTip';
 import LoadingView from './components/loading/LoadingView';
 import Login from './components/login/Login';
@@ -84,7 +83,6 @@ module.exports = {
   List,
   ToolTip,
   PatientHeader,
-  PatientHeaderAlt,
   Login,
   LoginPage,
   Logout,
