@@ -8,6 +8,9 @@
  * graphic logo is a trademark of OpenMRS Inc.
  */
 import React from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { IntlProvider, addLocaleData } from "react-intl";
 import en from 'react-intl/locale-data/en';
 import fr from 'react-intl/locale-data/fr';
@@ -40,9 +43,7 @@ const withLocalisation = (WrappedComponent) => {
       // Define user's language. Different browsers have the user locale defined
       // on different fields on the `navigator` object, so we make sure to account
       // for these different by checking all of them
-      const language = (navigator.languages && navigator.languages[0])
-        || navigator.language
-        || navigator.userLanguage;
+      const language = this.props.locale;
 
       // Split locales with a region code
       const languageWithoutRegionCode = language.toLowerCase().split(/[_-]+/)[0];
@@ -60,7 +61,27 @@ const withLocalisation = (WrappedComponent) => {
     }
   }
 
+  HOC.propTypes = {
+    locale: PropTypes.string.isRequired,
+  };
+  
+  HOC.defaultProps = {
+    locale: 'en_GB',
+  };
+
   return HOC;
 };
 
-export default withLocalisation;
+const mapStateToProps = (state) => {
+  const { locale } = state.openmrs.session;
+  return {
+    locale,
+  };
+};
+
+const composedHoc = compose(
+  connect(mapStateToProps),
+  withLocalisation
+);
+
+export default composedHoc;
