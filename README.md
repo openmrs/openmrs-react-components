@@ -72,8 +72,9 @@ import messagesFR from "./translations/fr.json";
 ```
 
 To localize a component wrap it with the localisation HOC
+import myComponent from 'pathToYourComponent/myComponent';
 ```
-const LocalizedBreadCrumb = withLocalisation(BreadCrumb);
+const LocalizedBreadCrumb = withLocalisation(myComponent);
 ```
 
 # Publishing a new version
