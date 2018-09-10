@@ -21,6 +21,7 @@ import DataGrid from './components/grid/DataGrid';
 import OpenMRSForm from './components/form/OpenMRSForm';
 import FieldInput from './components/form/FieldInput';
 import ButtonGroup from './components/form/ButtonGroup';
+import Dropdown from './components/widgets/Dropdown';
 import SortableTable from './components/table/SortableTable';
 import Obs from './components/form/Obs';
 import Submit from './components/form/Submit';
@@ -93,6 +94,7 @@ module.exports = {
   OpenMRSForm,
   FieldInput,
   ButtonGroup,
+  Dropdown,
   SortableTable,
   Obs,
   Submit,
