@@ -50,6 +50,8 @@ import visitRest from './rest/visitRest';
 import reportingRest from './rest/reportingRest';
 import { library as fontAwesomeLibrary } from '@fortawesome/fontawesome-svg-core';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
+
+import withLocalisation, { setLocaleMessages } from './components/localization/withLocalisation';
 fontAwesomeLibrary.add( faCaretDown );
 
 const reducers = combineReducers({
@@ -121,5 +123,7 @@ module.exports = {
   loginActions,
   sessionActions,
   SESSION_TYPES,
-  headerActions
+  headerActions,
+  withLocalisation,
+  setLocaleMessages
 };
