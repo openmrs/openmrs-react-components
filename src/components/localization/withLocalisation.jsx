@@ -33,7 +33,7 @@ if (!window.intl) {
   });
 }
 
-const withLocalization = (WrappedComponent) => {
+const withLocalisation = (WrappedComponent) => {
   class HOC extends React.PureComponent {
     render() {
 
@@ -63,4 +63,4 @@ const withLocalization = (WrappedComponent) => {
   return HOC;
 };
 
-export default withLocalization;
+export default withLocalisation;
