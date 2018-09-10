@@ -21,6 +21,9 @@ import DataGrid from './components/grid/DataGrid';
 import OpenMRSForm from './components/form/OpenMRSForm';
 import FieldInput from './components/form/FieldInput';
 import ButtonGroup from './components/form/ButtonGroup';
+import Dropdown from './components/widgets/Dropdown';
+import SortableTable from './components/table/SortableTable';
+import CustomDatePicker from './components/widgets/CustomDatePicker';
 import Obs from './components/form/Obs';
 import Submit from './components/form/Submit';
 import Errors from './components/errors/Errors';
@@ -94,6 +97,9 @@ module.exports = {
   OpenMRSForm,
   FieldInput,
   ButtonGroup,
+  Dropdown,
+  SortableTable,
+  CustomDatePicker,
   Obs,
   Submit,
   Errors,
