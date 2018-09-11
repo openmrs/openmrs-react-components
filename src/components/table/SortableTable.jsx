@@ -88,7 +88,7 @@ class SortableTable extends PureComponent {
 
             return {
               onClick: (e) => {
-                this.handleClick(rowInfo);
+                otherProps.rowOnClick(rowInfo.original);
               },
               className: this.selectedRowsClassName(rowInfo)
             };
