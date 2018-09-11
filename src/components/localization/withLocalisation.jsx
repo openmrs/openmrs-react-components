@@ -25,15 +25,9 @@ export const setLocaleMessages = (args) => {
 // If browser doesn't support Intl (i.e. Safari), then we manually import
 // the intl polyfill and locale data.
 if (!window.intl) {
-  require.ensure([
-    'intl',
-    'intl/locale-data/jsonp/en.js',
-    'intl/locale-data/jsonp/fr.js',
-  ], (require) => {
     require('intl');
     require('intl/locale-data/jsonp/en.js');
     require('intl/locale-data/jsonp/fr.js');
-  });
 }
 
 const withLocalisation = (WrappedComponent) => {
