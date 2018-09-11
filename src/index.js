@@ -19,6 +19,7 @@ import PatientSearch from './components/search/PatientSearch';
 import AuthenticatedRoute from './components/routes/AuthenticatedRoute';
 import DataGrid from './components/grid/DataGrid';
 import OpenMRSForm from './components/form/OpenMRSForm';
+import FormPage from './components/form/FormPage';
 import FieldInput from './components/form/FieldInput';
 import ButtonGroup from './components/form/ButtonGroup';
 import Dropdown from './components/widgets/Dropdown';
@@ -95,6 +96,7 @@ module.exports = {
   AuthenticatedRoute,
   DataGrid,
   OpenMRSForm,
+  FormPage,
   FieldInput,
   ButtonGroup,
   Dropdown,
