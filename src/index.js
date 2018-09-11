@@ -52,6 +52,8 @@ import { library as fontAwesomeLibrary } from '@fortawesome/fontawesome-svg-core
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 import withLocalisation, { setLocaleMessages } from './components/localization/withLocalisation';
+import { mountWithIntl, shallowWithIntl } from './components/localization/test/helpers/intl-test';
+
 fontAwesomeLibrary.add( faCaretDown );
 
 const reducers = combineReducers({
@@ -125,5 +127,7 @@ module.exports = {
   SESSION_TYPES,
   headerActions,
   withLocalisation,
-  setLocaleMessages
+  setLocaleMessages,
+  mountWithIntl,
+  shallowWithIntl
 };
