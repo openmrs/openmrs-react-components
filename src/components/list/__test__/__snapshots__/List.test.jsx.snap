@@ -158,13 +158,15 @@ exports[`Component: List renders properly 1`] = `
                   },
                 ]
               }
+              enableFiltering={true}
               enableSorting={true}
               id="omrsGrid"
+              onFilterChanged={[Function]}
               onGridReady={[Function]}
+              onRowDataChanged={[Function]}
               onSelectionChanged={[Function]}
               rowClassRules="rowClassRules"
               rowData={Array []}
-              rowDataChanged={[Function]}
               rowSelection="single"
             >
               <div

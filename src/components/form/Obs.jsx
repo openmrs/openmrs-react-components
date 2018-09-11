@@ -1,6 +1,5 @@
 import React from 'react';
 import { Field } from 'redux-form';
-import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import FieldInput from './FieldInput';
 import ButtonGroup from './ButtonGroup';
 

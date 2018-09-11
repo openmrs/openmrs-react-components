@@ -20,8 +20,13 @@ const OpenMRSForm = (props) => {
   );
 };
 
-export default connect()(reduxForm({
-  form: 'openmrs-form' // TODO need to figure out how to make this unique!
+const mapStateToProps = (state, props) => {
+  return {
+    form: props.formId ? props.formId : 'openmrs-form'
+  };
+};
+export default connect(mapStateToProps)(reduxForm({
+  enableReinitialize: true
 })(OpenMRSForm));
 
 
