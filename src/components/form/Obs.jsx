@@ -17,7 +17,8 @@ const Obs = (props) => {
         type='number'
         component={RenderField}
         placeholder={ props.placeholder }
-        validate={ props.validate }/>
+        validate={ props.validate }
+        warn={ props.warn }/>
     )
   }
 

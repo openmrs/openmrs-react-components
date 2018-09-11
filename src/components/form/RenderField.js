@@ -18,7 +18,7 @@ const RenderField = ({
               {error}
             </span>) ||
           (warning &&
-            <span>
+            <span className="field-warning">
                 {warning}
               </span>))}
       </div>

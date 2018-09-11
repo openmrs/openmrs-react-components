@@ -53,6 +53,9 @@
     border-width: 3px;
 }
 .field-error {
-    color: red;
-    font-weight: bold;
+     color: red;
+     font-weight: bold;
+ }
+.field-warning {
+    color: orange;
 }
