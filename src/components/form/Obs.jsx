@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field } from 'redux-form';
-import FieldInput from './FieldInput';
+import RenderField from './RenderField';
 import ButtonGroup from './ButtonGroup';
 
 const Obs = (props) => {
@@ -12,7 +12,12 @@ const Obs = (props) => {
   } else {
     return (
       // TODO: type should be controlled based on datatype of concept
-      <Field name={`obs|path=${props.path}|concept=${props.concept}`} type='number' component={FieldInput}/>
+      <Field
+        name={`obs|path=${props.path}|concept=${props.concept}`}
+        type='number'
+        component={RenderField}
+        placeholder={ props.placeholder }
+        validate={ props.validate }/>
     )
   }
 
