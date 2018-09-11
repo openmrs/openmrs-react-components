@@ -1,9 +1,10 @@
 import patientUtil from '../patient/patientUtil';
-import { ATTRIBUTE_TYPES } from '../patient/constants';
+import {ATTRIBUTE_TYPES} from '../patient/constants';
 
 describe('Domain Object: Patient', () => {
 
-  let patientFullRep, patient1, identifier1, identifier2, identifier3, identifierType1, identifierType2, identifierType3;
+  let patientFullRep, patientSimplifiedRep, patient1, identifier1, identifier2, identifier3, identifierType1, identifierType2,
+    identifierType3;
 
   beforeEach(() => {
 
@@ -572,6 +573,74 @@ describe('Domain Object: Patient', () => {
       "resourceVersion": "1.8"
     };
 
+    patientSimplifiedRep = {
+      "patientId": 4,
+      "uuid": "a46864ac-4cee-4e3a-a920-7b5799f1dc9a",
+      "patientIdentifier": { "uuid": "df3309c3-012f-47ad-b372-15c4f78563ec", "identifier": "Y2A73V" },
+      "person": {
+        "gender": "M",
+        "age": 22,
+        "birthdate": "1996-01-01T00:00:00.000-0500",
+        "birthdateEstimated": true,
+        "personName": {
+          "display": "Dylan, Bob",
+          "uuid": "0f985ec6-5698-463e-a5a8-bbd19f3e01e1",
+          "givenName": "Bob",
+          "middleName": null,
+          "familyName": "Dylan",
+          "familyName2": null,
+          "voided": false,
+          "links": [{
+            "rel": "self",
+            "uri": "http://localhost:8080/openmrs/ws/rest/v1/person/a46864ac-4cee-4e3a-a920-7b5799f1dc9a/name/0f985ec6-5698-463e-a5a8-bbd19f3e01e1"
+          }, {
+            "rel": "full",
+            "uri": "http://localhost:8080/openmrs/ws/rest/v1/person/a46864ac-4cee-4e3a-a920-7b5799f1dc9a/name/0f985ec6-5698-463e-a5a8-bbd19f3e01e1?v=full"
+          }],
+          "resourceVersion": "1.8"
+        },
+        "preferredAddress": {
+          "display": "Cange",
+          "uuid": "cd5e6826-7820-4ad8-8f30-e7ab5392e876",
+          "preferred": true,
+          "address1": "Cange",
+          "address2": null,
+          "cityVillage": "Boucan Carré",
+          "stateProvince": "Centre",
+          "country": "Haiti",
+          "postalCode": null,
+          "countyDistrict": null,
+          "address3": "3ème des Bayes",
+          "address4": null,
+          "address5": null,
+          "address6": null,
+          "startDate": null,
+          "endDate": null,
+          "latitude": null,
+          "longitude": null,
+          "voided": false,
+          "address7": null,
+          "address8": null,
+          "address9": null,
+          "address10": null,
+          "address11": null,
+          "address12": null,
+          "address13": null,
+          "address14": null,
+          "address15": null,
+          "links": [{
+            "rel": "self",
+            "uri": "http://localhost:8080/openmrs/ws/rest/v1/person/a46864ac-4cee-4e3a-a920-7b5799f1dc9a/address/cd5e6826-7820-4ad8-8f30-e7ab5392e876"
+          }, {
+            "rel": "full",
+            "uri": "http://localhost:8080/openmrs/ws/rest/v1/person/a46864ac-4cee-4e3a-a920-7b5799f1dc9a/address/cd5e6826-7820-4ad8-8f30-e7ab5392e876?v=full"
+          }],
+          "resourceVersion": "2.0"
+        }
+      },
+      "attributes": [{ "value": "test", "attributeType": { "name": "First Name of Mother" } }]
+    };
+
     patient1 =
       {
         _openmrsClass: "Patient",
@@ -605,7 +674,7 @@ describe('Domain Object: Patient', () => {
             display: '9176-7635',
             uuid: 'B1',
             value: '91767645',
-            attributeType:{
+            attributeType: {
               uuid: '14d4f066-15f5-102d-96e4-000c29c2a5d7'
             }
           }
@@ -617,14 +686,14 @@ describe('Domain Object: Patient', () => {
         village: 'village'
       };
 
-    identifier1 = "123"
-    identifierType1 = { uuid: "A2"} ;
+    identifier1 = "123";
+    identifierType1 = { uuid: "A2" };
 
     identifier2 = "456";
-    identifierType2 = { uuid: "A3"} ;
+    identifierType2 = { uuid: "A3" };
 
-    identifier3 =  "789";
-    identifierType3 = { uuid: "A3"} ;
+    identifier3 = "789";
+    identifierType3 = { uuid: "A3" };
 
   });
 
@@ -641,8 +710,16 @@ describe('Domain Object: Patient', () => {
     expect(patientUtil.getFamilyName(patient)).toBe("Young");
     expect(patientUtil.getMiddleName(patient)).toBeNull();
     expect(patient.identifiers.length).toBe(7);
-    expect(patient.identifiers).toContainEqual({ identifier: "Y2A5H1", identifierType: { uuid: "a541af1e-105c-40bf-b345-ba1fd6a59b85" }, preferred: true }) ;
-    expect(patient.identifiers).toContainEqual({ identifier: "TH000002", identifierType: { uuid: "e66645eb-03a8-4991-b4ce-e87318e37566" }, preferred: false });
+    expect(patient.identifiers).toContainEqual({
+      identifier: "Y2A5H1",
+      identifierType: { uuid: "a541af1e-105c-40bf-b345-ba1fd6a59b85" },
+      preferred: true
+    });
+    expect(patient.identifiers).toContainEqual({
+      identifier: "TH000002",
+      identifierType: { uuid: "e66645eb-03a8-4991-b4ce-e87318e37566" },
+      preferred: false
+    });
     expect(patientUtil.getAddressDisplay(patient)).toBe("Cange");
     expect(patientUtil.getCityVillage(patient)).toBe("Cerca Cavajal");
     expect(patientUtil.getStateProvince(patient)).toBe("Centre");
@@ -654,6 +731,34 @@ describe('Domain Object: Patient', () => {
     expect(patientUtil.getAddress3(patient)).toBe("Rang");
 
   });
+
+  it('should create patient from simplified REST rep', () => {
+
+    const patient = patientUtil.createFromRestRep(patientSimplifiedRep);
+
+    expect(patient._openmrsClass).toBe("Patient");
+    expect(patient.uuid).toBe("a46864ac-4cee-4e3a-a920-7b5799f1dc9a");
+    expect(patient.gender).toBe("M");
+    expect(patient.age).toBe(22);
+    expect(patient.birthdate).toBe("1996-01-01T00:00:00.000-0500");
+    expect(patientUtil.getGivenName(patient)).toBe("Bob");
+    expect(patientUtil.getFamilyName(patient)).toBe("Dylan");
+    expect(patientUtil.getMiddleName(patient)).toBeNull();
+    expect(patient.identifiers.length).toBe(1);
+    expect(patient.identifiers).toContainEqual({
+      identifier: "Y2A73V",
+      preferred: true
+    });
+    expect(patientUtil.getAddressDisplay(patient)).toBe("Cange");
+    expect(patientUtil.getCityVillage(patient)).toBe("Boucan Carré");
+    expect(patientUtil.getStateProvince(patient)).toBe("Centre");
+    expect(patientUtil.getCountry(patient)).toBe("Haiti");
+    expect(patientUtil.getAddress1(patient)).toBe("Cange");
+    expect(patientUtil.getAddress2(patient)).toBeNull();
+    expect(patientUtil.getAddress3(patient)).toBe("3ème des Bayes");
+
+  });
+
 
   it('create from REST rep should be idempotent but always return new object', () => {
 
@@ -669,8 +774,16 @@ describe('Domain Object: Patient', () => {
     expect(patientUtil.getFamilyName(patient2)).toBe("Young");
     expect(patientUtil.getMiddleName(patient2)).toBeNull();
     expect(patient2.identifiers.length).toBe(7);
-    expect(patient2.identifiers).toContainEqual({ identifier: "Y2A5H1", identifierType: { uuid: "a541af1e-105c-40bf-b345-ba1fd6a59b85" }, preferred: true }) ;
-    expect(patient2.identifiers).toContainEqual({ identifier: "TH000002", identifierType: { uuid: "e66645eb-03a8-4991-b4ce-e87318e37566" }, preferred: false });
+    expect(patient2.identifiers).toContainEqual({
+      identifier: "Y2A5H1",
+      identifierType: { uuid: "a541af1e-105c-40bf-b345-ba1fd6a59b85" },
+      preferred: true
+    });
+    expect(patient2.identifiers).toContainEqual({
+      identifier: "TH000002",
+      identifierType: { uuid: "e66645eb-03a8-4991-b4ce-e87318e37566" },
+      preferred: false
+    });
     expect(patientUtil.getAddressDisplay(patient2)).toBe("Cange");
     expect(patientUtil.getCityVillage(patient2)).toBe("Cerca Cavajal");
     expect(patientUtil.getStateProvince(patient2)).toBe("Centre");
@@ -698,7 +811,7 @@ describe('Domain Object: Patient', () => {
   });
 
   it('should add identifier to patient without existing identifiers', () => {
-    var testPatient = {id : "1"};
+    var testPatient = { id: "1" };
     testPatient = patientUtil.addIdentifier(testPatient, identifier1, identifierType1);
     expect(testPatient.identifiers.length).toBe(1);
     expect(patientUtil.getIdentifier(testPatient, identifierType1)).toBe('123');
@@ -723,8 +836,8 @@ describe('Domain Object: Patient', () => {
     patientUtil.addIdentifier(testPatient, identifier2, identifierType2, false);
     patientUtil.addIdentifier(testPatient, identifier3, identifierType3, true);
     expect(testPatient.identifiers.length).toBe(3);
-    expect(patientUtil.getIdentifiers(testPatient, { uuid: "A3"})).toContain("456");
-    expect(patientUtil.getIdentifiers(testPatient, { uuid: "A3"})).toContain("789");
+    expect(patientUtil.getIdentifiers(testPatient, { uuid: "A3" })).toContain("456");
+    expect(patientUtil.getIdentifiers(testPatient, { uuid: "A3" })).toContain("789");
   });
 
   it('should fetch first preferred identifiers', () => {

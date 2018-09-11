@@ -163,7 +163,7 @@ const patientUtil = {
     patient.age = R.path(['person', 'age'], restRep);
     patient.birthdate = R.path(['person', 'birthdate'], restRep);
 
-    // Preferred Name
+    // Name: first try "preferredName", then try "personName"
 
     patient.name = R.path(['person', 'preferredName'], restRep) ? {
       givenName: restRep.person.preferredName.givenName,
@@ -171,7 +171,15 @@ const patientUtil = {
       familyName: restRep.person.preferredName.familyName
     } : undefined;
 
-    // Identifiers
+    if (!patient.name) {
+      patient.name = R.path(['person', 'personName'], restRep) ? {
+        givenName: restRep.person.personName.givenName,
+        middleName: restRep.person.personName.middleName,
+        familyName: restRep.person.personName.familyName
+      } : undefined;
+    }
+
+    // Identifiers: first look for "identifiers", if not, look for "patientIdentifier"
 
     patient.identifiers = restRep.identifiers ?
       restRep.identifiers.filter((identifier) => {
@@ -185,6 +193,13 @@ const patientUtil = {
           preferred: identifier.preferred ? true : false
         };
       }) : [];
+
+    if (patient.identifiers.length == 0 && restRep.patientIdentifier) {
+      patient.identifiers = [ {
+        identifier: restRep.patientIdentifier.identifier,
+        preferred: true
+      } ];
+    }
 
     // Preferred Address
 
