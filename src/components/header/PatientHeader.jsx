@@ -5,11 +5,23 @@ import patientUtil from '../../domain/patient/patientUtil';
 import '../../../assets/css/patientHeader.css';
 
 export class PatientHeader extends PureComponent {
+
   constructor(props) {
     super(props);
     // converts from REST rep but *only if necessary*; handles already-converted Patient object as well
-    this.patient = patientUtil.createFromRestRep(this.props.patient);
+    this.state = {
+      patient: patientUtil.createFromRestRep(this.props.patient)
+    };
   };
+
+  componentWillReceiveProps(nextProps) {
+    const { patient } = this.state;
+    if (nextProps.patient.uuid !== patient.uuid) {
+      this.setState({
+        patient: patientUtil.createFromRestRep(this.props.patient),
+      });
+    }
+  }
 
   renderDemographics() {
 
@@ -17,28 +29,28 @@ export class PatientHeader extends PureComponent {
       <div className="demographics">
         <h1 className="name">
           <span>
-            <span className="PersonName-givenName">{patientUtil.getGivenName(this.patient)}&nbsp;&nbsp;</span>
+            <span className="PersonName-givenName">{patientUtil.getGivenName(this.state.patient)}&nbsp;&nbsp;</span>
             <em>Given</em>
           </span>
 
           {
-            patientUtil.getMiddleName(this.patient) &&
+            patientUtil.getMiddleName(this.state.patient) &&
             <span>
-              <span className="PersonName-middleName">{patientUtil.getMiddleName(this.patient)}&nbsp;&nbsp;</span>
+              <span className="PersonName-middleName">{patientUtil.getMiddleName(this.state.patient)}&nbsp;&nbsp;</span>
               <em>Middle</em>
             </span>
           }
 
           <span>
-            <span className="PersonName-familyName">{patientUtil.getFamilyName(this.patient)}</span>
+            <span className="PersonName-familyName">{patientUtil.getFamilyName(this.state.patient)}</span>
             <em>Family Name</em>
           </span>
 
           &nbsp;
           <span className="gender-age">
-            <span className="gender">{this.patient.gender === 'M' ? "Male" : "Female"}&nbsp;</span>
+            <span className="gender">{this.state.patient.gender === 'M' ? "Male" : "Female"}&nbsp;</span>
             <span className="age">
-              {this.patient.age} year(s) ({dateFns.format(new Date(this.patient.birthdate), 'DD MMM YYYY')})
+              {this.state.patient.age} year(s) ({dateFns.format(new Date(this.state.patient.birthdate), 'DD MMM YYYY')})
             </span>
           </span>
         </h1>
@@ -51,10 +63,10 @@ export class PatientHeader extends PureComponent {
       <div className="identifiers">
         <em>Patient ID</em>
         {!this.props.identifierTypesToDisplay ? (
-          <span>{patientUtil.getPreferredIdentifier(this.patient)}</span>
+          <span>{patientUtil.getPreferredIdentifier(this.state.patient)}</span>
         ) : (
           this.props.identifierTypesToDisplay.map((identifierType) => {
-            let identifier = patientUtil.getIdentifier(this.patient, identifierType);
+            let identifier = patientUtil.getIdentifier(this.state.patient, identifierType);
             return identifier ? <span key={identifier}>{identifier}</span> : "";
           })
         )}
@@ -64,14 +76,14 @@ export class PatientHeader extends PureComponent {
   }
 
   render() {
-    if (this.patient
-      && (typeof this.patient !== 'undefined')
-      && (typeof this.patient.name !== 'undefined') ) {
+    if (this.state.patient
+      && (typeof this.state.patient !== 'undefined')
+      && (typeof this.state.patient.name !== 'undefined') ) {
       return (
         <div>
           <div className="patient-header ">
-            {this.patient && this.renderDemographics()}
-            {this.patient && this.renderPatientIdentifier()}
+            {this.state.patient && this.renderDemographics()}
+            {this.state.patient && this.renderPatientIdentifier()}
           </div>
         </div>
       );
