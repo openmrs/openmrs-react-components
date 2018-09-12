@@ -18,6 +18,7 @@ import Logout from './components/login/Logout';
 import PatientSearch from './components/search/PatientSearch';
 import AuthenticatedRoute from './components/routes/AuthenticatedRoute';
 import DataGrid from './components/grid/DataGrid';
+import EncounterFormPage from './components/form/EncounterFormPage';
 import EncounterForm from './components/form/EncounterForm';
 import FieldInput from './components/form/FieldInput';
 import Section from './components/form/Section';
@@ -97,6 +98,7 @@ module.exports = {
   PatientSearch,
   AuthenticatedRoute,
   DataGrid,
+  EncounterFormPage,
   EncounterForm,
   Section,
   FieldInput,
