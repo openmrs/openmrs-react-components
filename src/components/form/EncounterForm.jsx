@@ -5,7 +5,7 @@ import { Form } from 'react-bootstrap';
 import { formActions } from '../../features/form';
 
 
-const OpenMRSForm = (props) => {
+const EncounterForm = (props) => {
 
   const { handleSubmit } = props;
 
@@ -27,7 +27,7 @@ const mapStateToProps = (state, props) => {
 };
 export default connect(mapStateToProps)(reduxForm({
   enableReinitialize: true
-})(OpenMRSForm));
+})(EncounterForm));
 
 
 
