@@ -12,10 +12,10 @@ class SortableTable extends PureComponent {
 
   setMinRows() {
     if (this.getTableData() === 0) {
-      return 3;
+      return 10;
     }
 
-    return 0;
+    return 10;
   }
 
   selectedRowsClassName(rowInfo) {
