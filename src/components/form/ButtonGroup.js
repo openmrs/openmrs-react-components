@@ -1,11 +1,15 @@
 import React from 'react';
 import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 
+const buttonStyle = {
+  whiteSpace: "normal"
+};
+
 const ButtonGroup = ({ input, options }) => (
 
   <ToggleButtonGroup type="radio" justified={true} {...input}>
     { options.map( option =>
-      <ToggleButton key={ option.uuid } value={option.uuid}>{ option.name }</ToggleButton>
+      <ToggleButton key={ option.uuid } value={option.uuid} style={ buttonStyle }>{ option.name }</ToggleButton>
     )}
   </ToggleButtonGroup>
 
