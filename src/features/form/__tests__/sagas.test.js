@@ -35,7 +35,7 @@ describe('form sagas', () => {
       uuid: "some_visit_uuid"
     };
 
-    sagaTester.dispatch(formActions.formSubmitted(values, patient, encounterType, visit, formSubmittedActionCreator));
+    sagaTester.dispatch(formActions.formSubmitted(values, "form-id", patient, encounterType, visit, formSubmittedActionCreator));
     expect(encounterRest.createEncounter).toHaveBeenCalledTimes(1);  // TODO would be good if we could actually test what it is was called with here, but the newDate() causes issues
     expect(sagaTester.getCalledActions()).toContainEqual(formActions.formSubmitSucceeded(formSubmittedActionCreator));
     expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitFailed());
@@ -60,7 +60,7 @@ describe('form sagas', () => {
       uuid: "some_visit_uuid"
     };
 
-    sagaTester.dispatch(formActions.formSubmitted(values, patient, encounterType, visit, formSubmittedActionCreator));
+    sagaTester.dispatch(formActions.formSubmitted(values, "form-id", patient, encounterType, visit, formSubmittedActionCreator));
     expect(encounterRest.createEncounter).toHaveBeenCalledTimes(1);
     expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitSucceeded(formSubmittedActionCreator));
     expect(sagaTester.getCalledActions()).toContainEqual(formActions.formSubmitFailed());
@@ -87,7 +87,7 @@ describe('form sagas', () => {
       uuid: "some_visit_uuid"
     };
 
-    sagaTester.dispatch(formActions.formSubmitted(values, patient, encounterType, visit, [ formSubmittedActionCreator, anotherFormSubmittedActionCreator ]));
+    sagaTester.dispatch(formActions.formSubmitted(values, "form-id", patient, encounterType, visit, [ formSubmittedActionCreator, anotherFormSubmittedActionCreator ]));
     expect(encounterRest.createEncounter).toHaveBeenCalledTimes(1);  // TODO would be good if we could actually test what it is was called with here, but the newDate() causes issues
     expect(sagaTester.getCalledActions()).toContainEqual(formActions.formSubmitSucceeded([ formSubmittedActionCreator, anotherFormSubmittedActionCreator ]));
     expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitFailed());

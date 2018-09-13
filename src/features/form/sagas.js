@@ -5,14 +5,19 @@ import encounterRest from '../../rest/encounterRest';
 
 // TODO need to handle fields that aren't obs!
 // TODO this should really pass back something... the id of the created encounter, etc?
-// TODO set form namespace? how to we match existing values in forms? update data, etc?
 
-function parse(value) {
+function parse(value, formId) {
 
+  let path = value[0].split('|')[1].split('=')[1];
   let concept = value[0].split('|')[2].split('=')[1];
   let val = value[1];
 
-  return { concept: concept, value: val };
+  // TODO update to use form field and namespace instead of comment when running OpenMRS 1.11+
+  return {
+    concept: concept,
+    value: val,
+    comment: formId + "^" + path
+  };
 }
 
 function* submit(action) {
@@ -32,7 +37,7 @@ function* submit(action) {
 
     if (action.values) {
       Object.entries(action.values).forEach((value) => {
-        obs.push(parse(value));
+        obs.push(parse(value, action.formId));
       });
     }
 

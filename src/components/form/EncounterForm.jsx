@@ -10,7 +10,7 @@ const EncounterForm = (props) => {
   const { handleSubmit } = props;
 
   const onSubmit = (values) => {
-    props.dispatch(formActions.formSubmitted(values, props.patient, props.encounterType, props.visit, props.formSubmittedActionCreator));
+    props.dispatch(formActions.formSubmitted(values, props.formId, props.patient, props.encounterType, props.visit, props.formSubmittedActionCreator));
   };
 
   return (
