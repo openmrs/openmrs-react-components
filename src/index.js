@@ -32,7 +32,7 @@ import Errors from './components/errors/Errors';
 import createListReducer from './features/list/createListReducer';
 import { SESSION_TYPES, sessionReducers, sessionSagas, sessionActions } from './features/session/';
 import { LOGIN_TYPES, loginReducers, loginSagas, loginActions } from './features/login';
-import { openmrsFormSagas, formActions } from './features/form';
+import { openmrsFormSagas, formActions, formValidations } from './features/form';
 import { headerReducers, headerSagas, headerActions } from './features/header';
 import { errorsActions, errorsReducers } from './features/errors';
 import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
@@ -110,6 +110,7 @@ module.exports = {
   Submit,
   Errors,
   formActions,
+  formValidations,
   VISIT_TYPES,
   visitActions,
   PATIENT_SEARCH_TYPES,
