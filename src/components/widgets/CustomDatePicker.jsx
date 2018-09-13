@@ -1,9 +1,11 @@
+/* eslint-disable */
 import React, { PureComponent } from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import { FormControl } from 'react-bootstrap';
 import 'react-datepicker/dist/react-datepicker.css';
+import '../../../assets/css/CustomDatePicker.css'
 
 
 const styles = {
@@ -12,7 +14,8 @@ const styles = {
     justifyContent: 'space-around'
   },
   formControlStyle: {
-    marginRight: '5px'
+    marginRight: '5px',
+    width: '100px'
   }
 };
 
