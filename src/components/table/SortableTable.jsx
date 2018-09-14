@@ -10,13 +10,6 @@ class SortableTable extends PureComponent {
     return data;
   }
 
-  setMinRows() {
-    if (this.getTableData() === 0) {
-      return 10;
-    }
-
-    return 10;
-  }
 
   selectedRowsClassName(rowInfo) {
     const { selectedRows } = this.props;
@@ -94,7 +87,7 @@ class SortableTable extends PureComponent {
             };
           }}
           loadingText={otherProps.loadingText}
-          minRows={this.setMinRows()}
+          minRows={otherProps.defaultPageSize}
           nextText={otherProps.nextText}
           noDataText={<span className="sortableTable-noDataText">{this.props.noDataMessage}</span>}
           ofText={otherProps.ofText}
