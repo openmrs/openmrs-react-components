@@ -77,7 +77,7 @@ let EncounterFormPage = (props) => {
             <Row>
               <Col sm={2} xsOffset={2}>
                 <Link to={ props.backLink }>
-                  <Button bsSize="large">Back to list</Button>
+                  <Button bsSize="large">Cancel</Button>
                 </Link>
               </Col>
               <Col sm={2} xsOffset={1}>
