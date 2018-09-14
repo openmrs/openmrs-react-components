@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import { actions as toastrActions } from 'react-redux-toastr';
 import Submit from './Submit';
 import EncounterForm from './EncounterForm';
-import EncounterForm from './EncounterForm';
 import encounterByEncounterTypeFilter from '../../domain/encounter/filters/encountersByEncounterTypeFilter';
 
 /**
@@ -67,6 +66,7 @@ let EncounterFormPage = (props) => {
       <div>
         <EncounterForm
           formId={ props.formId }
+          encounter={encounter}
           encounterType={props.encounterType}
           formSubmittedActionCreator={formSubmittedActionCreators}
           patient={props.patient}
