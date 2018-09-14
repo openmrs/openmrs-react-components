@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Button, Grid, Row, Col } from 'react-bootstrap';
 import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { actions as toastrActions } from 'react-redux-toastr';
+import Submit from './Submit';
+import EncounterForm from './EncounterForm';
 import EncounterForm from './EncounterForm';
 import encounterByEncounterTypeFilter from '../../domain/encounter/filters/encountersByEncounterTypeFilter';
 
@@ -64,13 +67,24 @@ let EncounterFormPage = (props) => {
       <div>
         <EncounterForm
           formId={ props.formId }
-          encounter={encounter}
           encounterType={props.encounterType}
           formSubmittedActionCreator={formSubmittedActionCreators}
           patient={props.patient}
           visit={props.patient ? props.patient.visit : null}
         >
           { props.formContent }
+          <Grid>
+            <Row>
+              <Col sm={2} xsOffset={2}>
+                <Link to={ props.backLink }>
+                  <Button bsSize="large">Back to list</Button>
+                </Link>
+              </Col>
+              <Col sm={2} xsOffset={1}>
+                <Submit/>
+              </Col>
+            </Row>
+          </Grid>
         </EncounterForm>
       </div>
     </div>
