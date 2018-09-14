@@ -24,9 +24,9 @@ class EncounterForm extends React.PureComponent {
       // TODO update to handle coded obs
 
       let initialData = this.props.encounter.obs
-        .filter((o) => o.comment && o.comment.includes("^") && o.concept && o.concept.uuid)
-        .map((o) => ({ [`obs|path=${o.comment.split('^')[1]}|concept=${o.concept.uuid}`]: o.value }))
-        .reduce(function(acc, item) {
+        .filter((o) => o.comment && o.comment.includes("^") && o.concept && o.concept.uuid)                   // filter out any obs with missing information
+        .map((o) => ({ [`obs|path=${o.comment.split('^')[1]}|concept=${o.concept.uuid}`]: o.value }))         // map to the key/value pair
+        .reduce(function(acc, item) {                                                                         // reduce array to single object
           var key = Object.keys(item)[0];
           acc[key] = item[key];
           return acc;

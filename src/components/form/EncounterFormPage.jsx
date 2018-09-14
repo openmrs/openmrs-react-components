@@ -44,7 +44,7 @@ let EncounterFormPage = (props) => {
   ];
 
   // TODO we may not *always* want to pull in the encounter here?
-  // TODO what if there are multiple encounters of the same type?
+  // TODO what if there are multiple encounters of the same type?  this currently just shifts in the latest
   if (props.patient && props.patient.visit && props.patient.visit.encounters) {
     encounter = encounterByEncounterTypeFilter(props.encounterType.uuid)(props.patient.visit.encounters).shift();
   }
