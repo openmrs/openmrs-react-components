@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { Form } from 'react-bootstrap';
 import { formActions } from '../../features/form';
-
+import { DATA_TYPES } from '../../domain/concept/constants';
 
 class EncounterForm extends React.PureComponent {
 
@@ -24,9 +24,13 @@ class EncounterForm extends React.PureComponent {
       // TODO update to handle coded obs
 
       let initialData = this.props.encounter.obs
-        .filter((o) => o.comment && o.comment.includes("^") && o.concept && o.concept.uuid)                   // filter out any obs with missing information
-        .map((o) => ({ [`obs|path=${o.comment.split('^')[1]}|concept=${o.concept.uuid}`]: o.value }))         // map to the key/value pair
-        .reduce(function(acc, item) {                                                                         // reduce array to single object
+        .filter((o) => o.comment && o.comment.includes("^") && o.concept && o.concept.uuid && o.value)      // filter out any obs with missing information
+        .map((o) => ({                                                                                      // map to the key/value pair
+          [`obs|path=${o.comment.split('^')[1]}|concept=${o.concept.uuid}`]:
+            (o.concept.datatype && (o.concept.datatype.uuid === DATA_TYPES['coded'].uuid || o.concept.datatype.uuid === DATA_TYPES['boolean'].uuid)
+              ? o.value.uuid : o.value)
+        }))
+        .reduce(function(acc, item) {                                                                  // reduce array to single object
           var key = Object.keys(item)[0];
           acc[key] = item[key];
           return acc;

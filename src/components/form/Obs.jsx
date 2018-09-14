@@ -7,7 +7,10 @@ const Obs = (props) => {
 
   if ( typeof props.conceptAnswers !== 'undefined' ) {
     return (
-      <Field name={`obs|path=${props.path}|concept=${props.concept}`} component={ ButtonGroup } options={ props.conceptAnswers }/>
+      <Field
+        name={`obs|path=${props.path}|concept=${props.concept}`}
+        component={ ButtonGroup }
+        options={ props.conceptAnswers } />
     );
   } else {
     return (
@@ -18,7 +21,7 @@ const Obs = (props) => {
         component={ FieldInput }
         placeholder={ props.placeholder }
         validate={ props.validate }
-        warn={ props.warn }/>
+        warn={ props.warn } />
     )
   }
 
