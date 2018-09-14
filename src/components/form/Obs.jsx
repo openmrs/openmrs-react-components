@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field } from 'redux-form';
-import RenderField from './RenderField';
 import ButtonGroup from './ButtonGroup';
+import FieldInput from "./FieldInput";
 
 const Obs = (props) => {
 
@@ -15,7 +15,7 @@ const Obs = (props) => {
       <Field
         name={`obs|path=${props.path}|concept=${props.concept}`}
         type='number'
-        component={RenderField}
+        component={ FieldInput }
         placeholder={ props.placeholder }
         validate={ props.validate }
         warn={ props.warn }/>

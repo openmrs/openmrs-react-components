@@ -8,30 +8,44 @@ exports[`Component: LoginForm should render correctly 1`] = `
   <div
     className="midPanelItemContainer"
   >
-    <input
-      className="form-control"
-      id={undefined}
-      max={undefined}
-      min={undefined}
-      onChange={[Function]}
-      placeholder="Username"
-      type="text"
-      value=""
-    />
+    <div>
+      <div>
+        <input
+          className="form-control"
+          id={undefined}
+          name="username"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onDragStart={[Function]}
+          onDrop={[Function]}
+          onFocus={[Function]}
+          placeholder="Username"
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
   </div>
   <div
     className="midPanelItemContainer"
   >
-    <input
-      className="form-control"
-      id={undefined}
-      max={undefined}
-      min={undefined}
-      onChange={[Function]}
-      placeholder="Password"
-      type="password"
-      value=""
-    />
+    <div>
+      <div>
+        <input
+          className="form-control"
+          id={undefined}
+          name="password"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onDragStart={[Function]}
+          onDrop={[Function]}
+          onFocus={[Function]}
+          placeholder="Password"
+          type="password"
+          value=""
+        />
+      </div>
+    </div>
   </div>
   <div
     className="midPanelItemContainer"

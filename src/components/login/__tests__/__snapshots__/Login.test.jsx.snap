@@ -447,22 +447,36 @@ exports[`Component: Login renders properly 1`] = `
                               placeholder="Username"
                               type="text"
                             >
-                              <FormControl
-                                bsClass="form-control"
-                                componentClass="input"
-                                onChange={[Function]}
-                                placeholder="Username"
-                                type="text"
-                                value=""
-                              >
-                                <input
-                                  className="form-control"
-                                  onChange={[Function]}
-                                  placeholder="Username"
-                                  type="text"
-                                  value=""
-                                />
-                              </FormControl>
+                              <div>
+                                <div>
+                                  <FormControl
+                                    bsClass="form-control"
+                                    componentClass="input"
+                                    name="username"
+                                    onBlur={[Function]}
+                                    onChange={[Function]}
+                                    onDragStart={[Function]}
+                                    onDrop={[Function]}
+                                    onFocus={[Function]}
+                                    placeholder="Username"
+                                    type="text"
+                                    value=""
+                                  >
+                                    <input
+                                      className="form-control"
+                                      name="username"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      onDragStart={[Function]}
+                                      onDrop={[Function]}
+                                      onFocus={[Function]}
+                                      placeholder="Username"
+                                      type="text"
+                                      value=""
+                                    />
+                                  </FormControl>
+                                </div>
+                              </div>
                             </FieldInput>
                           </ConnectedField>
                         </Connect(ConnectedField)>
@@ -726,22 +740,36 @@ exports[`Component: Login renders properly 1`] = `
                               placeholder="Password"
                               type="password"
                             >
-                              <FormControl
-                                bsClass="form-control"
-                                componentClass="input"
-                                onChange={[Function]}
-                                placeholder="Password"
-                                type="password"
-                                value=""
-                              >
-                                <input
-                                  className="form-control"
-                                  onChange={[Function]}
-                                  placeholder="Password"
-                                  type="password"
-                                  value=""
-                                />
-                              </FormControl>
+                              <div>
+                                <div>
+                                  <FormControl
+                                    bsClass="form-control"
+                                    componentClass="input"
+                                    name="password"
+                                    onBlur={[Function]}
+                                    onChange={[Function]}
+                                    onDragStart={[Function]}
+                                    onDrop={[Function]}
+                                    onFocus={[Function]}
+                                    placeholder="Password"
+                                    type="password"
+                                    value=""
+                                  >
+                                    <input
+                                      className="form-control"
+                                      name="password"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      onDragStart={[Function]}
+                                      onDrop={[Function]}
+                                      onFocus={[Function]}
+                                      placeholder="Password"
+                                      type="password"
+                                      value=""
+                                    />
+                                  </FormControl>
+                                </div>
+                              </div>
                             </FieldInput>
                           </ConnectedField>
                         </Connect(ConnectedField)>
