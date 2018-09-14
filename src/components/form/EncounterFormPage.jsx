@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
-import EncounterForm from './EncounterForm';
 import { actions as toastrActions } from 'react-redux-toastr';
+import EncounterForm from './EncounterForm';
+import encounterByEncounterTypeFilter from '../../domain/encounter/filters/encountersByEncounterTypeFilter';
 
 /**
  * Provides a basic wrapper around an Encounter Form with a title, toast success message, and afterSubmitLink
@@ -32,11 +33,19 @@ const colHeight = {
 
 let EncounterFormPage = (props) => {
 
+  let encounter;
+
   // https://github.com/diegoddox/react-redux-toastr
   const formSubmittedActionCreators = [
     () => toastrActions.add({ title: "Data Saved", type: "success" }),
     () => push(props.afterSubmitLink)
   ];
+
+  // TODO we may not *always* want to pull in the encounter here?
+  // TODO what if there are multiple encounters of the same type?
+  if (props.patient && props.patient.visit && props.patient.visit.encounters) {
+    encounter = encounterByEncounterTypeFilter(props.encounterType.uuid)(props.patient.visit.encounters).shift();
+  }
 
   return (
     <div style={divContainer}>
@@ -55,6 +64,7 @@ let EncounterFormPage = (props) => {
       <div>
         <EncounterForm
           formId={ props.formId }
+          encounter={encounter}
           encounterType={props.encounterType}
           formSubmittedActionCreator={formSubmittedActionCreators}
           patient={props.patient}

@@ -1,13 +1,18 @@
 import FORM_TYPES from './types';
 
-const formSubmitted = (values, formId, patient, encounterType, visit, formSubmittedActionCreator) => ( {
+/**
+ * Fields in data:
+ *  values: form values from redux,
+ *  formId: formId,
+ *  patient: patient,
+ *  encounter: existing encounter to back form (optional)
+ *  encounterType: encounterType,
+ *  visit: visit,
+ *  formSubmittedActionCreator: formSubmittedActionCreator
+ */
+const formSubmitted = (data) => ( {
   type: FORM_TYPES.SUBMIT,
-  values: values,
-  formId: formId,
-  patient: patient,
-  encounterType: encounterType,
-  visit: visit,
-  formSubmittedActionCreator: formSubmittedActionCreator
+  ...data
 });
 
 const formSubmitSucceeded = (formSubmittedActionCreator) => ( {

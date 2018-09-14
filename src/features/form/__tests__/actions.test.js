@@ -29,7 +29,14 @@ describe('form actions', () => {
       formSubmittedActionCreator: formSubmittedActionCreator
     };
 
-    expect(formActions.formSubmitted("some_values", "some_form_id", patient, encounterType, visit, formSubmittedActionCreator)).toEqual(expectedAction);
+    expect(formActions.formSubmitted({
+      values: "some_values",
+      formId: "some_form_id",
+      patient: patient,
+      encounterType: encounterType,
+      visit: visit,
+      formSubmittedActionCreator: formSubmittedActionCreator
+    })).toEqual(expectedAction);
 
   });
 

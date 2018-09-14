@@ -1,5 +1,5 @@
-import patientUtil from '../patient/patientUtil';
-import {ATTRIBUTE_TYPES} from '../patient/constants';
+import patientUtil from '../patientUtil';
+import {ATTRIBUTE_TYPES} from '../constants';
 
 describe('Domain Object: Patient', () => {
 
