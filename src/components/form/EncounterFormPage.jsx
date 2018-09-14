@@ -43,8 +43,8 @@ let EncounterFormPage = (props) => {
     () => push(props.afterSubmitLink)
   ];
 
-  // TODO we may not *always* want to pull in the encounter here?
-  // TODO what if there are multiple encounters of the same type?  this currently just shifts in the latest
+  // TODO we may not *always* want to pull in the encounter here?  make a flag about this?
+  // TODO what if there are multiple encounters of the same type?  this currently just shifts in the "first"
   if (props.patient && props.patient.visit && props.patient.visit.encounters) {
     encounter = encounterByEncounterTypeFilter(props.encounterType.uuid)(props.patient.visit.encounters).shift();
   }
