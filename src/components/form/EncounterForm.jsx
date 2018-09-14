@@ -21,7 +21,6 @@ class EncounterForm extends React.PureComponent {
     if (this.props.encounter && this.props.encounter.obs) {
 
       // TODO update this to handle using form and namespacing
-      // TODO update to handle coded obs
 
       let initialData = this.props.encounter.obs
         .filter((o) => o.comment && o.comment.includes("^") && o.concept && o.concept.uuid && o.value)      // filter out any obs with missing information
