@@ -12,6 +12,17 @@ const Obs = (props) => {
         component={ ButtonGroup }
         options={ props.conceptAnswers } />
     );
+  } else if ( typeof props.datatype !== 'undefined' && props.datatype === 'text') {
+    return (
+      // TODO: type should be controlled based on datatype of concept
+      <Field
+        name={`obs|path=${props.path}|concept=${props.concept}`}
+        type='text'
+        component={ FieldInput }
+        placeholder={ props.placeholder }
+        validate={ props.validate }
+        warn={ props.warn }/>
+    )
   } else {
     return (
       // TODO: type should be controlled based on datatype of concept
