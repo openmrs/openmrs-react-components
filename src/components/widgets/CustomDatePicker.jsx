@@ -12,10 +12,6 @@ const styles = {
   datePickerContainerStyle: {
     display: 'flex',
     justifyContent: 'space-around'
-  },
-  formControlStyle: {
-    marginRight: '5px',
-    width: '100px'
   }
 };
 
@@ -57,7 +53,7 @@ class CustomDatePicker extends PureComponent {
         </span>
         <FormControl
           placeholder=""
-          style={styles.formControlStyle}
+          style={this.props.formControlStyle}
           type="text"
           value={value}
         />
@@ -83,10 +79,15 @@ CustomDatePicker.defaultProps = {
   label: '',
   defaultDate: moment(),
   field: '',
+  formControlStyle: {
+    marginRight: '5px',
+    width: '100px'
+  },
 };
 
 CustomDatePicker.propTypes = {
   defaultDate: PropTypes.object,
+  formControlStyle: PropTypes.object,
   field: PropTypes.string,
   handleDateChange: PropTypes.func.isRequired,
   label: PropTypes.string,
