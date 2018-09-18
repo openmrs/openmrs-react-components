@@ -12,7 +12,21 @@ const api = {
     else {
       return;
     }
+  },
+
+  updateEncounter: (params) => {
+
+    if (!params.encounter) {
+      throw {
+        name: 'Mock Exception',
+        message: 'Unable to Submit'
+      };
+    }
+    else {
+      return;
+    }
   }
+
 
 };
 

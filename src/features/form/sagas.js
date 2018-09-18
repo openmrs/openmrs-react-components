@@ -6,18 +6,38 @@ import encounterRest from '../../rest/encounterRest';
 // TODO need to handle fields that aren't obs!
 // TODO this should really pass back something... the id of the created encounter, etc?
 
-function parse(value, formId) {
+function findExistingObsUuid(formId, path, encounter) {
 
+  if (!encounter || !encounter.obs) {
+    return null;
+  }
+  else {
+    // TODO update to use form field and namespace instead of comment when running OpenMRS 1.11+
+    const existingObs = encounter.obs.filter(o => o.comment === formId + "^" + path);
+    return existingObs && existingObs.length > 0 ? existingObs[0].uuid : undefined;
+  }
+
+}
+
+function createObs(value, formId, encounter) {
+
+  // TODO update to use form field and namespace instead of comment when running OpenMRS 1.11+
   let path = value[0].split('|')[1].split('=')[1];
   let concept = value[0].split('|')[2].split('=')[1];
   let val = value[1];
+  let existingObsUuid = findExistingObsUuid(formId, path, encounter);
 
-  // TODO update to use form field and namespace instead of comment when running OpenMRS 1.11+
-  return {
+  let obs = {
     concept: concept,
     value: val,
     comment: formId + "^" + path
   };
+
+  if (existingObsUuid) {
+    obs.uuid = existingObsUuid;
+  }
+
+  return obs;
 }
 
 function* submit(action) {
@@ -26,26 +46,44 @@ function* submit(action) {
 
   try {
 
-    let encounter = {
-      // TODO: handle encounter date if submitted
-      patient: action.patient.uuid,
-      encounterType: action.encounterType.uuid,
-      visit: action.visit ? action.visit.uuid : null
-    };
+    let encounter = {};
+
+    // if this is *not* a new encounter we need to add patient, encounterType and visit so it can be created
+    if (!action.encounter) {
+      encounter = {
+        // TODO: handle encounter date if submitted
+        patient: action.patient.uuid,
+        encounterType: action.encounterType.uuid,
+        visit: action.visit ? action.visit.uuid : null
+      };
+    }
+    // otherwise, include the existing encounter uuid
+    else {
+      encounter = {
+        uuid: action.encounter.uuid
+      }
+    }
 
     let obs = [];
 
     if (action.values) {
       Object.entries(action.values).forEach((value) => {
-        obs.push(parse(value, action.formId));
+        obs.push(createObs(value, action.formId, action.encounter));
       });
     }
 
     encounter.obs = obs;
-    yield call(encounterRest.createEncounter, { encounter: encounter });
+
+    if (!action.encounter) {
+      yield call(encounterRest.createEncounter, { encounter: encounter });
+    }
+    else {
+      yield call(encounterRest.updateEncounter, { encounter: encounter });
+    }
+
   }
   catch (e) {
-    yield put(formActions.formSubmitFailed());
+    yield put(formActions.formSubmitFailed(e));
     return;
   }
 
