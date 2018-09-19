@@ -2,8 +2,10 @@ import SagaTester from 'redux-saga-tester';
 import formActions from '../actions';
 import openmrsFormSagas from '../sagas';
 import encounterRest from '../../../rest/encounterRest';
+import obsRest from '../../../rest/obsRest';
 
 jest.mock('../../../rest/encounterRest');
+jest.mock('../../../rest/obsRest');
 
 let formSubmittedActionCreator;
 
@@ -17,6 +19,7 @@ describe('form sagas', () => {
     formSubmittedActionCreator = jest.fn(() => { return { type:'SOME_ACTION_TYPE' };});
     encounterRest.createEncounter = jest.fn(encounterRest.createEncounter);   // for some reason, we need to wrap this in jest.fn here, not in the mock itself
     encounterRest.updateEncounter = jest.fn(encounterRest.updateEncounter);
+    obsRest.deleteObs = jest.fn(obsRest.deleteObs);
   });
 
   it('should create an encounter and issue formSubmittedActionCreator', () => {
@@ -37,22 +40,19 @@ describe('form sagas', () => {
     };
 
     const expectedEncounterPost = {
-      "encounter":
-        {
-          "encounterType": "some_encounter_type_uuid",
-          "obs": [
-            { "comment": "form-id^first-obs",
-              "concept": "first-obs-uuid",
-              "value": 100
-            },
-            { "comment": "form-id^second-obs",
-              "concept": "second-obs-uuid",
-              "value": 200
-            }
-          ],
-          "patient": "some_patient_uuid",
-          "visit": "some_visit_uuid"
+      "encounterType": "some_encounter_type_uuid",
+      "obs": [
+        { "comment": "form-id^first-obs",
+          "concept": "first-obs-uuid",
+          "value": 100
+        },
+        { "comment": "form-id^second-obs",
+          "concept": "second-obs-uuid",
+          "value": 200
         }
+      ],
+      "patient": "some_patient_uuid",
+      "visit": "some_visit_uuid"
     };
 
     sagaTester.dispatch(formActions.formSubmitted( {
@@ -170,21 +170,18 @@ describe('form sagas', () => {
     };
 
     const expectedEncounterPost = {
-      "encounter":
-        {
-          "uuid": "existing_encounter_uuid",
-          "obs": [
-            { "comment": "form-id^first-obs",
-              "concept": "first-obs-uuid",
-              "value": 100
-            },
-            { "comment": "form-id^second-obs",
-              "concept": "second-obs-uuid",
-              "value": 200,
-              "uuid": "existing_obs_uuid"
-            }
-          ],
+      "uuid": "existing_encounter_uuid",
+      "obs": [
+        { "comment": "form-id^first-obs",
+          "concept": "first-obs-uuid",
+          "value": 100
+        },
+        { "comment": "form-id^second-obs",
+          "concept": "second-obs-uuid",
+          "value": 200,
+          "uuid": "existing_obs_uuid"
         }
+      ],
     };
 
     sagaTester.dispatch(formActions.formSubmitted( {
@@ -206,7 +203,7 @@ describe('form sagas', () => {
     expect(sagaTester.getCalledActions()).toContainEqual(formSubmittedActionCreator());
   });
 
-  it('should not include field with empty value in post', () => {
+  it('should not include field with empty value in post; should submit delete obs call', () => {
 
     const values =  { 'obs|path=first-obs|concept=first-obs-uuid': 100 ,
       'obs|path=second-obs|concept=second-obs-uuid': "" }  ;
@@ -234,16 +231,13 @@ describe('form sagas', () => {
     };
 
     const expectedEncounterPost = {
-      "encounter":
-        {
-          "uuid": "existing_encounter_uuid",
-          "obs": [
-            { "comment": "form-id^first-obs",
-              "concept": "first-obs-uuid",
-              "value": 100
-            }
-          ],
+      "uuid": "existing_encounter_uuid",
+      "obs": [
+        { "comment": "form-id^first-obs",
+          "concept": "first-obs-uuid",
+          "value": 100
         }
+      ],
     };
 
     sagaTester.dispatch(formActions.formSubmitted( {
@@ -258,6 +252,53 @@ describe('form sagas', () => {
     } ));
     expect(encounterRest.updateEncounter).toHaveBeenCalledTimes(1);
     expect(encounterRest.updateEncounter.mock.calls[0][0]).toMatchObject(expectedEncounterPost);
+    expect(obsRest.deleteObs).toHaveBeenCalledTimes(1);
+    expect(obsRest.deleteObs.mock.calls[0][0].uuid).toBe("existing_obs_uuid");
+
+    expect(sagaTester.getCalledActions()).toContainEqual(formActions.formSubmitSucceeded(formSubmittedActionCreator));
+    expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitFailed());
+    expect(formSubmittedActionCreator.mock.calls.length).toBe(1);
+    expect(sagaTester.getCalledActions()).toContainEqual(formSubmittedActionCreator());
+  });
+
+  it('should not call delete obs for obs that is not previously exisitng', () => {
+
+    const values =  { 'obs|path=first-obs|concept=first-obs-uuid': 100 ,
+      'obs|path=second-obs|concept=second-obs-uuid': "" }  ;
+
+    const patient = {
+      uuid: "some_patient_uuid"
+    };
+
+    const encounterType = {
+      uuid: "some_encounter_type_uuid"
+    };
+
+    const visit = {
+      uuid: "some_visit_uuid"
+    };
+
+    const expectedEncounterPost = {
+      "uuid": "existing_encounter_uuid",
+      "obs": [
+        { "comment": "form-id^first-obs",
+          "concept": "first-obs-uuid",
+          "value": 100
+        }
+      ],
+    };
+
+    sagaTester.dispatch(formActions.formSubmitted( {
+      values: values,
+      formId: "form-id",
+      patient: patient,
+      encounterType: encounterType,
+      visit: visit,
+      formSubmittedActionCreator:
+      formSubmittedActionCreator
+    } ));
+    expect(encounterRest.createEncounter).toHaveBeenCalledTimes(1);
+    expect(obsRest.deleteObs).toHaveBeenCalledTimes(0);
 
     expect(sagaTester.getCalledActions()).toContainEqual(formActions.formSubmitSucceeded(formSubmittedActionCreator));
     expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitFailed());

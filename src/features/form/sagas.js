@@ -2,9 +2,18 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import FORM_TYPES from './types';
 import formActions from './actions';
 import encounterRest from '../../rest/encounterRest';
+import obsRest from '../../rest/obsRest';
 
 // TODO need to handle fields that aren't obs!
 // TODO this should really pass back something... the id of the created encounter, etc?
+
+function getPathFromFieldName(fieldName) {
+  return fieldName.split('|')[1].split('=')[1];
+}
+
+function getConceptFromFieldName(fieldName) {
+  return fieldName.split('|')[2].split('=')[1];
+}
 
 function findExistingObsUuid(formId, path, encounter) {
 
@@ -22,8 +31,8 @@ function findExistingObsUuid(formId, path, encounter) {
 function createObs(value, formId, encounter) {
 
   // TODO update to use form field and namespace instead of comment when running OpenMRS 1.11+
-  let path = value[0].split('|')[1].split('=')[1];
-  let concept = value[0].split('|')[2].split('=')[1];
+  let path = getPathFromFieldName(value[0]);
+  let concept = getConceptFromFieldName(value[0]);
   let val = value[1];
   let existingObsUuid = findExistingObsUuid(formId, path, encounter);
 
@@ -61,14 +70,15 @@ function* submit(action) {
     else {
       encounter = {
         uuid: action.encounter.uuid
-      }
+      };
     }
 
+    // create the obs to add to the encounter
     let obs = [];
 
     if (action.values) {
       Object.entries(action.values)
-        .filter(v => v[1])  // filter out any ones with no value
+        .filter(value => value[1])  // filter out any ones with no value
         .forEach((value) => {
           obs.push(createObs(value, action.formId, action.encounter));
         });
@@ -76,11 +86,25 @@ function* submit(action) {
 
     encounter.obs = obs;
 
+    // create encounter
     if (!action.encounter) {
-      yield call(encounterRest.createEncounter, { encounter: encounter });
+      yield call(encounterRest.createEncounter, encounter);
     }
     else {
-      yield call(encounterRest.updateEncounter, { encounter: encounter });
+      yield call(encounterRest.updateEncounter, encounter);
+    }
+
+    // now delete any existing obs if necessary
+    let obsToDelete = Object.entries(action.values)
+      .filter(value => !value[1])  // any ones without a value
+      .map(value => ({ uuid: findExistingObsUuid(action.formId, getPathFromFieldName(value[0]), action.encounter ) }))  // match to any existing obs
+      .filter(obs => obs.uuid); // only ones with matching uuid
+
+    // we do this in a standard for instead of for-each because haven't figured out how to handle nested generator functions yet
+    if (obsToDelete && obsToDelete.length > 0) {
+      for (let i = 0; i < obsToDelete.length; i++) {
+        yield call(obsRest.deleteObs, obsToDelete[i]);
+      }
     }
 
   }

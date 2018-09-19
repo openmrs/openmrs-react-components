@@ -1,9 +1,9 @@
 
 const api = {
 
-  createEncounter: (params) => {
+  createEncounter: (encounter) => {
 
-    if (params.encounter.encounterType === 'invalid_encounter_type') {
+    if (encounter.encounterType === 'invalid_encounter_type') {
       throw {
         name: 'Mock Exception',
         message: 'Unable to Submit'
@@ -14,9 +14,9 @@ const api = {
     }
   },
 
-  updateEncounter: (params) => {
+  updateEncounter: (encounter) => {
 
-    if (!params.encounter) {
+    if (!encounter) {
       throw {
         name: 'Mock Exception',
         message: 'Unable to Submit'
