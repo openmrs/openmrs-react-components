@@ -45,6 +45,7 @@ class EncounterForm extends React.PureComponent {
       values: values,
       formId: this.props.formId,
       patient: this.props.patient,
+      encounter: this.props.encounter,
       encounterType: this.props.encounterType,
       visit: this.props.visit,
       formSubmittedActionCreator: this.props.formSubmittedActionCreator
@@ -63,15 +64,14 @@ class EncounterForm extends React.PureComponent {
   };
 }
 
+// note that this actually just maps a prop within the form, doesn't interact with state?
 const mapStateToProps = (state, props) => {
   return {
     form: props.formId ? props.formId : 'openmrs-form'
   };
 };
 
-export default connect(mapStateToProps)(reduxForm({
-  enableReinitialize: true
-})(EncounterForm));
+export default connect(mapStateToProps)(reduxForm()(EncounterForm));
 
 
 
