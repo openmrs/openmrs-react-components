@@ -67,9 +67,11 @@ function* submit(action) {
     let obs = [];
 
     if (action.values) {
-      Object.entries(action.values).forEach((value) => {
-        obs.push(createObs(value, action.formId, action.encounter));
-      });
+      Object.entries(action.values)
+        .filter(v => v[1])  // filter out any ones with no value
+        .forEach((value) => {
+          obs.push(createObs(value, action.formId, action.encounter));
+        });
     }
 
     encounter.obs = obs;

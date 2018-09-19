@@ -206,5 +206,64 @@ describe('form sagas', () => {
     expect(sagaTester.getCalledActions()).toContainEqual(formSubmittedActionCreator());
   });
 
+  it('should not include field with empty value in post', () => {
+
+    const values =  { 'obs|path=first-obs|concept=first-obs-uuid': 100 ,
+      'obs|path=second-obs|concept=second-obs-uuid': "" }  ;
+
+    const patient = {
+      uuid: "some_patient_uuid"
+    };
+
+    const encounterType = {
+      uuid: "some_encounter_type_uuid"
+    };
+
+    const visit = {
+      uuid: "some_visit_uuid"
+    };
+
+    const encounter = {
+      "uuid": "existing_encounter_uuid",
+      "obs": [
+        {
+          "uuid": "existing_obs_uuid",
+          "comment": "form-id^second-obs"
+        }
+      ]
+    };
+
+    const expectedEncounterPost = {
+      "encounter":
+        {
+          "uuid": "existing_encounter_uuid",
+          "obs": [
+            { "comment": "form-id^first-obs",
+              "concept": "first-obs-uuid",
+              "value": 100
+            }
+          ],
+        }
+    };
+
+    sagaTester.dispatch(formActions.formSubmitted( {
+      values: values,
+      formId: "form-id",
+      patient: patient,
+      encounter: encounter,
+      encounterType: encounterType,
+      visit: visit,
+      formSubmittedActionCreator:
+      formSubmittedActionCreator
+    } ));
+    expect(encounterRest.updateEncounter).toHaveBeenCalledTimes(1);
+    expect(encounterRest.updateEncounter.mock.calls[0][0]).toMatchObject(expectedEncounterPost);
+
+    expect(sagaTester.getCalledActions()).toContainEqual(formActions.formSubmitSucceeded(formSubmittedActionCreator));
+    expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitFailed());
+    expect(formSubmittedActionCreator.mock.calls.length).toBe(1);
+    expect(sagaTester.getCalledActions()).toContainEqual(formSubmittedActionCreator());
+  });
+
 
 });
