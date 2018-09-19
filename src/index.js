@@ -27,6 +27,7 @@ import Dropdown from './components/widgets/Dropdown';
 import SortableTable from './components/table/SortableTable';
 import CustomDatePicker from './components/widgets/CustomDatePicker';
 import Obs from './components/form/Obs';
+import EncounterDate from './components/form/EncounterDate';
 import Submit from './components/form/Submit';
 import Errors from './components/errors/Errors';
 import createListReducer from './features/list/createListReducer';
@@ -107,6 +108,7 @@ module.exports = {
   SortableTable,
   CustomDatePicker,
   Obs,
+  EncounterDate,
   Submit,
   Errors,
   formActions,
