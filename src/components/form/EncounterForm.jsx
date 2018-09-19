@@ -71,10 +71,7 @@ const mapStateToProps = (state, props) => {
   };
 };
 
-export default connect(mapStateToProps)(reduxForm({
-  enableReinitialize: true,
-  keepDirtyOnReinitialize: true
-})(EncounterForm));
+export default connect(mapStateToProps)(reduxForm()(EncounterForm));
 
 
 
