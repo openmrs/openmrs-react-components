@@ -7,8 +7,11 @@ const maxValue = max => value =>
 const abnormalMaxValue = max => value =>
   value && value > max ? `Abnormal value` : undefined ;
 
+const abnormalMinValue = min => value => (value && value < min ? `Abnormal value` : undefined);
+
 export default {
   minValue,
   maxValue,
-  abnormalMaxValue
+  abnormalMaxValue,
+  abnormalMinValue
 };
