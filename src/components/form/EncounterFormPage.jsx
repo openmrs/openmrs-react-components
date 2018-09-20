@@ -66,6 +66,7 @@ let EncounterFormPage = (props) => {
       <div>
         <EncounterForm
           formId={ props.formId }
+          defaultValues={props.defaultValues}
           encounter={encounter}
           encounterType={props.encounterType}
           formSubmittedActionCreator={formSubmittedActionCreators}
@@ -94,6 +95,8 @@ let EncounterFormPage = (props) => {
 EncounterFormPage.propTypes = {
   afterSubmitLink: PropTypes.string,
   backLink: PropTypes.string.isRequired,
+  defaultValues: PropTypes.array,
+  formId: PropTypes.string.isRequired,
   encounterType: PropTypes.object.isRequired,
   formContent: PropTypes.object.isRequired,
   patient: PropTypes.object.isRequired,

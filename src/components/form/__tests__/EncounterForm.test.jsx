@@ -599,6 +599,10 @@ const encounterForm = () => {
   return mountedComponent;
 };
 
+// TODO improve these tests: I haven't figured out yet how to inspect the values passed to
+// TODO this.props.initialize(initialData) so I have been running these tests and inspecting manually
+// TODO obviously there should be an "expect" here instead
+
 describe("EncounterForm", () => {
 
   beforeEach(() => {
@@ -640,6 +644,34 @@ describe("EncounterForm", () => {
         uuid: "some_visit_uuid"
       },
       encounter: encounter
+    };
+
+    expect(encounterForm().find('form').length).toBe(1);
+    expect(encounterForm().find(Form).props().onSubmit.length).toBe(1);
+  });
+
+  it("should render correctly with default values", () => {
+
+    props = {
+      formId: "some_form_id",
+      patient: {
+        uuid: "some_patient_uuid"
+      },
+      encounterType: {
+        uuid: "some_encounter_type_uuid"
+      },
+      visit: {
+        uuid: "some_visit_uuid"
+      },
+      encounter: encounter,
+      defaultValues: [
+        {
+          type: "obs",
+          path: "some-path",
+          concept: "some-concept-uuid",
+          value: 100
+        }
+      ]
     };
 
     expect(encounterForm().find('form').length).toBe(1);
