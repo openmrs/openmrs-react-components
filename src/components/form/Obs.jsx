@@ -4,8 +4,17 @@ import PropTypes from 'prop-types';
 import ButtonGroup from './ButtonGroup';
 import FieldInput from "./FieldInput";
 import Dropdown from '../widgets/Dropdown';
+import CustomDatePicker from '../widgets/CustomDatePicker';
 
 const Obs = (props) => {
+  if (props.datatype === 'date') {
+    return (
+      <Field
+        component={CustomDatePicker}
+        name={`obs|path=${props.path}|concept=${props.concept}`}
+      />
+    );
+  }
 
   // TODO: type should be controlled based on datatype of concept
 

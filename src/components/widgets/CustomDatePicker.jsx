@@ -33,12 +33,18 @@ class CustomDatePicker extends PureComponent {
   }
 
   handleChange(date) {
-    const { handleDateChange } = this.props;
+    const { handleDateChange, input } = this.props;
     const { field } = this.state;
     this.setState({
       selectedDate: date,
     });
-    handleDateChange(field, date.format('YYYY-MM-DD'));
+    
+    if (typeof handleDateChange === 'function') {
+      handleDateChange(field, date.format('YYYY-MM-DD'));
+    } else if (typeof input !== "undefined") {
+      const { onChange } = input;
+      onChange(date.format('DD-MM-YYYY'));
+    }
   }
 
   render() {
