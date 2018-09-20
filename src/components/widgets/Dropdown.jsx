@@ -15,15 +15,23 @@ class Dropdown extends PureComponent {
   getListData() {
     const { list, defaultValue } = this.props;
     if (list) {
-      return [defaultValue].concat(list);
+      if (defaultValue) {
+        return [defaultValue].concat(list);
+      }
+      return list;
     }
     return [];
   }
 
   handleChange(event) {
-    const { handleSelect, field } = this.props;
+    const { handleSelect, field, input } = this.props;
     const selected = event.target.value;
-    handleSelect(field, selected);
+    if (typeof handleSelect === 'function') {
+      handleSelect(field, selected);
+    } else if (typeof input !== "undefined") {
+      const { onChange } = input;
+      onChange(selected);
+    }
   }
 
   render() {
@@ -36,7 +44,13 @@ class Dropdown extends PureComponent {
           style={dropDownStyle}
         >
           {this.getListData().map(
-            item => (
+            item => !!item.uuid ? (
+              <option
+                key={item.uuid}
+                value={item.uuid}
+              >{item.display}
+              </option>
+            ) : (
               <option
                 key={item}
                 value={item}

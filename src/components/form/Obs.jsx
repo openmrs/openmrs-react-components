@@ -1,18 +1,22 @@
 import React from 'react';
 import { Field } from 'redux-form';
+import PropTypes from 'prop-types';
 import ButtonGroup from './ButtonGroup';
-import DropDown from './DropDown';
 import FieldInput from "./FieldInput";
+import Dropdown from '../widgets/Dropdown';
 
 const Obs = (props) => {
+
+  // TODO: type should be controlled based on datatype of concept
 
   if ( typeof props.conceptAnswers !== 'undefined' ) {
     if (props.displayComponent === 'dropdown') {
       return (
         <Field
-          component={DropDown}
+          component={Dropdown}
+          list={props.conceptAnswers}
           name={`obs|path=${props.path}|concept=${props.concept}`}
-          options={props.conceptAnswers}
+          title={props.dropDownTitle}
         />);
     } else {
       return (
@@ -24,30 +28,44 @@ const Obs = (props) => {
     }
   } else if ( typeof props.datatype !== 'undefined' && props.datatype === 'text') {
     return (
-      // TODO: type should be controlled based on datatype of concept
       <Field
-        component={FieldInput}
         name={`obs|path=${props.path}|concept=${props.concept}`}
-        placeholder={props.placeholder}
-        type='text'
-        validate={props.validate}
-        warn={props.warn} 
-      />
+        component={ ButtonGroup }
+        options={ props.conceptAnswers } />
     );
   } else {
     return (
-      // TODO: type should be controlled based on datatype of concept
       <Field
-        component={FieldInput}
         name={`obs|path=${props.path}|concept=${props.concept}`}
+        type={props.datatype}
+        component={FieldInput}
         placeholder={props.placeholder}
-        type='number'
         validate={props.validate}
-        warn={props.warn}
-      />
+        value={props.value}
+        warn={props.warn} />
     );
   }
+};
 
+Obs.propTypes = {
+  concept: PropTypes.string.isRequired,
+  conceptAnswers: PropTypes.array,
+  datatype: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  validate: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.func]),
+  value:  PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number]),
+  warn: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.func]),
+};
+
+Obs.defaultProps = {
+  datatype: 'number'
 };
 
 export default Obs;
