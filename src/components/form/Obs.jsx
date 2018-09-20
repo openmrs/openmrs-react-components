@@ -3,6 +3,7 @@ import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
 import ButtonGroup from './ButtonGroup';
 import FieldInput from "./FieldInput";
+import Dropdown from '../widgets/Dropdown';
 import CustomDatePicker from '../widgets/CustomDatePicker';
 
 const Obs = (props) => {
@@ -18,6 +19,23 @@ const Obs = (props) => {
   // TODO: type should be controlled based on datatype of concept
 
   if ( typeof props.conceptAnswers !== 'undefined' ) {
+    if (props.displayComponent === 'dropdown') {
+      return (
+        <Field
+          component={Dropdown}
+          list={props.conceptAnswers}
+          name={`obs|path=${props.path}|concept=${props.concept}`}
+          title={props.dropDownTitle}
+        />);
+    } else {
+      return (
+        <Field
+          component={ButtonGroup}
+          name={`obs|path=${props.path}|concept=${props.concept}`}
+          options={props.conceptAnswers}
+        />);
+    }
+  } else if ( typeof props.datatype !== 'undefined' && props.datatype === 'text') {
     return (
       <Field
         name={`obs|path=${props.path}|concept=${props.concept}`}
