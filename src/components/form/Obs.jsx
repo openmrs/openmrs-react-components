@@ -35,13 +35,6 @@ const Obs = (props) => {
           options={props.conceptAnswers}
         />);
     }
-  } else if ( typeof props.datatype !== 'undefined' && props.datatype === 'text') {
-    return (
-      <Field
-        name={`obs|path=${props.path}|concept=${props.concept}`}
-        component={ ButtonGroup }
-        options={ props.conceptAnswers } />
-    );
   } else {
     return (
       <Field
