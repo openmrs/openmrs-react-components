@@ -1,8 +1,8 @@
 import React from 'react';
 import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
-import ButtonGroup from './ButtonGroup';
-import FieldInput from "./FieldInput";
+import ButtonGroup from '../widgets/ButtonGroup';
+import FieldInput from "../widgets/FieldInput";
 import Dropdown from '../widgets/Dropdown';
 import CustomDatePicker from '../widgets/CustomDatePicker';
 

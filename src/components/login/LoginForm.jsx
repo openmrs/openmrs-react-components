@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
-import FieldInput from '../form/FieldInput';
+import FieldInput from '../widgets/FieldInput';
 import Errors from '../errors/Errors';
 import '../../../assets/css/loginForm.css';
 import { Button } from 'react-bootstrap';
