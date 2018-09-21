@@ -33,7 +33,7 @@ const Obs = (props) => {
         <Field
           component={CheckBox}
           name={`obs|path=${props.path}|concept=${props.concept}`}
-          options={props.conceptAnswers}
+          options={props.conceptAnswer}
           title={props.checkBoxTitle}
         />);
     } else {
