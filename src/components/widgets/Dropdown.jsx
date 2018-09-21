@@ -76,6 +76,7 @@ Dropdown.propTypes = {
   defaultValue: PropTypes.string,
   field: PropTypes.string.isRequired,
   handleSelect: PropTypes.func.isRequired,
+  input: PropTypes.object,
   label: PropTypes.string,
   labelClassName: PropTypes.string,
   list: PropTypes.array.isRequired,

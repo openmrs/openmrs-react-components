@@ -2,6 +2,7 @@ import React from 'react';
 import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
 import ButtonGroup from '../widgets/ButtonGroup';
+import CheckBox from '../widgets/CheckBox';
 import FieldInput from "../widgets/FieldInput";
 import Dropdown from '../widgets/Dropdown';
 import CustomDatePicker from '../widgets/CustomDatePicker';
@@ -26,6 +27,14 @@ const Obs = (props) => {
           list={props.conceptAnswers}
           name={`obs|path=${props.path}|concept=${props.concept}`}
           title={props.dropDownTitle}
+        />);
+    } else if (props.widget === 'checkbox') {
+      return (
+        <Field
+          component={CheckBox}
+          name={`obs|path=${props.path}|concept=${props.concept}`}
+          options={props.conceptAnswers}
+          title={props.checkBoxTitle}
         />);
     } else {
       return (
