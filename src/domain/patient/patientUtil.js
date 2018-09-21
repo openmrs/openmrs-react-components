@@ -14,6 +14,7 @@ formats it into a simplified form.
 Also provides util methods to operate on a Patient in this new form
 
 {
+  _openmrsClass: 'Patient',
   id : $id,
   uuid : $uuid,
   gender : $gender,

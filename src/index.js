@@ -38,6 +38,7 @@ import { headerReducers, headerSagas, headerActions } from './features/header';
 import { errorsActions, errorsReducers } from './features/errors';
 import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
 import { GRID_TYPES, gridActions } from './features/grid';
+import { patientsReducer, patientSelectedReducer, patientActions, PATIENT_TYPES } from "./features/patient";
 import {
   PATIENT_SEARCH_TYPES,
   patientSearchActions,
@@ -63,6 +64,8 @@ const reducers = combineReducers({
   session: sessionReducers,
   loginLocations: loginReducers,
   header: headerReducers,
+  patients: patientsReducer,
+  selectedPatient: patientSelectedReducer,
   patientSearch: patientSearchReducers,
   errors: errorsReducers
 });
@@ -120,6 +123,8 @@ module.exports = {
   GRID_TYPES,
   gridActions,
   errorsActions,
+  patientActions,
+  PATIENT_TYPES,
   encounterRest,
   loginRest,
   patientRest,
