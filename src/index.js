@@ -53,6 +53,7 @@ import sessionRest from './rest/sessionRest';
 import locationRest from './rest/locationRest';
 import visitRest from './rest/visitRest';
 import reportingRest from './rest/reportingRest';
+import conceptRest from './rest/conceptRest';
 import { library as fontAwesomeLibrary } from '@fortawesome/fontawesome-svg-core';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
@@ -133,6 +134,7 @@ module.exports = {
   locationRest,
   visitRest,
   reportingRest,
+  conceptRest,
   reducers,
   sagas,
   loginActions,
