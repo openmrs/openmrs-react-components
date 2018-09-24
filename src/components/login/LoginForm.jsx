@@ -48,8 +48,8 @@ let LoginForm = props => {
       </div>
       <div className="bottomPanelItemContainer">
         <Button className="loginButton"
-          type="submit"
           disabled={pristine || submitting || !isFormComplete}
+          type="submit"
         >
           Login
         </Button>

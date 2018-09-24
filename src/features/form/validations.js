@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 const minValue = min => value =>
   value && value < min ? `Must be at least ${min}` : undefined ;
 
@@ -9,9 +11,16 @@ const abnormalMaxValue = max => value =>
 
 const abnormalMinValue = min => value => (value && value < min ? `Abnormal value` : undefined);
 
+const dateToInt = dateStr => new Date(dateStr).getTime();
+
+const maxDateValue = maxDate => value =>
+  value && (dateToInt(value)) > dateToInt(maxDate) ? `Date should be earlier or equal To Today Date` : undefined;
+
+
 export default {
   minValue,
   maxValue,
   abnormalMaxValue,
-  abnormalMinValue
+  abnormalMinValue,
+  maxDateValue,
 };

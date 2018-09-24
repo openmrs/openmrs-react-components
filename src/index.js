@@ -30,6 +30,7 @@ import Obs from './components/form/Obs';
 import EncounterDate from './components/form/EncounterDate';
 import Submit from './components/form/Submit';
 import Errors from './components/errors/Errors';
+import Loader from './components/widgets/Loader';
 import createListReducer from './features/list/createListReducer';
 import { SESSION_TYPES, sessionReducers, sessionSagas, sessionActions } from './features/session/';
 import { LOGIN_TYPES, loginReducers, loginSagas, loginActions } from './features/login';
@@ -141,5 +142,6 @@ module.exports = {
   withLocalisation,
   setLocaleMessages,
   mountWithIntl,
-  shallowWithIntl
+  shallowWithIntl,
+  Loader,
 };
