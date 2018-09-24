@@ -24,7 +24,7 @@ describe('visit sagas', () => {
       }
     ];
 
-    sagaTester.dispatch(visitActions.fetchActiveVisits("default"));
+    sagaTester.dispatch(visitActions.fetchActiveVisits());
     expect(sagaTester.getCalledActions()).toContainEqual(visitActions.fetchActiveVisitsSucceeded(expectedResponse));
   });
 

@@ -3,7 +3,7 @@ const api = {
 
   getActiveVisits: (params) => {
 
-    if (params.representation ==='invalid') {
+    if (params.location ==='invalid') {
       throw {
         name: 'Mock Exception',
         message: 'Invalid'
