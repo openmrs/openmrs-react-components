@@ -13,6 +13,7 @@ const Obs = (props) => {
       <Field
         component={CustomDatePicker}
         name={`obs|path=${props.path}|concept=${props.concept}`}
+        validate={props.validate}
       />
     );
   }
@@ -46,6 +47,7 @@ const Obs = (props) => {
     }
   } else {
     return (
+      // TODO: type should be controlled based on datatype of concept
       <Field
         component={FieldInput}
         name={`obs|path=${props.path}|concept=${props.concept}`}
@@ -57,26 +59,28 @@ const Obs = (props) => {
       />
     );
   }
+
 };
+
 
 Obs.propTypes = {
-  concept: PropTypes.string.isRequired,
-  conceptAnswers: PropTypes.array,
-  datatype: PropTypes.string.isRequired,
-  path: PropTypes.string.isRequired,
-  placeholder: PropTypes.string,
-  validate: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.func]),
-  value:  PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number]),
-  warn: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.func]),
+  concept: PropTypes.string.isRequired,	
+  conceptAnswers: PropTypes.array,	
+  datatype: PropTypes.string.isRequired,	
+  path: PropTypes.string.isRequired,	
+  placeholder: PropTypes.string,	
+  validate: PropTypes.oneOfType([	
+    PropTypes.array,	
+    PropTypes.func]),	
+  value:  PropTypes.oneOfType([	
+    PropTypes.string,	
+    PropTypes.number]),	
+  warn: PropTypes.oneOfType([	
+    PropTypes.array,	
+    PropTypes.func]),	
 };
 
-Obs.defaultProps = {
+Obs.defaultProps = {	
   datatype: 'number'
 };
 

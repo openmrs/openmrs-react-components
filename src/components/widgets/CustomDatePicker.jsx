@@ -20,9 +20,17 @@ class CustomDatePicker extends PureComponent {
     super(props);
     this.state = {
       selectedDate: props.defaultDate || moment(),
-      field: 'dateTo',
+      field: props.field,
     };
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    const { input } = this.props;
+    if (typeof input !== 'undefined') {
+      const { onChange } = input;
+      onChange(moment().format())
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -43,14 +51,25 @@ class CustomDatePicker extends PureComponent {
       handleDateChange(field, date.format('YYYY-MM-DD'));
     } else if (typeof input !== "undefined") {
       const { onChange } = input;
-      onChange(date.format('DD-MM-YYYY'));
+      onChange(date.format());
     }
   }
 
   render() {
     const { ...otherProps } = this.props;
+    const { input } = otherProps;
+    let error;
+    let defaultDate;
+
+
+    const hasInput = typeof input !== 'undefined';
+    if (hasInput) {
+      const { meta } = otherProps;
+      error = meta.error;
+    }
     const { selectedDate } = this.state;
     const DateDisplayComponent = ({ onClick, value }) => (
+      <span>
       <span style={styles.datePickerContainerStyle}>
         <span className={otherProps.labelClassName}>
           {
@@ -68,6 +87,14 @@ class CustomDatePicker extends PureComponent {
           onClick={onClick}
           role="toolbar"
         />
+      
+      </span>
+      {hasInput &&
+        ((error &&
+          <span className="field-error">
+            {error}
+          </span>))
+      }
       </span>
     );
     return (
@@ -75,6 +102,7 @@ class CustomDatePicker extends PureComponent {
         customInput={<DateDisplayComponent />}
         onChange={this.handleChange}
         selected={selectedDate}
+        excludeDates={hasInput && [moment().add(7, "days")]}
       />
     );
   }
