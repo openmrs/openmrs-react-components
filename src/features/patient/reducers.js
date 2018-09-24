@@ -18,6 +18,28 @@ export const patientsReducer = (state = {}, action) => {
         }, {});
       }
 
+    // adds a patient to the list, if necessary
+    case PATIENT_TYPES.ADD_PATIENT_TO_STORE:
+
+      // if the patient already in the list, do nothing
+      if (!action.patient || action.patient.uuid in state) {
+        return state;
+      }
+      else {
+        return {
+          [action.patient.uuid]: patientUtil.createFromRestRep(action.patient),
+          ...state
+        };
+      }
+
+    case PATIENT_TYPES.UPDATE_PATIENT_IN_STORE:
+      return {
+        ...state,
+        [action.patient.uuid]: patientUtil.createFromRestRep(action.patient)
+      };
+
+    default: return state;
+
     case PATIENT_TYPES.UPDATE_ACTIVE_VISITS_IN_STORE:
 
       // TODO do we want to strip out patient information from visit to avoid duplication?
@@ -45,30 +67,6 @@ export const patientsReducer = (state = {}, action) => {
       else {
         return currentPatientsWithUpdatedVisits;
       }
-
-    // adds a patient to the list, if necessary
-    // we currently use this to add a patient selected by patient search
-    // in the future, should think about whether this should really be an "add or update"
-    case PATIENT_TYPES.ADD_PATIENT_TO_STORE:
-
-      // if the patient already in the list, do nothing
-      if (!action.patient || action.patient.uuid in state) {
-        return state;
-      }
-      else {
-        return {
-          [action.patient.uuid]: patientUtil.createFromRestRep(action.patient),
-          ...state
-        };
-      }
-
-    case PATIENT_TYPES.UPDATE_PATIENT_IN_STORE:
-      return {
-        ...state,
-        [action.patient.uuid]: patientUtil.createFromRestRep(action.patient)
-      };
-
-    default: return state;
   }
 };
 
