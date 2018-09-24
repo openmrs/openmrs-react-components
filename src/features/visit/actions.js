@@ -32,10 +32,10 @@ const fetchInactiveVisitsFailed = () => ( {
   type: VISIT_TYPES.INACTIVE_VISITS.FETCH_FAILED
 } );
 
-const fetchPatientActiveVisit = (patientUuid, representation) => ( {
+const fetchPatientActiveVisit = (patientUuid, rep) => ( {
     type: VISIT_TYPES.PATIENT_ACTIVE_VISIT.FETCH_REQUESTED,
     patientUuid: patientUuid,
-    representation: representation
+    representation: rep
   }
 );
 

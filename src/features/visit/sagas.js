@@ -2,6 +2,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import VISIT_TYPES from './types';
 import visitApi from '../../rest/visitRest';
 import visitActions from './actions';
+import patientActions from '../patient/actions';
 import { DEFAULT_VISIT_REP } from '../../domain/visit/constants';
 
 function* activeVisits(action) {
@@ -15,6 +16,7 @@ function* activeVisits(action) {
     if (action.location) {
       filteredResults = response.results.filter(visit => visit.location.uuid === action.location);
     }
+    yield put(patientActions.updateActiveVisitsInStore(filteredResults));
     yield put(visitActions.fetchActiveVisitsSucceeded(filteredResults));
   }
   catch (e) {
@@ -23,6 +25,7 @@ function* activeVisits(action) {
 
 }
 
+// TODO are we doing the right thing here?  should this be updating the store in some way?
 function* inactiveVisits(action) {
 
   try {
@@ -52,7 +55,7 @@ function* patientActiveVisit(action) {
       patientUuid: action.patientUuid,
       representation: action.representation ? action.representation : "custom:" + DEFAULT_VISIT_REP
     });
-
+    yield put(patientActions.updateActiveVisitsInStore([response.results[0]]));
     yield put(visitActions.fetchPatientActiveVisitSucceeded(response.results[0]));
   }
   catch (e) {
