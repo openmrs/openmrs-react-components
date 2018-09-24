@@ -41,7 +41,7 @@ let EncounterFormPage = (props) => {
   // https://github.com/diegoddox/react-redux-toastr
   const formSubmittedActionCreators = [
     () => toastrActions.add({ title: "Data Saved", type: "success" }),
-    () => props.patient && props.patient.uuid && visitActions.fetchPatientActiveVisit(props.patient.uuid), // fetch current active visit: assumption is that encounter is part of this visit
+    () => props.patient && props.patient.uuid && visitActions.fetchPatientActiveVisit(props.patient.uuid),
     () => push(props.afterSubmitLink)
   ];
 
