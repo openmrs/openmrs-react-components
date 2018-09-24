@@ -1,8 +1,8 @@
 import VISIT_TYPES from "./types";
 
-const fetchActiveVisits = (representation, location) => ( {
+const fetchActiveVisits = (location, rep) => ( {
   type: VISIT_TYPES.ACTIVE_VISITS.FETCH_REQUESTED,
-  representation: representation,
+  representation: rep,
   location: location
 } );
 
@@ -16,9 +16,9 @@ const fetchActiveVisitsFailed = () => ( {
 } );
 
 
-const fetchInactiveVisits = (representation, fromStartDate, location) => ( {
+const fetchInactiveVisits = (fromStartDate, location, rep) => ( {
   type: VISIT_TYPES.INACTIVE_VISITS.FETCH_REQUESTED,
-  representation: representation,
+  representation: rep,
   fromStartDate: fromStartDate,
   location: location
 } );

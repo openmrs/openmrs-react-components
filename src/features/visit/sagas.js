@@ -2,13 +2,14 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import VISIT_TYPES from './types';
 import visitApi from '../../rest/visitRest';
 import visitActions from './actions';
+import { DEFAULT_VISIT_REP } from '../../domain/visit/constants';
 
 function* activeVisits(action) {
 
   try {
 
     let response = yield call(visitApi.getActiveVisits, {
-      representation: action.representation
+      representation: action.representation ? action.representation : "custom:" + DEFAULT_VISIT_REP
     });
     let filteredResults = response.results;
     if (action.location) {
@@ -27,7 +28,7 @@ function* inactiveVisits(action) {
   try {
 
     let response = yield call(visitApi.getVisitsStartedBeforeDate, {
-      representation: action.representation,
+      representation: action.representation ? action.representation : "custom:" + DEFAULT_VISIT_REP,
       fromStartDate: action.fromStartDate
     });
     let filteredResults = response.results.filter(visit => visit.stopDatetime !== null);
@@ -49,7 +50,7 @@ function* patientActiveVisit(action) {
 
     let response = yield call(visitApi.getPatientActiveVisit, {
       patientUuid: action.patientUuid,
-      representation: action.representation
+      representation: action.representation ? action.representation : "custom:" + DEFAULT_VISIT_REP
     });
 
     yield put(visitActions.fetchPatientActiveVisitSucceeded(response.results[0]));

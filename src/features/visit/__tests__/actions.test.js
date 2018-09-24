@@ -5,10 +5,9 @@ describe('visit actions', () => {
 
   it('should create fetch active visits action', () => {
     const expectedAction = {
-      type: VISIT_TYPES.ACTIVE_VISITS.FETCH_REQUESTED,
-      representation: "some_representation"
+      type: VISIT_TYPES.ACTIVE_VISITS.FETCH_REQUESTED
     };
-    expect(visitActions.fetchActiveVisits("some_representation")).toEqual(expectedAction);
+    expect(visitActions.fetchActiveVisits()).toEqual(expectedAction);
   });
 
   it('should create fetch active visits succeeded action', () => {
