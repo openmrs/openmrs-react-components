@@ -9,6 +9,8 @@ import { DATA_TYPES } from '../../domain/concept/constants';
 // TODO extract out utility methods for a making a obs template
 // TODO think about anything we need to do to handle
 
+export const EncounterFormContext = React.createContext(null);
+
 class EncounterForm extends React.PureComponent {
 
   constructor(props) {
@@ -56,8 +58,8 @@ class EncounterForm extends React.PureComponent {
         }, {});
     }
 
-    let initialData = Object.assign(defaultValues, existingValues); // merge the two objects, prioritizing existing values if there are overlaps
-    this.props.initialize(initialData);
+    this.initialData = Object.assign(defaultValues, existingValues); // merge the two objects, prioritizing existing values if there are overlaps
+    this.props.initialize(this.initialData);
   }
 
   onSubmit(values) {
@@ -74,11 +76,18 @@ class EncounterForm extends React.PureComponent {
 
   render() {
 
-    const { handleSubmit } = this.props;
+    const { handleSubmit, mode } = this.props;
+
+    const context = {
+      mode: mode,
+      initialData: this.initialData
+    };
 
     return (
       <Form horizontal onSubmit={handleSubmit(this.onSubmit)}>
-        {this.props.children}
+        <EncounterFormContext.Provider value={context} >
+          {this.props.children}
+        </EncounterFormContext.Provider>
       </Form>
     );
   };
@@ -95,13 +104,18 @@ EncounterForm.propTypes = {
   formSubmittedActionCreator: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.func]),
-  initialObs: PropTypes.array,
+  handleSubmit: PropTypes.func.isRequired,
+  mode: PropTypes.string.isRequired,
   patient: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string]).isRequired,
   visit: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string])
+};
+
+EncounterForm.defaultProps = {
+  mode: 'edit'
 };
 
 

@@ -6,60 +6,80 @@ import CheckBox from '../widgets/CheckBox';
 import FieldInput from "../widgets/FieldInput";
 import Dropdown from '../widgets/Dropdown';
 import CustomDatePicker from '../widgets/CustomDatePicker';
+import { EncounterFormContext } from './EncounterForm';
 
 const Obs = (props) => {
+
+  const name = `obs|path=${props.path}|concept=${props.concept}`;
+  // TODO: type should be controlled based on datatype of concept
   if (props.datatype === 'date') {
     return (
       <Field
         component={CustomDatePicker}
-        name={`obs|path=${props.path}|concept=${props.concept}`}
+        name={name}
         validate={props.validate}
       />
     );
   }
-
-  // TODO: type should be controlled based on datatype of concept
-
-  if ( typeof props.conceptAnswers !== 'undefined' ) {
+  else if ( typeof props.conceptAnswers !== 'undefined' ) {
     if (props.widget === 'dropdown') {
       return (
-        <Field
-          component={Dropdown}
-          list={props.conceptAnswers}
-          name={`obs|path=${props.path}|concept=${props.concept}`}
-          title={props.dropDownTitle}
-        />);
+        <EncounterFormContext.Consumer>
+          { context => context.mode === 'edit' ?
+            (<Field
+              component={Dropdown}
+              list={props.conceptAnswers}
+              name={name}
+              title={props.dropDownTitle}
+            />) :
+            (
+              <span>{context.initialData ? props.conceptAnswers.find(ans => ans.uuid === context.initialData[name]).name : null}</span>
+            ) }
+        </EncounterFormContext.Consumer>
+      );
     } else if (props.widget === 'checkbox') {
       return (
         <Field
           component={CheckBox}
-          name={`obs|path=${props.path}|concept=${props.concept}`}
+          name={name}
           options={props.conceptAnswer}
           title={props.checkBoxTitle}
-        />);
+        />
+      );
     } else {
       return (
-        <Field
-          component={ButtonGroup}
-          name={`obs|path=${props.path}|concept=${props.concept}`}
-          options={props.conceptAnswers}
-        />);
+        <EncounterFormContext.Consumer>
+          { context => context.mode === 'edit' ?
+            (<Field
+              component={ButtonGroup}
+              name={name}
+              options={props.conceptAnswers}
+            />) :
+            (
+              <span>{context.initialData ? props.conceptAnswers.find(ans => ans.uuid === context.initialData[name]).name : null}</span>
+            ) }
+        </EncounterFormContext.Consumer>
+      );
     }
   } else {
     return (
-      // TODO: type should be controlled based on datatype of concept
-      <Field
-        component={FieldInput}
-        name={`obs|path=${props.path}|concept=${props.concept}`}
-        placeholder={props.placeholder}
-        type={props.datatype}
-        validate={props.validate}
-        value={props.value}
-        warn={props.warn}
-      />
-    );
+      <EncounterFormContext.Consumer>
+        { context => context.mode === 'edit' ?
+          (<Field
+            component={FieldInput}
+            name={name}
+            placeholder={props.placeholder}
+            type={props.datatype}
+            validate={props.validate}
+            value={props.value}
+            warn={props.warn}
+          />) :
+          (
+            <span>{context.initialData ? context.initialData[name] : null}</span>
+          )}
+      </EncounterFormContext.Consumer>
+    )
   }
-
 };
 
 
