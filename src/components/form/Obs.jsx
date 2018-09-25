@@ -36,7 +36,7 @@ const Obs = (props) => {
     if (props.widget === 'dropdown') {
       return (
         <FormContext.Consumer>
-          { context => context.mode === 'edi' ?
+          { context => context.mode === 'edit' ?
             (<Field
               component={Dropdown}
               list={props.conceptAnswers}
@@ -60,7 +60,7 @@ const Obs = (props) => {
     } else {
       return (
         <FormContext.Consumer>
-          { context => context.mode === 'edi' ?
+          { context => context.mode === 'edit' ?
             (<Field
               component={ButtonGroup}
               name={name}
