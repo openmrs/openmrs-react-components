@@ -1,16 +1,27 @@
 import React from 'react';
 import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
+import FormContext from './FormContext';
 import ButtonGroup from '../widgets/ButtonGroup';
 import CheckBox from '../widgets/CheckBox';
 import FieldInput from "../widgets/FieldInput";
 import Dropdown from '../widgets/Dropdown';
 import CustomDatePicker from '../widgets/CustomDatePicker';
-import { EncounterFormContext } from './EncounterForm';
 
 const Obs = (props) => {
 
+  const conceptAnswerDisplay = (initialData, conceptAnswers, name) => {
+    if (initialData) {
+      const matchingAnswer = conceptAnswers.find(ans => ans.uuid === initialData[name]);
+      return matchingAnswer ? matchingAnswer.name : null;
+    }
+    else {
+      return null;
+    }
+  };
+
   const name = `obs|path=${props.path}|concept=${props.concept}`;
+
   // TODO: type should be controlled based on datatype of concept
   if (props.datatype === 'date') {
     return (
@@ -24,8 +35,8 @@ const Obs = (props) => {
   else if ( typeof props.conceptAnswers !== 'undefined' ) {
     if (props.widget === 'dropdown') {
       return (
-        <EncounterFormContext.Consumer>
-          { context => context.mode === 'edit' ?
+        <FormContext.Consumer>
+          { context => context.mode === 'edi' ?
             (<Field
               component={Dropdown}
               list={props.conceptAnswers}
@@ -33,9 +44,9 @@ const Obs = (props) => {
               title={props.dropDownTitle}
             />) :
             (
-              <span>{context.initialData ? props.conceptAnswers.find(ans => ans.uuid === context.initialData[name]).name : null}</span>
+              <span>{conceptAnswerDisplay(context.initialData, props.conceptAnswers, name)}</span>
             ) }
-        </EncounterFormContext.Consumer>
+        </FormContext.Consumer>
       );
     } else if (props.widget === 'checkbox') {
       return (
@@ -48,22 +59,22 @@ const Obs = (props) => {
       );
     } else {
       return (
-        <EncounterFormContext.Consumer>
-          { context => context.mode === 'edit' ?
+        <FormContext.Consumer>
+          { context => context.mode === 'edi' ?
             (<Field
               component={ButtonGroup}
               name={name}
               options={props.conceptAnswers}
             />) :
             (
-              <span>{context.initialData ? props.conceptAnswers.find(ans => ans.uuid === context.initialData[name]).name : null}</span>
+              <span>{conceptAnswerDisplay(context.initialData, props.conceptAnswers, name)}</span>
             ) }
-        </EncounterFormContext.Consumer>
+        </FormContext.Consumer>
       );
     }
   } else {
     return (
-      <EncounterFormContext.Consumer>
+      <FormContext.Consumer>
         { context => context.mode === 'edit' ?
           (<Field
             component={FieldInput}
@@ -77,7 +88,7 @@ const Obs = (props) => {
           (
             <span>{context.initialData ? context.initialData[name] : null}</span>
           )}
-      </EncounterFormContext.Consumer>
+      </FormContext.Consumer>
     )
   }
 };

@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { Form } from 'react-bootstrap';
+import FormContext from './FormContext';
 import { formActions } from '../../features/form';
 import { DATA_TYPES } from '../../domain/concept/constants';
 
 // TODO extract out utility methods for a making a obs template
 // TODO think about anything we need to do to handle
-
-export const EncounterFormContext = React.createContext(null);
 
 class EncounterForm extends React.PureComponent {
 
@@ -76,18 +75,19 @@ class EncounterForm extends React.PureComponent {
 
   render() {
 
-    const { handleSubmit, mode } = this.props;
+    const { handleSubmit, mode, submitting } = this.props;
 
     const context = {
       mode: mode,
+      submitting: submitting,
       initialData: this.initialData
     };
 
     return (
       <Form horizontal onSubmit={handleSubmit(this.onSubmit)}>
-        <EncounterFormContext.Provider value={context} >
+        <FormContext.Provider value={context} >
           {this.props.children}
-        </EncounterFormContext.Provider>
+        </FormContext.Provider>
       </Form>
     );
   };
