@@ -32,6 +32,15 @@ const Obs = (props) => {
         validate={props.validate}
       />
     );
+  } else if (props.widget === 'checkbox') {
+    return (
+      <Field
+        component={CheckBox}
+        name={name}
+        options={props.conceptAnswer}
+        title={props.checkBoxTitle}
+      />
+    );
   }
   else if ( typeof props.conceptAnswers !== 'undefined' ) {
     if (props.widget === 'dropdown') {
@@ -48,15 +57,6 @@ const Obs = (props) => {
               <span>{conceptAnswerDisplay(context.selector(props.state, name), props.conceptAnswers)}</span>
             ) }
         </FormContext.Consumer>
-      );
-    } else if (props.widget === 'checkbox') {
-      return (
-        <Field
-          component={CheckBox}
-          name={name}
-          options={props.conceptAnswer}
-          title={props.checkBoxTitle}
-        />
       );
     } else {
       return (
