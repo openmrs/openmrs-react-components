@@ -11,7 +11,7 @@ const Submit = (props) => {
           bsSize="large"
           bsStyle="success"
           disabled={context.submitting}
-          onClick={() => props.onClick && props.onClick()}
+          //onClick={() => props.onClick && props.onClick()}
           type="submit"
         >
           Submit
