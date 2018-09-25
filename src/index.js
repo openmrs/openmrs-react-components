@@ -59,6 +59,7 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 import withLocalisation, { setLocaleMessages } from './components/localization/withLocalisation';
 import { mountWithIntl, shallowWithIntl } from './components/localization/test/helpers/intl-test';
+import Head from './components/header/Head';
 
 fontAwesomeLibrary.add( faCaretDown );
 
@@ -146,4 +147,5 @@ module.exports = {
   mountWithIntl,
   shallowWithIntl,
   Loader,
+  Head,
 };
