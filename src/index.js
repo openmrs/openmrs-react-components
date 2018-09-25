@@ -29,6 +29,7 @@ import CustomDatePicker from './components/widgets/CustomDatePicker';
 import Obs from './components/form/Obs';
 import EncounterDate from './components/form/EncounterDate';
 import Submit from './components/form/Submit';
+import Cancel from './components/form/Cancel';
 import Errors from './components/errors/Errors';
 import Loader from './components/widgets/Loader';
 import createListReducer from './features/list/createListReducer';
@@ -116,6 +117,7 @@ module.exports = {
   Obs,
   EncounterDate,
   Submit,
+  Cancel,
   Errors,
   formActions,
   formValidations,

@@ -2,23 +2,22 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import FormContext from './FormContext';
 
-const Submit = (props) => {
+const Cancel = (props) => {
 
   return (
     <FormContext.Consumer>
       {context =>
         <Button
           bsSize="large"
-          bsStyle="success"
+          bsStyle="danger"
           disabled={context.submitting}
-          onClick={() => props.onClick && props.onClick()}
-          type="submit"
+          onClick={() => context.reset() && (props.onClick && props.onClick())}
         >
-          Submit
+          Cancel
         </Button>
       }
     </FormContext.Consumer>
   );
 };
 
-export default Submit;
+export default Cancel;

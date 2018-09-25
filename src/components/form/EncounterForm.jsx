@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { reduxForm } from 'redux-form';
+import { reduxForm, formValueSelector } from 'redux-form';
 import { Form } from 'react-bootstrap';
 import FormContext from './FormContext';
 import { formActions } from '../../features/form';
@@ -75,12 +75,14 @@ class EncounterForm extends React.PureComponent {
 
   render() {
 
-    const { handleSubmit, mode, submitting } = this.props;
+    const { handleSubmit, mode, reset, submitting, formId } = this.props;
 
     const context = {
       mode: mode,
+      reset: reset,
+      selector: formValueSelector(formId),
       submitting: submitting,
-      initialData: this.initialData
+      initialData: this.initialData    // TODO at the end of the day, do we really need this
     };
 
     return (

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import FormContext from './FormContext';
 import ButtonGroup from '../widgets/ButtonGroup';
 import CheckBox from '../widgets/CheckBox';
@@ -10,9 +11,9 @@ import CustomDatePicker from '../widgets/CustomDatePicker';
 
 const Obs = (props) => {
 
-  const conceptAnswerDisplay = (initialData, conceptAnswers, name) => {
-    if (initialData) {
-      const matchingAnswer = conceptAnswers.find(ans => ans.uuid === initialData[name]);
+  const conceptAnswerDisplay = (value, conceptAnswers) => {
+    if (value) {
+      const matchingAnswer = conceptAnswers.find(ans => ans.uuid === value);
       return matchingAnswer ? matchingAnswer.name : null;
     }
     else {
@@ -44,7 +45,7 @@ const Obs = (props) => {
               title={props.dropDownTitle}
             />) :
             (
-              <span>{conceptAnswerDisplay(context.initialData, props.conceptAnswers, name)}</span>
+              <span>{conceptAnswerDisplay(context.selector(props.state, name), props.conceptAnswers)}</span>
             ) }
         </FormContext.Consumer>
       );
@@ -67,7 +68,7 @@ const Obs = (props) => {
               options={props.conceptAnswers}
             />) :
             (
-              <span>{conceptAnswerDisplay(context.initialData, props.conceptAnswers, name)}</span>
+              <span>{conceptAnswerDisplay(context.selector(props.state, name), props.conceptAnswers)}</span>
             ) }
         </FormContext.Consumer>
       );
@@ -86,7 +87,7 @@ const Obs = (props) => {
             warn={props.warn}
           />) :
           (
-            <span>{context.initialData ? context.initialData[name] : null}</span>
+            <span>{context.selector(props.state, name)} </span>
           )}
       </FormContext.Consumer>
     )
@@ -115,4 +116,11 @@ Obs.defaultProps = {
   datatype: 'number'
 };
 
-export default Obs;
+// TODO seems like this must be bad, maps in the entire state! could we restrict to the form at least? get access to the selector somehow?
+const mapStateToProps = (state) => {
+  return {
+    state: state
+  };
+};
+
+export default connect(mapStateToProps)(Obs);

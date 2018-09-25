@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { Button, Grid, Row, Col } from 'react-bootstrap';
 import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { actions as toastrActions } from 'react-redux-toastr';
 import { visitActions } from "../../features/visit";
 import Submit from './Submit';
+import Cancel from './Cancel';
 import EncounterForm from './EncounterForm';
 import encounterByEncounterTypeFilter from '../../domain/encounter/filters/encountersByEncounterTypeFilter';
 
@@ -14,93 +14,126 @@ import encounterByEncounterTypeFilter from '../../domain/encounter/filters/encou
  * Provides a basic wrapper around an Encounter Form with a title, toast success message, and afterSubmitLink
  */
 
-// TODO extract styles out to a common location once we figure out our strategy for css?
-// TODO or potentially assign defaults here but allow to be overridden via props?
 
-const rowStyles = {
-  backgroundColor: '#ffa500b3'
-};
 
-const littlePaddingLeft = {
-  paddingLeft: '20px'
-};
+class EncounterFormPage extends React.PureComponent {
 
-const divContainer = {
-  paddingLeft: '0px',
-  paddingRight: '0px'
-};
+  constructor(props) {
+    super(props);
 
-const colHeight = {
-  height: '40px'
-};
+    // TODO we may not *always* want to pull in the encounter here?  make a flag about this?
+    // TODO what if there are multiple encounters of the same type?  this currently just shifts in the "first"
+    if (props.patient && props.patient.visit && props.patient.visit.encounters) {
+      this.encounter = encounterByEncounterTypeFilter(props.encounterType.uuid)(props.patient.visit.encounters).shift();
+    }
 
-let EncounterFormPage = (props) => {
+    this.state = {
+      mode: props.mode ? props.mode : (this.encounter ? 'view' : 'edit')  // if no mode specified, base on whether there's an existing encounter
+    };
 
-  let encounter;
+    this.formSubmittedActionCreators = [
+      () => toastrActions.add({ title: "Data Saved", type: "success" }),
+      () => props.patient && props.patient.uuid && visitActions.fetchPatientActiveVisit(props.patient.uuid),
+      () => push(props.afterSubmitLink)
+    ];
 
-  // https://github.com/diegoddox/react-redux-toastr
-  const formSubmittedActionCreators = [
-    () => toastrActions.add({ title: "Data Saved", type: "success" }),
-    () => props.patient && props.patient.uuid && visitActions.fetchPatientActiveVisit(props.patient.uuid),
-    () => push(props.afterSubmitLink)
-  ];
+    // TODO extract styles out to a common location once we figure out our strategy for css?
+    // TODO or potentially assign defaults here but allow to be overridden via props?
+    this.rowStyles = {
+      backgroundColor: '#ffa500b3'
+    };
 
-  // TODO we may not *always* want to pull in the encounter here?  make a flag about this?
-  // TODO what if there are multiple encounters of the same type?  this currently just shifts in the "first"
-  if (props.patient && props.patient.visit && props.patient.visit.encounters) {
-    encounter = encounterByEncounterTypeFilter(props.encounterType.uuid)(props.patient.visit.encounters).shift();
+    this.littlePaddingLeft = {
+      paddingLeft: '20px'
+    };
+
+    this.divContainer = {
+      paddingLeft: '0px',
+      paddingRight: '0px'
+    };
+
+    this.colHeight = {
+      height: '40px'
+    };
   }
 
-  return (
-    <div style={divContainer}>
-      <Grid style={divContainer}>
-        <Row style={rowStyles}>
-          <Col sm={20} md={20} style={littlePaddingLeft}>
-            <span><h1>{props.title}</h1></span>
-          </Col>
-        </Row>
-        <Row>
-          <Col sm={20} md={20} style={ colHeight }>
-            <span><h1>{ '' }</h1></span>
-          </Col>
-        </Row>
-      </Grid>
-      <div>
-        <EncounterForm
-          formId={ props.formId }
-          defaultValues={props.defaultValues}
-          encounter={encounter}
-          encounterType={props.encounterType}
-          formSubmittedActionCreator={formSubmittedActionCreators}
-          patient={props.patient}
-          visit={props.patient ? props.patient.visit : null}
-        >
-          { props.formContent }
-          <Grid>
-            <Row>
-              <Col sm={2} xsOffset={2}>
-                <Link to={ props.backLink }>
-                  <Button bsSize="large">Cancel</Button>
-                </Link>
-              </Col>
-              <Col sm={2} xsOffset={1}>
-                <Submit/>
-              </Col>
-            </Row>
-          </Grid>
-        </EncounterForm>
+  enterEditMode() {
+    this.setState({
+      mode: 'edit'
+    });
+  }
+
+  exitEditMode() {
+    this.setState({
+      mode: 'view'
+    });
+  }
+
+  handleCancel() {
+    this.exitEditMode();
+    if (this.props.backLink) {
+      this.props.dispatch(push(this.props.backLink));
+    }
+  }
+
+  render() {
+    return (
+      <div style={this.divContainer}>
+        <Grid style={this.divContainer}>
+          <Row style={this.rowStyles}>
+            <Col sm={20} md={20} style={this.littlePaddingLeft}>
+              <span><h1>{this.props.title}</h1></span>
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={20} md={20} style={this.colHeight}>
+              <span><h1>{''}</h1></span>
+            </Col>
+          </Row>
+        </Grid>
+        <div>
+          <EncounterForm
+            formId={this.props.formId}
+            defaultValues={this.props.defaultValues}
+            encounter={this.encounter}
+            encounterType={this.props.encounterType}
+            mode={this.state.mode}
+            formSubmittedActionCreator={this.formSubmittedActionCreators}
+            patient={this.props.patient}
+            visit={this.props.patient ? this.props.patient.visit : null}
+          >
+            {this.props.formContent}
+            <Grid>
+              <Row>
+                <Col sm={2} xsOffset={2}>
+                  { this.state.mode === 'edit' ?
+                    (<Cancel onClick={this.handleCancel.bind(this)}/>)
+                    : (null)
+                  }
+                </Col>
+                <Col sm={2} xsOffset={1}>
+                  {this.state.mode === 'edit' ?
+                    (<Submit onClick={this.exitEditMode.bind(this)}/>) :
+                    (<Button onClick={this.enterEditMode.bind(this)} bsSize="large">Edit</Button>)
+                  }
+                </Col>
+              </Row>
+            </Grid>
+          </EncounterForm>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 EncounterFormPage.propTypes = {
   afterSubmitLink: PropTypes.string,
-  backLink: PropTypes.string.isRequired,
+  backLink: PropTypes.string,
   defaultValues: PropTypes.array,
-  formId: PropTypes.string.isRequired,
   encounterType: PropTypes.object.isRequired,
   formContent: PropTypes.object.isRequired,
+  formId: PropTypes.string.isRequired,
+  mode: PropTypes.string,
   patient: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   visit: PropTypes.object
