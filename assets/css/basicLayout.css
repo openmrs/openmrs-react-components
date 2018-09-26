@@ -1,0 +1,15 @@
+/* *
+ * Css for Basic Layout Component
+*/
+.header {
+    background: #F8971D;
+}
+
+#dropdown {
+    color: white;
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+    background: #f78b08;
+}
+
