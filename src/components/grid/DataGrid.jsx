@@ -24,11 +24,13 @@ class DataGrid extends React.Component {
   }
 
   autoSizeAll() {
-    var allColumnIds = [];
-    this.gridColumnApi.getAllColumns().forEach(function(column) {
-      allColumnIds.push(column.colId);
-    });
-    this.gridColumnApi.autoSizeColumns(allColumnIds);
+    if (this.gridColumnApi) {
+      var allColumnIds = [];
+      this.gridColumnApi.getAllColumns().forEach(function(column) {
+        allColumnIds.push(column.colId);
+      });
+      this.gridColumnApi.autoSizeColumns(allColumnIds);
+    }
   }
 
   onGridReady(params) {
@@ -53,6 +55,7 @@ class DataGrid extends React.Component {
 
   onDataRowChanged() {
     this.updateRowCount();
+    this.autoSizeAll();
   }
 
   onRowSelected(row) {

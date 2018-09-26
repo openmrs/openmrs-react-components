@@ -2,8 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { patientSearchActions } from '../../features/search';
+import { patientActions } from "../../features/patient/index";
+import { DEFAULT_PATIENT_REP} from "../../domain/patient/constants";
+import patientUtil from '../../domain/patient/patientUtil';
 import PatientSearchForm from './PatientSearchForm';
 import DataGrid from "../grid/DataGrid";
+
+// TODO: do we want a way override the default actions to clear the selected patient and add the patient to the store?
 
 class PatientSearch extends React.Component {
 
@@ -14,6 +19,7 @@ class PatientSearch extends React.Component {
 
   componentWillMount(){
     this.props.dispatch(patientSearchActions.clearPatientSearch());
+    this.props.dispatch(patientActions.clearSelectedPatient());
     if (this.props.searchQuery !== undefined && this.props.searchQuery.length > 0) {
       this.handleSubmit({query: this.props.searchQuery});
     }
@@ -22,7 +28,7 @@ class PatientSearch extends React.Component {
   handleSubmit(values) {
     this.props.dispatch(patientSearchActions.patientSearch(
       values.query,
-      this.props.parseResults, // the client could provide a callback function to parse the results returned by the REST API
+      this.props.parseResults, // the can override with a callback function to parse the results returned by the REST API
       this.props.representation));
   };
 
@@ -33,7 +39,10 @@ class PatientSearch extends React.Component {
         <DataGrid
           columnDefs={this.props.columnDefs}
           rowData={this.props.rowData}
-          rowSelectedActionCreators={this.props.rowSelectedActionCreators}
+          rowSelectedActionCreators={
+            [ patientActions.addPatientToStore,
+              patientActions.setSelectedPatient,
+              ...this.props.rowSelectedActionCreators]}
         />
       </div>
     );
@@ -42,14 +51,29 @@ class PatientSearch extends React.Component {
 
 PatientSearch.propTypes = {
   columnDefs: PropTypes.array.isRequired,
-  parseResults: PropTypes.func,
+  parseResults: PropTypes.func.isRequired,
   representation: PropTypes.string.isRequired,
   rowData: PropTypes.array,
-  rowSelectedActionCreators: PropTypes.array
+  rowSelectedActionCreators: PropTypes.array.isRequired
 };
 
 PatientSearch.defaultProps = {
-  representation: "full"
+  columnDefs: [
+    { headerName: 'uuid', hide: true, field: 'uuid' },
+    { headerName: 'ID', valueGetter: (params) => patientUtil.getPreferredIdentifier(params.data) },
+    { headerName: 'Given Name', field: 'name.givenName' },
+    { headerName: 'Family Name', field: 'name.familyName' },
+    { headerName: 'Gender', field: 'gender' },
+    { headerName: 'Age', field: 'age' }
+  ],
+  parseResults:(results) => {
+    // convert results to the patient domain object
+    return results.map((result) => {
+      return patientUtil.createFromRestRep(result);
+    });
+  },
+  representation: "custom:" + DEFAULT_PATIENT_REP,
+  rowSelectedActionCreators: []
 };
 
 const mapStateToProps = (state) => {
