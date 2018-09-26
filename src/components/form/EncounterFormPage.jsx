@@ -12,13 +12,12 @@ import Cancel from './Cancel';
 import EncounterForm from './EncounterForm';
 import encounterByEncounterTypeFilter from '../../domain/encounter/filters/encountersByEncounterTypeFilter';
 
+const uuid4 = require('uuid/v4');
+
 /**
  * Provides a basic wrapper around an Encounter Form with a title, toast success message, and afterSubmitLink
  * Handling fetching the encounter, managing state, etc
  */
-
-// TODO generator via uuid generator!!
-const formInstanceUuid = 'abc123';
 
 class EncounterFormPage extends React.PureComponent {
 
@@ -27,6 +26,7 @@ class EncounterFormPage extends React.PureComponent {
     this.enterEditMode = this.enterEditMode.bind(this);
     this.exitEditMode = this.exitEditMode.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
+    this.formInstanceUuid = uuid4();
 
 
 
@@ -72,24 +72,26 @@ class EncounterFormPage extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.props.dispatch(formActions.initializeForm(formInstanceUuid, this.props.formId));
+    this.props.dispatch(formActions.initializeForm(this.formInstanceUuid, this.props.formId));
 
     if (this.encounterUuid) {
-      this.props.dispatch(formActions.loadFormBackingEncounter(formInstanceUuid, this.encounterUuid));
+      this.props.dispatch(formActions.loadFormBackingEncounter(this.formInstanceUuid, this.encounterUuid));
     }
     else {
-      this.props.dispatch(formActions.setFormState(formInstanceUuid, FORM_STATES.EDITING));
+      this.props.dispatch(formActions.setFormState(this.formInstanceUuid, FORM_STATES.EDITING));
     }
-
   }
 
+  componentWillUnmount() {
+    this.props.dispatch(formActions.destroyForm(this.formInstanceUuid));
+  }
 
   enterEditMode() {
-    this.props.dispatch(formActions.setFormState(formInstanceUuid, FORM_STATES.EDITING));
+    this.props.dispatch(formActions.setFormState(this.formInstanceUuid, FORM_STATES.EDITING));
   }
 
   exitEditMode() {
-    this.props.dispatch(formActions.setFormState(formInstanceUuid, FORM_STATES.VIEWING));
+    this.props.dispatch(formActions.setFormState(this.formInstanceUuid, FORM_STATES.VIEWING));
   }
 
   handleCancel() {
@@ -99,9 +101,13 @@ class EncounterFormPage extends React.PureComponent {
     }
   }
 
+  getForm() {
+    return this.props.forms ? this.props.forms[this.formInstanceUuid] : null;
+  }
+
   render() {
 
-    if (this.props.form && (this.props.form.state === FORM_STATES.EDITING || this.props.form.state === FORM_STATES.VIEWING)) {
+    if (this.getForm() && (this.getForm().state === FORM_STATES.EDITING || this.getForm().state === FORM_STATES.VIEWING)) {
       return (
         <div style={this.divContainer}>
           <Grid style={this.divContainer}>
@@ -119,11 +125,11 @@ class EncounterFormPage extends React.PureComponent {
           <div>
             <EncounterForm
               formId={this.props.formId}
-              formInstanceUuid={formInstanceUuid}
+              formInstanceUuid={this.formInstanceUuid}
               defaultValues={this.props.defaultValues}
-              encounter={this.props.form.encounter}
+              encounter={this.getForm().encounter}
               encounterType={this.props.encounterType}
-              mode={this.props.form.state === FORM_STATES.EDITING ? 'edit' : 'view' }
+              mode={this.getForm().state === FORM_STATES.EDITING ? 'edit' : 'view' }
               formSubmittedActionCreator={this.formSubmittedActionCreators}
               patient={this.props.patient}
               visit={this.props.patient ? this.props.patient.visit : null}
@@ -132,13 +138,13 @@ class EncounterFormPage extends React.PureComponent {
               <Grid>
                 <Row>
                   <Col sm={2} xsOffset={2}>
-                    { this.props.form.state === FORM_STATES.EDITING  ?
+                    { this.getForm().state === FORM_STATES.EDITING  ?
                       (<Cancel onClick={this.handleCancel}/>)
                       : (null)
                     }
                   </Col>
                   <Col sm={2} xsOffset={1}>
-                    { this.props.form.state === FORM_STATES.EDITING  ?
+                    { this.getForm().state === FORM_STATES.EDITING  ?
                       (<Submit onClick={this.exitEditMode}/>) :
                       (<Button onClick={this.enterEditMode} bsSize="large">Edit</Button>)
                     }
@@ -172,7 +178,7 @@ EncounterFormPage.propTypes = {
 const mapStateToProps = (state) => {
   return {
     patient: state.openmrs.selectedPatient ? state.openmrs.patients[state.openmrs.selectedPatient] : null,
-    form: state.openmrs.form[formInstanceUuid]
+    forms: state.openmrs.form
   };
 };
 

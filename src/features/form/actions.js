@@ -27,16 +27,15 @@ const formSubmitFailed = (formInstanceUuid) => ( {
   formInstanceUuid: formInstanceUuid,
 });
 
-// TODO handle destroying form!
-// TODO handle random uuid]
-// TODO replace formid with form uuid
-// TODO handle submit and reload!
-// TODO test deleting obs
-
 const initializeForm = (formInstanceUuid, formId) => ( {
   type: FORM_TYPES.INITIALIZE_FORM,
   formInstanceUuid: formInstanceUuid,
   formId: formId
+});
+
+const destroyForm = (formInstanceUuid) => ({
+  type: FORM_TYPES.DESTROY_FORM,
+  formInstanceUuid: formInstanceUuid
 });
 
 const loadFormBackingEncounter = (formInstanceUuid, encounterUuid) => ( {
@@ -64,6 +63,7 @@ export default {
   formSubmitSucceeded,
   formSubmitFailed,
   initializeForm,
+  destroyForm,
   loadFormBackingEncounter,
   formBackingEncounterLoaded,
   setFormState

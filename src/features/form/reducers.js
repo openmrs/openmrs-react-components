@@ -15,6 +15,15 @@ export default (state = {}, action) => {
         }
       };
 
+    case FORM_TYPES.DESTROY_FORM:
+
+      const { [action.formInstanceUuid]: value, ...updatedState } = state;
+
+      return {
+        ...updatedState
+      };
+
+
     // TODO handle if form hasn't been initialized?
     case FORM_TYPES.SET_FORM_STATE:
 
