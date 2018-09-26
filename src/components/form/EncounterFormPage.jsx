@@ -20,6 +20,9 @@ class EncounterFormPage extends React.PureComponent {
 
   constructor(props) {
     super(props);
+    this.enterEditMode = this.enterEditMode.bind(this);
+    this.exitEditMode = this.exitEditMode.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
 
     // TODO we may not *always* want to pull in the encounter here?  make a flag about this?
     // TODO what if there are multiple encounters of the same type?  this currently just shifts in the "first"
@@ -107,14 +110,14 @@ class EncounterFormPage extends React.PureComponent {
               <Row>
                 <Col sm={2} xsOffset={2}>
                   { this.state.mode === 'edit' ?
-                    (<Cancel onClick={this.handleCancel.bind(this)}/>)
+                    (<Cancel onClick={this.handleCancel}/>)
                     : (null)
                   }
                 </Col>
                 <Col sm={2} xsOffset={1}>
                   {this.state.mode === 'edit' ?
-                    (<Submit onClick={this.exitEditMode.bind(this)}/>) :
-                    (<Button onClick={this.enterEditMode.bind(this)} bsSize="large">Edit</Button>)
+                    (<Submit onClick={this.exitEditMode}/>) :
+                    (<Button onClick={this.enterEditMode} bsSize="large">Edit</Button>)
                   }
                 </Col>
               </Row>
