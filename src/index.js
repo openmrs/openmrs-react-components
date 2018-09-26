@@ -32,6 +32,7 @@ import Submit from './components/form/Submit';
 import Cancel from './components/form/Cancel';
 import Errors from './components/errors/Errors';
 import Loader from './components/widgets/Loader';
+import TaskList from './components/task/TaskList';
 import createListReducer from './features/list/createListReducer';
 import { SESSION_TYPES, sessionReducers, sessionSagas, sessionActions } from './features/session/';
 import { LOGIN_TYPES, loginReducers, loginSagas, loginActions } from './features/login';
@@ -119,6 +120,7 @@ module.exports = {
   Submit,
   Cancel,
   Errors,
+  TaskList,
   formActions,
   formValidations,
   VISIT_TYPES,

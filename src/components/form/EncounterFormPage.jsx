@@ -14,8 +14,6 @@ import encounterByEncounterTypeFilter from '../../domain/encounter/filters/encou
  * Provides a basic wrapper around an Encounter Form with a title, toast success message, and afterSubmitLink
  */
 
-
-
 class EncounterFormPage extends React.PureComponent {
 
   constructor(props) {
