@@ -38,8 +38,6 @@ export const patientsReducer = (state = {}, action) => {
         [action.patient.uuid]: patientUtil.createFromRestRep(action.patient)
       };
 
-    default: return state;
-
     case PATIENT_TYPES.UPDATE_ACTIVE_VISITS_IN_STORE:
 
       // TODO do we want to strip out patient information from visit to avoid duplication?
@@ -67,6 +65,8 @@ export const patientsReducer = (state = {}, action) => {
       else {
         return currentPatientsWithUpdatedVisits;
       }
+
+    default: return state;
   }
 };
 
