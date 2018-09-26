@@ -15,6 +15,7 @@ const api = {
       });
   },
 
+  // TODO fix to just take in a uuid?
   getPatient: params => axiosInstance.get(`patient/${params.patientUuid}?v=custom:(patientId,uuid,patientIdentifier:(uuid,identifier),person:(gender,age,birthdate,birthdateEstimated,personName,preferredAddress),attributes:(value,attributeType:(name)))`)
     .then((response) => {
       if (response.status !== 200) {

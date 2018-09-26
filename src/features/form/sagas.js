@@ -3,6 +3,7 @@ import FORM_TYPES from './types';
 import formActions from './actions';
 import encounterRest from '../../rest/encounterRest';
 import obsRest from '../../rest/obsRest';
+import {FORM_STATES} from "./constants";
 
 // TODO need to handle fields that aren't obs!
 // TODO this should really pass back something... the id of the created encounter, etc?
@@ -56,6 +57,9 @@ function* submit(action) {
   try {
 
     let encounter = {};
+    let updatedEncounter = {};
+
+    yield put(formActions.setFormState(action.formInstanceUuid, FORM_STATES.SUBMITTING));
 
     // if this is *not* a new encounter we need to add patient, encounterType and visit so it can be created
     if (!action.encounter) {
@@ -88,10 +92,10 @@ function* submit(action) {
 
     // create encounter
     if (!action.encounter) {
-      yield call(encounterRest.createEncounter, encounter);
+      updatedEncounter = yield call(encounterRest.createEncounter, encounter);
     }
     else {
-      yield call(encounterRest.updateEncounter, encounter);
+      updatedEncounter = yield call(encounterRest.updateEncounter, encounter);
     }
 
     // now delete any existing obs if necessary
@@ -105,15 +109,17 @@ function* submit(action) {
       for (let i = 0; i < obsToDelete.length; i++) {
         yield call(obsRest.deleteObs, obsToDelete[i]);
       }
+      // we have to refetch the encounter if we've deleted any obs
+      updatedEncounter = yield call(encounterRest.getEncounter, updatedEncounter.uuid);
     }
 
+    yield put(formActions.formBackingEncounterLoaded(action.formInstanceUuid, updatedEncounter));
+    yield put(formActions.formSubmitSucceeded(action.formInstanceUuid, action.formSubmittedActionCreator));
+    yield put(formActions.setFormState(action.formInstanceUuid, FORM_STATES.VIEWING));
   }
   catch (e) {
-    yield put(formActions.formSubmitFailed(e));
-    return;
+    yield put(formActions.formSubmitFailed(action.formInstanceUuid));
   }
-
-  yield put(formActions.formSubmitSucceeded(action.formSubmittedActionCreator));
 
 }
 
@@ -130,11 +136,25 @@ function* submitSucceeded(action) {
   }
 }
 
+function* loadFormBackingEncounter(action) {
+  try {
+    yield put(formActions.setFormState(action.formInstanceUuid, FORM_STATES.LOADING));
+    const encounter = yield call(encounterRest.getEncounter, action.encounterUuid);
+    yield put(formActions.formBackingEncounterLoaded(action.formInstanceUuid, encounter));
+    yield put(formActions.setFormState(action.formInstanceUuid, FORM_STATES.VIEWING));
+  }
+  catch (e) {
+    // TODO better error handling
+    yield put(formActions.setFormState(action.formInstanceUuid, FORM_STATES.SYSTEM_ERROR));
+  }
+}
+
 
 function *openmrsFormSagas() {
   // TODO take latest or take every? create a "take first"?
   yield takeEvery(FORM_TYPES.SUBMIT, submit);
   yield takeEvery(FORM_TYPES.SUBMIT_SUCCEEDED, submitSucceeded);
+  yield takeEvery(FORM_TYPES.LOAD_FORM_BACKING_ENCOUNTER, loadFormBackingEncounter);
 }
 
 export default openmrsFormSagas;

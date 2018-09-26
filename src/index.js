@@ -37,7 +37,7 @@ import BasicLayout from './components/layout/BasicLayout';
 import createListReducer from './features/list/createListReducer';
 import { SESSION_TYPES, sessionReducers, sessionSagas, sessionActions } from './features/session/';
 import { LOGIN_TYPES, loginReducers, loginSagas, loginActions } from './features/login';
-import { openmrsFormSagas, formActions, formValidations } from './features/form';
+import { openmrsFormSagas, formActions, formValidations, formReducers } from './features/form';
 import { headerReducers, headerSagas, headerActions } from './features/header';
 import { errorsActions, errorsReducers } from './features/errors';
 import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
@@ -73,7 +73,8 @@ const reducers = combineReducers({
   patients: patientsReducer,
   selectedPatient: patientSelectedReducer,
   patientSearch: patientSearchReducers,
-  errors: errorsReducers
+  errors: errorsReducers,
+  form: formReducers
 });
 
 const sagas = function* () {

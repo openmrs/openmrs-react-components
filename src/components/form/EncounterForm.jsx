@@ -18,10 +18,18 @@ class EncounterForm extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.handleInitialize();
+    this.initialize();
   }
 
-  handleInitialize() {
+  componentDidUpdate(prevProps) {
+    // if we've loaded an encounter, re-initialize
+    if (!prevProps.encounter && this.props.encounter) {
+      this.initialize();
+    }
+
+  };
+
+  initialize() {
 
     let existingValues = {};
     let defaultValues = {};
@@ -64,6 +72,7 @@ class EncounterForm extends React.PureComponent {
   onSubmit(values) {
     this.props.dispatch(formActions.formSubmitted({
       values: values,
+      formInstanceUuid: this.props.formInstanceUuid,
       formId: this.props.formId,
       patient: this.props.patient,
       encounter: this.props.encounter,
@@ -102,6 +111,7 @@ EncounterForm.propTypes = {
   encounterType: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string]).isRequired,
+  formInstanceUuid: PropTypes.string.isRequired,
   formId: PropTypes.string.isRequired,
   formSubmittedActionCreator: PropTypes.oneOfType([
     PropTypes.array,
@@ -121,6 +131,7 @@ EncounterForm.defaultProps = {
 };
 
 
+// TODO should use forminstanceid!!!
 // note that this actually just maps a prop within the form, doesn't interact with state?
 const mapStateToProps = (state, props) => {
   return {
