@@ -1066,7 +1066,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                   >
                                     <div>
                                       <select
-                                        class="locationSelector"
+                                        className="locationSelector"
                                         name="location"
                                         onBlur={[Function]}
                                         onChange={[Function]}

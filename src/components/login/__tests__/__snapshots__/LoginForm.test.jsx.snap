@@ -52,7 +52,7 @@ exports[`Component: LoginForm should render correctly 1`] = `
   >
     <div>
       <select
-        class="locationSelector"
+        className="locationSelector"
         disabled={undefined}
         name="location"
         onBlur={[Function]}

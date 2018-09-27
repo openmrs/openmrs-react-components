@@ -1035,7 +1035,7 @@ exports[`Component: Login renders properly 1`] = `
                             >
                               <div>
                                 <select
-                                  class="locationSelector"
+                                  className="locationSelector"
                                   name="location"
                                   onBlur={[Function]}
                                   onChange={[Function]}
