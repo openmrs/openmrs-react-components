@@ -4,6 +4,7 @@ import patientUtil from './domain/patient/patientUtil';
 import visitRestRepToPatientObjConverter from './domain/patient/converters/visitRestRepToPatientObjConverter';
 import patientObjByEncounterTypeFilter from './domain/patient/filters/patientObjByEncounterTypeFilter';
 import patientObjByVisitLocationFilter from './domain/patient/filters/patientObjByVisitLocationFilter';
+import encountersByEncounterTypeFilter from './domain/encounter/filters/encountersByEncounterTypeFilter';
 import Accordion from './components/accordion/Accordian';
 import Header from './components/header/Header';
 import HeaderAlt from './components/header/HeaderAlt';
@@ -93,6 +94,7 @@ module.exports = {
   visitRestRepToPatientObjConverter,
   patientObjByEncounterTypeFilter,
   patientObjByVisitLocationFilter,
+  encountersByEncounterTypeFilter,
   createListReducer,
   Accordion,
   Header,

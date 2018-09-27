@@ -11,7 +11,6 @@ import Submit from './Submit';
 import Cancel from './Cancel';
 import EncounterForm from './EncounterForm';
 import Loader from './../widgets/Loader';
-import encounterByEncounterTypeFilter from '../../domain/encounter/filters/encountersByEncounterTypeFilter';
 
 const uuid4 = require('uuid/v4');
 
@@ -28,19 +27,6 @@ class EncounterFormPage extends React.PureComponent {
     this.exitEditMode = this.exitEditMode.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.formInstanceId = uuid4();
-
-
-
-    // TODO change this class so instead it take in an encounter uuid?  should it take in a patient then instead?  how to extract all this?
-    // TODO we may not *always* want to pull in the encounter here?  make a flag about this?
-    // TODO what if there are multiple encounters of the same type?  this currently just shifts in the "first"
-    // TODO confirm that the encounter matches the patient and encounter type?
-    if (props.patient && props.patient.visit && props.patient.visit.encounters) {
-      const encounter = encounterByEncounterTypeFilter(props.encounterType.uuid)(props.patient.visit.encounters).shift();
-      if (encounter) {
-        this.encounterUuid = encounter.uuid;
-      }
-    }
 
     this.formSubmittedActionCreators = [
       () => toastrActions.add({ title: "Data Saved", type: "success" }),
@@ -75,8 +61,8 @@ class EncounterFormPage extends React.PureComponent {
   componentDidMount() {
     this.props.dispatch(formActions.initializeForm(this.formInstanceId, this.props.formId));
 
-    if (this.encounterUuid) {
-      this.props.dispatch(formActions.loadFormBackingEncounter(this.formInstanceId, this.encounterUuid));
+    if (this.props.encounter) {
+      this.props.dispatch(formActions.loadFormBackingEncounter(this.formInstanceId, this.props.encounter.uuid));
     }
     else {
       this.props.dispatch(formActions.setFormState(this.formInstanceId, FORM_STATES.EDITING));
@@ -126,13 +112,13 @@ class EncounterFormPage extends React.PureComponent {
         {this.getForm() && (this.getForm().state === FORM_STATES.EDITING || this.getForm().state === FORM_STATES.VIEWING) ?
           (<div>
             <EncounterForm
-              formId={this.props.formId}
-              formInstanceId={this.formInstanceId}
               defaultValues={this.props.defaultValues}
               encounter={this.getForm().encounter}
               encounterType={this.props.encounterType}
-              mode={this.getForm().state === FORM_STATES.EDITING ? 'edit' : 'view'}
+              formId={this.props.formId}
+              formInstanceId={this.formInstanceId}
               formSubmittedActionCreator={this.formSubmittedActionCreators}
+              mode={this.getForm().state === FORM_STATES.EDITING ? 'edit' : 'view'}
               patient={this.props.patient}
               visit={this.props.patient ? this.props.patient.visit : null}
             >
@@ -167,10 +153,10 @@ EncounterFormPage.propTypes = {
   afterSubmitLink: PropTypes.string,
   backLink: PropTypes.string,
   defaultValues: PropTypes.array,
-  encounterType: PropTypes.object.isRequired,
+  encounter: PropTypes.object,
+  encounterType: PropTypes.object,
   formContent: PropTypes.object.isRequired,
   formId: PropTypes.string.isRequired,
-  mode: PropTypes.string,
   patient: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   visit: PropTypes.object
