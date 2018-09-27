@@ -14,7 +14,7 @@ let LoginForm = props => {
 
   const Select = ({ input, options, disabled, placeholder }) => (
     <div>
-      <select {...input} disabled={disabled} class="locationSelector">
+      <select {...input} disabled={disabled} className="locationSelector">
         <option key={0} value={''}>{placeholder}</option>
         { options.map(option =>
           <option key={option.uuid} value={option.uuid}>

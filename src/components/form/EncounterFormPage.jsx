@@ -10,6 +10,7 @@ import { FORM_STATES } from '../../features/form/constants';
 import Submit from './Submit';
 import Cancel from './Cancel';
 import EncounterForm from './EncounterForm';
+import Loader from './../widgets/Loader';
 import encounterByEncounterTypeFilter from '../../domain/encounter/filters/encountersByEncounterTypeFilter';
 
 const uuid4 = require('uuid/v4');
@@ -107,29 +108,30 @@ class EncounterFormPage extends React.PureComponent {
 
   render() {
 
-    if (this.getForm() && (this.getForm().state === FORM_STATES.EDITING || this.getForm().state === FORM_STATES.VIEWING)) {
-      return (
-        <div style={this.divContainer}>
-          <Grid style={this.divContainer}>
-            <Row style={this.rowStyles}>
-              <Col sm={20} md={20} style={this.littlePaddingLeft}>
-                <span><h1>{this.props.title}</h1></span>
-              </Col>
-            </Row>
-            <Row>
-              <Col sm={20} md={20} style={this.colHeight}>
-                <span><h1>{''}</h1></span>
-              </Col>
-            </Row>
-          </Grid>
-          <div>
+    return (
+      <div style={this.divContainer}>
+        <Grid style={this.divContainer}>
+          <Row style={this.rowStyles}>
+            <Col sm={20} md={20} style={this.littlePaddingLeft}>
+              <span><h1>{this.props.title}</h1></span>
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={20} md={20} style={this.colHeight}>
+              <span><h1>{''}</h1></span>
+            </Col>
+          </Row>
+        </Grid>
+
+        {this.getForm() && (this.getForm().state === FORM_STATES.EDITING || this.getForm().state === FORM_STATES.VIEWING) ?
+          (<div>
             <EncounterForm
               formId={this.props.formId}
               formInstanceId={this.formInstanceId}
               defaultValues={this.props.defaultValues}
               encounter={this.getForm().encounter}
               encounterType={this.props.encounterType}
-              mode={this.getForm().state === FORM_STATES.EDITING ? 'edit' : 'view' }
+              mode={this.getForm().state === FORM_STATES.EDITING ? 'edit' : 'view'}
               formSubmittedActionCreator={this.formSubmittedActionCreators}
               patient={this.props.patient}
               visit={this.props.patient ? this.props.patient.visit : null}
@@ -138,13 +140,13 @@ class EncounterFormPage extends React.PureComponent {
               <Grid>
                 <Row>
                   <Col sm={2} xsOffset={2}>
-                    { this.getForm().state === FORM_STATES.EDITING  ?
+                    {this.getForm().state === FORM_STATES.EDITING ?
                       (<Cancel onClick={this.handleCancel}/>)
                       : (null)
                     }
                   </Col>
                   <Col sm={2} xsOffset={1}>
-                    { this.getForm().state === FORM_STATES.EDITING  ?
+                    {this.getForm().state === FORM_STATES.EDITING ?
                       (<Submit onClick={this.exitEditMode}/>) :
                       (<Button onClick={this.enterEditMode} bsSize="large">Edit</Button>)
                     }
@@ -152,13 +154,12 @@ class EncounterFormPage extends React.PureComponent {
                 </Row>
               </Grid>
             </EncounterForm>
-          </div>
-        </div>
-      );
-    }
-    else {
-      return null;        // TODO add loading message
-    }
+          </div>)
+          :
+          (<Loader/>)
+        }
+      </div>
+    );
   }
 }
 
