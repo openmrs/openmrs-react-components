@@ -9,7 +9,7 @@ export default (state = {}, action) => {
 
       return {
         ...state,
-        [action.formInstanceUuid]: {
+        [action.formInstanceId]: {
           formId: action.formId,
           state: FORM_STATES.INITIALIZING
         }
@@ -17,7 +17,7 @@ export default (state = {}, action) => {
 
     case FORM_TYPES.DESTROY_FORM:
 
-      const { [action.formInstanceUuid]: value, ...updatedState } = state;
+      const { [action.formInstanceId]: value, ...updatedState } = state;
 
       return {
         ...updatedState
@@ -29,8 +29,8 @@ export default (state = {}, action) => {
 
       return {
         ...state,
-        [action.formInstanceUuid]: {
-          ...state[action.formInstanceUuid],
+        [action.formInstanceId]: {
+          ...state[action.formInstanceId],
           state: action.state
         }
       };
@@ -40,8 +40,8 @@ export default (state = {}, action) => {
 
       return {
         ...state,
-        [action.formInstanceUuid]: {
-          ...state[action.formInstanceUuid],
+        [action.formInstanceId]: {
+          ...state[action.formInstanceId],
           encounter: undefined,
         }
       };
@@ -50,8 +50,8 @@ export default (state = {}, action) => {
 
       return {
         ...state,
-        [action.formInstanceUuid]: {
-          ...state[action.formInstanceUuid],
+        [action.formInstanceId]: {
+          ...state[action.formInstanceId],
           encounter: action.encounter
         }
       };

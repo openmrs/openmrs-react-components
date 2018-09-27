@@ -22,7 +22,7 @@ describe('form actions', () => {
     const expectedAction = {
       type: FORM_TYPES.SUBMIT,
       values: "some_values",
-      formId: "some_form_id",
+      formInstanceId: "some_form_id",
       patient: patient,
       encounterType: encounterType,
       visit: visit,
@@ -31,7 +31,7 @@ describe('form actions', () => {
 
     expect(formActions.formSubmitted({
       values: "some_values",
-      formId: "some_form_id",
+      formInstanceId: "some_form_id",
       patient: patient,
       encounterType: encounterType,
       visit: visit,
@@ -46,19 +46,21 @@ describe('form actions', () => {
 
     const expectedAction = {
       type: FORM_TYPES.SUBMIT_SUCCEEDED,
+      formInstanceId: "some_form_id",
       formSubmittedActionCreator: formSubmittedActionCreator
     };
 
-    expect(formActions.formSubmitSucceeded(formSubmittedActionCreator)).toEqual(expectedAction);
+    expect(formActions.formSubmitSucceeded("some_form_id", formSubmittedActionCreator)).toEqual(expectedAction);
 
   });
 
   it('should create action for form submit failed', () => {
 
     const expectedAction = {
-      type: FORM_TYPES.SUBMIT_FAILED
+      type: FORM_TYPES.SUBMIT_FAILED,
+      formInstanceId: "some_form_id",
     };
-    expect(formActions.formSubmitFailed("some_values")).toEqual(expectedAction);
+    expect(formActions.formSubmitFailed("some_form_id")).toEqual(expectedAction);
 
   });
 

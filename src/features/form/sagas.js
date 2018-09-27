@@ -59,7 +59,7 @@ function* submit(action) {
     let encounter = {};
     let updatedEncounter = {};
 
-    yield put(formActions.setFormState(action.formInstanceUuid, FORM_STATES.SUBMITTING));
+    yield put(formActions.setFormState(action.formInstanceId, FORM_STATES.SUBMITTING));
 
     // if this is *not* a new encounter we need to add patient, encounterType and visit so it can be created
     if (!action.encounter) {
@@ -113,12 +113,12 @@ function* submit(action) {
       updatedEncounter = yield call(encounterRest.getEncounter, updatedEncounter.uuid);
     }
 
-    yield put(formActions.formBackingEncounterLoaded(action.formInstanceUuid, updatedEncounter));
-    yield put(formActions.formSubmitSucceeded(action.formInstanceUuid, action.formSubmittedActionCreator));
-    yield put(formActions.setFormState(action.formInstanceUuid, FORM_STATES.VIEWING));
+    yield put(formActions.formBackingEncounterLoaded(action.formInstanceId, updatedEncounter));
+    yield put(formActions.formSubmitSucceeded(action.formInstanceId, action.formSubmittedActionCreator));
+    yield put(formActions.setFormState(action.formInstanceId, FORM_STATES.VIEWING));
   }
   catch (e) {
-    yield put(formActions.formSubmitFailed(action.formInstanceUuid));
+    yield put(formActions.formSubmitFailed(action.formInstanceId));
   }
 
 }
@@ -138,14 +138,14 @@ function* submitSucceeded(action) {
 
 function* loadFormBackingEncounter(action) {
   try {
-    yield put(formActions.setFormState(action.formInstanceUuid, FORM_STATES.LOADING));
+    yield put(formActions.setFormState(action.formInstanceId, FORM_STATES.LOADING));
     const encounter = yield call(encounterRest.getEncounter, action.encounterUuid);
-    yield put(formActions.formBackingEncounterLoaded(action.formInstanceUuid, encounter));
-    yield put(formActions.setFormState(action.formInstanceUuid, FORM_STATES.VIEWING));
+    yield put(formActions.formBackingEncounterLoaded(action.formInstanceId, encounter));
+    yield put(formActions.setFormState(action.formInstanceId, FORM_STATES.VIEWING));
   }
   catch (e) {
     // TODO better error handling
-    yield put(formActions.setFormState(action.formInstanceUuid, FORM_STATES.SYSTEM_ERROR));
+    yield put(formActions.setFormState(action.formInstanceId, FORM_STATES.SYSTEM_ERROR));
   }
 }
 

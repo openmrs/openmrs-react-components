@@ -24,6 +24,8 @@ describe('form sagas', () => {
 
   it('should create an encounter and issue formSubmittedActionCreator', () => {
 
+    const formInstanceId = "form-instance-id";
+
     const values =  { 'obs|path=first-obs|concept=first-obs-uuid': 100 ,
       'obs|path=second-obs|concept=second-obs-uuid': 200 }  ;
 
@@ -58,6 +60,7 @@ describe('form sagas', () => {
     sagaTester.dispatch(formActions.formSubmitted( {
       values: values,
       formId: "form-id",
+      formInstanceId: formInstanceId,
       patient: patient,
       encounterType: encounterType,
       visit: visit,
@@ -67,13 +70,15 @@ describe('form sagas', () => {
     expect(encounterRest.createEncounter).toHaveBeenCalledTimes(1);
     expect(encounterRest.createEncounter.mock.calls[0][0]).toMatchObject(expectedEncounterPost);
 
-    expect(sagaTester.getCalledActions()).toContainEqual(formActions.formSubmitSucceeded(formSubmittedActionCreator));
-    expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitFailed());
+    expect(sagaTester.getCalledActions()).toContainEqual(formActions.formSubmitSucceeded(formInstanceId, formSubmittedActionCreator));
+    expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitFailed(formInstanceId));
     expect(formSubmittedActionCreator.mock.calls.length).toBe(1);
     expect(sagaTester.getCalledActions()).toContainEqual(formSubmittedActionCreator());
   });
 
   it('should issue failure if invalid submit', () => {
+
+    const formInstanceId = "form-instance-id";
 
     const values =  { 'obs|path=first-obs|concept=first-obs-uuid': 100 ,
       'obs|path=second-obs|concept=second-obs-uuid': 200 }  ;
@@ -93,19 +98,22 @@ describe('form sagas', () => {
     sagaTester.dispatch(formActions.formSubmitted({
       values: values,
       formId: "form-id",
+      formInstanceId: formInstanceId,
       patient: patient,
       encounterType: encounterType,
       vist: visit,
       formSubmittedActionCreator: formSubmittedActionCreator
     } ));
     expect(encounterRest.createEncounter).toHaveBeenCalledTimes(1);
-    expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitSucceeded(formSubmittedActionCreator));
-    expect(sagaTester.getCalledActions()).toContainEqual(formActions.formSubmitFailed());
+    expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitSucceeded(formInstanceId, formSubmittedActionCreator));
+    expect(sagaTester.getCalledActions()).toContainEqual(formActions.formSubmitFailed(formInstanceId));
     expect(formSubmittedActionCreator.mock.calls.length).toBe(0);
     expect(sagaTester.getCalledActions()).not.toContainEqual(formSubmittedActionCreator());
   });
 
   it('should handle form submitted action creator that is an array of creators', () => {
+
+    const formInstanceId = "form-instance-id";
 
     const anotherFormSubmittedActionCreator = jest.fn(() => { return { type:'ANOTHER_ACTION_TYPE' };});
 
@@ -127,6 +135,7 @@ describe('form sagas', () => {
     sagaTester.dispatch(formActions.formSubmitted( {
       values: values,
       formId: "form-id",
+      formInstanceId: formInstanceId,
       patient: patient,
       encounterType: encounterType,
       visit: visit,
@@ -134,8 +143,8 @@ describe('form sagas', () => {
     } ));
 
     expect(encounterRest.createEncounter).toHaveBeenCalledTimes(1);  // TODO would be good if we could actually test what it is was called with here, but the newDate() causes issues
-    expect(sagaTester.getCalledActions()).toContainEqual(formActions.formSubmitSucceeded([ formSubmittedActionCreator, anotherFormSubmittedActionCreator ]));
-    expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitFailed());
+    expect(sagaTester.getCalledActions()).toContainEqual(formActions.formSubmitSucceeded(formInstanceId, [ formSubmittedActionCreator, anotherFormSubmittedActionCreator ]));
+    expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitFailed(formInstanceId));
     expect(formSubmittedActionCreator.mock.calls.length).toBe(1);
     expect(sagaTester.getCalledActions()).toContainEqual(formSubmittedActionCreator());
     expect(anotherFormSubmittedActionCreator.mock.calls.length).toBe(1);
@@ -143,6 +152,8 @@ describe('form sagas', () => {
   });
 
   it('should update encounter and issue formSubmittedActionCreator', () => {
+
+    const formInstanceId = "form-instance-id";
 
     const values =  { 'obs|path=first-obs|concept=first-obs-uuid': 100 ,
       'obs|path=second-obs|concept=second-obs-uuid': 200 }  ;
@@ -187,6 +198,7 @@ describe('form sagas', () => {
     sagaTester.dispatch(formActions.formSubmitted( {
       values: values,
       formId: "form-id",
+      formInstanceId: formInstanceId,
       patient: patient,
       encounter: encounter,
       encounterType: encounterType,
@@ -197,13 +209,15 @@ describe('form sagas', () => {
     expect(encounterRest.updateEncounter).toHaveBeenCalledTimes(1);
     expect(encounterRest.updateEncounter.mock.calls[0][0]).toMatchObject(expectedEncounterPost);
 
-    expect(sagaTester.getCalledActions()).toContainEqual(formActions.formSubmitSucceeded(formSubmittedActionCreator));
-    expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitFailed());
+    expect(sagaTester.getCalledActions()).toContainEqual(formActions.formSubmitSucceeded(formInstanceId, formSubmittedActionCreator));
+    expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitFailed(formInstanceId));
     expect(formSubmittedActionCreator.mock.calls.length).toBe(1);
     expect(sagaTester.getCalledActions()).toContainEqual(formSubmittedActionCreator());
   });
 
   it('should not include field with empty value in post; should submit delete obs call', () => {
+
+    const formInstanceId = "form-instance-id";
 
     const values =  { 'obs|path=first-obs|concept=first-obs-uuid': 100 ,
       'obs|path=second-obs|concept=second-obs-uuid': "" }  ;
@@ -243,6 +257,7 @@ describe('form sagas', () => {
     sagaTester.dispatch(formActions.formSubmitted( {
       values: values,
       formId: "form-id",
+      formInstanceId: formInstanceId,
       patient: patient,
       encounter: encounter,
       encounterType: encounterType,
@@ -255,13 +270,15 @@ describe('form sagas', () => {
     expect(obsRest.deleteObs).toHaveBeenCalledTimes(1);
     expect(obsRest.deleteObs.mock.calls[0][0].uuid).toBe("existing_obs_uuid");
 
-    expect(sagaTester.getCalledActions()).toContainEqual(formActions.formSubmitSucceeded(formSubmittedActionCreator));
-    expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitFailed());
+    expect(sagaTester.getCalledActions()).toContainEqual(formActions.formSubmitSucceeded(formInstanceId, formSubmittedActionCreator));
+    expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitFailed(formInstanceId));
     expect(formSubmittedActionCreator.mock.calls.length).toBe(1);
     expect(sagaTester.getCalledActions()).toContainEqual(formSubmittedActionCreator());
   });
 
   it('should not call delete obs for obs that is not previously exisitng', () => {
+
+    const formInstanceId = "form-instance-id";
 
     const values =  { 'obs|path=first-obs|concept=first-obs-uuid': 100 ,
       'obs|path=second-obs|concept=second-obs-uuid': "" }  ;
@@ -291,6 +308,7 @@ describe('form sagas', () => {
     sagaTester.dispatch(formActions.formSubmitted( {
       values: values,
       formId: "form-id",
+      formInstanceId: formInstanceId,
       patient: patient,
       encounterType: encounterType,
       visit: visit,
@@ -300,8 +318,8 @@ describe('form sagas', () => {
     expect(encounterRest.createEncounter).toHaveBeenCalledTimes(1);
     expect(obsRest.deleteObs).toHaveBeenCalledTimes(0);
 
-    expect(sagaTester.getCalledActions()).toContainEqual(formActions.formSubmitSucceeded(formSubmittedActionCreator));
-    expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitFailed());
+    expect(sagaTester.getCalledActions()).toContainEqual(formActions.formSubmitSucceeded(formInstanceId, formSubmittedActionCreator));
+    expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitFailed(formInstanceId));
     expect(formSubmittedActionCreator.mock.calls.length).toBe(1);
     expect(sagaTester.getCalledActions()).toContainEqual(formSubmittedActionCreator());
   });

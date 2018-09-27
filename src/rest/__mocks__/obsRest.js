@@ -6,7 +6,7 @@ const api = {
     if (!obs || !obs.uuid) {
       throw {
         name: 'Mock Exception',
-        message: 'Unable to Submit'
+        message: 'Unable to Delete'
       };
     }
     else {

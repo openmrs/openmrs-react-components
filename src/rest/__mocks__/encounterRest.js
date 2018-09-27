@@ -10,7 +10,9 @@ const api = {
       };
     }
     else {
-      return;
+      return {
+        uuid: "created-encounter"
+      };
     }
   },
 
@@ -23,10 +25,17 @@ const api = {
       };
     }
     else {
-      return;
+      return {
+        uuid: "updated-encounter"
+      };
     }
-  }
+  },
 
+  getEncounter: (encounterUuid) => {
+    return {
+      uuid: "fetched-encounter"
+    };
+  }
 
 };
 

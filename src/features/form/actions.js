@@ -15,16 +15,16 @@ const formSubmitted = (data) => ( {
   ...data,
 });
 
-const formSubmitSucceeded = (formInstanceUuid,formSubmittedActionCreator) => ( {
+const formSubmitSucceeded = (formInstanceId,formSubmittedActionCreator) => ( {
   type: FORM_TYPES.SUBMIT_SUCCEEDED,
-  formInstanceUuid: formInstanceUuid,
+  formInstanceId: formInstanceId,
   formSubmittedActionCreator: formSubmittedActionCreator
 });
 
 
-const formSubmitFailed = (formInstanceUuid) => ( {
+const formSubmitFailed = (formInstanceId) => ( {
   type: FORM_TYPES.SUBMIT_FAILED,
-  formInstanceUuid: formInstanceUuid,
+  formInstanceId: formInstanceId,
 });
 
 const initializeForm = (formInstanceUuid, formId) => ( {
@@ -33,26 +33,26 @@ const initializeForm = (formInstanceUuid, formId) => ( {
   formId: formId
 });
 
-const destroyForm = (formInstanceUuid) => ({
+const destroyForm = (formInstanceId) => ({
   type: FORM_TYPES.DESTROY_FORM,
-  formInstanceUuid: formInstanceUuid
+  formInstanceId: formInstanceId
 });
 
-const loadFormBackingEncounter = (formInstanceUuid, encounterUuid) => ( {
+const loadFormBackingEncounter = (formInstanceId, encounterUuid) => ( {
   type: FORM_TYPES.LOAD_FORM_BACKING_ENCOUNTER,
-  formInstanceUuid: formInstanceUuid,
+  formInstanceId: formInstanceId,
   encounterUuid: encounterUuid
 });
 
-const formBackingEncounterLoaded = (formInstanceUuid, encounter) => ( {
+const formBackingEncounterLoaded = (formInstanceId, encounter) => ( {
   type: FORM_TYPES.FORM_BACKING_ENCOUNTER_LOADED,
-  formInstanceUuid: formInstanceUuid,
+  formInstanceId: formInstanceId,
   encounter: encounter
 });
 
 const setFormState = (formInstanceId, state) => ( {
   type: FORM_TYPES.SET_FORM_STATE,
-  formInstanceUuid: formInstanceId,
+  formInstanceId: formInstanceId,
   state: state
 });
 

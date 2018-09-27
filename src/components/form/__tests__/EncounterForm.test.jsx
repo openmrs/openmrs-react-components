@@ -614,7 +614,7 @@ describe("EncounterForm", () => {
   it("should render correctly without encounter", () => {
 
     props = {
-      formId: "some_form_id",
+      formInstanceId: "some_form_id",
       patient: {
         uuid: "some_patient_uuid"
       },
@@ -633,7 +633,7 @@ describe("EncounterForm", () => {
   it("should render correctly with encounter", () => {
 
     props = {
-      formId: "some_form_id",
+      formInstanceId: "some_form_id",
       patient: {
         uuid: "some_patient_uuid"
       },
@@ -653,7 +653,7 @@ describe("EncounterForm", () => {
   it("should render correctly with default values", () => {
 
     props = {
-      formId: "some_form_id",
+      formInstanceId: "some_form_id",
       patient: {
         uuid: "some_patient_uuid"
       },

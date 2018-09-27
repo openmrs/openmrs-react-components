@@ -72,7 +72,8 @@ class EncounterForm extends React.PureComponent {
   onSubmit(values) {
     this.props.dispatch(formActions.formSubmitted({
       values: values,
-      formInstanceUuid: this.props.formInstanceUuid,
+      formId: this.props.formId,
+      formInstanceId: this.props.formInstanceId,
       patient: this.props.patient,
       encounter: this.props.encounter,
       encounterType: this.props.encounterType,
@@ -83,12 +84,12 @@ class EncounterForm extends React.PureComponent {
 
   render() {
 
-    const { handleSubmit, mode, reset, submitting, formInstanceUuid } = this.props;
+    const { handleSubmit, mode, reset, submitting, formInstanceId } = this.props;
 
     const context = {
       mode: mode,
       reset: reset,
-      selector: formValueSelector(formInstanceUuid),
+      selector: formValueSelector(formInstanceId),
       submitting: submitting,
       initialData: this.initialData    // TODO at the end of the day, do we really need this
     };
@@ -110,7 +111,8 @@ EncounterForm.propTypes = {
   encounterType: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string]).isRequired,
-  formInstanceUuid: PropTypes.string.isRequired,
+  formId: PropTypes.string.isRequired,
+  formInstanceId: PropTypes.string.isRequired,
   formSubmittedActionCreator: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.func]),
@@ -129,25 +131,13 @@ EncounterForm.defaultProps = {
 };
 
 
-// TODO should use forminstanceid!!!
 // note that this actually just maps a prop within the form, doesn't interact with state?
 const mapStateToProps = (state, props) => {
   return {
-    form: props.formInstanceUuid ? props.formInstanceUuid : 'openmrs-form'
+    form: props.formInstanceId ? props.formInstanceId : 'openmrs-form'
   };
 };
 
 export default connect(mapStateToProps)(reduxForm()(EncounterForm));
 
 
-
-
-
-/*
-TODO probably remove this
-const { pristine, reset, submitting, children } = props;
-
-// TODO is this sketchy...? :)
-const childrenWithProps = React.Children.map(children, child =>
-  React.cloneElement(child, child.type !== null && typeof child.type === 'function' ? { pristine, reset, submitting } : {}));
-*/

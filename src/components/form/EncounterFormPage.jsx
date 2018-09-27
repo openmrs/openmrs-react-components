@@ -26,7 +26,7 @@ class EncounterFormPage extends React.PureComponent {
     this.enterEditMode = this.enterEditMode.bind(this);
     this.exitEditMode = this.exitEditMode.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
-    this.formInstanceUuid = uuid4();
+    this.formInstanceId = uuid4();
 
 
 
@@ -72,26 +72,26 @@ class EncounterFormPage extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.props.dispatch(formActions.initializeForm(this.formInstanceUuid, this.props.formId));
+    this.props.dispatch(formActions.initializeForm(this.formInstanceId, this.props.formId));
 
     if (this.encounterUuid) {
-      this.props.dispatch(formActions.loadFormBackingEncounter(this.formInstanceUuid, this.encounterUuid));
+      this.props.dispatch(formActions.loadFormBackingEncounter(this.formInstanceId, this.encounterUuid));
     }
     else {
-      this.props.dispatch(formActions.setFormState(this.formInstanceUuid, FORM_STATES.EDITING));
+      this.props.dispatch(formActions.setFormState(this.formInstanceId, FORM_STATES.EDITING));
     }
   }
 
   componentWillUnmount() {
-    this.props.dispatch(formActions.destroyForm(this.formInstanceUuid));
+    this.props.dispatch(formActions.destroyForm(this.formInstanceId));
   }
 
   enterEditMode() {
-    this.props.dispatch(formActions.setFormState(this.formInstanceUuid, FORM_STATES.EDITING));
+    this.props.dispatch(formActions.setFormState(this.formInstanceId, FORM_STATES.EDITING));
   }
 
   exitEditMode() {
-    this.props.dispatch(formActions.setFormState(this.formInstanceUuid, FORM_STATES.VIEWING));
+    this.props.dispatch(formActions.setFormState(this.formInstanceId, FORM_STATES.VIEWING));
   }
 
   handleCancel() {
@@ -102,7 +102,7 @@ class EncounterFormPage extends React.PureComponent {
   }
 
   getForm() {
-    return this.props.forms ? this.props.forms[this.formInstanceUuid] : null;
+    return this.props.forms ? this.props.forms[this.formInstanceId] : null;
   }
 
   render() {
@@ -125,7 +125,7 @@ class EncounterFormPage extends React.PureComponent {
           <div>
             <EncounterForm
               formId={this.props.formId}
-              formInstanceUuid={this.formInstanceUuid}
+              formInstanceId={this.formInstanceId}
               defaultValues={this.props.defaultValues}
               encounter={this.getForm().encounter}
               encounterType={this.props.encounterType}
@@ -175,9 +175,10 @@ EncounterFormPage.propTypes = {
   visit: PropTypes.object
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
   return {
-    patient: state.openmrs.selectedPatient ? state.openmrs.patients[state.openmrs.selectedPatient] : null,
+    // if a patient is passed in, use that one, otherwise look in the store
+    patient: props.patient ? props.patient : (state.openmrs.selectedPatient ? state.openmrs.patients[state.openmrs.selectedPatient] : null),
     forms: state.openmrs.form
   };
 };
