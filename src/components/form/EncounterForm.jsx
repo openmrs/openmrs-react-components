@@ -90,8 +90,7 @@ class EncounterForm extends React.PureComponent {
       mode: mode,
       reset: reset,
       selector: formValueSelector(formInstanceId),
-      submitting: submitting,
-      initialData: this.initialData    // TODO at the end of the day, do we really need this
+      submitting: submitting
     };
 
     return (

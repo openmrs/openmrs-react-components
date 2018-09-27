@@ -2,13 +2,14 @@ import React from 'react';
 import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import FormContext from './FormContext';
 import ButtonGroup from '../widgets/ButtonGroup';
 import CheckBox from '../widgets/CheckBox';
 import FieldInput from "../widgets/FieldInput";
 import Dropdown from '../widgets/Dropdown';
 import CustomDatePicker from '../widgets/CustomDatePicker';
+import withFormContext from './withFormContext';
 
+// TODO perhaps a little refactoring to have all these if/thens... maybe make underlying ObsDate, ObsCoded, ObsNumeric, worth it?
 const Obs = (props) => {
 
   const conceptAnswerDisplay = (value, conceptAnswers) => {
@@ -44,56 +45,59 @@ const Obs = (props) => {
   }
   else if ( typeof props.conceptAnswers !== 'undefined' ) {
     if (props.widget === 'dropdown') {
+      if (props.context.mode === 'edit') {
+        return (
+          <Field
+            component={Dropdown}
+            list={props.conceptAnswers}
+            name={name}
+            title={props.dropDownTitle}
+          />
+        );
+      }
+      else {
+        return (
+          <span>{conceptAnswerDisplay(props.value, props.conceptAnswers)}</span>
+        );
+      }
+    }
+    else {
+      if (props.context.mode === 'edit') {
+        return (
+          <Field
+            component={ButtonGroup}
+            name={name}
+            options={props.conceptAnswers}
+          />
+        );
+      }
+      else {
+        return (
+          <span>{conceptAnswerDisplay(props.value, props.conceptAnswers)}</span>
+        );
+      }
+    }
+  }
+  else {
+    if (props.context.mode === 'edit') {
       return (
-        <FormContext.Consumer>
-          { context => context.mode === 'edit' ?
-            (<Field
-              component={Dropdown}
-              list={props.conceptAnswers}
-              name={name}
-              title={props.dropDownTitle}
-            />) :
-            (
-              <span>{conceptAnswerDisplay(context.selector(props.state, name), props.conceptAnswers)}</span>
-            ) }
-        </FormContext.Consumer>
-      );
-    } else {
-      return (
-        <FormContext.Consumer>
-          { context => context.mode === 'edit' ?
-            (<Field
-              component={ButtonGroup}
-              name={name}
-              options={props.conceptAnswers}
-            />) :
-            (
-              <span>{conceptAnswerDisplay(context.selector(props.state, name), props.conceptAnswers)}</span>
-            ) }
-        </FormContext.Consumer>
+        <Field
+          component={FieldInput}
+          name={name}
+          placeholder={props.placeholder}
+          type={props.datatype}
+          validate={props.validate}
+          warn={props.warn}
+        />
       );
     }
-  } else {
-    return (
-      <FormContext.Consumer>
-        { context => context.mode === 'edit' ?
-          (<Field
-            component={FieldInput}
-            name={name}
-            placeholder={props.placeholder}
-            type={props.datatype}
-            validate={props.validate}
-            value={props.value}
-            warn={props.warn}
-          />) :
-          (
-            <span>{context.selector(props.state, name)} </span>
-          )}
-      </FormContext.Consumer>
-    )
+    else {
+      return (
+        <span>{props.value}</span>
+      );
+    }
   }
 };
-
 
 Obs.propTypes = {
   concept: PropTypes.string.isRequired,	
@@ -116,11 +120,11 @@ Obs.defaultProps = {
   datatype: 'number'
 };
 
-// TODO seems like this must be bad, maps in the entire state! could we restrict to the form at least? get access to the selector somehow?
-const mapStateToProps = (state) => {
+// TODO extract out `obs|path=${props.path}|concept=${props.concept}` to some comment location?
+const mapStateToProps = (state, props) => {
   return {
-    state: state
+    value: props.context ? props.context.selector(state, `obs|path=${props.path}|concept=${props.concept}`) : null
   };
 };
 
-export default connect(mapStateToProps)(Obs);
+export default withFormContext(connect(mapStateToProps)(Obs));
