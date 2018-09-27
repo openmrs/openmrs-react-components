@@ -29,14 +29,16 @@ class EncounterFormPage extends React.PureComponent {
     this.formInstanceId = uuid4();
 
     this.formSubmittedActionCreators = [
-      () => toastrActions.add({ title: "Data Saved", type: "success" }),
-      () => props.patient && props.patient.uuid && visitActions.fetchPatientActiveVisit(props.patient.uuid),
+      () => toastrActions.add({ title: "Data Saved", type: "success" })
     ];
 
     if (props.afterSubmitLink) {
       this.formSubmittedActionCreators.push(() => push(props.afterSubmitLink));
     }
 
+    if (props.formSubmittedActionCreators) {
+      this.formSubmittedActionCreators.push(...props.formSubmittedActionCreators);
+    }
 
     // TODO extract styles out to a common location once we figure out our strategy for css?
     // TODO or potentially assign defaults here but allow to be overridden via props?
@@ -157,6 +159,7 @@ EncounterFormPage.propTypes = {
   encounterType: PropTypes.object,
   formContent: PropTypes.object.isRequired,
   formId: PropTypes.string.isRequired,
+  formSubmittedActionCreators: PropTypes.array,
   patient: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   visit: PropTypes.object
