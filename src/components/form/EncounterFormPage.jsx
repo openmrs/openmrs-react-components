@@ -101,6 +101,7 @@ class EncounterFormPage extends React.PureComponent {
             mode={this.state.mode}
             formSubmittedActionCreator={this.formSubmittedActionCreators}
             patient={this.props.patient}
+            testOrderNumberConcept={this.props.testOrderNumberConcept}
             visit={this.props.patient ? this.props.patient.visit : null}
           >
             {this.props.formContent}
@@ -136,6 +137,7 @@ EncounterFormPage.propTypes = {
   formId: PropTypes.string.isRequired,
   mode: PropTypes.string,
   patient: PropTypes.object.isRequired,
+  testOrderNumberConcept: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   visit: PropTypes.object
 };

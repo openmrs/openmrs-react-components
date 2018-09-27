@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { reduxForm, formValueSelector } from 'redux-form';
 import { Form } from 'react-bootstrap';
 import FormContext from './FormContext';
+import Obs from './Obs';
 import { formActions } from '../../features/form';
 import { DATA_TYPES } from '../../domain/concept/constants';
 
@@ -75,7 +76,7 @@ class EncounterForm extends React.PureComponent {
 
   render() {
 
-    const { handleSubmit, mode, reset, submitting, formId } = this.props;
+    const { handleSubmit, mode, reset, submitting, formId, testOrderNumberConcept } = this.props;
 
     const context = {
       mode: mode,
@@ -90,6 +91,13 @@ class EncounterForm extends React.PureComponent {
         <FormContext.Provider value={context} >
           {this.props.children}
         </FormContext.Provider>
+        <div className="hidden">
+          <Obs
+            concept={testOrderNumberConcept}
+            path="test-order-number"
+            type="text"
+          />
+        </div>
       </Form>
     );
   };
@@ -111,6 +119,7 @@ EncounterForm.propTypes = {
   patient: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string]).isRequired,
+  testOrderNumberConcept: PropTypes.string.isRequired,
   visit: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string])
