@@ -120,7 +120,7 @@ Obs.defaultProps = {
   datatype: 'number'
 };
 
-// TODO extract out `obs|path=${props.path}|concept=${props.concept}` to some comment location?
+// TODO extract out `obs|path=${props.path}|concept=${props.concept}` to some common location?
 const mapStateToProps = (state, props) => {
   return {
     value: props.context ? props.context.selector(state, `obs|path=${props.path}|concept=${props.concept}`) : null
