@@ -123,7 +123,7 @@ CustomDatePicker.propTypes = {
   defaultDate: PropTypes.object,
   formControlStyle: PropTypes.object,
   field: PropTypes.string,
-  handleDateChange: PropTypes.func.isRequired,
+  handleDateChange: PropTypes.func,
   label: PropTypes.string,
   labelClassName: PropTypes.string,
 };
