@@ -4,15 +4,13 @@ import { Button, Grid, Row, Col } from 'react-bootstrap';
 import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { actions as toastrActions } from 'react-redux-toastr';
-import { visitActions } from "../../features/visit";
+import uuidv4 from 'uuid/v4';
 import { formActions } from '../../features/form';
 import { FORM_STATES } from '../../features/form/constants';
 import Submit from './Submit';
 import Cancel from './Cancel';
 import EncounterForm from './EncounterForm';
 import Loader from './../widgets/Loader';
-
-const uuid4 = require('uuid/v4');
 
 /**
  * Provides a basic wrapper around an Encounter Form with a title, toast success message, and afterSubmitLink
@@ -26,7 +24,13 @@ class EncounterFormPage extends React.PureComponent {
     this.enterEditMode = this.enterEditMode.bind(this);
     this.exitEditMode = this.exitEditMode.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
-    this.formInstanceId = uuid4();
+
+    if (this.props.formInstanceId) {
+      this.formInstanceId = this.props.formInstanceId;
+    }
+    else {
+      this.formInstanceId = uuidv4();
+    }
 
     this.formSubmittedActionCreators = [
       () => toastrActions.add({ title: "Data Saved", type: "success" })
@@ -159,6 +163,7 @@ EncounterFormPage.propTypes = {
   encounterType: PropTypes.object,
   formContent: PropTypes.object.isRequired,
   formId: PropTypes.string.isRequired,
+  formInstanceId: PropTypes.string,
   formSubmittedActionCreators: PropTypes.array,
   patient: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
