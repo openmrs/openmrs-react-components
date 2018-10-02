@@ -41,6 +41,7 @@ import { LOGIN_TYPES, loginReducers, loginSagas, loginActions } from './features
 import { openmrsFormSagas, formActions, formValidations, formReducers } from './features/form';
 import { headerReducers, headerSagas, headerActions } from './features/header';
 import { errorsActions, errorsReducers } from './features/errors';
+import { constantsSagas, constantsReducers, constantsActions } from './features/constants';
 import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
 import { GRID_TYPES, gridActions } from './features/grid';
 import { patientsReducer, patientSelectedReducer, patientActions, PATIENT_TYPES } from "./features/patient";
@@ -75,7 +76,8 @@ const reducers = combineReducers({
   selectedPatient: patientSelectedReducer,
   patientSearch: patientSearchReducers,
   errors: errorsReducers,
-  form: formReducers
+  form: formReducers,
+  CONSTANTS: constantsReducers
 });
 
 const sagas = function* () {
@@ -85,7 +87,8 @@ const sagas = function* () {
     patientSearchSagas(),
     visitSagas(),
     headerSagas(),
-    openmrsFormSagas()
+    openmrsFormSagas(),
+    constantsSagas()
   ]);
 };
 
@@ -151,6 +154,7 @@ module.exports = {
   sessionActions,
   SESSION_TYPES,
   headerActions,
+  constantsActions,
   withLocalisation,
   setLocaleMessages,
   mountWithIntl,
