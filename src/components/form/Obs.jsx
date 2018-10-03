@@ -16,7 +16,7 @@ const Obs = (props) => {
 
     if (value) {
       const matchingAnswer = conceptAnswers.find(ans => ans.uuid === value);
-      return matchingAnswer ? matchingAnswer.name.display : null;
+      return matchingAnswer ? matchingAnswer.name.name : null;
     }
     else {
       return null;
