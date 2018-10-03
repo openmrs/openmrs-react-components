@@ -13,9 +13,10 @@ import withFormContext from './withFormContext';
 const Obs = (props) => {
 
   const conceptAnswerDisplay = (value, conceptAnswers) => {
+
     if (value) {
       const matchingAnswer = conceptAnswers.find(ans => ans.uuid === value);
-      return matchingAnswer ? matchingAnswer.name : null;
+      return matchingAnswer ? matchingAnswer.name.display : null;
     }
     else {
       return null;

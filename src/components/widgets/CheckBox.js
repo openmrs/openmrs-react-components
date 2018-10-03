@@ -5,7 +5,6 @@ import { Checkbox } from 'react-bootstrap';
 class CheckBox extends PureComponent {
   constructor(props) {
     super(props);
-    console.log(this.props);
     this.state = {};
     this.handleToggle = this.handleToggle.bind(this);
   }

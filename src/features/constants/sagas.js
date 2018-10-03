@@ -76,7 +76,7 @@ function* labResultsEncounterType() {
 function* LabResultsTestOrderNumberConcept() {
   try {
 
-    let response = yield call(constantsRest.fetchLabResultsEncounterType);
+    let response = yield call(constantsRest.fetchLabResultsTestOrderNumberConcept);
     if (response.results.length > 0 ) {
       yield put(constantsActions.fetchLabResultsTestOrderNumberConceptSucceeded(response));
     }
@@ -90,7 +90,7 @@ function* LabResultsTestOrderNumberConcept() {
 function* LabResultsDateConcept() {
   try {
 
-    let response = yield call(constantsRest.fetchLabResultsEncounterType);
+    let response = yield call(constantsRest.fetchLabResultsDateConcept);
     if (response.results.length > 0 ) {
       yield put(constantsActions.fetchLabResultsDateConceptSucceeded(response));
     }
