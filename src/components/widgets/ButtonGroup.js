@@ -9,7 +9,7 @@ const ButtonGroup = ({ input, options }) => (
 
   <ToggleButtonGroup type="radio" justified={true} {...input}>
     { options.map( option =>
-      <ToggleButton key={ option.uuid } value={option.uuid} style={ buttonStyle }>{ option.name }</ToggleButton>
+      <ToggleButton key={ option.uuid } value={option.uuid} style={ buttonStyle }>{ option.name || option.display }</ToggleButton>
     )}
   </ToggleButtonGroup>
 
