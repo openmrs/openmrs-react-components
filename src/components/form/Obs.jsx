@@ -27,13 +27,20 @@ const Obs = (props) => {
 
   // TODO: type should be controlled based on datatype of concept
   if (props.datatype === 'date') {
-    return (
-      <Field
-        component={CustomDatePicker}
-        name={name}
-        validate={props.validate}
-      />
-    );
+    if (props.context.mode === 'edit') {
+      return (
+        <Field
+          component={CustomDatePicker}
+          name={name}
+          validate={props.validate}
+        />
+      );
+    }
+    else {
+      return (
+        <span>{props.value}</span>
+      );
+    }
   } else if (props.widget === 'checkbox') {
     return (
       <Field
