@@ -35,14 +35,21 @@ const Obs = (props) => {
       />
     );
   } else if (props.widget === 'checkbox') {
-    return (
-      <Field
-        component={CheckBox}
-        name={name}
-        options={props.conceptAnswer}
-        title={props.checkBoxTitle}
-      />
-    );
+    if (props.context.mode === 'edit') {
+      return (
+        <Field
+          component={CheckBox}
+          name={name}
+          options={props.conceptAnswer}
+          title={props.checkBoxTitle}
+        />
+      );
+    }
+    else {
+      return (
+        <span>{props.value ? 'X' : ''}</span>
+      );
+    }
   }
   else if ( typeof props.conceptAnswers !== 'undefined' ) {
     if (props.widget === 'dropdown') {
