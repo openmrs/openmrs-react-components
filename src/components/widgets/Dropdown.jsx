@@ -48,7 +48,7 @@ class Dropdown extends PureComponent {
               <option
                 key={item.uuid}
                 value={item.uuid}
-              >{item.display}
+              >{item.display || item.name}
               </option>
             ) : (
               <option
