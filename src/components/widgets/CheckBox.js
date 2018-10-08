@@ -13,14 +13,18 @@ class CheckBox extends PureComponent {
     const { input } = this.props;
     if (typeof input !== 'undefined') {
       const { onChange } = input;
-      onChange(false);
+      onChange('');
     }
   }
 
   handleToggle(e) {
     const { input } = this.props;
     if (typeof input !== 'undefined') {
-      this.props.input.onChange(e.target.checked);
+      if (e.target.checked) {
+        this.props.input.onChange(' ');
+      } else {
+        this.props.input.onChange('');
+      }
     }
   }
 

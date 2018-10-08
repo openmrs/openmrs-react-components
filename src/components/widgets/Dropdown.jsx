@@ -25,11 +25,15 @@ class Dropdown extends PureComponent {
 
   handleChange(event) {
     const { handleSelect, field, input } = this.props;
+
+    const { onChange } = input;
     const selected = event.target.value;
     if (typeof handleSelect === 'function') {
       handleSelect(field, selected);
+      if (typeof input !== "undefined") {
+        onChange(selected);
+      }
     } else if (typeof input !== "undefined") {
-      const { onChange } = input;
       onChange(selected);
     }
   }
