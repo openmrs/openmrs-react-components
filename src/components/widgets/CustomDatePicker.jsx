@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormControl } from 'react-bootstrap';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../../../assets/css/CustomDatePicker.css'
@@ -82,12 +83,11 @@ class CustomDatePicker extends PureComponent {
           type="text"
           value={value}
         />
-        <i
-          className="icon-calendar scale small add-on"
-          onClick={onClick}
-          role="toolbar"
+        <FontAwesomeIcon
+           icon="calendar-alt"
+           onClick={onClick}
+           size="2x"
         />
-      
       </span>
       {hasInput &&
         ((error &&
