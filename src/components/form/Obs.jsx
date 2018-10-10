@@ -45,6 +45,7 @@ const Obs = (props) => {
     if (props.context.mode === 'edit') {
       return (
         <Field
+          checkBoxValue={props.checkBoxValue}
           component={CheckBox}
           name={name}
           options={props.conceptAnswer}
