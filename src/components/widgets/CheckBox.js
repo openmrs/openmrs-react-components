@@ -13,7 +13,7 @@ class CheckBox extends PureComponent {
     const { input } = this.props;
     if (typeof input !== 'undefined') {
       const { onChange } = input;
-      onChange(' ');
+      onChange('');
     }
   }
 
@@ -23,7 +23,7 @@ class CheckBox extends PureComponent {
       if (e.target.checked) {
         this.props.input.onChange(e.target.value);
       } else {
-        this.props.input.onChange(' ');
+        this.props.input.onChange('');
       }
     }
   }
@@ -41,7 +41,7 @@ class CheckBox extends PureComponent {
 }
 
 CheckBox.defaultProps = {
-  title: " ",
+  title: "",
   checkBoxValue: "",
 };
 
