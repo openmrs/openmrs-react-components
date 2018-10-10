@@ -43,12 +43,12 @@ const Obs = (props) => {
     }
   } else if (props.widget === 'checkbox') {
     if (props.context.mode === 'edit') {
+
       return (
         <Field
-          checkBoxValue={props.checkBoxValue}
+          checkBoxValue={props.conceptAnswer}
           component={CheckBox}
           name={name}
-          options={props.conceptAnswer}
           title={props.checkBoxTitle}
         />
       );
