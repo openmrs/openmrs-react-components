@@ -1,9 +1,10 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
+import moment from 'moment';
 import FORM_TYPES from './types';
 import formActions from './actions';
 import encounterRest from '../../rest/encounterRest';
 import obsRest from '../../rest/obsRest';
-import {FORM_STATES} from "./constants";
+import { FORM_STATES } from "./constants";
 
 // TODO need to handle fields that aren't obs!
 // TODO this should really pass back something... the id of the created encounter, etc?
@@ -77,11 +78,18 @@ function* submit(action) {
       };
     }
 
+    // TODO do we want to handle the time component at some point
+    // set the encounter datetime, if specified, but ignore the time component
+    if (action.values['encounter-datetime']) {
+      encounter.encounterDatetime = moment(action.values['encounter-datetime']).startOf('day').format();
+    }
+
     // create the obs to add to the encounter
     let obs = [];
 
     if (action.values) {
       Object.entries(action.values)
+        .filter(value => value[0].startsWith('obs'))
         .filter(value => value[1])  // filter out any ones with no value
         .forEach((value) => {
           obs.push(createObs(value, action.formId, action.encounter));

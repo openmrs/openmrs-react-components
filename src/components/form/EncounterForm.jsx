@@ -50,6 +50,9 @@ class EncounterForm extends React.PureComponent {
           acc[key] = item[key];
           return acc;
         }, {});
+
+      // add in the encounter date
+      existingValues["encounter-datetime"] = this.props.encounter.encounterDatetime;
     }
 
     // if there are any default values, create an object of default values

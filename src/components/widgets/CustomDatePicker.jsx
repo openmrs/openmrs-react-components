@@ -20,7 +20,7 @@ class CustomDatePicker extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      selectedDate: props.defaultDate || moment(),
+      selectedDate: props.defaultDate || moment().startOf('day'),
       field: props.field,
     };
     this.handleChange = this.handleChange.bind(this);

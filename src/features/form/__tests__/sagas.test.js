@@ -26,8 +26,11 @@ describe('form sagas', () => {
 
     const formInstanceId = "form-instance-id";
 
-    const values =  { 'obs|path=first-obs|concept=first-obs-uuid': 100 ,
-      'obs|path=second-obs|concept=second-obs-uuid': 200 }  ;
+    const values =  {
+      'encounter-datetime': "2018-03-21T12:01:00.000-0400",
+      'obs|path=first-obs|concept=first-obs-uuid': 100 ,
+      'obs|path=second-obs|concept=second-obs-uuid': 200
+    };
 
     const patient = {
       uuid: "some_patient_uuid"
@@ -42,6 +45,7 @@ describe('form sagas', () => {
     };
 
     const expectedEncounterPost = {
+      "encounterDatetime": "2018-03-21T00:00:00-04:00",
       "encounterType": "some_encounter_type_uuid",
       "obs": [
         { "comment": "form-id^first-obs",
@@ -155,8 +159,11 @@ describe('form sagas', () => {
 
     const formInstanceId = "form-instance-id";
 
-    const values =  { 'obs|path=first-obs|concept=first-obs-uuid': 100 ,
-      'obs|path=second-obs|concept=second-obs-uuid': 200 }  ;
+    const values =  {
+      'encounter-datetime': "2018-04-25T12:01:00.000-0400",
+      'obs|path=first-obs|concept=first-obs-uuid': 100 ,
+      'obs|path=second-obs|concept=second-obs-uuid': 200
+    };
 
     const patient = {
       uuid: "some_patient_uuid"
@@ -172,6 +179,7 @@ describe('form sagas', () => {
 
     const encounter = {
       "uuid": "existing_encounter_uuid",
+      "encounterDatetime": "2018-03-21T12:01:00.000-0400",
       "obs": [
         {
           "uuid": "existing_obs_uuid",
@@ -182,6 +190,7 @@ describe('form sagas', () => {
 
     const expectedEncounterPost = {
       "uuid": "existing_encounter_uuid",
+      "encounterDatetime": "2018-04-25T00:00:00-04:00",
       "obs": [
         { "comment": "form-id^first-obs",
           "concept": "first-obs-uuid",
