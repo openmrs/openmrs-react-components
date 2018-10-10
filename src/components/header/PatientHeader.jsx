@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import dateFns from 'date-fns';
+import { DATE_FORMAT } from "../../constants";
 import patientUtil from '../../domain/patient/patientUtil';
 import '../../../assets/css/patientHeader.css';
 
@@ -50,7 +51,7 @@ export class PatientHeader extends PureComponent {
           <span className="gender-age">
             <span className="gender">{this.state.patient.gender === 'M' ? "Male" : "Female"}&nbsp;</span>
             <span className="age">
-              {this.state.patient.age} year(s) ({dateFns.format(new Date(this.state.patient.birthdate), 'DD MMM YYYY')})
+              {this.state.patient.age} year(s) ({dateFns.format(new Date(this.state.patient.birthdate), DATE_FORMAT)})
             </span>
           </span>
         </h1>

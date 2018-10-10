@@ -2,6 +2,8 @@ import React from 'react';
 import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import dateFns from 'date-fns';
+import { DATE_FORMAT } from "../../constants";
 import ButtonGroup from '../widgets/ButtonGroup';
 import CheckBox from '../widgets/CheckBox';
 import FieldInput from "../widgets/FieldInput";
@@ -38,7 +40,7 @@ const Obs = (props) => {
     }
     else {
       return (
-        <span>{props.value}</span>
+        <span>{dateFns.format(new Date(props.value), DATE_FORMAT)}</span>
       );
     }
   } else if (props.widget === 'checkbox') {
