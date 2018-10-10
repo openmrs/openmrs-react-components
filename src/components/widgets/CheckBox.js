@@ -29,12 +29,12 @@ class CheckBox extends PureComponent {
   }
 
   render() {
-    const { title, input, checkBoxValue } = this.props;
+    const { title, input, options } = this.props;
     return (
       <Checkbox
         {...input}
         onChange={this.handleToggle}
-        value={checkBoxValue}
+        value={options}
       >{title}</Checkbox>
     );
   }
@@ -42,12 +42,12 @@ class CheckBox extends PureComponent {
 
 CheckBox.defaultProps = {
   title: " ",
-  checkBoxValue: "",
+  options: "",
 };
 
 CheckBox.propTypes = {
-  checkBoxValue: PropTypes.string.isRequired,
   input: PropTypes.object,
+  options: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };
 
