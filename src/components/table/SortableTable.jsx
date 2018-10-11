@@ -100,6 +100,7 @@ class SortableTable extends PureComponent {
           showPaginationBottom={this.renderPaginationBottom()}
           showPaginationTop={otherProps.showPaginationTop}
           sortable={otherProps.isSortable}
+          SubComponent={otherProps.subComponent}
         />
       </div>
     );
