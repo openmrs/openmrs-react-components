@@ -80,9 +80,12 @@ class EncounterForm extends React.PureComponent {
       formInstanceId: this.props.formInstanceId,
       patient: this.props.patient,
       encounter: this.props.encounter,
+      encounterRole: this.props.encounterRole ? this.props.encounterRole : null,
       encounterType: this.props.encounterType,
       location: this.props.location ? this.props.location :
         this.props.sessionLocation ? this.props.sessionLocation : null,
+      provider: this.props.provider ? this.props.provider :
+        this.props.currentProvider ? this.props.currentProvider : null,
       visit: this.props.visit,
       formSubmittedActionCreator: this.props.formSubmittedActionCreator
     }));
@@ -113,6 +116,9 @@ class EncounterForm extends React.PureComponent {
 EncounterForm.propTypes = {
   defaultValues: PropTypes.array,
   encounter: PropTypes.object,
+  encounterRole: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string]),
   encounterType: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string]).isRequired,
@@ -129,6 +135,9 @@ EncounterForm.propTypes = {
   patient: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string]).isRequired,
+  provider: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string]),
   visit: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string])
@@ -143,7 +152,8 @@ const mapStateToProps = (state, props) => {
   return {
     // note that this actually just maps a prop within the form, doesn't interact with state?
     form: props.formInstanceId ? props.formInstanceId : 'openmrs-form',
-    sessionLocation: R.path(['openmrs', 'session', 'sessionLocation'], state)
+    sessionLocation: R.path(['openmrs', 'session', 'sessionLocation'], state),
+    currentProvider: R.path(['openmrs', 'session', 'currentProvider'], state)
 
   };
 };
