@@ -1,7 +1,7 @@
 
 // TODO this is *not* React specific and should be moved into another library?
 // TODO is a full rep too big, we need to use a smaller size?
-// TODO do we actually want to start storing the uuids for things like identifiers here? would be relevant if we ant to start using these utils to update
+// TODO do we actually want to start storing the uuids for things like identifiers here? would be relevant if we want to start using these utils to update
 import * as R from 'ramda';
 import  { cloneDeep } from 'lodash';
 import { ATTRIBUTE_TYPES } from './constants';
@@ -151,6 +151,7 @@ const patientUtil = {
       return null;
     }
 
+    // if the object is already a REST rep, no conversion needed, just clone the object
     if (restRep._openmrsClass === 'Patient') {
       return cloneDeep(restRep);
     }
