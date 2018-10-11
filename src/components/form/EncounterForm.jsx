@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { reduxForm, formValueSelector } from 'redux-form';
 import { Form } from 'react-bootstrap';
+import * as R from 'ramda';
 import FormContext from './FormContext';
 import { formActions } from '../../features/form';
 import { DATA_TYPES } from '../../domain/concept/constants';
@@ -80,6 +81,8 @@ class EncounterForm extends React.PureComponent {
       patient: this.props.patient,
       encounter: this.props.encounter,
       encounterType: this.props.encounterType,
+      location: this.props.location ? this.props.location :
+        this.props.sessionLocation ? this.props.sessionLocation : null,
       visit: this.props.visit,
       formSubmittedActionCreator: this.props.formSubmittedActionCreator
     }));
@@ -119,6 +122,9 @@ EncounterForm.propTypes = {
     PropTypes.array,
     PropTypes.func]),
   handleSubmit: PropTypes.func.isRequired,
+  location: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string]),
   mode: PropTypes.string.isRequired,
   patient: PropTypes.oneOfType([
     PropTypes.object,
@@ -133,10 +139,12 @@ EncounterForm.defaultProps = {
 };
 
 
-// note that this actually just maps a prop within the form, doesn't interact with state?
 const mapStateToProps = (state, props) => {
   return {
-    form: props.formInstanceId ? props.formInstanceId : 'openmrs-form'
+    // note that this actually just maps a prop within the form, doesn't interact with state?
+    form: props.formInstanceId ? props.formInstanceId : 'openmrs-form',
+    sessionLocation: R.path(['openmrs', 'session', 'sessionLocation'], state)
+
   };
 };
 

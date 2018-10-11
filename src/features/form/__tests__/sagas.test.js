@@ -40,12 +40,17 @@ describe('form sagas', () => {
       uuid: "some_encounter_type_uuid"
     };
 
+    const location = {
+      uuid: "some_location_uuid"
+    };
+
     const visit = {
       uuid: "some_visit_uuid"
     };
 
     const expectedEncounterPost = {
       "encounterDatetime": "2018-03-21T00:00:00-04:00",
+      "location": "some_location_uuid",
       "encounterType": "some_encounter_type_uuid",
       "obs": [
         { "comment": "form-id^first-obs",
@@ -67,6 +72,7 @@ describe('form sagas', () => {
       formInstanceId: formInstanceId,
       patient: patient,
       encounterType: encounterType,
+      location: location,
       visit: visit,
       formSubmittedActionCreator:
       formSubmittedActionCreator
