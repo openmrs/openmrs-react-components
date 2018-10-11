@@ -151,6 +151,7 @@ const patientUtil = {
       return null;
     }
 
+    // if the object is already a REST rep, no conversion needed, just clone the object
     if (restRep._openmrsClass === 'Patient') {
       return cloneDeep(restRep);
     }
