@@ -41,7 +41,7 @@ class Dropdown extends PureComponent {
         <span className={otherProps.labelClassName}>{otherProps.label}</span>
         <select
           onChange={this.handleChange}
-          style={dropDownStyle}
+          style={otherProps.dropDownStyle || dropDownStyle}
         >
           {this.getListData().map(
             item => !!item.uuid ? (

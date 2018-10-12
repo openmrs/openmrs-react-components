@@ -96,6 +96,40 @@ const fetchLabResultsTestOrderNumberConceptFailed = (message) => ( {
   }
 } );
 
+const fetchLabResultsTestLocationConcept = (conceptUuid) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_CONCEPT.REQUESTED,
+  conceptUuid
+} );
+
+const fetchLabResultsTestLocationConceptSucceeded = (payload) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_CONCEPT.SUCCEEDED,
+  payload
+} );
+
+const fetchLabResultsTestLocationConceptFailed = (message) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULT_TEST_LOCATION_CONCEPT.FAILED,
+  error: {
+    message: message
+  }
+} );
+
+const fetchLabResultsEstimatedCollectionDateConcept = (conceptUuid) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_CONCEPT.REQUESTED,
+  conceptUuid
+} );
+
+const fetchLabResultsEstimatedCollectionDateConceptSucceeded = (payload) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_CONCEPT.SUCCEEDED,
+  payload
+} );
+
+const fetchLabResultsEstimatedCollectionDateConceptFailed = (message) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_CONCEPT.FAILED,
+  error: {
+    message: message
+  }
+} );
+
 const getDateAndTimeFormat = () => ( {
   type: CONSTANTS_TYPES.DATE.REQUESTED,
 } );
@@ -131,6 +165,12 @@ export default {
   fetchLabResultsTestOrderNumberConcept,
   fetchLabResultsTestOrderNumberConceptSucceeded,
   fetchLabResultsTestOrderNumberConceptFailed,
+  fetchLabResultsTestLocationConcept,
+  fetchLabResultsTestLocationConceptSucceeded,
+  fetchLabResultsTestLocationConceptFailed,
+  fetchLabResultsEstimatedCollectionDateConcept,
+  fetchLabResultsEstimatedCollectionDateConceptSucceeded,
+  fetchLabResultsEstimatedCollectionDateConceptFailed,
   getDateAndTimeFormat,
   getDateAndTimeFormatSucceeded,
   getDateAndTimeFormatFailed,

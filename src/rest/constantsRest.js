@@ -44,6 +44,20 @@ const api = {
         return response.data;
       });
   },
+  
+  fetchLabResultsTestLocationConcept: (conceptUUID) => {
+    return axiosInstance.get(`/concept/${conceptUUID}`)
+      .then((response) => {
+        return response.data;
+      });
+  },
+
+  fetchLabResultsEstimatedCollectionDateConcept: (conceptUUID) => {
+    return axiosInstance.get(`/concept/${conceptUUID}`)
+      .then((response) => {
+        return response.data;
+      });
+  },
 
   getDateFormat: () => {
     return axiosInstance.get(`systemsetting?v=custom:(value)&q=labworkflowowa.dateAndTimeFormat`)

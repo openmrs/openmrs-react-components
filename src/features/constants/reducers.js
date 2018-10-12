@@ -7,6 +7,8 @@ const initialState = {
   labResultsDidNotPerformQuestion: '',
   labResultsDidNotPerformReason: null,
   labResultsTestOrderNumberConcept: '',
+  labResultsTestLocationConcept: {},
+  labResultsEstimatedCollectionDateConcept: {},
   dateAndTimeFormat: '',
 };
 
@@ -57,6 +59,40 @@ export default (state = initialState, action) => {
       return {
         error: {
           message: "Unable to load lab result did not perform question"
+        }
+      };
+
+    case CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_CONCEPT.SUCCEEDED:
+      const labResultsTestLocationConcept = {
+        name: action.payload.display,
+        uuid: action.payload.uuid,
+        answers: action.payload.answers,
+      };
+      return Object.assign({}, state, {
+        labResultsTestLocationConcept
+      });
+    
+    case CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_CONCEPT.FETCH_FAILED:
+      return {
+        error: {
+          message: "Unable to load lab result test location concept"
+        }
+      };
+    
+    case CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_CONCEPT.SUCCEEDED:
+      const labResultsEstimatedCollectionDateConcept = {
+        name: action.payload.display,
+        uuid: action.payload.uuid,
+        answers: action.payload.answers,
+      };
+      return Object.assign({}, state, {
+        labResultsEstimatedCollectionDateConcept
+      });
+
+    case CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_CONCEPT.FETCH_FAILED:
+      return {
+        error: {
+          message: "Unable to load lab result estimated collection date concept"
         }
       };
 
