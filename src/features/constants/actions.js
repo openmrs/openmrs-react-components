@@ -48,17 +48,18 @@ const fetchLabResultsDidNotPerformQuestionFailed = (message) => ( {
   }
 } );
 
-const fetchLabResultsDidNotPerformReason = () => ( {
-  type: CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON.REQUESTED,
+const fetchLabResultsDidNotPerformReasonConcept = (conceptUuid) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_CONCEPT.REQUESTED,
+  conceptUuid
 } );
 
-const fetchLabResultsDidNotPerformReasonSucceeded = (payload) => ( {
-  type: CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON.SUCCEEDED,
+const fetchLabResultsDidNotPerformReasonConceptSucceeded = (payload) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_CONCEPT.SUCCEEDED,
   payload
 } );
 
-const fetchLabResultsDidNotPerformReasonFailed = (message) => ( {
-  type: CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON.FAILED,
+const fetchLabResultsDidNotPerformReasonConceptFailed = (message) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_CONCEPT.FAILED,
   error: {
     message: message
   }
@@ -156,9 +157,9 @@ export default {
   fetchLabResultsDidNotPerformQuestion,
   fetchLabResultsDidNotPerformQuestionSucceeded,
   fetchLabResultsDidNotPerformQuestionFailed,
-  fetchLabResultsDidNotPerformReason,
-  fetchLabResultsDidNotPerformReasonSucceeded,
-  fetchLabResultsDidNotPerformReasonFailed,
+  fetchLabResultsDidNotPerformReasonConcept,
+  fetchLabResultsDidNotPerformReasonConceptSucceeded,
+  fetchLabResultsDidNotPerformReasonConceptFailed,
   fetchLabResultsDidNotPerformAnswer,
   fetchLabResultsDidNotPerformAnswerSucceeded,
   fetchLabResultsDidNotPerformAnswerFailed,
@@ -174,4 +175,4 @@ export default {
   getDateAndTimeFormat,
   getDateAndTimeFormatSucceeded,
   getDateAndTimeFormatFailed,
-}
+};

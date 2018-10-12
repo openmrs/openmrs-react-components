@@ -17,17 +17,18 @@ function* dateAndTimeFormat() {
   }
 }
 
-function* labResultsDidNotPerformReason() {
+function* labResultsDidNotPerformReasonConcept(action) {
+  console.log('------------action', action);
   try {
 
-    let response = yield call(constantsRest.fetchLabResultsDidNotPerformReason);
-    if (response.results.length > 0 ) {
-      yield put(constantsActions.fetchLabResultsDidNotPerformReasonSucceeded(response));
+    let response = yield call(constantsRest.fetchLabResultsDidNotPerformReasonConcept, action.conceptUuid);
+    if (response.uuid) {
+      yield put(constantsActions.fetchLabResultsDidNotPerformReasonConceptSucceeded(response));
     }
 
   }
   catch (e) {
-    yield put(constantsActions.fetchLabResultsDidNotPerformReasonFailed(e.message));
+    yield put(constantsActions.fetchLabResultsDidNotPerformReasonConceptFailed(e.message));
   }
 }
 
@@ -130,7 +131,7 @@ function* LabResultsEstimatedCollectedDateConcept(action) {
 
 function* constantsSagas() {
   yield takeLatest(CONSTANTS_TYPES.DATE.REQUESTED, dateAndTimeFormat);
-  yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON.REQUESTED, labResultsDidNotPerformReason);
+  yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_CONCEPT.REQUESTED, labResultsDidNotPerformReasonConcept);
   yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_QUESTION.REQUESTED, labResultsDidNotPerformQuestion);
   yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_ANSWER.REQUESTED, labResultsDidNotPerformAnswer);
   yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_ENCOUNTER_TYPE.REQUESTED, labResultsEncounterType);

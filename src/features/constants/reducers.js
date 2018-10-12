@@ -5,7 +5,7 @@ const initialState = {
   labResultsDateConcept: '',
   labResultsDidNotPerformAnswer: '',
   labResultsDidNotPerformQuestion: '',
-  labResultsDidNotPerformReason: null,
+  labResultsDidNotPerformReasonConcept: {},
   labResultsTestOrderNumberConcept: '',
   labResultsTestLocationConcept: {},
   labResultsEstimatedCollectionDateConcept: {},
@@ -96,15 +96,20 @@ export default (state = initialState, action) => {
         }
       };
 
-    case CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON.SUCCEEDED:
+    case CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_CONCEPT.SUCCEEDED:
+      const labResultsDidNotPerformReasonConcept = {
+        name: action.payload.display,
+        uuid: action.payload.uuid,
+        answers: action.payload.answers,
+      };
       return Object.assign({}, state, {
-        labResultsDidNotPerformReason: action.payload.results[0].value
+        labResultsDidNotPerformReasonConcept
       });
 
-    case CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON.FETCH_FAILED:
+    case CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_CONCEPT.FETCH_FAILED:
       return {
         error: {
-          message: "Unable to load lab result did not perform reason"
+          message: "Unable to load lab result did not perform reason concept"
         }
       };
 

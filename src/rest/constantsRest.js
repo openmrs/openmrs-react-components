@@ -24,8 +24,8 @@ const api = {
       });
   },
 
-  fetchLabResultsDidNotPerformReason: () => {
-    return axiosInstance.get(`systemsetting?v=custom:(value)&q=labworkflowowa.didNotPerformReason`)
+  fetchLabResultsDidNotPerformReasonConcept: (conceptUUID) => {
+    return axiosInstance.get(`/concept/${conceptUUID}`)
       .then((response) => {
         return response.data;
       });
