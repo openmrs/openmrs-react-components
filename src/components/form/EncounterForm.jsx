@@ -46,7 +46,7 @@ class EncounterForm extends React.PureComponent {
             (o.concept.datatype && (o.concept.datatype.uuid === DATA_TYPES['coded'].uuid || o.concept.datatype.uuid === DATA_TYPES['boolean'].uuid)
               ? o.value.uuid : o.value)
         }))
-        .reduce(function(acc, item) {                                                                  // reduce array to single object
+        .reduce((acc, item) => {                                                                  // reduce array to single object
           var key = Object.keys(item)[0];
           acc[key] = item[key];
           return acc;

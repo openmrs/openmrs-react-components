@@ -10,6 +10,7 @@ import FieldInput from "../widgets/FieldInput";
 import Dropdown from '../widgets/Dropdown';
 import CustomDatePicker from '../widgets/CustomDatePicker';
 import withFormContext from './withFormContext';
+import withObsGroupContext from './withObsGroupContext';
 
 // TODO perhaps a little refactoring to have all these if/thens... maybe make underlying ObsDate, ObsCoded, ObsNumeric, worth it?
 const Obs = (props) => {
@@ -34,15 +35,13 @@ const Obs = (props) => {
     }
   };
 
-  const name = `obs|path=${props.path}|concept=${props.concept}`;
-
   // TODO: type should be controlled based on datatype of concept
   if (props.datatype === 'date') {
-    if (props.context.mode === 'edit') {
+    if (props.formContext.mode === 'edit') {
       return (
         <Field
           component={CustomDatePicker}
-          name={name}
+          name={props.name}
           validate={props.validate}
         />
       );
@@ -53,13 +52,13 @@ const Obs = (props) => {
       );
     }
   } else if (props.widget === 'checkbox') {
-    if (props.context.mode === 'edit') {
+    if (props.formContext.mode === 'edit') {
 
       return (
         <Field
           checkBoxValue={props.conceptAnswer}
           component={CheckBox}
-          name={name}
+          name={props.name}
           title={props.checkBoxTitle}
         />
       );
@@ -72,12 +71,12 @@ const Obs = (props) => {
   }
   else if ( typeof props.conceptAnswers !== 'undefined' ) {
     if (props.widget === 'dropdown') {
-      if (props.context.mode === 'edit') {
+      if (props.formContext.mode === 'edit') {
         return (
           <Field
             component={Dropdown}
             list={props.conceptAnswers}
-            name={name}
+            name={props.name}
             title={props.dropDownTitle}
           />
         );
@@ -89,11 +88,11 @@ const Obs = (props) => {
       }
     }
     else {
-      if (props.context.mode === 'edit') {
+      if (props.formContext.mode === 'edit') {
         return (
           <Field
             component={ButtonGroup}
-            name={name}
+            name={props.name}
             options={props.conceptAnswers}
           />
         );
@@ -106,11 +105,11 @@ const Obs = (props) => {
     }
   }
   else {
-    if (props.context.mode === 'edit') {
+    if (props.formContext.mode === 'edit') {
       return (
         <Field
           component={FieldInput}
-          name={name}
+          name={props.name}
           placeholder={props.placeholder}
           type={props.datatype}
           validate={props.validate}
@@ -127,7 +126,9 @@ const Obs = (props) => {
 };
 
 Obs.propTypes = {
-  concept: PropTypes.string.isRequired,	
+  concept: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string]).isRequired,
   conceptAnswers: PropTypes.array,	
   datatype: PropTypes.string.isRequired,	
   path: PropTypes.string.isRequired,	
@@ -147,11 +148,31 @@ Obs.defaultProps = {
   datatype: 'number'
 };
 
-// TODO extract out `obs|path=${props.path}|concept=${props.concept}` to some common location?
+// utility method to allow us to accept a string uuid or an object for a concept
+const getUuid = (concept) => {
+  return concept.uuid ? concept.uuid : concept;
+}
+
 const mapStateToProps = (state, props) => {
+
+  let concepts = '';
+
+  if (props.obsGroupContext) {
+    concepts = props.obsGroupContext.groupingConcepts
+      .map((concept) => getUuid(concept))
+      .reduce((acc, item) => acc + item + '^', '');
+  }
+
+  concepts += getUuid(props.concept);
+
+  const fullPath = (props.obsGroupContext ? props.obsGroupContext.path + '^' : '') + props.path;
+
+  const name = `obs|path=${fullPath}|concept=${concepts}`;
+
   return {
-    value: props.context ? props.context.selector(state, `obs|path=${props.path}|concept=${props.concept}`) : null
+    name: name,
+    value: props.formContext ? props.formContext.selector(state, name) : null
   };
 };
 
-export default withFormContext(connect(mapStateToProps)(Obs));
+export default withObsGroupContext(withFormContext(connect(mapStateToProps)(Obs)));

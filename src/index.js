@@ -28,6 +28,7 @@ import Dropdown from './components/widgets/Dropdown';
 import SortableTable from './components/table/SortableTable';
 import CustomDatePicker from './components/widgets/CustomDatePicker';
 import Obs from './components/form/Obs';
+import ObsGroup from './components/form/ObsGroup';
 import EncounterDate from './components/form/EncounterDate';
 import Submit from './components/form/Submit';
 import Cancel from './components/form/Cancel';
@@ -123,6 +124,7 @@ module.exports = {
   SortableTable,
   CustomDatePicker,
   Obs,
+  ObsGroup,
   EncounterDate,
   Submit,
   Cancel,
