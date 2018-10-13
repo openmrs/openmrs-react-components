@@ -30,7 +30,13 @@ class CustomDatePicker extends PureComponent {
     const { input } = this.props;
     if (typeof input !== 'undefined') {
       const { onChange } = input;
-      onChange(moment().format())
+      if(input.value) {
+        this.setState({
+          selectedDate: moment(input.value)
+        })
+      } else {
+        onChange(moment().format())
+      }
     }
   }
 
