@@ -34,7 +34,7 @@ class CheckBox extends PureComponent {
       <Checkbox
         {...input}
         onChange={this.handleToggle}
-        value={!!(checkBoxValue.uuid) ? checkBoxValue.uuid : checkBoxValue}
+        value={checkBoxValue}
       >{title}</Checkbox>
     );
   }
