@@ -17,18 +17,17 @@ function* dateAndTimeFormat() {
   }
 }
 
-function* labResultsDidNotPerformReasonConcept(action) {
-  console.log('------------action', action);
+function* labResultsDidNotPerformReasonQuestion() {
   try {
 
-    let response = yield call(constantsRest.fetchLabResultsDidNotPerformReasonConcept, action.conceptUuid);
-    if (response.uuid) {
-      yield put(constantsActions.fetchLabResultsDidNotPerformReasonConceptSucceeded(response));
+    let response = yield call(constantsRest.fetchLabResultsDidNotPerformReasonQuestion);
+    if (response.results.length > 0 ) {
+      yield put(constantsActions.fetchLabResultsDidNotPerformReasonQuestionSucceeded(response));
     }
 
   }
   catch (e) {
-    yield put(constantsActions.fetchLabResultsDidNotPerformReasonConceptFailed(e.message));
+    yield put(constantsActions.fetchLabResultsDidNotPerformReasonQuestionFailed(e.message));
   }
 }
 
@@ -102,43 +101,57 @@ function* LabResultsDateConcept() {
   }
 }
 
-function* LabResultsTestLocationConcept(action) {
+function* LabResultsTestLocationQuestion(action) {
   try {
 
-    let response = yield call(constantsRest.fetchLabResultsTestLocationConcept, action.conceptUuid);
-    if (response.uuid) {
-      yield put(constantsActions.fetchLabResultsTestLocationConceptSucceeded(response));
+    let response = yield call(constantsRest.fetchLabResultsTestLocationQuestion, action.conceptUuid);
+    if (response.results.length > 0 ) {
+      yield put(constantsActions.fetchLabResultsTestLocationQuestionSucceeded(response));
     }
 
   }
   catch (e) {
-    yield put(constantsActions.fetchLabResultsTestOrderNumberConceptFailed(e.message));
+    yield put(constantsActions.fetchLabResultsTestOrderNumberQuestionFailed(e.message));
   }
 }
 
-function* LabResultsEstimatedCollectedDateConcept(action) {
+function* LabResultsEstimatedCollectedDateQuestion() {
   try {
-    let response = yield call(constantsRest.fetchLabResultsEstimatedCollectionDateConcept, action.conceptUuid);
-    if (response.uuid) {
-      yield put(constantsActions.fetchLabResultsEstimatedCollectionDateConceptSucceeded(response));
+    let response = yield call(constantsRest.fetchLabResultsEstimatedCollectionDateQuestion);
+    if (response.results.length > 0 ) {
+      yield put(constantsActions.fetchLabResultsEstimatedCollectionDateQuestionSucceeded(response));
     }
     
   }
   catch (e) {
-    yield put(constantsActions.fetchLabResultsEstimatedCollectionDateConceptFailed(e.message));
+    yield put(constantsActions.fetchLabResultsEstimatedCollectionDateQuestionFailed(e.message));
+  }
+}
+
+function* LabResultsEstimatedCollectedDateAnswer() {
+  try {
+    let response = yield call(constantsRest.fetchLabResultsEstimatedCollectionDateAnswer);
+    if (response.results.length > 0 ) {
+      yield put(constantsActions.fetchLabResultsEstimatedCollectionDateAnswerSucceeded(response));
+    }
+    
+  }
+  catch (e) {
+    yield put(constantsActions.fetchLabResultsEstimatedCollectionDateAnswerFailed(e.message));
   }
 }
 
 function* constantsSagas() {
   yield takeLatest(CONSTANTS_TYPES.DATE.REQUESTED, dateAndTimeFormat);
-  yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_CONCEPT.REQUESTED, labResultsDidNotPerformReasonConcept);
+  yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_QUESTION.REQUESTED, labResultsDidNotPerformReasonQuestion);
   yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_QUESTION.REQUESTED, labResultsDidNotPerformQuestion);
   yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_ANSWER.REQUESTED, labResultsDidNotPerformAnswer);
   yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_ENCOUNTER_TYPE.REQUESTED, labResultsEncounterType);
   yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_TEST_ORDER_NUMBER_CONCEPT.REQUESTED, LabResultsTestOrderNumberConcept);
   yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_DATE_CONCEPT.REQUESTED, LabResultsDateConcept);
-  yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_CONCEPT.REQUESTED, LabResultsTestLocationConcept);
-  yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_CONCEPT.REQUESTED, LabResultsEstimatedCollectedDateConcept);
+  yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_QUESTION.REQUESTED, LabResultsTestLocationQuestion);
+  yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_QUESTION.REQUESTED, LabResultsEstimatedCollectedDateQuestion);
+  yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_ANSWER.REQUESTED, LabResultsEstimatedCollectedDateAnswer);
 }
 
 export default constantsSagas;

@@ -48,18 +48,17 @@ const fetchLabResultsDidNotPerformQuestionFailed = (message) => ( {
   }
 } );
 
-const fetchLabResultsDidNotPerformReasonConcept = (conceptUuid) => ( {
-  type: CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_CONCEPT.REQUESTED,
-  conceptUuid
+const fetchLabResultsDidNotPerformReasonQuestion = () => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_QUESTION.REQUESTED,
 } );
 
-const fetchLabResultsDidNotPerformReasonConceptSucceeded = (payload) => ( {
-  type: CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_CONCEPT.SUCCEEDED,
+const fetchLabResultsDidNotPerformReasonQuestionSucceeded = (payload) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_QUESTION.SUCCEEDED,
   payload
 } );
 
-const fetchLabResultsDidNotPerformReasonConceptFailed = (message) => ( {
-  type: CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_CONCEPT.FAILED,
+const fetchLabResultsDidNotPerformReasonQuestionFailed = (message) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_QUESTION.FAILED,
   error: {
     message: message
   }
@@ -97,35 +96,49 @@ const fetchLabResultsTestOrderNumberConceptFailed = (message) => ( {
   }
 } );
 
-const fetchLabResultsTestLocationConcept = (conceptUuid) => ( {
-  type: CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_CONCEPT.REQUESTED,
-  conceptUuid
+const fetchLabResultsTestLocationQuestion = () => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_QUESTION.REQUESTED,
 } );
 
-const fetchLabResultsTestLocationConceptSucceeded = (payload) => ( {
-  type: CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_CONCEPT.SUCCEEDED,
+const fetchLabResultsTestLocationQuestionSucceeded = (payload) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_QUESTION.SUCCEEDED,
   payload
 } );
 
-const fetchLabResultsTestLocationConceptFailed = (message) => ( {
-  type: CONSTANTS_TYPES.LAB_RESULT_TEST_LOCATION_CONCEPT.FAILED,
+const fetchLabResultsTestLocationQuestionFailed = (message) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULT_TEST_LOCATION_QUESTION.FAILED,
   error: {
     message: message
   }
 } );
 
-const fetchLabResultsEstimatedCollectionDateConcept = (conceptUuid) => ( {
-  type: CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_CONCEPT.REQUESTED,
-  conceptUuid
+const fetchLabResultsEstimatedCollectionDateQuestion = () => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_QUESTION.REQUESTED,
 } );
 
-const fetchLabResultsEstimatedCollectionDateConceptSucceeded = (payload) => ( {
-  type: CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_CONCEPT.SUCCEEDED,
+const fetchLabResultsEstimatedCollectionDateQuestionSucceeded = (payload) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_QUESTION.SUCCEEDED,
   payload
 } );
 
-const fetchLabResultsEstimatedCollectionDateConceptFailed = (message) => ( {
-  type: CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_CONCEPT.FAILED,
+const fetchLabResultsEstimatedCollectionDateQuestionFailed = (message) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_QUESTION.FAILED,
+  error: {
+    message: message
+  }
+} );
+
+const fetchLabResultsEstimatedCollectionDateAnswer = () => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_ANSWER.REQUESTED,
+} );
+
+const fetchLabResultsEstimatedCollectionDateAnswerSucceeded = (payload) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_ANSWER.SUCCEEDED,
+  payload
+} );
+
+const fetchLabResultsEstimatedCollectionDateAnswerFailed = (message) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_ANSWER.FAILED,
   error: {
     message: message
   }
@@ -157,21 +170,24 @@ export default {
   fetchLabResultsDidNotPerformQuestion,
   fetchLabResultsDidNotPerformQuestionSucceeded,
   fetchLabResultsDidNotPerformQuestionFailed,
-  fetchLabResultsDidNotPerformReasonConcept,
-  fetchLabResultsDidNotPerformReasonConceptSucceeded,
-  fetchLabResultsDidNotPerformReasonConceptFailed,
+  fetchLabResultsDidNotPerformReasonQuestion,
+  fetchLabResultsDidNotPerformReasonQuestionSucceeded,
+  fetchLabResultsDidNotPerformReasonQuestionFailed,
   fetchLabResultsDidNotPerformAnswer,
   fetchLabResultsDidNotPerformAnswerSucceeded,
   fetchLabResultsDidNotPerformAnswerFailed,
   fetchLabResultsTestOrderNumberConcept,
   fetchLabResultsTestOrderNumberConceptSucceeded,
   fetchLabResultsTestOrderNumberConceptFailed,
-  fetchLabResultsTestLocationConcept,
-  fetchLabResultsTestLocationConceptSucceeded,
-  fetchLabResultsTestLocationConceptFailed,
-  fetchLabResultsEstimatedCollectionDateConcept,
-  fetchLabResultsEstimatedCollectionDateConceptSucceeded,
-  fetchLabResultsEstimatedCollectionDateConceptFailed,
+  fetchLabResultsTestLocationQuestion,
+  fetchLabResultsTestLocationQuestionSucceeded,
+  fetchLabResultsTestLocationQuestionFailed,
+  fetchLabResultsEstimatedCollectionDateQuestion,
+  fetchLabResultsEstimatedCollectionDateQuestionSucceeded,
+  fetchLabResultsEstimatedCollectionDateQuestionFailed,
+  fetchLabResultsEstimatedCollectionDateAnswer,
+  fetchLabResultsEstimatedCollectionDateAnswerSucceeded,
+  fetchLabResultsEstimatedCollectionDateAnswerFailed,
   getDateAndTimeFormat,
   getDateAndTimeFormatSucceeded,
   getDateAndTimeFormatFailed,

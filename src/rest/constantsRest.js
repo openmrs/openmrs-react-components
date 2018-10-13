@@ -24,8 +24,8 @@ const api = {
       });
   },
 
-  fetchLabResultsDidNotPerformReasonConcept: (conceptUUID) => {
-    return axiosInstance.get(`/concept/${conceptUUID}`)
+  fetchLabResultsDidNotPerformReasonQuestion: () => {
+    return axiosInstance.get(`systemsetting?v=custom:(value)&q=labworkflowowa.didNotPerformReason`)
       .then((response) => {
         return response.data;
       });
@@ -45,15 +45,22 @@ const api = {
       });
   },
   
-  fetchLabResultsTestLocationConcept: (conceptUUID) => {
-    return axiosInstance.get(`/concept/${conceptUUID}`)
+  fetchLabResultsTestLocationQuestion: () => {
+    return axiosInstance.get(`systemsetting?v=custom:(value)&q=labworkflowowa.locationOfLaboratory`)
       .then((response) => {
         return response.data;
       });
   },
 
-  fetchLabResultsEstimatedCollectionDateConcept: (conceptUUID) => {
-    return axiosInstance.get(`/concept/${conceptUUID}`)
+  fetchLabResultsEstimatedCollectionDateAnswer: () => {
+    return axiosInstance.get(`systemsetting?v=custom:(value)&q=labworkflowowa.estimatedCollectionDateAnswer`)
+      .then((response) => {
+        return response.data;
+      });
+  },
+
+  fetchLabResultsEstimatedCollectionDateQuestion: () => {
+    return axiosInstance.get(`systemsetting?v=custom:(value)&q=labworkflowowa.estimatedCollectionDateQuestion`)
       .then((response) => {
         return response.data;
       });

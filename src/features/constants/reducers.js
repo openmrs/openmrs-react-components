@@ -5,10 +5,11 @@ const initialState = {
   labResultsDateConcept: '',
   labResultsDidNotPerformAnswer: '',
   labResultsDidNotPerformQuestion: '',
-  labResultsDidNotPerformReasonConcept: {},
+  labResultsDidNotPerformReasonQuestion: '',
   labResultsTestOrderNumberConcept: '',
-  labResultsTestLocationConcept: {},
-  labResultsEstimatedCollectionDateConcept: {},
+  labResultsTestLocationQuestion: '',
+  labResultsEstimatedCollectionDateQuestion: '',
+  labResultsEstimatedCollectionDateAnswer: '',
   dateAndTimeFormat: '',
 };
 
@@ -62,54 +63,51 @@ export default (state = initialState, action) => {
         }
       };
 
-    case CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_CONCEPT.SUCCEEDED:
-      const labResultsTestLocationConcept = {
-        name: action.payload.display,
-        uuid: action.payload.uuid,
-        answers: action.payload.answers,
-      };
+    case CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_QUESTION.SUCCEEDED:
       return Object.assign({}, state, {
-        labResultsTestLocationConcept
+        labResultsTestLocationQuestion: action.payload.results[0].value
       });
     
-    case CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_CONCEPT.FETCH_FAILED:
+    case CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_QUESTION.FETCH_FAILED:
       return {
         error: {
-          message: "Unable to load lab result test location concept"
+          message: "Unable to load lab result test location question"
         }
       };
     
-    case CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_CONCEPT.SUCCEEDED:
-      const labResultsEstimatedCollectionDateConcept = {
-        name: action.payload.display,
-        uuid: action.payload.uuid,
-        answers: action.payload.answers,
-      };
+    case CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_QUESTION.SUCCEEDED:
       return Object.assign({}, state, {
-        labResultsEstimatedCollectionDateConcept
+        labResultsEstimatedCollectionDateQuestion: action.payload.results[0].value
       });
 
-    case CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_CONCEPT.FETCH_FAILED:
+    case CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_QUESTION.FETCH_FAILED:
       return {
         error: {
-          message: "Unable to load lab result estimated collection date concept"
+          message: "Unable to load lab result estimated collection date question"
         }
       };
 
-    case CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_CONCEPT.SUCCEEDED:
-      const labResultsDidNotPerformReasonConcept = {
-        name: action.payload.display,
-        uuid: action.payload.uuid,
-        answers: action.payload.answers,
-      };
+    case CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_ANSWER.SUCCEEDED:
       return Object.assign({}, state, {
-        labResultsDidNotPerformReasonConcept
+        labResultsEstimatedCollectionDateAnswer: action.payload.results[0].value
       });
 
-    case CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_CONCEPT.FETCH_FAILED:
+    case CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_ANSWER.FETCH_FAILED:
       return {
         error: {
-          message: "Unable to load lab result did not perform reason concept"
+          message: "Unable to load lab result estimated collection date answer"
+        }
+      };
+
+    case CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_QUESTION.SUCCEEDED:
+      return Object.assign({}, state, {
+        labResultsDidNotPerformReasonQuestion: action.payload.results[0].value
+      });
+
+    case CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_QUESTION.FETCH_FAILED:
+      return {
+        error: {
+          message: "Unable to load lab result did not perform reason question"
         }
       };
 
