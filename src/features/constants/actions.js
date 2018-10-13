@@ -64,6 +64,23 @@ const fetchLabResultsDidNotPerformReasonQuestionFailed = (message) => ( {
   }
 } );
 
+const fetchLabResultsDidNotPerformReasonAnswer = (conceptUuid) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_ANSWER.REQUESTED,
+  conceptUuid
+} );
+
+const fetchLabResultsDidNotPerformReasonAnswerSucceeded = (payload) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_ANSWER.SUCCEEDED,
+  payload
+} );
+
+const fetchLabResultsDidNotPerformReasonAnswerFailed = (message) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_ANSWER.FAILED,
+  error: {
+    message: message
+  }
+} );
+
 const fetchLabResultsDidNotPerformAnswer = () => ( {
   type: CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_ANSWER.REQUESTED,
 } );
@@ -107,6 +124,23 @@ const fetchLabResultsTestLocationQuestionSucceeded = (payload) => ( {
 
 const fetchLabResultsTestLocationQuestionFailed = (message) => ( {
   type: CONSTANTS_TYPES.LAB_RESULT_TEST_LOCATION_QUESTION.FAILED,
+  error: {
+    message: message
+  }
+} );
+
+const fetchLabResultsTestLocationAnswer = (conceptUuid) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_ANSWER.REQUESTED,
+  conceptUuid
+} );
+
+const fetchLabResultsTestLocationAnswerSucceeded = (payload) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_ANSWER.SUCCEEDED,
+  payload
+} );
+
+const fetchLabResultsTestLocationAnswerFailed = (message) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULT_TEST_LOCATION_ANSWER.FAILED,
   error: {
     message: message
   }
@@ -173,6 +207,9 @@ export default {
   fetchLabResultsDidNotPerformReasonQuestion,
   fetchLabResultsDidNotPerformReasonQuestionSucceeded,
   fetchLabResultsDidNotPerformReasonQuestionFailed,
+  fetchLabResultsDidNotPerformReasonAnswer,
+  fetchLabResultsDidNotPerformReasonAnswerSucceeded,
+  fetchLabResultsDidNotPerformReasonAnswerFailed,
   fetchLabResultsDidNotPerformAnswer,
   fetchLabResultsDidNotPerformAnswerSucceeded,
   fetchLabResultsDidNotPerformAnswerFailed,
@@ -182,6 +219,9 @@ export default {
   fetchLabResultsTestLocationQuestion,
   fetchLabResultsTestLocationQuestionSucceeded,
   fetchLabResultsTestLocationQuestionFailed,
+  fetchLabResultsTestLocationAnswer,
+  fetchLabResultsTestLocationAnswerSucceeded,
+  fetchLabResultsTestLocationAnswerFailed,
   fetchLabResultsEstimatedCollectionDateQuestion,
   fetchLabResultsEstimatedCollectionDateQuestionSucceeded,
   fetchLabResultsEstimatedCollectionDateQuestionFailed,

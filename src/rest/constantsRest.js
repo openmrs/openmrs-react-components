@@ -31,6 +31,13 @@ const api = {
       });
   },
 
+  fetchLabResultsDidNotPerformReasonAnswer: (conceptUuid) => {
+    return axiosInstance.get(`/concept/${conceptUuid}`)
+      .then((response) => {
+        return response.data;
+      });
+  },
+
   fetchLabResultsDidNotPerformAnswer: () => {
     return axiosInstance.get(`systemsetting?v=custom:(value)&q=labworkflowowa.didNotPerformAnswer`)
       .then((response) => {
@@ -47,6 +54,13 @@ const api = {
   
   fetchLabResultsTestLocationQuestion: () => {
     return axiosInstance.get(`systemsetting?v=custom:(value)&q=labworkflowowa.locationOfLaboratory`)
+      .then((response) => {
+        return response.data;
+      });
+  },
+
+  fetchLabResultsTestLocationAnswer: (conceptUuid) => {
+    return axiosInstance.get(`/concept/${conceptUuid}`)
       .then((response) => {
         return response.data;
       });

@@ -6,8 +6,10 @@ const initialState = {
   labResultsDidNotPerformAnswer: '',
   labResultsDidNotPerformQuestion: '',
   labResultsDidNotPerformReasonQuestion: '',
+  labResultsDidNotPerformReasonAnswer: {},
   labResultsTestOrderNumberConcept: '',
   labResultsTestLocationQuestion: '',
+  labResultsTestLocationAnswer: {},
   labResultsEstimatedCollectionDateQuestion: '',
   labResultsEstimatedCollectionDateAnswer: '',
   dateAndTimeFormat: '',
@@ -74,6 +76,18 @@ export default (state = initialState, action) => {
           message: "Unable to load lab result test location question"
         }
       };
+
+    case CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_ANSWER.SUCCEEDED:
+      return Object.assign({}, state, {
+        labResultsTestLocationAnswer: action.payload
+      });
+    
+    case CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_ANSWER.FETCH_FAILED:
+      return {
+        error: {
+          message: "Unable to load lab result test location answer"
+        }
+      };
     
     case CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_QUESTION.SUCCEEDED:
       return Object.assign({}, state, {
@@ -108,6 +122,18 @@ export default (state = initialState, action) => {
       return {
         error: {
           message: "Unable to load lab result did not perform reason question"
+        }
+      };
+
+    case CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_ANSWER.SUCCEEDED:
+      return Object.assign({}, state, {
+        labResultsDidNotPerformReasonAnswer: action.payload
+      });
+
+    case CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_ANSWER.FETCH_FAILED:
+      return {
+        error: {
+          message: "Unable to load lab result did not perform reason answer"
         }
       };
 
