@@ -70,6 +70,21 @@ function* submit(action) {
         encounterType: action.encounterType.uuid,
         visit: action.visit ? action.visit.uuid : null
       };
+
+      // add encounter location if specified
+      if (action.location) {
+        encounter.location = action.location.uuid;
+      }
+
+      // add encounterProvider if role and provider specified
+      if (action.provider && action.encounterRole) {
+        encounter.encounterProviders = [
+          {
+            "provider": action.provider.uuid,
+            "encounterRole": action.encounterRole.uuid
+          }
+        ];
+      }
     }
     // otherwise, include the existing encounter uuid
     else {

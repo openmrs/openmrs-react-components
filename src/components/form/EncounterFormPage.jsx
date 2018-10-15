@@ -120,12 +120,15 @@ class EncounterFormPage extends React.PureComponent {
             <EncounterForm
               defaultValues={this.props.defaultValues}
               encounter={this.getForm().encounter}
+              encounterRole={this.props.encounterRole}
               encounterType={this.props.encounterType}
               formId={this.props.formId}
               formInstanceId={this.formInstanceId}
               formSubmittedActionCreator={this.formSubmittedActionCreators}
+              location={this.props.location}
               mode={this.getForm().state === FORM_STATES.EDITING ? 'edit' : 'view'}
               patient={this.props.patient}
+              provider={this.props.provider}
               visit={this.props.patient ? this.props.patient.visit : null}
             >
               {this.props.formContent}
@@ -160,12 +163,23 @@ EncounterFormPage.propTypes = {
   backLink: PropTypes.string,
   defaultValues: PropTypes.array,
   encounter: PropTypes.object,
-  encounterType: PropTypes.object,
+  encounterRole: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string]),
+  encounterType: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string]).isRequired,
   formContent: PropTypes.object.isRequired,
   formId: PropTypes.string.isRequired,
   formInstanceId: PropTypes.string,
   formSubmittedActionCreators: PropTypes.array,
+  location: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string]),
   patient: PropTypes.object.isRequired,
+  provider: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string]),
   title: PropTypes.string.isRequired,
   visit: PropTypes.object
 };

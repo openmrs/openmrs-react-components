@@ -8,8 +8,8 @@ const Cancel = (props) => {
     <Button
       bsSize="large"
       bsStyle="danger"
-      disabled={props.context.submitting}
-      onClick={() => props.context.reset() && (props.onClick && props.onClick())}
+      disabled={props.formContext.submitting}
+      onClick={() => props.formContext.reset() && (props.onClick && props.onClick())}
     >
       Cancel
     </Button>

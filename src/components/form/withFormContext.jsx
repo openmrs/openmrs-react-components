@@ -7,7 +7,7 @@ function withFormContext(WrappedComponent)  {
     render() {
       return (
         <FormContext.Consumer>
-          {context => <WrappedComponent {...this.props} context={context} />}
+          {formContext => <WrappedComponent {...this.props} formContext={formContext} />}
         </FormContext.Consumer>
       );
     }

@@ -40,12 +40,30 @@ describe('form sagas', () => {
       uuid: "some_encounter_type_uuid"
     };
 
+    const location = {
+      uuid: "some_location_uuid"
+    };
+
     const visit = {
       uuid: "some_visit_uuid"
     };
 
+    const provider = {
+      uuid: "some_provider_uuid"
+    };
+
+    const encounterRole = {
+      uuid: "some_encounter_role_uuid"
+    };
+
     const expectedEncounterPost = {
       "encounterDatetime": "2018-03-21T00:00:00-04:00",
+      "location": "some_location_uuid",
+      "encounterProviders": [
+        { "provider": "some_provider_uuid",
+          "encounterRole": "some_encounter_role_uuid"
+        }
+      ],
       "encounterType": "some_encounter_type_uuid",
       "obs": [
         { "comment": "form-id^first-obs",
@@ -66,7 +84,10 @@ describe('form sagas', () => {
       formId: "form-id",
       formInstanceId: formInstanceId,
       patient: patient,
+      encounterRole: encounterRole,
       encounterType: encounterType,
+      location: location,
+      provider: provider,
       visit: visit,
       formSubmittedActionCreator:
       formSubmittedActionCreator
@@ -333,5 +354,74 @@ describe('form sagas', () => {
     expect(sagaTester.getCalledActions()).toContainEqual(formSubmittedActionCreator());
   });
 
+
+  it('should not include encounter provider if no encounter role specified', () => {
+
+    const formInstanceId = "form-instance-id";
+
+    const values =  {
+      'encounter-datetime': "2018-03-21T12:01:00.000-0400",
+      'obs|path=first-obs|concept=first-obs-uuid': 100 ,
+      'obs|path=second-obs|concept=second-obs-uuid': 200
+    };
+
+    const patient = {
+      uuid: "some_patient_uuid"
+    };
+
+    const encounterType = {
+      uuid: "some_encounter_type_uuid"
+    };
+
+    const location = {
+      uuid: "some_location_uuid"
+    };
+
+    const visit = {
+      uuid: "some_visit_uuid"
+    };
+
+    const provider = {
+      uuid: "some_provider_uuid"
+    };
+
+    const expectedEncounterPost = {
+      "encounterDatetime": "2018-03-21T00:00:00-04:00",
+      "location": "some_location_uuid",
+      "encounterType": "some_encounter_type_uuid",
+      "obs": [
+        { "comment": "form-id^first-obs",
+          "concept": "first-obs-uuid",
+          "value": 100
+        },
+        { "comment": "form-id^second-obs",
+          "concept": "second-obs-uuid",
+          "value": 200
+        }
+      ],
+      "patient": "some_patient_uuid",
+      "visit": "some_visit_uuid"
+    };
+
+    sagaTester.dispatch(formActions.formSubmitted( {
+      values: values,
+      formId: "form-id",
+      formInstanceId: formInstanceId,
+      patient: patient,
+      encounterType: encounterType,
+      location: location,
+      provider: provider,
+      visit: visit,
+      formSubmittedActionCreator:
+      formSubmittedActionCreator
+    } ));
+    expect(encounterRest.createEncounter).toHaveBeenCalledTimes(1);
+    expect(encounterRest.createEncounter.mock.calls[0][0]).toMatchObject(expectedEncounterPost);
+
+    expect(sagaTester.getCalledActions()).toContainEqual(formActions.formSubmitSucceeded(formInstanceId, formSubmittedActionCreator));
+    expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitFailed(formInstanceId));
+    expect(formSubmittedActionCreator.mock.calls.length).toBe(1);
+    expect(sagaTester.getCalledActions()).toContainEqual(formSubmittedActionCreator());
+  });
 
 });

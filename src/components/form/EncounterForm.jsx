@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { reduxForm, formValueSelector } from 'redux-form';
 import { Form } from 'react-bootstrap';
+import * as R from 'ramda';
 import FormContext from './FormContext';
 import { formActions } from '../../features/form';
 import { DATA_TYPES } from '../../domain/concept/constants';
@@ -45,7 +46,7 @@ class EncounterForm extends React.PureComponent {
             (o.concept.datatype && (o.concept.datatype.uuid === DATA_TYPES['coded'].uuid || o.concept.datatype.uuid === DATA_TYPES['boolean'].uuid)
               ? o.value.uuid : o.value)
         }))
-        .reduce(function(acc, item) {                                                                  // reduce array to single object
+        .reduce((acc, item) => {                                                                  // reduce array to single object
           var key = Object.keys(item)[0];
           acc[key] = item[key];
           return acc;
@@ -79,7 +80,12 @@ class EncounterForm extends React.PureComponent {
       formInstanceId: this.props.formInstanceId,
       patient: this.props.patient,
       encounter: this.props.encounter,
+      encounterRole: this.props.encounterRole ? this.props.encounterRole : null,
       encounterType: this.props.encounterType,
+      location: this.props.location ? this.props.location :
+        this.props.sessionLocation ? this.props.sessionLocation : null,
+      provider: this.props.provider ? this.props.provider :
+        this.props.currentProvider ? this.props.currentProvider : null,
       visit: this.props.visit,
       formSubmittedActionCreator: this.props.formSubmittedActionCreator
     }));
@@ -110,6 +116,9 @@ class EncounterForm extends React.PureComponent {
 EncounterForm.propTypes = {
   defaultValues: PropTypes.array,
   encounter: PropTypes.object,
+  encounterRole: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string]),
   encounterType: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string]).isRequired,
@@ -119,10 +128,16 @@ EncounterForm.propTypes = {
     PropTypes.array,
     PropTypes.func]),
   handleSubmit: PropTypes.func.isRequired,
+  location: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string]),
   mode: PropTypes.string.isRequired,
   patient: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string]).isRequired,
+  provider: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string]),
   visit: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string])
@@ -133,10 +148,13 @@ EncounterForm.defaultProps = {
 };
 
 
-// note that this actually just maps a prop within the form, doesn't interact with state?
 const mapStateToProps = (state, props) => {
   return {
-    form: props.formInstanceId ? props.formInstanceId : 'openmrs-form'
+    // note that this actually just maps a prop within the form, doesn't interact with state?
+    form: props.formInstanceId ? props.formInstanceId : 'openmrs-form',
+    sessionLocation: R.path(['openmrs', 'session', 'sessionLocation'], state),
+    currentProvider: R.path(['openmrs', 'session', 'currentProvider'], state)
+
   };
 };
 

@@ -24,8 +24,15 @@ const api = {
       });
   },
 
-  fetchLabResultsDidNotPerformReason: () => {
+  fetchLabResultsDidNotPerformReasonQuestion: () => {
     return axiosInstance.get(`systemsetting?v=custom:(value)&q=labworkflowowa.didNotPerformReason`)
+      .then((response) => {
+        return response.data;
+      });
+  },
+
+  fetchLabResultsDidNotPerformReasonAnswer: (conceptUuid) => {
+    return axiosInstance.get(`/concept/${conceptUuid}`)
       .then((response) => {
         return response.data;
       });
@@ -40,6 +47,34 @@ const api = {
 
   fetchLabResultsTestOrderNumberConcept: () => {
     return axiosInstance.get(`systemsetting?v=custom:(value)&q=labworkflowowa.testOrderNumberConcept`)
+      .then((response) => {
+        return response.data;
+      });
+  },
+  
+  fetchLabResultsTestLocationQuestion: () => {
+    return axiosInstance.get(`systemsetting?v=custom:(value)&q=labworkflowowa.locationOfLaboratory`)
+      .then((response) => {
+        return response.data;
+      });
+  },
+
+  fetchLabResultsTestLocationAnswer: (conceptUuid) => {
+    return axiosInstance.get(`/concept/${conceptUuid}`)
+      .then((response) => {
+        return response.data;
+      });
+  },
+
+  fetchLabResultsEstimatedCollectionDateAnswer: () => {
+    return axiosInstance.get(`systemsetting?v=custom:(value)&q=labworkflowowa.estimatedCollectionDateAnswer`)
+      .then((response) => {
+        return response.data;
+      });
+  },
+
+  fetchLabResultsEstimatedCollectionDateQuestion: () => {
+    return axiosInstance.get(`systemsetting?v=custom:(value)&q=labworkflowowa.estimatedCollectionDateQuestion`)
       .then((response) => {
         return response.data;
       });

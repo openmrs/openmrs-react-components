@@ -17,17 +17,31 @@ function* dateAndTimeFormat() {
   }
 }
 
-function* labResultsDidNotPerformReason() {
+function* labResultsDidNotPerformReasonQuestion() {
   try {
 
-    let response = yield call(constantsRest.fetchLabResultsDidNotPerformReason);
+    let response = yield call(constantsRest.fetchLabResultsDidNotPerformReasonQuestion);
     if (response.results.length > 0 ) {
-      yield put(constantsActions.fetchLabResultsDidNotPerformReasonSucceeded(response));
+      yield put(constantsActions.fetchLabResultsDidNotPerformReasonQuestionSucceeded(response));
     }
 
   }
   catch (e) {
-    yield put(constantsActions.fetchLabResultsDidNotPerformReasonFailed(e.message));
+    yield put(constantsActions.fetchLabResultsDidNotPerformReasonQuestionFailed(e.message));
+  }
+}
+
+function* labResultsDidNotPerformReasonAnswer(action) {
+  try {
+
+    let response = yield call(constantsRest.fetchLabResultsDidNotPerformReasonAnswer, action.conceptUuid);
+    if (response.answers ) {
+      yield put(constantsActions.fetchLabResultsDidNotPerformReasonAnswerSucceeded(response.answers));
+    }
+
+  }
+  catch (e) {
+    yield put(constantsActions.fetchLabResultsDidNotPerformReasonAnswerFailed(e.message));
   }
 }
 
@@ -101,15 +115,73 @@ function* LabResultsDateConcept() {
   }
 }
 
+function* LabResultsTestLocationQuestion() {
+  try {
+
+    let response = yield call(constantsRest.fetchLabResultsTestLocationQuestion);
+    if (response.results.length > 0 ) {
+      yield put(constantsActions.fetchLabResultsTestLocationQuestionSucceeded(response));
+    }
+
+  }
+  catch (e) {
+    yield put(constantsActions.fetchLabResultsTestOrderNumberQuestionFailed(e.message));
+  }
+}
+
+function* LabResultsTestLocationAnswer(action) {
+  try {
+    
+    let response = yield call(constantsRest.fetchLabResultsTestLocationAnswer, action.conceptUuid);
+    if (response.answers) {
+      yield put(constantsActions.fetchLabResultsTestLocationAnswerSucceeded(response.answers));
+    }
+
+  }
+  catch (e) {
+    yield put(constantsActions.fetchLabResultsTestOrderNumberAnswerFailed(e.message));
+  }
+}
+
+function* LabResultsEstimatedCollectedDateQuestion() {
+  try {
+    let response = yield call(constantsRest.fetchLabResultsEstimatedCollectionDateQuestion);
+    if (response.results.length > 0 ) {
+      yield put(constantsActions.fetchLabResultsEstimatedCollectionDateQuestionSucceeded(response));
+    }
+    
+  }
+  catch (e) {
+    yield put(constantsActions.fetchLabResultsEstimatedCollectionDateQuestionFailed(e.message));
+  }
+}
+
+function* LabResultsEstimatedCollectedDateAnswer() {
+  try {
+    let response = yield call(constantsRest.fetchLabResultsEstimatedCollectionDateAnswer);
+    if (response.results.length > 0 ) {
+      yield put(constantsActions.fetchLabResultsEstimatedCollectionDateAnswerSucceeded(response));
+    }
+    
+  }
+  catch (e) {
+    yield put(constantsActions.fetchLabResultsEstimatedCollectionDateAnswerFailed(e.message));
+  }
+}
+
 function* constantsSagas() {
   yield takeLatest(CONSTANTS_TYPES.DATE.REQUESTED, dateAndTimeFormat);
-  yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON.REQUESTED, labResultsDidNotPerformReason);
+  yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_QUESTION.REQUESTED, labResultsDidNotPerformReasonQuestion);
+  yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_ANSWER.REQUESTED, labResultsDidNotPerformReasonAnswer);
   yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_QUESTION.REQUESTED, labResultsDidNotPerformQuestion);
   yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_ANSWER.REQUESTED, labResultsDidNotPerformAnswer);
   yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_ENCOUNTER_TYPE.REQUESTED, labResultsEncounterType);
   yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_TEST_ORDER_NUMBER_CONCEPT.REQUESTED, LabResultsTestOrderNumberConcept);
   yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_DATE_CONCEPT.REQUESTED, LabResultsDateConcept);
+  yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_QUESTION.REQUESTED, LabResultsTestLocationQuestion);
+  yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_ANSWER.REQUESTED, LabResultsTestLocationAnswer);
+  yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_QUESTION.REQUESTED, LabResultsEstimatedCollectedDateQuestion);
+  yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_ANSWER.REQUESTED, LabResultsEstimatedCollectedDateAnswer);
 }
-
 
 export default constantsSagas;

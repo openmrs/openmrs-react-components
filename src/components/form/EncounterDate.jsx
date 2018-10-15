@@ -11,7 +11,7 @@ const maxDateRange = validators.maxDateValue(moment().endOf('day'));
 
 const EncounterDate = (props) => {
 
-  if (props.context.mode === 'edit') {
+  if (props.formContext.mode === 'edit') {
     return (
       <Field
         name="encounter-datetime"
@@ -29,7 +29,7 @@ const EncounterDate = (props) => {
 
 const mapStateToProps = (state, props) => {
   return {
-    value: props.context ? props.context.selector(state, `encounter-datetime`) : null
+    value: props.formContext ? props.formContext.selector(state, `encounter-datetime`) : null
   };
 };
 
