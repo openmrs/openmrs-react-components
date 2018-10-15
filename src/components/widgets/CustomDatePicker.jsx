@@ -30,7 +30,7 @@ class CustomDatePicker extends PureComponent {
     const { input } = this.props;
     if (typeof input !== 'undefined') {
       const { onChange } = input;
-      onChange(moment().format())
+      onChange(moment().startOf('day').format())
     }
   }
 
@@ -49,10 +49,10 @@ class CustomDatePicker extends PureComponent {
     });
     
     if (typeof handleDateChange === 'function') {
-      handleDateChange(field, date.format('YYYY-MM-DD'));
+      handleDateChange(field, date.startOf('day').format('YYYY-MM-DD'));
     } else if (typeof input !== "undefined") {
       const { onChange } = input;
-      onChange(date.format());
+      onChange(date.startOf('day').format());
     }
   }
 
