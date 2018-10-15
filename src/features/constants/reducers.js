@@ -5,8 +5,13 @@ const initialState = {
   labResultsDateConcept: '',
   labResultsDidNotPerformAnswer: '',
   labResultsDidNotPerformQuestion: '',
-  labResultsDidNotPerformReason: null,
+  labResultsDidNotPerformReasonQuestion: '',
+  labResultsDidNotPerformReasonAnswer: {},
   labResultsTestOrderNumberConcept: '',
+  labResultsTestLocationQuestion: '',
+  labResultsTestLocationAnswer: {},
+  labResultsEstimatedCollectionDateQuestion: '',
+  labResultsEstimatedCollectionDateAnswer: '',
   dateAndTimeFormat: '',
 };
 
@@ -60,15 +65,75 @@ export default (state = initialState, action) => {
         }
       };
 
-    case CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON.SUCCEEDED:
+    case CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_QUESTION.SUCCEEDED:
       return Object.assign({}, state, {
-        labResultsDidNotPerformReason: action.payload.results[0].value
+        labResultsTestLocationQuestion: action.payload.results[0].value
       });
-
-    case CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON.FETCH_FAILED:
+    
+    case CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_QUESTION.FETCH_FAILED:
       return {
         error: {
-          message: "Unable to load lab result did not perform reason"
+          message: "Unable to load lab result test location question"
+        }
+      };
+
+    case CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_ANSWER.SUCCEEDED:
+      return Object.assign({}, state, {
+        labResultsTestLocationAnswer: action.payload
+      });
+    
+    case CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_ANSWER.FETCH_FAILED:
+      return {
+        error: {
+          message: "Unable to load lab result test location answer"
+        }
+      };
+    
+    case CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_QUESTION.SUCCEEDED:
+      return Object.assign({}, state, {
+        labResultsEstimatedCollectionDateQuestion: action.payload.results[0].value
+      });
+
+    case CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_QUESTION.FETCH_FAILED:
+      return {
+        error: {
+          message: "Unable to load lab result estimated collection date question"
+        }
+      };
+
+    case CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_ANSWER.SUCCEEDED:
+      return Object.assign({}, state, {
+        labResultsEstimatedCollectionDateAnswer: action.payload.results[0].value
+      });
+
+    case CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_ANSWER.FETCH_FAILED:
+      return {
+        error: {
+          message: "Unable to load lab result estimated collection date answer"
+        }
+      };
+
+    case CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_QUESTION.SUCCEEDED:
+      return Object.assign({}, state, {
+        labResultsDidNotPerformReasonQuestion: action.payload.results[0].value
+      });
+
+    case CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_QUESTION.FETCH_FAILED:
+      return {
+        error: {
+          message: "Unable to load lab result did not perform reason question"
+        }
+      };
+
+    case CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_ANSWER.SUCCEEDED:
+      return Object.assign({}, state, {
+        labResultsDidNotPerformReasonAnswer: action.payload
+      });
+
+    case CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_ANSWER.FETCH_FAILED:
+      return {
+        error: {
+          message: "Unable to load lab result did not perform reason answer"
         }
       };
 

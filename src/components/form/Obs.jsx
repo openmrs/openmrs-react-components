@@ -75,6 +75,7 @@ const Obs = (props) => {
         return (
           <Field
             component={Dropdown}
+            dropDownStyle={props.dropDownStyle}
             list={props.conceptAnswers}
             name={props.name}
             title={props.dropDownTitle}
