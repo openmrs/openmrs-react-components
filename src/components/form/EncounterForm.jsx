@@ -7,6 +7,7 @@ import * as R from 'ramda';
 import FormContext from './FormContext';
 import { formActions } from '../../features/form';
 import { DATA_TYPES } from '../../domain/concept/constants';
+import formUtil from '../../features/form/util';
 
 // TODO extract out utility methods for a making a obs template
 // TODO think about anything we need to do to handle
@@ -23,7 +24,7 @@ class EncounterForm extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    // if we've loaded an encounter, re-initialize
+    // if we've loaded an encounter or any default values, re-initialize
     if ((!prevProps.encounter && this.props.encounter)
       || ( !this.areEqual(this.props.defaultValues, prevProps.defaultValues)) ) {
       this.initialize();
@@ -59,10 +60,10 @@ class EncounterForm extends React.PureComponent {
     if (this.props.encounter && this.props.encounter.obs) {
 
       // TODO update this to handle using form and namespacing
-      existingValues = this.props.encounter.obs
+      existingValues = formUtil.flattenObs(this.props.encounter.obs)
         .filter((o) => o.comment && o.comment.includes("^") && o.concept && o.concept.uuid && o.value)      // filter out any obs with missing information
         .map((o) => ({                                                                                      // map to the key/value pair
-          [`obs|path=${o.comment.split('^')[1]}|concept=${o.concept.uuid}`]:
+          [`obs|path=${o.comment.split('^').slice(1).join('^')}|concept=${o.conceptPath}`]:
             (o.concept.datatype && (o.concept.datatype.uuid === DATA_TYPES['coded'].uuid || o.concept.datatype.uuid === DATA_TYPES['boolean'].uuid)
               ? o.value.uuid : o.value)
         }))

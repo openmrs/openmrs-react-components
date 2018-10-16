@@ -3,6 +3,7 @@ import formActions from '../actions';
 import openmrsFormSagas from '../sagas';
 import encounterRest from '../../../rest/encounterRest';
 import obsRest from '../../../rest/obsRest';
+import moment from "moment";
 
 jest.mock('../../../rest/encounterRest');
 jest.mock('../../../rest/obsRest');
@@ -25,9 +26,10 @@ describe('form sagas', () => {
   it('should create an encounter and issue formSubmittedActionCreator', () => {
 
     const formInstanceId = "form-instance-id";
+    const date = moment().format();
 
     const values =  {
-      'encounter-datetime': "2018-03-21T12:01:00.000-0400",
+      'encounter-datetime': date,
       'obs|path=first-obs|concept=first-obs-uuid': 100 ,
       'obs|path=second-obs|concept=second-obs-uuid': 200
     };
@@ -57,7 +59,7 @@ describe('form sagas', () => {
     };
 
     const expectedEncounterPost = {
-      "encounterDatetime": "2018-03-21T00:00:00-04:00",
+      "encounterDatetime": date,
       "location": "some_location_uuid",
       "encounterProviders": [
         { "provider": "some_provider_uuid",
@@ -179,9 +181,10 @@ describe('form sagas', () => {
   it('should update encounter and issue formSubmittedActionCreator', () => {
 
     const formInstanceId = "form-instance-id";
+    const date = moment().format();
 
     const values =  {
-      'encounter-datetime': "2018-04-25T12:01:00.000-0400",
+      'encounter-datetime': date,
       'obs|path=first-obs|concept=first-obs-uuid': 100 ,
       'obs|path=second-obs|concept=second-obs-uuid': 200
     };
@@ -200,10 +203,13 @@ describe('form sagas', () => {
 
     const encounter = {
       "uuid": "existing_encounter_uuid",
-      "encounterDatetime": "2018-03-21T12:01:00.000-0400",
+      "encounterDatetime": date,
       "obs": [
         {
           "uuid": "existing_obs_uuid",
+          "concept": {
+            "uuid": "existing-obs-concept-uuid"
+          },
           "comment": "form-id^second-obs"
         }
       ]
@@ -211,7 +217,7 @@ describe('form sagas', () => {
 
     const expectedEncounterPost = {
       "uuid": "existing_encounter_uuid",
-      "encounterDatetime": "2018-04-25T00:00:00-04:00",
+      "encounterDatetime": date,
       "obs": [
         { "comment": "form-id^first-obs",
           "concept": "first-obs-uuid",
@@ -269,6 +275,9 @@ describe('form sagas', () => {
       "obs": [
         {
           "uuid": "existing_obs_uuid",
+          "concept": {
+            "uuid": "existing-obs-concept-uuid"
+          },
           "comment": "form-id^second-obs"
         }
       ]
@@ -358,9 +367,10 @@ describe('form sagas', () => {
   it('should not include encounter provider if no encounter role specified', () => {
 
     const formInstanceId = "form-instance-id";
+    const date = moment().format();
 
     const values =  {
-      'encounter-datetime': "2018-03-21T12:01:00.000-0400",
+      'encounter-datetime': date,
       'obs|path=first-obs|concept=first-obs-uuid': 100 ,
       'obs|path=second-obs|concept=second-obs-uuid': 200
     };
@@ -386,7 +396,7 @@ describe('form sagas', () => {
     };
 
     const expectedEncounterPost = {
-      "encounterDatetime": "2018-03-21T00:00:00-04:00",
+      "encounterDatetime": date,
       "location": "some_location_uuid",
       "encounterType": "some_encounter_type_uuid",
       "obs": [
@@ -411,6 +421,88 @@ describe('form sagas', () => {
       encounterType: encounterType,
       location: location,
       provider: provider,
+      visit: visit,
+      formSubmittedActionCreator:
+      formSubmittedActionCreator
+    } ));
+    expect(encounterRest.createEncounter).toHaveBeenCalledTimes(1);
+    expect(encounterRest.createEncounter.mock.calls[0][0]).toMatchObject(expectedEncounterPost);
+
+    expect(sagaTester.getCalledActions()).toContainEqual(formActions.formSubmitSucceeded(formInstanceId, formSubmittedActionCreator));
+    expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitFailed(formInstanceId));
+    expect(formSubmittedActionCreator.mock.calls.length).toBe(1);
+    expect(sagaTester.getCalledActions()).toContainEqual(formSubmittedActionCreator());
+  });
+
+  it('should create an encounter with a nested obs group', () => {
+
+    const formInstanceId = "form-instance-id";
+
+    const date = moment().startOf('day').format();
+
+    const values =  {
+      'encounter-datetime': date,
+      'obs|path=grouping^first-nested-obs|concept=grouping_uuid^first-obs-uuid': 100 ,
+      'obs|path=grouping^second-nested-obs|concept=grouping_uuid^second-obs-uuid': 200,
+      'obs|path=second_grouping^first-nested-obs|concept=second_grouping_uuid^first-obs-uuid': 300 ,
+      'obs|path=second_grouping^second-nested-obs|concept=second_grouping_uuid^second-obs-uuid': 400
+    };
+
+    const patient = {
+      uuid: "some_patient_uuid"
+    };
+
+    const encounterType = {
+      uuid: "some_encounter_type_uuid"
+    };
+
+    const visit = {
+      uuid: "some_visit_uuid"
+    };
+
+    const expectedEncounterPost = {
+      "encounterDatetime": date,
+      "encounterType": "some_encounter_type_uuid",
+      "obs": [
+        {
+          "comment": "form-id^grouping",
+          "concept": "grouping_uuid",
+          "groupMembers":  [
+            { "comment": "form-id^grouping^first-nested-obs",
+              "concept": "first-obs-uuid",
+              "value": 100
+            },
+            { "comment": "form-id^grouping^second-nested-obs",
+              "concept": "second-obs-uuid",
+              "value": 200
+            }
+          ]
+        },
+        {
+          "comment": "form-id^second_grouping",
+          "concept": "second_grouping_uuid",
+          "groupMembers":  [
+            { "comment": "form-id^second_grouping^first-nested-obs",
+              "concept": "first-obs-uuid",
+              "value": 300
+            },
+            { "comment": "form-id^second_grouping^second-nested-obs",
+              "concept": "second-obs-uuid",
+              "value": 400
+            }
+          ]
+        }
+      ],
+      "patient": "some_patient_uuid",
+      "visit": "some_visit_uuid"
+    };
+
+    sagaTester.dispatch(formActions.formSubmitted( {
+      values: values,
+      formId: "form-id",
+      formInstanceId: formInstanceId,
+      patient: patient,
+      encounterType: encounterType,
       visit: visit,
       formSubmittedActionCreator:
       formSubmittedActionCreator

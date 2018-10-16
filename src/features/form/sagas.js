@@ -2,6 +2,7 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import moment from 'moment';
 import FORM_TYPES from './types';
 import formActions from './actions';
+import formUtil from './util';
 import encounterRest from '../../rest/encounterRest';
 import obsRest from '../../rest/obsRest';
 import { FORM_STATES } from "./constants";
@@ -9,40 +10,77 @@ import { FORM_STATES } from "./constants";
 // TODO need to handle fields that aren't obs!
 // TODO this should really pass back something... the id of the created encounter, etc?
 
+// TODO update to use form field and namespace instead of comment when running OpenMRS 1.11+
+
+
 function getPathFromFieldName(fieldName) {
-  return fieldName.split('|')[1].split('=')[1];
+  return fieldName.split('|')[1].split('=')[1].split('^');
 }
 
-function getConceptFromFieldName(fieldName) {
-  return fieldName.split('|')[2].split('=')[1];
+function getConceptPathFromFieldName(fieldName) {
+  return fieldName.split('|')[2].split('=')[1].split('^');
 }
 
-function findExistingObsUuid(formId, path, encounter) {
+function findExistingObsUuid(formId, path, flattenedObs) {
 
-  if (!encounter || !encounter.obs) {
+  if (!flattenedObs) {
     return null;
   }
   else {
-    // TODO update to use form field and namespace instead of comment when running OpenMRS 1.11+
-    const existingObs = encounter.obs.filter(o => o.comment === formId + "^" + path);
-    return existingObs && existingObs.length > 0 ? existingObs[0].uuid : undefined;
+    const existingObs = flattenedObs.find(o => o.comment === formId + "^" + path.join('^'));
+    return existingObs ? existingObs.uuid : undefined;
   }
 
 }
 
-function createObs(value, formId, encounter) {
+function addObs(allObs, value, formId, existingObsFlattened) {
 
-  // TODO update to use form field and namespace instead of comment when running OpenMRS 1.11+
   let path = getPathFromFieldName(value[0]);
-  let concept = getConceptFromFieldName(value[0]);
+  let conceptPath = getConceptPathFromFieldName(value[0]);
   let val = value[1];
-  let existingObsUuid = findExistingObsUuid(formId, path, encounter);
+
+  // create the obs
+  const obs = createObs(val, path, conceptPath[conceptPath.length - 1], formId, existingObsFlattened);
+
+  // figure out where to add it in the tree
+  addObsHelper(allObs, 0, obs, path, conceptPath, formId, existingObsFlattened);
+}
+
+// add the obs to the obs tree, creating any intermediate obs groups as necessary
+function addObsHelper(obsAtLevel, currentLevel, obs, path, concepts, formId, existingObsFlattened) {
+
+  // if at the lowest level, just add
+  if (currentLevel + 1 == path.length) {
+    obsAtLevel.push(obs);
+  }
+  else {
+    // try to find the existing grouping at current level
+    let obsGroup = obsAtLevel.find(o => o.comment === formId + "^" + path.slice(0, currentLevel + 1).join('^'));
+
+    // if the obsGrouping concept doesn't exist, create it
+    if (!obsGroup) {
+      obsGroup = createObs(null, path.slice(0, currentLevel + 1), concepts[currentLevel], formId, existingObsFlattened);
+      obsGroup.groupMembers = [];
+      obsAtLevel.push(obsGroup);
+    }
+
+    // go to the next level
+    addObsHelper(obsGroup.groupMembers, currentLevel + 1, obs, path, concepts, formId, existingObsFlattened);
+  }
+}
+
+function createObs(val, path, concept, formId, existingObsFlattened) {
+
+  let existingObsUuid = findExistingObsUuid(formId, path, existingObsFlattened);
 
   let obs = {
     concept: concept,
-    value: val,
-    comment: formId + "^" + path
+    comment: formId + '^' + path.join('^')
   };
+
+  if (val) {
+    obs.value = val;
+  }
 
   if (existingObsUuid) {
     obs.uuid = existingObsUuid;
@@ -50,6 +88,7 @@ function createObs(value, formId, encounter) {
 
   return obs;
 }
+
 
 function* submit(action) {
 
@@ -59,6 +98,7 @@ function* submit(action) {
 
     let encounter = {};
     let updatedEncounter = {};
+    let existingFlattenedObs = [];
 
     yield put(formActions.setFormState(action.formInstanceId, FORM_STATES.SUBMITTING));
 
@@ -91,27 +131,28 @@ function* submit(action) {
       encounter = {
         uuid: action.encounter.uuid
       };
+
+      // flatten the existing obs to one level
+      existingFlattenedObs = formUtil.flattenObs(action.encounter.obs);
     }
 
-    // TODO do we want to handle the time component at some point
-    // set the encounter datetime, if specified, but ignore the time component
     if (action.values['encounter-datetime']) {
-      encounter.encounterDatetime = moment(action.values['encounter-datetime']).startOf('day').format();
+      encounter.encounterDatetime = moment(action.values['encounter-datetime']).format();
     }
 
     // create the obs to add to the encounter
-    let obs = [];
+    let allObs = [];
 
     if (action.values) {
       Object.entries(action.values)
         .filter(value => value[0].startsWith('obs'))
         .filter(value => value[1])  // filter out any ones with no value
         .forEach((value) => {
-          obs.push(createObs(value, action.formId, action.encounter));
+          addObs(allObs, value, action.formId, existingFlattenedObs);
         });
     }
 
-    encounter.obs = obs;
+    encounter.obs = allObs;
 
     // create encounter
     if (!action.encounter) {
@@ -124,7 +165,7 @@ function* submit(action) {
     // now delete any existing obs if necessary
     let obsToDelete = Object.entries(action.values)
       .filter(value => !value[1])  // any ones without a value
-      .map(value => ({ uuid: findExistingObsUuid(action.formId, getPathFromFieldName(value[0]), action.encounter ) }))  // match to any existing obs
+      .map(value => ({ uuid: findExistingObsUuid(action.formId, getPathFromFieldName(value[0]), existingFlattenedObs ) }))  // match to any existing obs
       .filter(obs => obs.uuid); // only ones with matching uuid
 
     // we do this in a standard for instead of for-each because haven't figured out how to handle nested generator functions yet
