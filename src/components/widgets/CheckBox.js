@@ -17,11 +17,11 @@ class CheckBox extends PureComponent {
     }
   }
 
-  handleToggle(e) {
+  handleToggle(e, checkBoxValue) {
     const { input } = this.props;
     if (typeof input !== 'undefined') {
       if (e.target.checked) {
-        this.props.input.onChange(e.target.value);
+        this.props.input.onChange(checkBoxValue);
       } else {
         this.props.input.onChange('');
       }
@@ -33,8 +33,7 @@ class CheckBox extends PureComponent {
     return (
       <Checkbox
         {...input}
-        onChange={this.handleToggle}
-        value={checkBoxValue}
+        onChange={(e) => this.handleToggle(e, checkBoxValue)}
       >{title}</Checkbox>
     );
   }

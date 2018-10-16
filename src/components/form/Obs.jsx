@@ -12,6 +12,8 @@ import CustomDatePicker from '../widgets/CustomDatePicker';
 import withFormContext from './withFormContext';
 import withObsGroupContext from './withObsGroupContext';
 
+import '../../../assets/css/obs.css';
+
 // TODO perhaps a little refactoring to have all these if/thens... maybe make underlying ObsDate, ObsCoded, ObsNumeric, worth it?
 const Obs = (props) => {
 
@@ -48,7 +50,7 @@ const Obs = (props) => {
     }
     else {
       return (
-        <span>{moment(new Date(props.value)).format(DATE_FORMAT)}</span>
+        <span className="obs-edit-value">{moment(new Date(props.value)).format(DATE_FORMAT)}</span>
       );
     }
   } else if (props.widget === 'checkbox') {
@@ -59,13 +61,14 @@ const Obs = (props) => {
           checkBoxValue={props.conceptAnswer}
           component={CheckBox}
           name={props.name}
+          onBlur={e => { e.preventDefault(); }}
           title={props.checkBoxTitle}
         />
       );
     }
     else {
       return (
-        <span>{props.value ? 'X' : ''}</span>
+        <span className="obs-edit-value">{props.value ? 'X' : ''}</span>
       );
     }
   }
@@ -75,6 +78,7 @@ const Obs = (props) => {
         return (
           <Field
             component={Dropdown}
+            defaultValue={props.defaultValue}
             dropDownStyle={props.dropDownStyle}
             list={props.conceptAnswers}
             name={props.name}
@@ -84,7 +88,7 @@ const Obs = (props) => {
       }
       else {
         return (
-          <span>{conceptAnswerDisplay(props.value, props.conceptAnswers)}</span>
+          <span className="obs-edit-value">{conceptAnswerDisplay(props.value, props.conceptAnswers)}</span>
         );
       }
     }
@@ -100,7 +104,10 @@ const Obs = (props) => {
       }
       else {
         return (
-          <span>{conceptAnswerDisplay(props.value, props.conceptAnswers)}</span>
+          <span
+            className="obs-edit-value"
+            style={{}}
+          >{conceptAnswerDisplay(props.value, props.conceptAnswers)}</span>
         );
       }
     }
@@ -120,7 +127,9 @@ const Obs = (props) => {
     }
     else {
       return (
-        <span>{props.value}</span>
+        <span
+          className="obs-edit-field-input-value"
+        >{props.value}</span>
       );
     }
   }
@@ -152,7 +161,7 @@ Obs.defaultProps = {
 // utility method to allow us to accept a string uuid or an object for a concept
 const getUuid = (concept) => {
   return concept.uuid ? concept.uuid : concept;
-}
+};
 
 const mapStateToProps = (state, props) => {
 
