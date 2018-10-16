@@ -35,7 +35,7 @@ const api = {
       }
     }),
 
-  getEncounterByPatient: (patient, encounterType) => axiosInstance.get(`encounter/?patient=${patient}&encounterType=${encounterType}&v=custom:${DEFAULT_ENCOUNTER_REP}`)
+  fetchEncountersByPatient: (patient, encounterType) => axiosInstance.get(`encounter/?patient=${patient}&encounterType=${encounterType}&v=custom:${DEFAULT_ENCOUNTER_REP}`)
     .then((response) => {
       if (response.status !== 200) {
         throw response;

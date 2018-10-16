@@ -7,7 +7,7 @@ import encounterApi from "../../rest/encounterRest";
 function* fetchEncounters(action) {
   try {
 
-    let response = yield call(encounterApi.getEncounterByPatient, {
+    let response = yield call(encounterApi.fetchEncountersByPatient, {
       patient: action.patient,
       encounterType: action.encounterType
     });
