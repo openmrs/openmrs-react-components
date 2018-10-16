@@ -1,10 +1,10 @@
 import { call, put, takeLatest } from "redux-saga/effects";
-import ENCOUNTER_SEARCH_TYPES from "./types";
-import encounterSearchActions from './actions';
+import FETCH_ENCOUNTERS_TYPES from "./types";
+import fetchEncountersActions from './actions';
 import encounterApi from "../../rest/encounterRest";
 
 
-function* encounterSearch(action) {
+function* fetchEncounters(action) {
   try {
 
     let response = yield call(encounterApi.getEncounterByPatient, {
@@ -12,16 +12,16 @@ function* encounterSearch(action) {
       encounterType: action.encounterType
     });
 
-    yield put(encounterSearchActions.encounterSearchSucceeded(response.results));
+    yield put(fetchEncountersActions.fetchEncountersSucceeded(response.results));
   }
   catch (e) {
-    yield put(encounterSearchActions.encounterSearchFailed(e.message));
+    yield put(fetchEncountersActions.fetchEncountersFailed(e.message));
   }
 }
 
-function* encounterSearchSagas() {
-  yield takeLatest(ENCOUNTER_SEARCH_TYPES.REQUESTED, encounterSearch);
+function* fetchEncountersSagas() {
+  yield takeLatest(FETCH_ENCOUNTERS_TYPES.REQUESTED, fetchEncounters);
 }
 
 
-export default encounterSearchSagas;
+export default fetchEncountersSagas;

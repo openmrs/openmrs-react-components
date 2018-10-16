@@ -1,23 +1,23 @@
-import ENCOUNTER_SEARCH_TYPES from "./types";
+import FETCH_ENCOUNTERS_TYPES from "./types";
 
-const encounterSearch = (patient, encounterType) => ( {
-  type: ENCOUNTER_SEARCH_TYPES.REQUESTED,
+const fetchEncounters = (patient, encounterType) => ( {
+  type: FETCH_ENCOUNTERS_TYPES.REQUESTED,
   patient: patient,
   encounterType: encounterType
 } );
 
-const encounterSearchSucceeded = (results) => ( {
-  type: ENCOUNTER_SEARCH_TYPES.SUCCEEDED,
+const fetchEncountersSucceeded = (results) => ( {
+  type: FETCH_ENCOUNTERS_TYPES.SUCCEEDED,
   results: results
 } );
 
-const encounterSearchFailed = (message) => ( {
-  type: ENCOUNTER_SEARCH_TYPES.FAILED,
+const fetchEncountersFailed = (message) => ( {
+  type: FETCH_ENCOUNTERS_TYPES.FAILED,
   message: message
 } );
 
 export default {
-  encounterSearch,
-  encounterSearchSucceeded,
-  encounterSearchFailed
+  fetchEncounters,
+  fetchEncountersSucceeded,
+  fetchEncountersFailed
 };

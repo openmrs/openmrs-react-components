@@ -1,2 +1,2 @@
-export { default as ENCOUNTER_SEARCH_TYPES } from './types';
-export { default as encounterSearchActions } from './actions';
+export { default as FETCH_ENCOUNTERS_TYPES } from './types';
+export { default as fetchEncountersActions } from './actions';
