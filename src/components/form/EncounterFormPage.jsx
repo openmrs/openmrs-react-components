@@ -91,6 +91,10 @@ class EncounterFormPage extends React.PureComponent {
   handleCancel() {
     if (this.getForm().state === FORM_STATES.EDITING) {
       this.exitEditMode();
+      // if no existing encounter (ie "Enter" mode) redirect to any back link
+      if (!this.props.encounter && this.props.backLink) {
+        this.props.dispatch(push(this.props.backLink));
+      }
     }
   }
 
