@@ -24,6 +24,7 @@ class EncounterFormPage extends React.PureComponent {
     this.enterEditMode = this.enterEditMode.bind(this);
     this.exitEditMode = this.exitEditMode.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
+    this.handleBack = this.handleBack.bind(this);
 
     if (this.props.formInstanceId) {
       this.formInstanceId = this.props.formInstanceId;
@@ -88,7 +89,12 @@ class EncounterFormPage extends React.PureComponent {
   }
 
   handleCancel() {
-    this.exitEditMode();
+    if (this.getForm().state === FORM_STATES.EDITING) {
+      this.exitEditMode();
+    }
+  }
+
+  handleBack() {
     if (this.props.backLink) {
       this.props.dispatch(push(this.props.backLink));
     }
@@ -137,7 +143,9 @@ class EncounterFormPage extends React.PureComponent {
                   <Col sm={2} xsOffset={2}>
                     {this.getForm().state === FORM_STATES.EDITING ?
                       (<Cancel onClick={this.handleCancel}/>)
-                      : (null)
+                      : this.props.backLink ?
+                        (<Button onClick={this.handleBack} bsSize="large">Back</Button>)
+                        : (null)
                     }
                   </Col>
                   <Col sm={2} xsOffset={1}>

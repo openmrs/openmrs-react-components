@@ -132,7 +132,7 @@ function* submit(action) {
         uuid: action.encounter.uuid
       };
 
-      // flatten the existing obs to one level
+      // flatten the existing obs to one level (for reference)
       existingFlattenedObs = formUtil.flattenObs(action.encounter.obs);
     }
 
