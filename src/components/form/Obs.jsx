@@ -68,7 +68,7 @@ const Obs = (props) => {
     }
     else {
       return (
-        <span className="obs-edit-value">{props.value ? 'X' : ''}</span>
+        <span className="obs-checkbox-edit-value">{`${props.checkBoxTitle}: `} {props.value ? 'X' : ''}</span>
       );
     }
   }

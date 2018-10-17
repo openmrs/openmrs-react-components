@@ -36,12 +36,18 @@ class Dropdown extends PureComponent {
 
   render() {
     const { ...otherProps } = this.props;
+    let dropDownValue = '';
+    if (typeof otherProps.input !== "undefined") {
+      dropDownValue = otherProps.input.value;
+    }
+    
     return (
       <span className={otherProps.className}>
         <span className={otherProps.labelClassName}>{otherProps.label}</span>
         <select
           onChange={this.handleChange}
           style={otherProps.dropDownStyle || dropDownStyle}
+          value={dropDownValue}
         >
           {this.getListData().map(
             item => !!item.uuid ? (
