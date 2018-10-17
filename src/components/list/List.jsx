@@ -72,6 +72,7 @@ class List extends React.Component {
     return (
       <div>
         <h3><Label>{this.props.title}</Label></h3>
+        <h3><Label>{''}</Label></h3>
         <DataGrid
           columnDefs={this.props.columnDefs}
           rowData={this.applyFilters(this.props.rowData, this.props.filters)}

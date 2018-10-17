@@ -85,7 +85,7 @@ class DataGrid extends React.Component {
         }}
       >
         <label>
-          Search:
+          Search: {' '}
           <input type="text" onChange={this.filterGrid}/>
         </label>
         <AgGridReact
