@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import { connect } from "react-redux";
 import { gridActions } from '../../features/grid';
+import '../../../assets/css/omrsGrid.css';
 import 'ag-grid/dist/styles/ag-grid.css';
 import 'ag-grid/dist/styles/ag-theme-balham.css';
 
@@ -21,6 +22,10 @@ class DataGrid extends React.Component {
     if (this.props.onRowCount && this.gridApi) {
       this.props.onRowCount(this.gridApi.getModel().getRowCount());
     }
+  }
+
+  onGridSizeChanged() {
+    this.autoSizeAll();
   }
 
   autoSizeAll() {
@@ -80,9 +85,7 @@ class DataGrid extends React.Component {
       // the consuming app should provide a wrapping style as described here: https://www.ag-grid.com/react-more-details/
       <div
         id="omrsGrid"
-        style={{
-          height: '600px'
-        }}
+        className="grid-wrapper"
       >
         <label>
           Search: {' '}
@@ -94,12 +97,14 @@ class DataGrid extends React.Component {
           enableFiltering={ true }
           enableSorting
           id="omrsGrid"
+          style="width: 100%; height: 100%;"
           onGridReady={this.onGridReady.bind(this)}
           onSelectionChanged={this.onSelectionChanged.bind(this)}
           rowClassRules="rowClassRules"
           rowData={this.props.rowData}
           onRowDataChanged={ this.onDataRowChanged.bind(this) }
           onFilterChanged = { this.onFilterChanged.bind(this) }
+          onGridSizeChanged = { this.onGridSizeChanged.bind(this) }
           rowSelection={this.state.rowSelection}
         />
       </div>
