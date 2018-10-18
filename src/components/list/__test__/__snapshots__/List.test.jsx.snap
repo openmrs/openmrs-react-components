@@ -127,12 +127,8 @@ exports[`Component: List renders properly 1`] = `
           rowData={Array []}
         >
           <div
+            className="grid-wrapper"
             id="omrsGrid"
-            style={
-              Object {
-                "height": "600px",
-              }
-            }
           >
             <label>
               Search: 
@@ -174,11 +170,13 @@ exports[`Component: List renders properly 1`] = `
               id="omrsGrid"
               onFilterChanged={[Function]}
               onGridReady={[Function]}
+              onGridSizeChanged={[Function]}
               onRowDataChanged={[Function]}
               onSelectionChanged={[Function]}
               rowClassRules="rowClassRules"
               rowData={Array []}
               rowSelection="single"
+              style="width: 100%; height: 100%;"
             >
               <div
                 style={
