@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: CustomDatePicker renders properly 1`] = `
+<div>
+  <div
+    className="react-datepicker-wrapper"
+  >
+    <div
+      className="react-datepicker__input-container"
+    >
+      <span>
+        <span
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "space-around",
+            }
+          }
+        >
+          <span
+            className=""
+          >
+            
+          </span>
+          <input
+            className="form-control"
+            id={undefined}
+            placeholder=""
+            style={
+              Object {
+                "marginRight": "5px",
+                "width": "100px",
+              }
+            }
+            type="text"
+            value="10/19/2018"
+          />
+        </span>
+      </span>
+    </div>
+  </div>
+</div>
+`;
