@@ -123,7 +123,7 @@ const fetchLabResultsTestLocationQuestionSucceeded = (payload) => ( {
 } );
 
 const fetchLabResultsTestLocationQuestionFailed = (message) => ( {
-  type: CONSTANTS_TYPES.LAB_RESULT_TEST_LOCATION_QUESTION.FAILED,
+  type: CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_QUESTION.FAILED,
   error: {
     message: message
   }
@@ -140,7 +140,7 @@ const fetchLabResultsTestLocationAnswerSucceeded = (payload) => ( {
 } );
 
 const fetchLabResultsTestLocationAnswerFailed = (message) => ( {
-  type: CONSTANTS_TYPES.LAB_RESULT_TEST_LOCATION_ANSWER.FAILED,
+  type: CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_ANSWER.FAILED,
   error: {
     message: message
   }
