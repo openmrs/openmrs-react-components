@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: FieldInput renders properly 1`] = `
+<div>
+  <div>
+    <input
+      className="form-control"
+      id={undefined}
+      placeholder="mockplaceholder"
+      type="mockType"
+    />
+  </div>
+</div>
+`;
