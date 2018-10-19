@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormControl } from 'react-bootstrap';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../../../assets/css/CustomDatePicker.css'
+import '../../../assets/css/widgets.css';
+import {DATE_FORMAT} from "../../constants";
 
 
 const styles = {
@@ -103,13 +105,24 @@ class CustomDatePicker extends PureComponent {
       }
       </span>
     );
-    return (
+
+    const edit = (
       <DatePicker
         customInput={<DateDisplayComponent />}
         onChange={this.handleChange}
         selected={selectedDate}
         excludeDates={hasInput && [moment().add(7, "days")]}
       />
+    );
+
+    const view = (
+      <span className="datepicker-view">{moment(new Date(otherProps.displayValue)).format(DATE_FORMAT)}</span>
+    )
+
+    return (
+      <div>
+        {!otherProps.mode || otherProps.mode === 'edit' ? edit : view}
+      </div>
     );
   }
 }

@@ -2,6 +2,26 @@
 
 const util = {
 
+  conceptAnswerDisplay: (value, conceptAnswers) => {
+
+    if (value) {
+      const matchingAnswer = conceptAnswers.find(ans => ans.uuid === value);
+
+      if (matchingAnswer.display) {
+        return matchingAnswer.display;
+      }
+
+      if (matchingAnswer.name) {
+        return matchingAnswer.name.display ? matchingAnswer.name.display : matchingAnswer.name;
+      }
+
+      return null;
+    }
+    else {
+      return null;
+    }
+  },
+
   // TODO this could be used in more than forms, potentially moved somewhere else?
   flattenObs: (obs, acc = [], path = []) => {
 

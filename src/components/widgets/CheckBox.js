@@ -21,18 +21,30 @@ class CheckBox extends PureComponent {
   }
 
   render() {
-    const { title, input, checkBoxValue } = this.props;
+
+    const { title, input, checkBoxValue, checkBoxTitle, mode, displayValue } = this.props;
+
     let checkedStatus = false;
     if (typeof input !== "undefined") {
       checkedStatus = !!(input.value);
     }
-    
-    return (
+
+    const edit = (
       <Checkbox
         {...input}
         checked={checkedStatus}
         onChange={(e) => this.handleToggle(e, checkBoxValue)}
       >{title}</Checkbox>
+    );
+
+    const view = (
+      <span>{`${checkBoxTitle}: `} {displayValue ? 'X' : ''}</span>
+    );
+
+    return (
+      <div>
+        {!mode || mode === 'edit' ? edit : view}
+      </div>
     );
   }
 }
@@ -43,8 +55,11 @@ CheckBox.defaultProps = {
 };
 
 CheckBox.propTypes = {
-  checkBoxValue: PropTypes.string.isRequired,
+  checkBoxTitle: PropTypes.string,
+  checkBoxValue: PropTypes.object.isRequired,
+  displayValue: PropTypes.object,
   input: PropTypes.object,
+  mode: PropTypes.string,
   title: PropTypes.string.isRequired,
 };
 

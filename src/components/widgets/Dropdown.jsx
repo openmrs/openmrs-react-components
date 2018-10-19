@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import formUtil from "../../features/form/util";
+import '../../../assets/css/widgets.css';
 
 const dropDownStyle = {
   width: '100%',
@@ -41,7 +43,7 @@ class Dropdown extends PureComponent {
       dropDownValue = otherProps.input.value;
     }
     
-    return (
+    const edit = (
       <span className={otherProps.className}>
         <span className={otherProps.labelClassName}>{otherProps.label}</span>
         <select
@@ -66,6 +68,21 @@ class Dropdown extends PureComponent {
           )}
         </select>
       </span>
+    );
+
+    const view = (
+      <span
+        className="dropdown-view"
+        style={{}}
+      >
+        {formUtil.conceptAnswerDisplay(otherProps.displayValue, otherProps.list)}
+      </span>
+    );
+
+    return (
+      <div>
+        {!otherProps.mode || otherProps.mode === 'edit' ? edit : view}
+      </div>
     );
   }
 }

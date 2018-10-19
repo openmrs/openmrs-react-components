@@ -10,21 +10,15 @@ import validators from '../../features/form/validations';
 const maxDateRange = validators.maxDateValue(moment().endOf('day'));
 
 const EncounterDate = (props) => {
-
-  if (props.formContext.mode === 'edit') {
-    return (
-      <Field
-        name="encounter-datetime"
-        component={CustomDatePicker}
-        validate={[maxDateRange]}
-      />
-    );
-  }
-  else {
-    return(
-      <span>{moment(new Date(props.value)).format(DATE_FORMAT)}</span>
-    );
-  }
+  return (
+    <Field
+      displayValue={props.value}
+      mode={props.formContext.mode}
+      name="encounter-datetime"
+      component={CustomDatePicker}
+      validate={[maxDateRange]}
+    />
+  );
 };
 
 const mapStateToProps = (state, props) => {

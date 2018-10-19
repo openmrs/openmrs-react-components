@@ -52,10 +52,3 @@
     border-radius: 0px;
     border-width: 3px;
 }
-.field-error {
-     color: red;
-     font-weight: bold;
- }
-.field-warning {
-    color: orange;
-}

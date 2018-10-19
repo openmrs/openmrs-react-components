@@ -1,0 +1,29 @@
+
+.datepicker-view {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.field-input-view {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.button-group-view {
+    display: inline-block;
+    margin-top: 8px;
+}
+
+.dropdown-view {
+    display: inline-block;
+    margin-top: 8px;
+}
+
+.field-error {
+    color: red;
+    font-weight: bold;
+}
+
+.field-warning {
+    color: orange;
+}

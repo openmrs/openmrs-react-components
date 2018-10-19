@@ -479,10 +479,21 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                     type="text"
                                   >
                                     <div>
-                                      <div>
-                                        <FormControl
-                                          bsClass="form-control"
-                                          componentClass="input"
+                                      <FormControl
+                                        bsClass="form-control"
+                                        componentClass="input"
+                                        name="username"
+                                        onBlur={[Function]}
+                                        onChange={[Function]}
+                                        onDragStart={[Function]}
+                                        onDrop={[Function]}
+                                        onFocus={[Function]}
+                                        placeholder="Username"
+                                        type="text"
+                                        value=""
+                                      >
+                                        <input
+                                          className="form-control"
                                           name="username"
                                           onBlur={[Function]}
                                           onChange={[Function]}
@@ -492,21 +503,9 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                           placeholder="Username"
                                           type="text"
                                           value=""
-                                        >
-                                          <input
-                                            className="form-control"
-                                            name="username"
-                                            onBlur={[Function]}
-                                            onChange={[Function]}
-                                            onDragStart={[Function]}
-                                            onDrop={[Function]}
-                                            onFocus={[Function]}
-                                            placeholder="Username"
-                                            type="text"
-                                            value=""
-                                          />
-                                        </FormControl>
-                                      </div>
+                                        />
+                                      </FormControl>
+                                      <div />
                                     </div>
                                   </FieldInput>
                                 </ConnectedField>
@@ -772,10 +771,21 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                     type="password"
                                   >
                                     <div>
-                                      <div>
-                                        <FormControl
-                                          bsClass="form-control"
-                                          componentClass="input"
+                                      <FormControl
+                                        bsClass="form-control"
+                                        componentClass="input"
+                                        name="password"
+                                        onBlur={[Function]}
+                                        onChange={[Function]}
+                                        onDragStart={[Function]}
+                                        onDrop={[Function]}
+                                        onFocus={[Function]}
+                                        placeholder="Password"
+                                        type="password"
+                                        value=""
+                                      >
+                                        <input
+                                          className="form-control"
                                           name="password"
                                           onBlur={[Function]}
                                           onChange={[Function]}
@@ -785,21 +795,9 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                           placeholder="Password"
                                           type="password"
                                           value=""
-                                        >
-                                          <input
-                                            className="form-control"
-                                            name="password"
-                                            onBlur={[Function]}
-                                            onChange={[Function]}
-                                            onDragStart={[Function]}
-                                            onDrop={[Function]}
-                                            onFocus={[Function]}
-                                            placeholder="Password"
-                                            type="password"
-                                            value=""
-                                          />
-                                        </FormControl>
-                                      </div>
+                                        />
+                                      </FormControl>
+                                      <div />
                                     </div>
                                   </FieldInput>
                                 </ConnectedField>
