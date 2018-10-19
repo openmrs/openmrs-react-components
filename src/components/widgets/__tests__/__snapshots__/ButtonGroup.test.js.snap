@@ -1,30 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component: ButtonGroup renders properly 1`] = `
-<div
-  className="btn-group btn-group-justified"
-  data-toggle="buttons"
->
-  <label
-    className="btn btn-default"
-    disabled={false}
-    style={
-      Object {
-        "whiteSpace": "normal",
-      }
-    }
-    type="button"
+<div>
+  <div
+    className="btn-group btn-group-justified"
+    data-toggle="buttons"
   >
-    <input
-      autoComplete="off"
-      checked={false}
+    <label
+      className="btn btn-default"
       disabled={false}
-      name="mockname"
-      onChange={[Function]}
-      type="radio"
-      value="1234"
-    />
-    mockName
-  </label>
+      style={
+        Object {
+          "whiteSpace": "normal",
+        }
+      }
+      type="button"
+    >
+      <input
+        autoComplete="off"
+        checked={false}
+        disabled={false}
+        name="mockname"
+        onChange={[Function]}
+        type="radio"
+        value="1234"
+      />
+      mockName
+    </label>
+  </div>
 </div>
 `;

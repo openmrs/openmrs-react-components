@@ -1,20 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component: CheckBox renders properly 1`] = `
-<div
-  className="checkbox"
-  style={undefined}
->
-  <label
-    title=""
+<div>
+  <div
+    className="checkbox"
+    style={undefined}
   >
-    <input
-      checked={false}
-      disabled={false}
-      onChange={[Function]}
-      type="checkbox"
-    />
-    
-  </label>
+    <label
+      title=""
+    >
+      <input
+        checked={false}
+        disabled={false}
+        onChange={[Function]}
+        type="checkbox"
+      />
+      
+    </label>
+  </div>
 </div>
 `;
