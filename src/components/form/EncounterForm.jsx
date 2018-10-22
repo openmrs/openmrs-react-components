@@ -61,8 +61,9 @@ class EncounterForm extends React.PureComponent {
     // if there are any default values, create an object of default values
     if (this.props.defaultValues) {
       defaultValues = this.props.defaultValues
+        .filter((v) => v.type === 'obs')   //  only supporting obs at this point
         .map((v) => ({
-          [`${v.type}|path=${v.path}|concept=${v.concept}`]: v.value
+          [formUtil.obsFieldName(v.path, v.conceptPath ? v.conceptPath : v.concept)]: v.value
         }))
         .reduce(function(acc, item) {                                                                  // reduce array to single object
           var key = Object.keys(item)[0];
