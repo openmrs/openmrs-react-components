@@ -95,7 +95,7 @@ class EncounterForm extends React.PureComponent {
 
   render() {
 
-    const { blur, handleSubmit, mode, reset, submitting, formInstanceId, dispatch } = this.props;
+    const { blur, handleSubmit, mode, reset, submitting, formInstanceId, valid } = this.props;
 
     // see: https://tickets.pih-emr.org/browse/WOR-173
     // horrible hack used to get around: https://github.com/erikras/redux-form/issues/3466
@@ -109,7 +109,8 @@ class EncounterForm extends React.PureComponent {
       mode: mode,
       reset: customReset,
       selector: formValueSelector(formInstanceId),
-      submitting: submitting
+      submitting: submitting,
+      valid: valid
     };
 
     return (
