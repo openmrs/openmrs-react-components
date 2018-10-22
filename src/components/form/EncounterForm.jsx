@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { reduxForm, formValueSelector } from 'redux-form';
+import { reduxForm, formValueSelector, Field } from 'redux-form';
 import { Form } from 'react-bootstrap';
 import * as R from 'ramda';
 import FormContext from './FormContext';
@@ -114,11 +114,19 @@ class EncounterForm extends React.PureComponent {
 
   render() {
 
-    const { handleSubmit, mode, reset, submitting, formInstanceId } = this.props;
+    const { blur, handleSubmit, mode, reset, submitting, formInstanceId, dispatch } = this.props;
+
+    // see: https://tickets.pih-emr.org/browse/WOR-173
+    // horrible hack used to get around: https://github.com/erikras/redux-form/issues/3466
+    // workaround taken from: https://github.com/modysseus/redux-registration-form-validation
+    // hopefully, we can eventually remove the this and the _validate field below
+    const customReset = () => {
+      return reset() && blur('_validate', Math.random());
+    };
 
     const context = {
       mode: mode,
-      reset: reset,
+      reset: customReset,
       selector: formValueSelector(formInstanceId),
       submitting: submitting
     };
@@ -127,6 +135,12 @@ class EncounterForm extends React.PureComponent {
       <Form horizontal onSubmit={handleSubmit(this.onSubmit)}>
         <FormContext.Provider value={context} >
           {this.props.children}
+          <Field
+            name="_validate"
+            type="text"
+            component={() => <div style={{ display: 'none' }} />}
+            label=""
+          />
         </FormContext.Provider>
       </Form>
     );
