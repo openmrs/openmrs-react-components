@@ -26,30 +26,11 @@ class EncounterForm extends React.PureComponent {
   componentDidUpdate(prevProps) {
     // if we've loaded an encounter or any default values, re-initialize
     if ((!prevProps.encounter && this.props.encounter)
-      || ( !this.areEqual(this.props.defaultValues, prevProps.defaultValues)) ) {
+      || ( !formUtil.areEqual(this.props.defaultValues, prevProps.defaultValues)) ) {
       this.initialize();
     }
 
   };
-
-  areEqual(array1, array2) {
-    let equal =false;
-    let json1 = null;
-    let json2 = null;
-    if ( array1 === null && array2 === null) {
-      equal = true;
-    }
-    if (array1 !== null ) {
-      json1 = JSON.stringify(array1)
-    }
-    if (array2 !== null ) {
-      json2 = JSON.stringify(array1)
-    }
-    if (json1 === json2) {
-      equal = true;
-    }
-    return equal;
-  }
 
   initialize() {
 
