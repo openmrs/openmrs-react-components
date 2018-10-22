@@ -2,6 +2,8 @@
 
 const util = {
 
+  obsFieldName: (path, concepts) => `obs|path=${path}|conceptPath=${concepts}`,
+
   conceptAnswerDisplay: (value, conceptAnswers) => {
 
     if (value) {

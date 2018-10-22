@@ -44,7 +44,7 @@ class EncounterForm extends React.PureComponent {
       existingValues = formUtil.flattenObs(this.props.encounter.obs)
         .filter((o) => o.comment && o.comment.includes("^") && o.concept && o.concept.uuid && o.value)      // filter out any obs with missing information
         .map((o) => ({                                                                                      // map to the key/value pair
-          [`obs|path=${o.comment.split('^').slice(1).join('^')}|concept=${o.conceptPath}`]:
+          [formUtil.obsFieldName(o.comment.split('^').slice(1).join('^'), o.conceptPath)]:
             (o.concept.datatype && (o.concept.datatype.uuid === DATA_TYPES['coded'].uuid || o.concept.datatype.uuid === DATA_TYPES['boolean'].uuid)
               ? o.value.uuid : o.value)
         }))
