@@ -1,23 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component: Dropdown renders properly 1`] = `
-<span
-  className=""
->
+<div>
   <span
     className=""
   >
-    
-  </span>
-  <select
-    onChange={[Function]}
-    style={
-      Object {
-        "height": "45px",
-        "width": "100%",
+    <span
+      className=""
+    >
+      
+    </span>
+    <select
+      onChange={[Function]}
+      style={
+        Object {
+          "height": "45px",
+          "width": "100%",
+        }
       }
-    }
-    value=""
-  />
-</span>
+      value=""
+    />
+  </span>
+</div>
 `;

@@ -30,8 +30,8 @@ describe('form sagas', () => {
 
     const values =  {
       'encounter-datetime': date,
-      'obs|path=first-obs|concept=first-obs-uuid': 100 ,
-      'obs|path=second-obs|concept=second-obs-uuid': 200
+      'obs|path=first-obs|conceptPath=first-obs-uuid': 100 ,
+      'obs|path=second-obs|conceptPath=second-obs-uuid': 200
     };
 
     const patient = {
@@ -107,8 +107,8 @@ describe('form sagas', () => {
 
     const formInstanceId = "form-instance-id";
 
-    const values =  { 'obs|path=first-obs|concept=first-obs-uuid': 100 ,
-      'obs|path=second-obs|concept=second-obs-uuid': 200 }  ;
+    const values =  { 'obs|path=first-obs|conceptPath=first-obs-uuid': 100 ,
+      'obs|path=second-obs|conceptPath=second-obs-uuid': 200 }  ;
 
     const patient = {
       uuid: "some_patient_uuid"
@@ -144,8 +144,8 @@ describe('form sagas', () => {
 
     const anotherFormSubmittedActionCreator = jest.fn(() => { return { type:'ANOTHER_ACTION_TYPE' };});
 
-    const values =  { 'obs|path=first-obs|concept=first-obs-uuid': 100 ,
-      'obs|path=second-obs|concept=second-obs-uuid': 200 }  ;
+    const values =  { 'obs|path=first-obs|conceptPath=first-obs-uuid': 100 ,
+      'obs|path=second-obs|conceptPath=second-obs-uuid': 200 }  ;
 
     const patient = {
       uuid: "some_patient_uuid"
@@ -185,8 +185,8 @@ describe('form sagas', () => {
 
     const values =  {
       'encounter-datetime': date,
-      'obs|path=first-obs|concept=first-obs-uuid': 100 ,
-      'obs|path=second-obs|concept=second-obs-uuid': 200
+      'obs|path=first-obs|conceptPath=first-obs-uuid': 100 ,
+      'obs|path=second-obs|conceptPath=second-obs-uuid': 200
     };
 
     const patient = {
@@ -255,8 +255,8 @@ describe('form sagas', () => {
 
     const formInstanceId = "form-instance-id";
 
-    const values =  { 'obs|path=first-obs|concept=first-obs-uuid': 100 ,
-      'obs|path=second-obs|concept=second-obs-uuid': "" }  ;
+    const values =  { 'obs|path=first-obs|conceptPath=first-obs-uuid': 100 ,
+      'obs|path=second-obs|conceptPath=second-obs-uuid': "" }  ;
 
     const patient = {
       uuid: "some_patient_uuid"
@@ -319,8 +319,8 @@ describe('form sagas', () => {
 
     const formInstanceId = "form-instance-id";
 
-    const values =  { 'obs|path=first-obs|concept=first-obs-uuid': 100 ,
-      'obs|path=second-obs|concept=second-obs-uuid': "" }  ;
+    const values =  { 'obs|path=first-obs|conceptPath=first-obs-uuid': 100 ,
+      'obs|path=second-obs|conceptPath=second-obs-uuid': "" }  ;
 
     const patient = {
       uuid: "some_patient_uuid"
@@ -371,8 +371,8 @@ describe('form sagas', () => {
 
     const values =  {
       'encounter-datetime': date,
-      'obs|path=first-obs|concept=first-obs-uuid': 100 ,
-      'obs|path=second-obs|concept=second-obs-uuid': 200
+      'obs|path=first-obs|conceptPath=first-obs-uuid': 100 ,
+      'obs|path=second-obs|conceptPath=second-obs-uuid': 200
     };
 
     const patient = {
@@ -442,10 +442,10 @@ describe('form sagas', () => {
 
     const values =  {
       'encounter-datetime': date,
-      'obs|path=grouping^first-nested-obs|concept=grouping_uuid^first-obs-uuid': 100 ,
-      'obs|path=grouping^second-nested-obs|concept=grouping_uuid^second-obs-uuid': 200,
-      'obs|path=second_grouping^first-nested-obs|concept=second_grouping_uuid^first-obs-uuid': 300 ,
-      'obs|path=second_grouping^second-nested-obs|concept=second_grouping_uuid^second-obs-uuid': 400
+      'obs|path=grouping^first-nested-obs|conceptPath=grouping_uuid^first-obs-uuid': 100 ,
+      'obs|path=grouping^second-nested-obs|conceptPath=grouping_uuid^second-obs-uuid': 200,
+      'obs|path=second_grouping^first-nested-obs|conceptPath=second_grouping_uuid^first-obs-uuid': 300 ,
+      'obs|path=second_grouping^second-nested-obs|conceptPath=second_grouping_uuid^second-obs-uuid': 400
     };
 
     const patient = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { reduxForm, formValueSelector } from 'redux-form';
+import { reduxForm, formValueSelector, Field } from 'redux-form';
 import { Form } from 'react-bootstrap';
 import * as R from 'ramda';
 import FormContext from './FormContext';
@@ -26,30 +26,11 @@ class EncounterForm extends React.PureComponent {
   componentDidUpdate(prevProps) {
     // if we've loaded an encounter or any default values, re-initialize
     if ((!prevProps.encounter && this.props.encounter)
-      || ( !this.areEqual(this.props.defaultValues, prevProps.defaultValues)) ) {
+      || ( !formUtil.areEqual(this.props.defaultValues, prevProps.defaultValues)) ) {
       this.initialize();
     }
 
   };
-
-  areEqual(array1, array2) {
-    let equal =false;
-    let json1 = null;
-    let json2 = null;
-    if ( array1 === null && array2 === null) {
-      equal = true;
-    }
-    if (array1 !== null ) {
-      json1 = JSON.stringify(array1)
-    }
-    if (array2 !== null ) {
-      json2 = JSON.stringify(array1)
-    }
-    if (json1 === json2) {
-      equal = true;
-    }
-    return equal;
-  }
 
   initialize() {
 
@@ -63,7 +44,7 @@ class EncounterForm extends React.PureComponent {
       existingValues = formUtil.flattenObs(this.props.encounter.obs)
         .filter((o) => o.comment && o.comment.includes("^") && o.concept && o.concept.uuid && o.value)      // filter out any obs with missing information
         .map((o) => ({                                                                                      // map to the key/value pair
-          [`obs|path=${o.comment.split('^').slice(1).join('^')}|concept=${o.conceptPath}`]:
+          [formUtil.obsFieldName(o.comment.split('^').slice(1).join('^'), o.conceptPath)]:
             (o.concept.datatype && (o.concept.datatype.uuid === DATA_TYPES['coded'].uuid || o.concept.datatype.uuid === DATA_TYPES['boolean'].uuid)
               ? o.value.uuid : o.value)
         }))
@@ -80,8 +61,9 @@ class EncounterForm extends React.PureComponent {
     // if there are any default values, create an object of default values
     if (this.props.defaultValues) {
       defaultValues = this.props.defaultValues
+        .filter((v) => v.type === 'obs')   //  only supporting obs at this point
         .map((v) => ({
-          [`${v.type}|path=${v.path}|concept=${v.concept}`]: v.value
+          [formUtil.obsFieldName(v.path, v.conceptPath ? v.conceptPath : v.concept)]: v.value
         }))
         .reduce(function(acc, item) {                                                                  // reduce array to single object
           var key = Object.keys(item)[0];
@@ -114,19 +96,34 @@ class EncounterForm extends React.PureComponent {
 
   render() {
 
-    const { handleSubmit, mode, reset, submitting, formInstanceId } = this.props;
+    const { blur, handleSubmit, mode, reset, submitting, formInstanceId, valid } = this.props;
+
+    // see: https://tickets.pih-emr.org/browse/WOR-173
+    // horrible hack used to get around: https://github.com/erikras/redux-form/issues/3466
+    // workaround taken from: https://github.com/modysseus/redux-registration-form-validation
+    // hopefully, we can eventually remove the this and the _validate field below
+    const customReset = () => {
+      return reset() && blur('_validate', Math.random());
+    };
 
     const context = {
       mode: mode,
-      reset: reset,
+      reset: customReset,
       selector: formValueSelector(formInstanceId),
-      submitting: submitting
+      submitting: submitting,
+      valid: valid
     };
 
     return (
       <Form horizontal onSubmit={handleSubmit(this.onSubmit)}>
         <FormContext.Provider value={context} >
           {this.props.children}
+          <Field
+            name="_validate"
+            type="text"
+            component={() => <div style={{ display: 'none' }} />}
+            label=""
+          />
         </FormContext.Provider>
       </Form>
     );

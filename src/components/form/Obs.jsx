@@ -2,6 +2,7 @@ import React from 'react';
 import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import formUtil from '../../features/form/util';
 import ButtonGroup from '../widgets/ButtonGroup';
 import CheckBox from '../widgets/CheckBox';
 import FieldInput from "../widgets/FieldInput";
@@ -126,7 +127,7 @@ const mapStateToProps = (state, props) => {
 
   const fullPath = (props.obsGroupContext ? props.obsGroupContext.path + '^' : '') + props.path;
 
-  const name = `obs|path=${fullPath}|concept=${concepts}`;
+  const name = formUtil.obsFieldName(fullPath, concepts);
 
   return {
     name: name,
