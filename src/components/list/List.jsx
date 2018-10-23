@@ -21,7 +21,7 @@ import DataGrid from '../grid/DataGrid';
     * filters: list of one or more filters to apply to rowData before passing on to DataGrid
     * onMountOtherActionCreators: any other action creators to trigger after the component mounts
     * optionalFilters: list of one or more filters that can optionally be applied by the end user;
-      each filter is an object with two propeties, a "label", and a "filter"; a checkbox is displayed for toggling that filter
+      each filter is an object with two properties, a "label", and a "filter"; a checkbox is displayed for toggling that filter
     * rowData (required): data to display (generally an array of objects), passed on directly to DataGrid,
     * rowSelectedActionCreators: array of action creators for actions to trigger when row is selected, passed on directly to DataGrid
     * title: title for the grid (default is "List")
