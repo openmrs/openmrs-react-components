@@ -62,13 +62,14 @@ class SortableTable extends PureComponent {
 
   render() {
     const { ...otherProps } = this.props;
-    const defaultClassName = "-striped -highlight";
+    const defaultClassName = otherProps.defaultClassName || "-striped -highlight";
 
     // All available props: https://github.com/tannerlinsley/react-table#props
     return (
       <div>
         <ReactTable
           className={otherProps.tableClassName || defaultClassName}
+          collapseOnDataChange={false}
           columns={this.renderColumns()}
           data={this.renderData()}
           defaultPageSize={otherProps.defaultPageSize}
@@ -78,13 +79,15 @@ class SortableTable extends PureComponent {
           getTheadProps={otherProps.getTheadProps}
           getTrGroupProps={otherProps.getTrGroupProps}
           getTrProps={(state, rowInfo, column, instance) => {
-            if (otherProps.getTrProps) {
-              return otherProps.getTrProps();
+            if (otherProps.getTrProps && rowInfo) {
+              otherProps.getTrProps(rowInfo);
             }
-
             return {
               onClick: (e) => {
-                otherProps.rowOnClick(rowInfo.original);
+                const { rowOnClick } = otherProps;
+                if (typeof rowOnClick !== 'undefined') {
+                  rowOnClick(rowInfo.original);
+                }
               },
               className: this.selectedRowsClassName(rowInfo)
             };
@@ -97,10 +100,11 @@ class SortableTable extends PureComponent {
           pageText={otherProps.pageText}
           previousText={otherProps.previousText}
           rowsText={otherProps.rowsText}
+          SubComponent={otherProps.subComponent}
+          showPagination={otherProps.showPagination}
           showPaginationBottom={this.renderPaginationBottom()}
           showPaginationTop={otherProps.showPaginationTop}
           sortable={otherProps.isSortable}
-          SubComponent={otherProps.subComponent}
         />
       </div>
     );
