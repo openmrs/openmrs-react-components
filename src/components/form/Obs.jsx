@@ -29,7 +29,6 @@ const Obs = (props) => {
   else if (props.widget === 'checkbox') {
     return (
       <Field
-        checkBoxTitle={props.checkBoxTitle}
         checkBoxValue={props.conceptAnswer}
         component={CheckBox}
         displayValue={props.value}
