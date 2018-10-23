@@ -22,6 +22,16 @@ import DataGrid from '../grid/DataGrid';
     * onMountOtherActionCreators: any other action creators to trigger after the component mounts
     * optionalFilters: list of one or more filters that can optionally be applied by the end user;
       each filter is an object with two properties, a "label", and a "filter"; a checkbox is displayed for toggling that filter
+      ex (assuming the rowData is a array of patients): const optionalFilters = [
+        {
+          label: "Female",
+          filter: patient => patient.gender === 'F'
+        },
+        {
+          label: "Male",
+          filter: patient => patient.gender === 'M'
+        }
+      ];
     * rowData (required): data to display (generally an array of objects), passed on directly to DataGrid,
     * rowSelectedActionCreators: array of action creators for actions to trigger when row is selected, passed on directly to DataGrid
     * title: title for the grid (default is "List")
