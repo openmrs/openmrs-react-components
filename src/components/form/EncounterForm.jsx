@@ -65,11 +65,7 @@ class EncounterForm extends React.PureComponent {
         .map((v) => ({
           [formUtil.obsFieldName(v.path, v.conceptPath ? v.conceptPath : v.concept)]: v.value
         }))
-        .reduce(function(acc, item) {                                                                  // reduce array to single object
-          var key = Object.keys(item)[0];
-          acc[key] = item[key];
-          return acc;
-        }, {});
+        .reduce(formUtil.arrayToObjectReducer, {});
     }
 
     this.initialData = Object.assign(defaultValues, existingValues); // merge the two objects, prioritizing existing values if there are overlaps

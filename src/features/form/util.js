@@ -24,7 +24,6 @@ const util = {
     }
   },
 
-  // TODO this could be used in more than forms, potentially moved somewhere else?
   flattenObs: (obs, acc = [], path = []) => {
 
     if (!obs) {
@@ -37,6 +36,14 @@ const util = {
       return [...util.flattenObs(groupMembers, acc, [...path, obs.concept.uuid]), obsWithoutGroupMembers];
     }, acc);
 
+  },
+
+  // TODO this could be used in more than forms, potentially moved somewhere else?
+  // converts an array of key-value pairs to a single object with those properties
+  arrayToObjectReducer: (acc, item) => {
+    var key = Object.keys(item)[0];
+    acc[key] = item[key];
+    return acc;
   },
 
   // TODO this could be used in more than forms, potentially moved somewhere else?

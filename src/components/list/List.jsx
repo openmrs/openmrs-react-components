@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Label } from 'react-bootstrap';
+import { Label, Checkbox } from 'react-bootstrap';
 import DataGrid from '../grid/DataGrid';
 
 /*
@@ -20,6 +20,8 @@ import DataGrid from '../grid/DataGrid';
       this action is generally an action that fetches the data to display and eventually results in a update to rowData
     * filters: list of one or more filters to apply to rowData before passing on to DataGrid
     * onMountOtherActionCreators: any other action creators to trigger after the component mounts
+    * optionalFilters: list of one or more filters that can optionally be applied by the end user;
+      each filter is an object with two propeties, a "label", and a "filter"; a checkbox is displayed for toggling that filter
     * rowData (required): data to display (generally an array of objects), passed on directly to DataGrid,
     * rowSelectedActionCreators: array of action creators for actions to trigger when row is selected, passed on directly to DataGrid
     * title: title for the grid (default is "List")
@@ -38,6 +40,24 @@ import DataGrid from '../grid/DataGrid';
       https://github.com/PIH/openmrs-pwa-workflow/blob/master/src/screening/nurse/NurseQueue.jsx
  */
 class List extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      filters: []
+    };
+
+    if (props.optionalFilters) {
+      this.state.filters = props.optionalFilters
+        .map((v) => {
+          v.enabled = false;
+          v.key = v.label.toLowerCase().replace(/\s/g,'');
+          return v;
+        });
+    }
+
+  }
 
   componentDidMount() {
 
@@ -60,22 +80,62 @@ class List extends React.Component {
     clearInterval(this.interval);
   }
 
-  applyFilters(list, filters) {
+  applyFilters(list) {
+    let filters = this.props.filters ? [...this.props.filters] : [];
+
+    // add any optional filters
+    if (this.state.filters) {
+      filters =
+        [...filters,
+          ...(this.state.filters
+            .filter((v) => v.enabled)
+            .map((v) => v.filter))
+        ];
+    }
+
+    return this.applyFiltersHelper(list, filters);
+  }
+
+  applyFiltersHelper(list, filters) {
     if (filters.length === 0) {
       return list;
     } else {
-      return this.applyFilters(list.filter(filters[filters.length - 1]), filters.slice(0, -1));
+      return this.applyFiltersHelper(list.filter(filters[filters.length - 1]), filters.slice(0, -1));
     }
   };
 
+  handleFilterToggle(e, key) {
+    this.setState((state) => {
+      state.filters = state.filters
+        .map((filter) => {
+          if (filter.key === key) {
+            filter.enabled = !filter.enabled;
+          }
+          return filter;
+        });
+
+      return state;
+    });
+  }
+
   render() {
+
+    const filterCheckboxes = this.state.filters.map((filter) => {
+      return (
+        <Checkbox onChange={(e) => this.handleFilterToggle(e, filter.key)}>
+          {filter.label}
+        </Checkbox>
+      );
+    });
+
     return (
       <div>
         <h3><Label>{this.props.title}</Label></h3>
         <h3><Label>{''}</Label></h3>
+        { filterCheckboxes }
         <DataGrid
           columnDefs={this.props.columnDefs}
-          rowData={this.applyFilters(this.props.rowData, this.props.filters)}
+          rowData={this.applyFilters(this.props.rowData)}
           onRowCount={this.props.onRowCount}
           rowSelectedActionCreators={this.props.rowSelectedActionCreators}
         />
@@ -86,12 +146,13 @@ class List extends React.Component {
 
 List.propTypes = {
   columnDefs: PropTypes.array.isRequired,
-  filters: PropTypes.array,
   delayInterval: PropTypes.number.isRequired,
   fetchListActionCreator: PropTypes.func,
+  filters: PropTypes.array,
   onMountOtherActionCreators: PropTypes.array,
-  rowData: PropTypes.array.isRequired,
   onRowCount: PropTypes.func,
+  optionalFilters: PropTypes.array,
+  rowData: PropTypes.array.isRequired,
   rowSelectedActionCreators: PropTypes.array,
   title: PropTypes.string.isRequired
 };
