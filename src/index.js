@@ -53,6 +53,7 @@ import {
   patientSearchSagas
 } from "./features/search/";
 import encounterRest from './rest/encounterRest';
+import orderRest from './rest/orderRest';
 import obsRest from './rest/obsRest';
 import patientRest from './rest/patientRest';
 import loginRest from './rest/loginRest';
@@ -146,6 +147,7 @@ module.exports = {
   patientActions,
   PATIENT_TYPES,
   encounterRest,
+  orderRest,
   obsRest,
   loginRest,
   patientRest,
