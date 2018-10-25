@@ -53,12 +53,14 @@ import {
   patientSearchSagas
 } from "./features/search/";
 import encounterRest from './rest/encounterRest';
+import orderRest from './rest/orderRest';
 import obsRest from './rest/obsRest';
 import patientRest from './rest/patientRest';
 import loginRest from './rest/loginRest';
 import sessionRest from './rest/sessionRest';
 import locationRest from './rest/locationRest';
 import visitRest from './rest/visitRest';
+import constantsRest from './rest/constantsRest';
 import reportingRest from './rest/reportingRest';
 import conceptRest from './rest/conceptRest';
 import { library as fontAwesomeLibrary } from '@fortawesome/fontawesome-svg-core';
@@ -145,6 +147,7 @@ module.exports = {
   patientActions,
   PATIENT_TYPES,
   encounterRest,
+  orderRest,
   obsRest,
   loginRest,
   patientRest,
@@ -160,6 +163,7 @@ module.exports = {
   SESSION_TYPES,
   headerActions,
   constantsActions,
+  constantsRest,
   withLocalisation,
   setLocaleMessages,
   mountWithIntl,
