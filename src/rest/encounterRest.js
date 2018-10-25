@@ -43,17 +43,6 @@ const api = {
         return response.data;
       }
     }),
-
-  // used in lab-workflow
-  getPatientEncounters: ({ patientUUID, encounterTypeUUID }) => axiosInstance.get(`encounter?s=default&patient=${patientUUID}&encounterType=${encounterTypeUUID}&v=full`)
-    .then((response) => {
-      if (response.status !== 200) {
-        throw response;
-      } else {
-        return response.data;
-      }
-    })
-
 };
 
 export default api;
