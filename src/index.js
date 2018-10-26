@@ -37,19 +37,18 @@ import Loader from './components/widgets/Loader';
 import TaskList from './components/task/TaskList';
 import BasicLayout from './components/layout/BasicLayout';
 import createListReducer from './features/list/createListReducer';
-import { SESSION_TYPES, sessionReducers, sessionSagas, sessionActions } from './features/session/';
-import { LOGIN_TYPES, loginReducers, loginSagas, loginActions } from './features/login';
-import { openmrsFormSagas, formActions, formValidations, formReducers, formUtil } from './features/form';
-import { headerReducers, headerSagas, headerActions } from './features/header';
-import { errorsActions, errorsReducers } from './features/errors';
-import { constantsSagas, constantsReducers, constantsActions } from './features/constants';
+import { SESSION_TYPES, sessionSagas, sessionActions } from './features/session/';
+import { LOGIN_TYPES, loginSagas, loginActions } from './features/login';
+import { openmrsFormSagas, formActions, formValidations, formUtil } from './features/form';
+import { headerSagas, headerActions } from './features/header';
+import { errorsActions } from './features/errors';
+import { constantsSagas, constantsActions } from './features/constants';
 import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
 import { GRID_TYPES, gridActions } from './features/grid';
-import { patientsReducer, patientSelectedReducer, patientActions, PATIENT_TYPES } from "./features/patient";
+import { patientActions, PATIENT_TYPES } from "./features/patient";
 import {
   PATIENT_SEARCH_TYPES,
   patientSearchActions,
-  patientSearchReducers,
   patientSearchSagas
 } from "./features/search/";
 import encounterRest from './rest/encounterRest';
@@ -63,6 +62,7 @@ import visitRest from './rest/visitRest';
 import constantsRest from './rest/constantsRest';
 import reportingRest from './rest/reportingRest';
 import conceptRest from './rest/conceptRest';
+import { reducers, selectors } from "./store";
 import { library as fontAwesomeLibrary } from '@fortawesome/fontawesome-svg-core';
 import { faCaretDown, faCalendarAlt, faCheck, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -72,16 +72,6 @@ import Head from './components/header/Head';
 
 fontAwesomeLibrary.add(faCaretDown, faCalendarAlt, faCheck, faArrowRight);
 
-const reducers = combineReducers({
-  session: sessionReducers,
-  loginLocations: loginReducers,
-  header: headerReducers,
-  patients: patientsReducer,
-  patientSearch: patientSearchReducers,
-  errors: errorsReducers,
-  form: formReducers,
-  CONSTANTS: constantsReducers
-});
 
 const sagas = function* () {
   yield all([
@@ -157,6 +147,7 @@ module.exports = {
   conceptRest,
   reducers,
   sagas,
+  selectors,
   loginActions,
   sessionActions,
   SESSION_TYPES,

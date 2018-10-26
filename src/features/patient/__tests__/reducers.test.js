@@ -1,4 +1,4 @@
-import { patientsReducer } from '../reducers';
+import { patientsReducer, getPatients, getSelectedPatient, isUpdating } from '../reducers';
 import PATIENT_TYPES from '../types';
 
 describe('patient set reducer', () => {
@@ -333,12 +333,12 @@ describe('patient set reducer', () => {
           givenName: "Bob"
         }
       },
-      selected: "abc-123",
+      selected: "abc-1234",
       isUpdating: false
     };
 
     const patient = {};
-    patient.uuid = 'abc-123';
+    patient.uuid = 'abc-1234';
 
     expect(patientsReducer(initial, {
       type: PATIENT_TYPES.SET_SELECTED_PATIENT,
@@ -357,7 +357,7 @@ describe('patient set reducer', () => {
           givenName: "Bob"
         }
       },
-      selected: "abc-123",
+      selected: "abc-1234",
       isUpdating: true
     };
 
@@ -389,7 +389,7 @@ describe('patient set reducer', () => {
           givenName: "Bob"
         }
       },
-      selected: "abc-123",
+      selected: "abc-1234",
       isUpdating: false
     };
 
@@ -401,13 +401,99 @@ describe('patient set reducer', () => {
           givenName: "Bob"
         }
       },
-      selected: "abc-123",
+      selected: "abc-1234",
       isUpdating: true
     };
 
     expect(patientsReducer(initial, {
       type: PATIENT_TYPES.SET_PATIENT_STORE_UPDATING,
     })).toEqual(expected);
+
+  });
+
+  it ('should select patient set from store', () => {
+
+    const store = {
+      set: {
+        'abcd-1234': {
+          _openmrsClass: "Patient",
+          uuid: "abcd-1234",
+          givenName: "Bob"
+        }
+      },
+      selected: "abcd-1234",
+      isUpdating: true
+    };
+
+    const expected = {
+      'abcd-1234': {
+        _openmrsClass: "Patient",
+        uuid: "abcd-1234",
+        givenName: "Bob"
+      }
+    };
+
+    expect(getPatients(store)).toEqual(expected);
+
+  });
+
+  it ('should select selected patient from store', () => {
+
+    const store = {
+      set: {
+        'abcd-1234': {
+          _openmrsClass: "Patient",
+          uuid: "abcd-1234",
+          givenName: "Bob"
+        }
+      },
+      selected: "abcd-1234",
+      isUpdating: true
+    };
+
+    const expected = {
+      _openmrsClass: "Patient",
+      uuid: "abcd-1234",
+      givenName: "Bob"
+    };
+
+    expect(getSelectedPatient(store)).toEqual(expected);
+
+  });
+
+  it ('select selected patient should return null if no selected patient', () => {
+
+    const store = {
+      set: {
+        'abcd-1234': {
+          _openmrsClass: "Patient",
+          uuid: "abcd-1234",
+          givenName: "Bob"
+        }
+      },
+      selected: null,
+      isUpdating: true
+    };
+
+    expect(getSelectedPatient(store)).toEqual(null);
+
+  });
+
+  it ('is updating should return whether store is updating', () => {
+
+    const store = {
+      set: {
+        'abcd-1234': {
+          _openmrsClass: "Patient",
+          uuid: "abcd-1234",
+          givenName: "Bob"
+        }
+      },
+      selected: null,
+      isUpdating: true
+    };
+
+    expect(isUpdating(store)).toEqual(true);
 
   });
 

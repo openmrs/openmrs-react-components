@@ -137,4 +137,15 @@ export const patientsReducer = (state = {
   }
 };
 
+export const getPatients = (store) => {
+  return store.set;
+};
+
+export const isUpdating = (store) => {
+  return store.isUpdating;
+};
+
+export const getSelectedPatient = (store) => {
+  return (store.set && store.selected) ? store.set[store.selected] : null;
+};
 

@@ -6,6 +6,7 @@ import HeaderAlt from '../header/HeaderAlt';
 import PatientHeader from '../header/PatientHeader';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { selectors } from '../../store';
 import '../../../assets/css/basicLayout.css';
 
 const BasicLayout = props => {
@@ -62,7 +63,7 @@ BasicLayout.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    patient: state.openmrs.selectedPatient ? state.openmrs.patients[state.openmrs.selectedPatient] : null
+    patient: selectors.getSelectedPatientFromStore(state)
   };
 };
 
