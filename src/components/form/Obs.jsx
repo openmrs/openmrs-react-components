@@ -46,6 +46,7 @@ const Obs = (props) => {
           component={Dropdown}
           defaultValue={props.defaultValue}
           displayValue={props.value}
+          placeholder={props.placeholder}
           dropDownStyle={props.dropDownStyle}
           list={props.conceptAnswers}
           mode={props.formContext.mode}

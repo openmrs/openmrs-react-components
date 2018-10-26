@@ -19,7 +19,13 @@ exports[`Component: Dropdown renders properly 1`] = `
         }
       }
       value=""
-    />
+    >
+      <option
+        value=""
+      >
+        Select from the list
+      </option>
+    </select>
   </span>
 </div>
 `;
