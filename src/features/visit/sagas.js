@@ -9,6 +9,8 @@ function* activeVisits(action) {
 
   try {
 
+    yield put(patientActions.setPatientStoreUpdating());
+
     let response = yield call(visitApi.getActiveVisits, {
       representation: action.representation ? action.representation : "custom:" + DEFAULT_VISIT_REP
     });

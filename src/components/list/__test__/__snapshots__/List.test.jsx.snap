@@ -39,7 +39,7 @@ exports[`Component: List renders properly 1`] = `
         },
       ]
     }
-    delayInterval={10000}
+    delayInterval={60000}
     dispatch={[Function]}
     fetchListActionCreator={[Function]}
     filters={Array []}

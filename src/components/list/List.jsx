@@ -145,6 +145,7 @@ class List extends React.Component {
         { filterCheckboxes }
         <DataGrid
           columnDefs={this.props.columnDefs}
+          loading={this.props.loading}
           rowData={this.applyFilters(this.props.rowData)}
           onRowCount={this.props.onRowCount}
           rowSelectedActionCreators={this.props.rowSelectedActionCreators}
@@ -159,6 +160,7 @@ List.propTypes = {
   delayInterval: PropTypes.number.isRequired,
   fetchListActionCreator: PropTypes.func,
   filters: PropTypes.array,
+  loading: PropTypes.bool,
   onMountOtherActionCreators: PropTypes.array,
   onRowCount: PropTypes.func,
   optionalFilters: PropTypes.array,
@@ -175,7 +177,7 @@ List.defaultProps = {
     { headerName: 'Gender', field: 'gender' },
     { headerName: 'Age', field: 'age' }
   ],
-  delayInterval: 10000,
+  delayInterval: 60000,
   title: 'List',
   filters: []
 };

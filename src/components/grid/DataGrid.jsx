@@ -18,6 +18,29 @@ class DataGrid extends React.Component {
     this.filterGrid = this.filterGrid.bind(this);
   }
 
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    this.toggleUpdateOverlay();
+    this.updateRowCount();
+    this.autoSizeAll();
+  }
+
+  componentDidUpdate() {
+    this.toggleUpdateOverlay();
+  }
+
+  toggleUpdateOverlay() {
+    if (this.gridApi) {
+      if (this.props.loading) {
+        this.gridApi.showLoadingOverlay();
+      }
+      else {
+        this.gridApi.hideOverlay();
+      }
+    }
+  }
+
   updateRowCount() {
     if (this.props.onRowCount && this.gridApi) {
       this.props.onRowCount(this.gridApi.getModel().getRowCount());
@@ -36,13 +59,6 @@ class DataGrid extends React.Component {
       });
       this.gridColumnApi.autoSizeColumns(allColumnIds);
     }
-  }
-
-  onGridReady(params) {
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    this.updateRowCount();
-    this.autoSizeAll();
   }
 
   onSelectionChanged() {

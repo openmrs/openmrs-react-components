@@ -7,8 +7,10 @@
 const byEncounterTypeFilter = (encounterTypeUuid, filterType = 'include') => {
 
   return (patient) => {
-
-    if (!encounterTypeUuid || !patient.visit || !patient.visit.encounters || patient.visit.encounters.size === 0) {
+    if (!patient) {
+      return false;
+    }
+    else if (!encounterTypeUuid || !patient.visit || !patient.visit.encounters || patient.visit.encounters.size === 0) {
       return filterType.toLowerCase() === 'include' ? false : true;
     }
     else {
