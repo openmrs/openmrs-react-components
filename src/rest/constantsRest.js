@@ -3,6 +3,13 @@ import { axiosInstance } from '../config';
 
 const api = {
 
+  fetchLabResultsTestOrderType: () => {
+    return axiosInstance.get(`systemsetting?v=custom:(value)&q=labworkflowowa.testOrderType`)
+      .then((response) => {
+        return response.data;
+      });
+  },
+
   fetchLabResultsEncounterType: () => {
     return axiosInstance.get(`systemsetting?v=custom:(value)&q=labworkflowowa.labResultsEncounterType`)
       .then((response) => {
