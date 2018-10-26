@@ -24,15 +24,15 @@ export const reducers = combineReducers({
 
 export const selectors = {
 
-  getPatientStore: (store) => {
-    return getPatients(store.openmrs[PATIENTS]);
+  getPatientStore: (state) => {
+    return getPatients(state.openmrs[PATIENTS]);
   },
 
-  getSelectedPatientFromStore: (store) => {
-    return getSelectedPatient(store.openmrs[PATIENTS]);
+  getSelectedPatientFromStore: (state) => {
+    return getSelectedPatient(state.openmrs[PATIENTS]);
   },
 
-  isPatientStoreUpdating: (store) => {
-    return isUpdating(store.openmrs[PATIENTS]);
+  isPatientStoreUpdating: (state) => {
+    return isUpdating(state.openmrs[PATIENTS]);
   }
 };

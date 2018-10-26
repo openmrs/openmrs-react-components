@@ -5,6 +5,7 @@ import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { actions as toastrActions } from 'react-redux-toastr';
 import uuidv4 from 'uuid/v4';
+import { selectors } from '../../store';
 import { formActions } from '../../features/form';
 import { FORM_STATES } from '../../features/form/constants';
 import Submit from './Submit';
@@ -203,7 +204,7 @@ EncounterFormPage.propTypes = {
 const mapStateToProps = (state, props) => {
   return {
     // if a patient is passed in, use that one, otherwise look in the store
-    patient: props.patient ? props.patient : (state.openmrs.selectedPatient ? state.openmrs.patients[state.openmrs.selectedPatient] : null),
+    patient: props.patient ? props.patient : selectors.getSelectedPatientFromStore(state),
     forms: state.openmrs.form
   };
 };
