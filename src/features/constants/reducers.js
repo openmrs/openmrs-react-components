@@ -9,6 +9,7 @@ const initialState = {
   labResultsDidNotPerformReasonAnswer: {},
   labResultsTestOrderNumberConcept: '',
   labResultsTestLocationQuestion: '',
+  labResultsTestOrderType: '',
   labResultsTestLocationAnswer: {},
   labResultsEstimatedCollectionDateQuestion: '',
   labResultsEstimatedCollectionDateAnswer: '',
@@ -26,6 +27,18 @@ export default (state = initialState, action) => {
       return {
         error: {
           message: "Unable to load lab result encounter type"
+        }
+      };
+
+    case CONSTANTS_TYPES.LAB_RESULTS_TEST_ORDER_TYPE.SUCCEEDED:
+      return Object.assign({}, state, {
+        labResultsTestOrderType: action.payload.results[0].value
+      });
+
+    case CONSTANTS_TYPES.LAB_RESULTS_TEST_ORDER_TYPE.FETCH_FAILED:
+      return {
+        error: {
+          message: "Unable to load lab result test order type"
         }
       };
       

@@ -18,6 +18,21 @@ describe('constant actions', () => {
       expect(constantAction.fetchLabResultsEncounterType(mockUuid)).toEqual(expectedAction);
     });
   });
+
+  describe('LAB_RESULTS_TEST_ORDER_TYPE actions', () => {
+    it('should dispatch action for LAB_RESULTS_TEST_ORDER_TYPE SUCCESS', () => {
+      const expectedAction = { "payload": mockUuid, "type": CONSTANT_TYPE.LAB_RESULTS_TEST_ORDER_TYPE.SUCCEEDED };
+      expect(constantAction.fetchLabResultsTestOrderTypeSucceeded(mockUuid)).toEqual(expectedAction);
+    });
+    it('should dispatch action for LAB_RESULTS_TEST_ORDER_TYPE FAILED', () => {
+      const expectedAction = { "error": { "message": mockUuid }, "type": CONSTANT_TYPE.LAB_RESULTS_TEST_ORDER_TYPE.FAILED };
+      expect(constantAction.fetchLabResultsTestOrderTypeFailed(mockUuid)).toEqual(expectedAction);
+    });
+    it('should dispatch action for LAB_RESULTS_TEST_ORDER_TYPE REQUESTED', () => {
+      const expectedAction = { "type": CONSTANT_TYPE.LAB_RESULTS_TEST_ORDER_TYPE.REQUESTED };
+      expect(constantAction.fetchLabResultsTestOrderType(mockUuid)).toEqual(expectedAction);
+    });
+  });
   
   describe('LAB_RESULTS_DATE_CONCEPT actions', () => {
     it('should dispatch action for LAB_RESULTS_DATE_CONCEPT SUCCESS', () => {

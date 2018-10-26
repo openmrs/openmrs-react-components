@@ -87,6 +87,20 @@ function* labResultsEncounterType() {
   }
 }
 
+function* labResultsTestOrderType() {
+  try {
+
+    let response = yield call(constantsRest.fetchLabResultsTestOrderType);
+    if (response.results.length > 0 ) {
+      yield put(constantsActions.fetchLabResultsTestOrderTypeSucceeded(response));
+    }
+
+  }
+  catch (e) {
+    yield put(constantsActions.fetchLabResultsTestOrderTypeFailed(e.message));
+  }
+}
+
 function* LabResultsTestOrderNumberConcept() {
   try {
 
@@ -182,6 +196,7 @@ function* constantsSagas() {
   yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_ANSWER.REQUESTED, LabResultsTestLocationAnswer);
   yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_QUESTION.REQUESTED, LabResultsEstimatedCollectedDateQuestion);
   yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_ANSWER.REQUESTED, LabResultsEstimatedCollectedDateAnswer);
+  yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_TEST_ORDER_TYPE.REQUESTED, labResultsTestOrderType);
 }
 
 export default constantsSagas;

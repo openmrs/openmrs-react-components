@@ -32,6 +32,22 @@ const fetchLabResultsDateConceptFailed = (message) => ( {
   }
 } );
 
+const fetchLabResultsTestOrderType = () => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_TEST_ORDER_TYPE.REQUESTED,
+} );
+
+const fetchLabResultsTestOrderTypeSucceeded = (payload) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_TEST_ORDER_TYPE.SUCCEEDED,
+  payload
+} );
+
+const fetchLabResultsTestOrderTypeFailed = (message) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_TEST_ORDER_TYPE.FAILED,
+  error: {
+    message: message
+  }
+} );
+
 const fetchLabResultsDidNotPerformQuestion = () => ( {
   type: CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_QUESTION.REQUESTED,
 } );
@@ -228,6 +244,9 @@ export default {
   fetchLabResultsEstimatedCollectionDateAnswer,
   fetchLabResultsEstimatedCollectionDateAnswerSucceeded,
   fetchLabResultsEstimatedCollectionDateAnswerFailed,
+  fetchLabResultsTestOrderType,
+  fetchLabResultsTestOrderTypeSucceeded,
+  fetchLabResultsTestOrderTypeFailed,
   getDateAndTimeFormat,
   getDateAndTimeFormatSucceeded,
   getDateAndTimeFormatFailed,

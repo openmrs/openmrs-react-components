@@ -12,6 +12,7 @@ describe('CONSTANTS reducers', () => {
     labResultsDidNotPerformReasonAnswer: {},
     labResultsTestOrderNumberConcept: '',
     labResultsTestLocationQuestion: '',
+    labResultsTestOrderType: '',
     labResultsTestLocationAnswer: {},
     labResultsEstimatedCollectionDateQuestion: '',
     labResultsEstimatedCollectionDateAnswer: '',
@@ -40,6 +41,26 @@ describe('CONSTANTS reducers', () => {
       expect(reducers(undefined, {
         type: CONSTANT_TYPE.LAB_RESULTS_ENCOUNTER_TYPE.FETCH_FAILED,
       }).error.message).toEqual('Unable to load lab result encounter type');
+    });
+  });
+
+  describe('LAB_RESULTS_TEST_ORDER_TYPE', () => {
+    it('should handle LAB_RESULTS_TEST_ORDER_TYPE SUCCESS', () => {
+      const payload =  {
+        results: [{
+          value: mockUuid
+        }]
+      };
+  
+      expect(reducers(undefined, {
+        type: CONSTANT_TYPE.LAB_RESULTS_TEST_ORDER_TYPE.SUCCEEDED,
+        payload
+      }).labResultsTestOrderType).toEqual(mockUuid);
+    });
+    it('should handle LAB_RESULTS_TEST_ORDER_TYPE FETCH_FAILED', () => {
+      expect(reducers(undefined, {
+        type: CONSTANT_TYPE.LAB_RESULTS_TEST_ORDER_TYPE.FETCH_FAILED,
+      }).error.message).toEqual('Unable to load lab result test order type');
     });
   });
 
