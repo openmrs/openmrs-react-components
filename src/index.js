@@ -77,7 +77,6 @@ const reducers = combineReducers({
   loginLocations: loginReducers,
   header: headerReducers,
   patients: patientsReducer,
-  selectedPatient: patientSelectedReducer,
   patientSearch: patientSearchReducers,
   errors: errorsReducers,
   form: formReducers,

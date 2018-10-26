@@ -6,6 +6,15 @@ const setPatientStore = (patients) => ( {
   type: PATIENT_TYPES.SET_PATIENT_STORE
 } );
 
+const clearPatientStore = () =>  ( {
+  type: PATIENT_TYPES.CLEAR_PATIENT_STORE
+} );
+
+// sets the "updating" flag of the patient store to true
+const setPatientStoreUpdating =() =>  ( {
+  type: PATIENT_TYPES.SET_PATIENT_STORE_UPDATING
+} );
+
 const updateActiveVisitsInStore = (visits) => ( {
   visits: visits,
   type: PATIENT_TYPES.UPDATE_ACTIVE_VISITS_IN_STORE
@@ -30,9 +39,10 @@ const clearSelectedPatient = () => ( {
   type: PATIENT_TYPES.CLEAR_SELECTED_PATIENT
 } );
 
-
 export default {
   setPatientStore,
+  clearPatientStore,
+  setPatientStoreUpdating,
   updateActiveVisitsInStore,
   addPatientToStore,
   updatePatientInStore,

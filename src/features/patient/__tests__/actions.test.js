@@ -30,6 +30,20 @@ describe('patient actions', () => {
     expect(patientActions.setPatientStore(patients)).toEqual(expectedAction);
   });
 
+  it('should create clear patient store action', () => {
+    const expectedAction = {
+      type: PATIENT_TYPES.CLEAR_PATIENT_STORE
+    };
+    expect(patientActions.clearPatientStore()).toEqual(expectedAction);
+  });
+
+  it('should create set patient store updating action', () => {
+    const expectedAction = {
+      type: PATIENT_TYPES.SET_PATIENT_STORE_UPDATING,
+    };
+    expect(patientActions.setPatientStoreUpdating()).toEqual(expectedAction);
+  });
+
   it('should create update active visits', () => {
     const expectedAction = {
       type: PATIENT_TYPES.UPDATE_ACTIVE_VISITS_IN_STORE,
