@@ -6,6 +6,7 @@ import formUtil from './util';
 import encounterRest from '../../rest/encounterRest';
 import obsRest from '../../rest/obsRest';
 import { FORM_STATES } from "./constants";
+import visitRest from '../../rest/visitRest';
 
 // TODO need to handle fields that aren't obs!
 // TODO this should really pass back something... the id of the created encounter, etc?
@@ -154,11 +155,22 @@ function* submit(action) {
 
     encounter.obs = allObs;
 
-    // create encounter
-    if (!action.encounter) {
-      updatedEncounter = yield call(encounterRest.createEncounter, encounter);
+    if (action.visitType && !action.visit) {
+      //create a new visit
+      let newVisit = {
+        patient: action.patient.uuid,
+        visitType: action.visitType.uuid
+      };
+      if (action.location) {
+        newVisit.location = action.location.uuid;
+      }
+      newVisit = yield call(visitRest.createVisit, { visit: newVisit });
+      encounter.visit = newVisit.uuid;
     }
-    else {
+    if (!action.encounter) {
+      // create encounter
+      updatedEncounter = yield call(encounterRest.createEncounter, encounter);
+    } else {
       updatedEncounter = yield call(encounterRest.updateEncounter, encounter);
     }
 

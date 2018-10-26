@@ -97,8 +97,8 @@ Dropdown.defaultProps = {
 Dropdown.propTypes = {
   className: PropTypes.string,
   defaultValue: PropTypes.string,
-  field: PropTypes.string.isRequired,
-  handleSelect: PropTypes.func.isRequired,
+  field: PropTypes.string,
+  handleSelect: PropTypes.func,
   input: PropTypes.object,
   label: PropTypes.string,
   labelClassName: PropTypes.string,

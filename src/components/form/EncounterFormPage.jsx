@@ -113,11 +113,13 @@ class EncounterFormPage extends React.PureComponent {
     return (
       <div style={this.divContainer}>
         <Grid style={this.divContainer}>
+          {this.props.title &&
           <Row style={this.rowStyles}>
             <Col sm={20} md={20} style={this.littlePaddingLeft}>
               <span><h1>{this.props.title}</h1></span>
             </Col>
           </Row>
+          }
           <Row>
             <Col sm={20} md={20} style={this.colHeight}>
               <span><h1>{''}</h1></span>
@@ -140,6 +142,7 @@ class EncounterFormPage extends React.PureComponent {
               patient={this.props.patient}
               provider={this.props.provider}
               visit={this.props.patient ? this.props.patient.visit : null}
+              visitType={this.props.visitType ? this.props.visitType : null}
             >
               {this.props.formContent}
               <Grid>
@@ -192,8 +195,9 @@ EncounterFormPage.propTypes = {
   provider: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string]),
-  title: PropTypes.string.isRequired,
-  visit: PropTypes.object
+  title: PropTypes.string,
+  visit: PropTypes.object,
+  visitType: PropTypes.object
 };
 
 const mapStateToProps = (state, props) => {

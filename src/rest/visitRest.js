@@ -1,4 +1,5 @@
 import { axiosInstance } from '../config';
+import { DEFAULT_VISIT_REP } from "../domain/visit/constants";
 
 
 const api = {
@@ -43,10 +44,12 @@ const api = {
   },
 
   createVisit: (params) => {
-    return axiosInstance.post('visit', params.visit)
+    return axiosInstance.post(`visit?v=custom:${DEFAULT_VISIT_REP}`, params.visit)
       .then((response) => {
         if (response.status !== 201) {
           throw response;
+        } else {
+          return response.data;
         }
       });
   },

@@ -86,6 +86,7 @@ class EncounterForm extends React.PureComponent {
       provider: this.props.provider ? this.props.provider :
         this.props.currentProvider ? this.props.currentProvider : null,
       visit: this.props.visit,
+      visitType: this.props.visitType,
       formSubmittedActionCreator: this.props.formSubmittedActionCreator
     }));
   };
@@ -153,6 +154,9 @@ EncounterForm.propTypes = {
     PropTypes.object,
     PropTypes.string]),
   visit: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string]),
+  visitType: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string])
 };
