@@ -51,6 +51,7 @@ class Dropdown extends PureComponent {
           style={otherProps.dropDownStyle || dropDownStyle}
           value={dropDownValue}
         >
+          { otherProps.placeholder && <option key={0} value={''}>{otherProps.placeholder}</option> }
           {this.getListData().map(
             item => !!item.uuid ? (
               <option
@@ -92,6 +93,7 @@ Dropdown.defaultProps = {
   defaultValue: null,
   label: "",
   labelClassName: "",
+  placeholder:"Select from the list"
 };
 
 Dropdown.propTypes = {
@@ -102,6 +104,7 @@ Dropdown.propTypes = {
   input: PropTypes.object,
   label: PropTypes.string,
   labelClassName: PropTypes.string,
+  placeholder: PropTypes.string,
   list: PropTypes.array.isRequired,
 };
 
