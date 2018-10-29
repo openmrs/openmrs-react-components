@@ -22,6 +22,7 @@ const BasicLayout = props => {
     <div id="outer-container" className="ag-theme-material">
       <ReduxToastr
         closeOnToastrClick
+        timeOut={1000}
       />
       <Grid fluid={true}>
         <Row style={{marginBottom:60}}>
