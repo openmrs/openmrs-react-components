@@ -20,7 +20,9 @@ const BasicLayout = props => {
 
   return (
     <div id="outer-container" className="ag-theme-material">
-      <ReduxToastr />
+      <ReduxToastr
+        closeOnToastrClick
+      />
       <Grid fluid={true}>
         <Row style={{marginBottom:60}}>
           <HeaderAlt

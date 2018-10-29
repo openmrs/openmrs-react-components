@@ -35,7 +35,10 @@ class EncounterFormPage extends React.PureComponent {
     }
 
     this.formSubmittedActionCreators = [
-      () => toastrActions.add({ title: "Data Saved", type: "success" })
+      () => toastrActions.add({
+        title: this.props.toastMessage ? this.props.toastMessage : "Data Saved",
+        type: "success"
+      })
     ];
 
     if (props.afterSubmitLink) {
@@ -197,6 +200,7 @@ EncounterFormPage.propTypes = {
     PropTypes.object,
     PropTypes.string]),
   title: PropTypes.string,
+  toastMessage: PropTypes.string,
   visit: PropTypes.object,
   visitType: PropTypes.object
 };
