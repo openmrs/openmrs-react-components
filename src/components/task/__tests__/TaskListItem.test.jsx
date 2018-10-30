@@ -29,8 +29,6 @@ describe('Component: TaskLisItem', () => {
       patient: {
         uuid: 'abcd'
       },
-      requiredFilters: [() => true],
-      completedFilters: [() => true],
     };
 
     expect(taskList().find(ListGroupItem).length).toBe(1);
@@ -44,8 +42,7 @@ describe('Component: TaskLisItem', () => {
       patient: {
         uuid: 'abcd'
       },
-      requiredFilters: [() => true],
-      completedFilters: [() => true],
+      completed: () => true,
     };
 
     expect(taskList().find(ListGroupItem).length).toBe(1);
@@ -62,8 +59,7 @@ describe('Component: TaskLisItem', () => {
       patient: {
         uuid: 'abcd'
       },
-      requiredFilters: [() => true],
-      completedFilters: [() => false],
+      completed: () => false,
     };
 
     expect(taskList().find(ListGroupItem).length).toBe(1);
@@ -72,40 +68,5 @@ describe('Component: TaskLisItem', () => {
     expect(taskList().find(FontAwesomeIcon).props().icon).toBe("arrow-right");
 
   });
-
-  it('renders no icon when task not required and not completed', () => {
-
-    // note that this patient is a child
-    props = {
-      title: "Blood Pressure",
-      patient: {
-        uuid: 'abcd',
-      },
-      requiredFilters: [() => false],
-      completedFilters: [() => false],
-    };
-
-    expect(taskList().find(ListGroupItem).length).toBe(1);
-    expect(taskList().find(ListGroupItem).text()).toContain("Blood Pressure");
-    expect(taskList().find(FontAwesomeIcon).length).toBe(0);
-
-  });
-
-  it('renders no icon when task filters not passed in', () => {
-
-    // note that this patient is a child
-    props = {
-      title: "Blood Pressure",
-      patient: {
-        uuid: 'abcd',
-      }
-    };
-
-    expect(taskList().find(ListGroupItem).length).toBe(1);
-    expect(taskList().find(ListGroupItem).text()).toContain("Blood Pressure");
-    expect(taskList().find(FontAwesomeIcon).length).toBe(0);
-
-  });
-
 
 });

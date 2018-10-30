@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Label, Checkbox } from 'react-bootstrap';
 import DataGrid from '../grid/DataGrid';
+import { applyFilters} from "../../util/filterUtil";
 
 /*
   This component was designed to be used to render and dynamically update a list based on data received from a server
@@ -90,7 +91,7 @@ class List extends React.Component {
     clearInterval(this.interval);
   }
 
-  applyFilters(list) {
+  applyFiltersToList(list) {
     let filters = this.props.filters ? [...this.props.filters] : [];
 
     // add any optional filters
@@ -103,16 +104,8 @@ class List extends React.Component {
         ];
     }
 
-    return this.applyFiltersHelper(list, filters);
+    return applyFilters(list, filters);
   }
-
-  applyFiltersHelper(list, filters) {
-    if (filters.length === 0) {
-      return list;
-    } else {
-      return this.applyFiltersHelper(list.filter(filters[filters.length - 1]), filters.slice(0, -1));
-    }
-  };
 
   handleFilterToggle(e, key) {
     this.setState((state) => {
@@ -146,7 +139,7 @@ class List extends React.Component {
         <DataGrid
           columnDefs={this.props.columnDefs}
           loading={this.props.loading}
-          rowData={this.applyFilters(this.props.rowData)}
+          rowData={this.applyFiltersToList(this.props.rowData)}
           onRowCount={this.props.onRowCount}
           rowSelectedActionCreators={this.props.rowSelectedActionCreators}
         />

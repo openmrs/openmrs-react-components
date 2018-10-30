@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListGroupItem, ListGroup } from 'react-bootstrap';
-import TaskListItem from './TaskListItem';
+import { ListGroup } from 'react-bootstrap';
+import TaskListGroup from './TaskListGroup';
 
 let TaskList = props => {
 
@@ -9,21 +9,11 @@ let TaskList = props => {
     <div>
       <ListGroup>
         {props.taskGroups.map(taskGroup => (
-          <ListGroupItem
-            header={taskGroup.title}
+          <TaskListGroup
             key={taskGroup.key}
-          >
-            {taskGroup.tasks.map(task => (
-              <TaskListItem
-                completedFilters={task.completedFilters}
-                key={task.title}
-                link={task.link}
-                patient={props.patient}
-                requiredFilters={task.requiredFilters}
-                title={task.title}
-              />
-            ))}
-          </ListGroupItem>
+            patient={props.patient}
+            taskGroup={taskGroup}
+          />
         ))};
       </ListGroup>
     </div>

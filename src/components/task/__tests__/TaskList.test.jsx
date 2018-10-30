@@ -31,7 +31,7 @@ describe('Component: TaskList', () => {
         title: "Group 1",
         tasks: [
           {
-            title: "Check-In"
+            title: "Check-In",
           }
         ]
       },
