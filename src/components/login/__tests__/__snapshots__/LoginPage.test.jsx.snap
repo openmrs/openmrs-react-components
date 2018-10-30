@@ -505,7 +505,18 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                           value=""
                                         />
                                       </FormControl>
-                                      <div />
+                                      <div>
+                                        <span
+                                          className="field-error"
+                                          style={
+                                            Object {
+                                              "visibility": "hidden",
+                                            }
+                                          }
+                                        >
+                                          _
+                                        </span>
+                                      </div>
                                     </div>
                                   </FieldInput>
                                 </ConnectedField>
@@ -797,7 +808,18 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                           value=""
                                         />
                                       </FormControl>
-                                      <div />
+                                      <div>
+                                        <span
+                                          className="field-error"
+                                          style={
+                                            Object {
+                                              "visibility": "hidden",
+                                            }
+                                          }
+                                        >
+                                          _
+                                        </span>
+                                      </div>
                                     </div>
                                   </FieldInput>
                                 </ConnectedField>

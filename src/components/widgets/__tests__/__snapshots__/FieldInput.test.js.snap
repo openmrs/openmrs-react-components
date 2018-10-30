@@ -8,6 +8,17 @@ exports[`Component: FieldInput renders properly 1`] = `
     placeholder="mockplaceholder"
     type="mockType"
   />
-  <div />
+  <div>
+    <span
+      className="field-error"
+      style={
+        Object {
+          "visibility": "hidden",
+        }
+      }
+    >
+      _
+    </span>
+  </div>
 </div>
 `;

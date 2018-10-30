@@ -22,7 +22,18 @@ exports[`Component: LoginForm should render correctly 1`] = `
         type="text"
         value=""
       />
-      <div />
+      <div>
+        <span
+          className="field-error"
+          style={
+            Object {
+              "visibility": "hidden",
+            }
+          }
+        >
+          _
+        </span>
+      </div>
     </div>
   </div>
   <div
@@ -42,7 +53,18 @@ exports[`Component: LoginForm should render correctly 1`] = `
         type="password"
         value=""
       />
-      <div />
+      <div>
+        <span
+          className="field-error"
+          style={
+            Object {
+              "visibility": "hidden",
+            }
+          }
+        >
+          _
+        </span>
+      </div>
     </div>
   </div>
   <div

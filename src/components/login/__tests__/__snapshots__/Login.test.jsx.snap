@@ -474,7 +474,18 @@ exports[`Component: Login renders properly 1`] = `
                                     value=""
                                   />
                                 </FormControl>
-                                <div />
+                                <div>
+                                  <span
+                                    className="field-error"
+                                    style={
+                                      Object {
+                                        "visibility": "hidden",
+                                      }
+                                    }
+                                  >
+                                    _
+                                  </span>
+                                </div>
                               </div>
                             </FieldInput>
                           </ConnectedField>
@@ -766,7 +777,18 @@ exports[`Component: Login renders properly 1`] = `
                                     value=""
                                   />
                                 </FormControl>
-                                <div />
+                                <div>
+                                  <span
+                                    className="field-error"
+                                    style={
+                                      Object {
+                                        "visibility": "hidden",
+                                      }
+                                    }
+                                  >
+                                    _
+                                  </span>
+                                </div>
                               </div>
                             </FieldInput>
                           </ConnectedField>
