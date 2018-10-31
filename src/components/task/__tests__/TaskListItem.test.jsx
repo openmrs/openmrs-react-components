@@ -16,7 +16,7 @@ const taskList = () => {
   return mountedComponent;
 };
 
-describe('Component: TaskLisItem', () => {
+describe('Component: TaskListItem', () => {
 
   beforeEach(() => {
     mountedComponent = undefined;
@@ -49,23 +49,6 @@ describe('Component: TaskLisItem', () => {
     expect(taskList().find(ListGroupItem).text()).toContain("Blood Pressure");
     expect(taskList().find(FontAwesomeIcon).length).toBe(1);
     expect(taskList().find(FontAwesomeIcon).props().icon).toBe("check");
-
-  });
-
-  it('renders arrow when task required', () => {
-
-    props = {
-      title: "Blood Pressure",
-      patient: {
-        uuid: 'abcd'
-      },
-      completed: () => false,
-    };
-
-    expect(taskList().find(ListGroupItem).length).toBe(1);
-    expect(taskList().find(ListGroupItem).text()).toContain("Blood Pressure");
-    expect(taskList().find(FontAwesomeIcon).length).toBe(1);
-    expect(taskList().find(FontAwesomeIcon).props().icon).toBe("arrow-right");
 
   });
 
