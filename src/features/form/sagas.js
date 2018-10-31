@@ -165,7 +165,8 @@ function* submit(action) {
         newVisit.location = action.location.uuid;
       }
       newVisit = yield call(visitRest.createVisit, { visit: newVisit });
-      encounter.visit = newVisit.uuid;
+      // we do not need to specifically set the encounter visit since the EmrApiVisitAssignmentHandler does it automatically based on the encounter and visit location
+      //encounter.visit = newVisit.uuid;
     }
     if (!action.encounter) {
       // create encounter
