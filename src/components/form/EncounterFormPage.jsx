@@ -135,7 +135,7 @@ class EncounterFormPage extends React.PureComponent {
           (<div>
             <EncounterForm
               defaultValues={this.props.defaultValues}
-              encounter={this.getForm().encounter || this.props.encounter}
+              encounter={this.getForm().encounter || this.props.encounter}  // TODO why do we need to pass in props.encounter?
               encounterRole={this.props.encounterRole}
               encounterType={this.props.encounterType}
               formId={this.props.formId}
