@@ -1,0 +1,10 @@
+.background {
+    postion: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    flex-direction: column;
+    background-position:50% 50%;  /* Sets reference point to scale from */
+    background-size:cover;        /* Sets background image to cover entire element */
+}

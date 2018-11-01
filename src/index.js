@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
 import patientUtil from './domain/patient/patientUtil';
 import visitRestRepToPatientObjConverter from './domain/patient/converters/visitRestRepToPatientObjConverter';
@@ -16,6 +15,7 @@ import LoadingView from './components/loading/LoadingView';
 import Login from './components/login/Login';
 import LoginPage from './components/login/LoginPage';
 import Logout from './components/login/Logout';
+import HomePage from './components/home/HomePage';
 import PatientSearch from './components/search/PatientSearch';
 import AuthenticatedRoute from './components/routes/AuthenticatedRoute';
 import DataGrid from './components/grid/DataGrid';
@@ -103,6 +103,7 @@ module.exports = {
   Login,
   LoginPage,
   Logout,
+  HomePage,
   LOGIN_TYPES,
   LoadingView,
   PatientSearch,
