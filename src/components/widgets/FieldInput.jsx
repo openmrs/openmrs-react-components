@@ -29,7 +29,7 @@ const FieldInput = ({
   );
 
   const validations = (
-    <div>
+    <div className="div-error">
       {(
         <span className="field-error" style={{ visibility: error ? "visible" : "hidden"}}>
           { error ? error : "_" }

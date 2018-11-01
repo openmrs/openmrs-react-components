@@ -505,7 +505,9 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                           value=""
                                         />
                                       </FormControl>
-                                      <div>
+                                      <div
+                                        className="div-error"
+                                      >
                                         <span
                                           className="field-error"
                                           style={
@@ -808,7 +810,9 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                           value=""
                                         />
                                       </FormControl>
-                                      <div>
+                                      <div
+                                        className="div-error"
+                                      >
                                         <span
                                           className="field-error"
                                           style={
