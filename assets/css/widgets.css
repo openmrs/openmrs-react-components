@@ -19,6 +19,10 @@
     margin-top: 8px;
 }
 
+.div-error {
+    width: 190px;
+}
+
 .field-error {
     color: red;
     font-weight: bold;

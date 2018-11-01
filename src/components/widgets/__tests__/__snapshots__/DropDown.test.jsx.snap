@@ -11,6 +11,7 @@ exports[`Component: Dropdown renders properly 1`] = `
       
     </span>
     <select
+      disabled={false}
       onChange={[Function]}
       style={
         Object {

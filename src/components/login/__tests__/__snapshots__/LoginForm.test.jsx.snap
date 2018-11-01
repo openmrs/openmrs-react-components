@@ -22,7 +22,9 @@ exports[`Component: LoginForm should render correctly 1`] = `
         type="text"
         value=""
       />
-      <div>
+      <div
+        className="div-error"
+      >
         <span
           className="field-error"
           style={
@@ -53,7 +55,9 @@ exports[`Component: LoginForm should render correctly 1`] = `
         type="password"
         value=""
       />
-      <div>
+      <div
+        className="div-error"
+      >
         <span
           className="field-error"
           style={
