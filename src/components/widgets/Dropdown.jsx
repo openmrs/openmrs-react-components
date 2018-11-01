@@ -47,11 +47,15 @@ class Dropdown extends PureComponent {
       <span className={otherProps.className}>
         <span className={otherProps.labelClassName}>{otherProps.label}</span>
         <select
+          disabled={otherProps.disabled || false}
           onChange={this.handleChange}
           style={otherProps.dropDownStyle || dropDownStyle}
           value={dropDownValue}
         >
-          { otherProps.placeholder && <option key={0} value={''}>{otherProps.placeholder}</option> }
+          { otherProps.placeholder && <option
+            key={0}
+            value={''}
+          >{otherProps.placeholder}</option> }
           {this.getListData().map(
             item => !!item.uuid ? (
               <option
