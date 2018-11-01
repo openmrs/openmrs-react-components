@@ -37,8 +37,7 @@ TaskListItem.propTypes = {
   completed: PropTypes.func.isRequired,
   link: PropTypes.string,
   patient: PropTypes.object.isRequired,
-  title: PropTypes.string.isRequired,
-  timeFn: PropTypes.fn
+  title: PropTypes.string.isRequired
 };
 
 TaskListItem.defaultProps = {
