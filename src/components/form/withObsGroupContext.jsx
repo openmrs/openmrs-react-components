@@ -6,9 +6,9 @@ function withObsGroupContext(WrappedComponent)  {
   class WithObsGroupContext extends React.PureComponent {
     render() {
       return (
-        <ObsGroupContext>
+        <ObsGroupContext.Consumer>
           {obsGroupContext => <WrappedComponent {...this.props} obsGroupContext={obsGroupContext} />}
-        </ObsGroupContext>
+        </ObsGroupContext.Consumer>
       );
     }
   }
