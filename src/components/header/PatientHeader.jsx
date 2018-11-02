@@ -28,7 +28,7 @@ export class PatientHeader extends PureComponent {
 
     return (
       <div className="demographics">
-        <h1 className="name">
+        <h2 className="name">
           <span>
             <span className="PersonName-givenName">{patientUtil.getGivenName(this.state.patient)}&nbsp;&nbsp;</span>
             <em>Given</em>
@@ -54,7 +54,7 @@ export class PatientHeader extends PureComponent {
               {this.state.patient.age} year(s) ({dateFns.format(new Date(this.state.patient.birthdate), DATE_FORMAT)})
             </span>
           </span>
-        </h1>
+        </h2>
       </div>
     );
   }
