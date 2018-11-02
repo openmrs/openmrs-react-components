@@ -37,16 +37,26 @@ class CustomDatePicker extends PureComponent {
           selectedDate: moment(input.value)
         })
       } else {
-      onChange(moment().startOf('day').format())
+        onChange(moment().startOf('day').format())
       }
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { field } = nextProps;
+    const { field, input } = nextProps;
     this.setState({
       field,
     });
+    if (typeof input !== 'undefined') {
+      if (input.value !== this.props.input.value) {
+        this.setState({
+          selectedDate: moment(input.value)
+        });
+        onChange(moment(input.value).startOf('day').format());
+      } else {
+        input.onChange(moment().startOf('day').format())
+      }
+    }
   }
 
   handleChange(date) {
