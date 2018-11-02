@@ -52,7 +52,7 @@ class CustomDatePicker extends PureComponent {
         this.setState({
           selectedDate: moment(input.value)
         });
-        onChange(moment(input.value).startOf('day').format());
+        input.onChange(moment(input.value).startOf('day').format());
       } else {
         input.onChange(moment().startOf('day').format())
       }
