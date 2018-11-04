@@ -93,18 +93,19 @@ class SortableTable extends PureComponent {
             };
           }}
           loadingText={otherProps.loadingText}
-          minRows={otherProps.defaultPageSize}
+          minRows={otherProps.minRows}
           nextText={otherProps.nextText}
           noDataText={<span className="sortableTable-noDataText">{this.props.noDataMessage}</span>}
           ofText={otherProps.ofText}
+          pageSizeOptions={[10, 20, 25, 50, 100]}
           pageText={otherProps.pageText}
           previousText={otherProps.previousText}
           rowsText={otherProps.rowsText}
-          SubComponent={otherProps.subComponent}
           showPagination={otherProps.showPagination}
           showPaginationBottom={this.renderPaginationBottom()}
           showPaginationTop={otherProps.showPaginationTop}
           sortable={otherProps.isSortable}
+          SubComponent={otherProps.subComponent}
         />
       </div>
     );
