@@ -120,13 +120,13 @@ class EncounterFormPage extends React.PureComponent {
           {this.props.title &&
           <Row style={this.rowStyles}>
             <Col sm={20} md={20} style={this.littlePaddingLeft}>
-              <span><h1>{this.props.title}</h1></span>
+              <span><h2>{this.props.title}</h2></span>
             </Col>
           </Row>
           }
           <Row>
             <Col sm={20} md={20} style={this.colHeight}>
-              <span><h1>{''}</h1></span>
+              <span><h2>{''}</h2></span>
             </Col>
           </Row>
         </Grid>

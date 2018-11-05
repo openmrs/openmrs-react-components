@@ -14,7 +14,7 @@ const Section = (props) => {
   return (
     <Row style={ sectionStyle }>
       <Col sm={20} md={20} style={ leftPadding }>
-        <span><h1>{props.title}</h1></span>
+        <span><h2>{props.title}</h2></span>
       </Col>
     </Row>
   );

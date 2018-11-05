@@ -14,7 +14,7 @@ let TaskList = props => {
             patient={props.patient}
             taskGroup={taskGroup}
           />
-        ))};
+        ))}
       </ListGroup>
     </div>
   );

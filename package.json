@@ -83,7 +83,7 @@
     "npm-snapshot": "^1.0.0",
     "prop-types": "^15.6.1",
     "react": "^16.4.0",
-    "react-dom": "^16.3.2",
+    "react-dom": "^16.6.0",
     "react-hot-loader": "^4.1.2",
     "react-mock-router": "^1.0.15",
     "react-test-renderer": "^16.3.2",

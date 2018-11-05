@@ -474,7 +474,9 @@ exports[`Component: Login renders properly 1`] = `
                                     value=""
                                   />
                                 </FormControl>
-                                <div>
+                                <div
+                                  className="div-error"
+                                >
                                   <span
                                     className="field-error"
                                     style={
@@ -777,7 +779,9 @@ exports[`Component: Login renders properly 1`] = `
                                     value=""
                                   />
                                 </FormControl>
-                                <div>
+                                <div
+                                  className="div-error"
+                                >
                                   <span
                                     className="field-error"
                                     style={

@@ -34,11 +34,10 @@ let TaskListItem = props => {
 TaskListItem.propTypes = {
   colorComplete: PropTypes.string,
   colorPending: PropTypes.string,
-  completed: PropTypes.func.isRequired,
+  completed: PropTypes.func,
   link: PropTypes.string,
   patient: PropTypes.object.isRequired,
-  title: PropTypes.string.isRequired,
-  timeFn: PropTypes.fn
+  title: PropTypes.string.isRequired
 };
 
 TaskListItem.defaultProps = {

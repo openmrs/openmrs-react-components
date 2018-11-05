@@ -44,1100 +44,1117 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
           }
         }
       >
-        <Connect(Login)>
-          <Login
-            dispatch={[Function]}
+        <div
+          class="background darken-pseudo"
+          style={
+            Object {
+              "backgroundImage": "",
+            }
+          }
+        >
+          <div
+            class="foreground"
           >
-            <div>
-              <Connect(ReduxForm)
-                onSubmit={[Function]}
+            <Connect(Login)>
+              <Login
+                dispatch={[Function]}
               >
-                <ReduxForm
-                  dispatch={[Function]}
-                  isFormComplete={false}
-                  locations={Array []}
-                  onSubmit={[Function]}
-                >
-                  <Connect(Form(LoginForm))
-                    destroyOnUnmount={true}
-                    dispatch={[Function]}
-                    enableReinitialize={false}
-                    forceUnregisterOnUnmount={false}
-                    form="login-form-alt"
-                    getFormState={[Function]}
-                    isFormComplete={false}
-                    keepDirtyOnReinitialize={false}
-                    locations={Array []}
+                <div>
+                  <Connect(ReduxForm)
                     onSubmit={[Function]}
-                    persistentSubmitErrors={false}
-                    pure={true}
-                    shouldAsyncValidate={[Function]}
-                    shouldError={[Function]}
-                    shouldValidate={[Function]}
-                    shouldWarn={[Function]}
-                    touchOnBlur={true}
-                    touchOnChange={false}
-                    updateUnregisteredFields={false}
                   >
-                    <Form(LoginForm)
-                      anyTouched={false}
-                      array={
-                        Object {
-                          "insert": [Function],
-                          "move": [Function],
-                          "pop": [Function],
-                          "push": [Function],
-                          "remove": [Function],
-                          "removeAll": [Function],
-                          "shift": [Function],
-                          "splice": [Function],
-                          "swap": [Function],
-                          "unshift": [Function],
-                        }
-                      }
-                      arrayInsert={[Function]}
-                      arrayMove={[Function]}
-                      arrayPop={[Function]}
-                      arrayPush={[Function]}
-                      arrayRemove={[Function]}
-                      arrayRemoveAll={[Function]}
-                      arrayShift={[Function]}
-                      arraySplice={[Function]}
-                      arraySwap={[Function]}
-                      arrayUnshift={[Function]}
-                      asyncValidating={false}
-                      autofill={[Function]}
-                      blur={[Function]}
-                      change={[Function]}
-                      clearAsyncError={[Function]}
-                      clearFields={[Function]}
-                      clearSubmit={[Function]}
-                      clearSubmitErrors={[Function]}
-                      destroy={[Function]}
-                      destroyOnUnmount={true}
-                      dirty={false}
+                    <ReduxForm
                       dispatch={[Function]}
-                      enableReinitialize={false}
-                      focus={[Function]}
-                      forceUnregisterOnUnmount={false}
-                      form="login-form-alt"
-                      getFormState={[Function]}
-                      initialize={[Function]}
-                      initialized={false}
-                      invalid={false}
                       isFormComplete={false}
-                      keepDirtyOnReinitialize={false}
                       locations={Array []}
                       onSubmit={[Function]}
-                      persistentSubmitErrors={false}
-                      pristine={true}
-                      pure={true}
-                      registerField={[Function]}
-                      reset={[Function]}
-                      resetSection={[Function]}
-                      setSubmitFailed={[Function]}
-                      setSubmitSucceeded={[Function]}
-                      shouldAsyncValidate={[Function]}
-                      shouldError={[Function]}
-                      shouldValidate={[Function]}
-                      shouldWarn={[Function]}
-                      startAsyncValidation={[Function]}
-                      startSubmit={[Function]}
-                      stopAsyncValidation={[Function]}
-                      stopSubmit={[Function]}
-                      submit={[Function]}
-                      submitFailed={false}
-                      submitSucceeded={false}
-                      submitting={false}
-                      syncErrors={Object {}}
-                      syncWarnings={Object {}}
-                      touch={[Function]}
-                      touchOnBlur={true}
-                      touchOnChange={false}
-                      unregisterField={[Function]}
-                      untouch={[Function]}
-                      updateSyncErrors={[Function]}
-                      updateSyncWarnings={[Function]}
-                      updateUnregisteredFields={false}
-                      valid={true}
-                      validExceptSubmit={true}
-                      values={Object {}}
                     >
-                      <LoginForm
-                        anyTouched={false}
-                        array={
-                          Object {
-                            "insert": [Function],
-                            "move": [Function],
-                            "pop": [Function],
-                            "push": [Function],
-                            "remove": [Function],
-                            "removeAll": [Function],
-                            "shift": [Function],
-                            "splice": [Function],
-                            "swap": [Function],
-                            "unshift": [Function],
-                          }
-                        }
-                        asyncValidate={[Function]}
-                        asyncValidating={false}
-                        autofill={[Function]}
-                        blur={[Function]}
-                        change={[Function]}
-                        clearAsyncError={[Function]}
-                        clearFields={[Function]}
-                        clearSubmit={[Function]}
-                        clearSubmitErrors={[Function]}
-                        destroy={[Function]}
-                        dirty={false}
+                      <Connect(Form(LoginForm))
+                        destroyOnUnmount={true}
                         dispatch={[Function]}
+                        enableReinitialize={false}
+                        forceUnregisterOnUnmount={false}
                         form="login-form-alt"
-                        handleSubmit={[Function]}
-                        initialize={[Function]}
-                        initialized={false}
-                        invalid={false}
+                        getFormState={[Function]}
                         isFormComplete={false}
+                        keepDirtyOnReinitialize={false}
                         locations={Array []}
                         onSubmit={[Function]}
-                        pristine={true}
+                        persistentSubmitErrors={false}
                         pure={true}
-                        reset={[Function]}
-                        resetSection={[Function]}
-                        submit={[Function]}
-                        submitFailed={false}
-                        submitSucceeded={false}
-                        submitting={false}
-                        touch={[Function]}
-                        untouch={[Function]}
-                        valid={true}
+                        shouldAsyncValidate={[Function]}
+                        shouldError={[Function]}
+                        shouldValidate={[Function]}
+                        shouldWarn={[Function]}
+                        touchOnBlur={true}
+                        touchOnChange={false}
+                        updateUnregisteredFields={false}
                       >
-                        <form
-                          className="panel"
+                        <Form(LoginForm)
+                          anyTouched={false}
+                          array={
+                            Object {
+                              "insert": [Function],
+                              "move": [Function],
+                              "pop": [Function],
+                              "push": [Function],
+                              "remove": [Function],
+                              "removeAll": [Function],
+                              "shift": [Function],
+                              "splice": [Function],
+                              "swap": [Function],
+                              "unshift": [Function],
+                            }
+                          }
+                          arrayInsert={[Function]}
+                          arrayMove={[Function]}
+                          arrayPop={[Function]}
+                          arrayPush={[Function]}
+                          arrayRemove={[Function]}
+                          arrayRemoveAll={[Function]}
+                          arrayShift={[Function]}
+                          arraySplice={[Function]}
+                          arraySwap={[Function]}
+                          arrayUnshift={[Function]}
+                          asyncValidating={false}
+                          autofill={[Function]}
+                          blur={[Function]}
+                          change={[Function]}
+                          clearAsyncError={[Function]}
+                          clearFields={[Function]}
+                          clearSubmit={[Function]}
+                          clearSubmitErrors={[Function]}
+                          destroy={[Function]}
+                          destroyOnUnmount={true}
+                          dirty={false}
+                          dispatch={[Function]}
+                          enableReinitialize={false}
+                          focus={[Function]}
+                          forceUnregisterOnUnmount={false}
+                          form="login-form-alt"
+                          getFormState={[Function]}
+                          initialize={[Function]}
+                          initialized={false}
+                          invalid={false}
+                          isFormComplete={false}
+                          keepDirtyOnReinitialize={false}
+                          locations={Array []}
                           onSubmit={[Function]}
+                          persistentSubmitErrors={false}
+                          pristine={true}
+                          pure={true}
+                          registerField={[Function]}
+                          reset={[Function]}
+                          resetSection={[Function]}
+                          setSubmitFailed={[Function]}
+                          setSubmitSucceeded={[Function]}
+                          shouldAsyncValidate={[Function]}
+                          shouldError={[Function]}
+                          shouldValidate={[Function]}
+                          shouldWarn={[Function]}
+                          startAsyncValidation={[Function]}
+                          startSubmit={[Function]}
+                          stopAsyncValidation={[Function]}
+                          stopSubmit={[Function]}
+                          submit={[Function]}
+                          submitFailed={false}
+                          submitSucceeded={false}
+                          submitting={false}
+                          syncErrors={Object {}}
+                          syncWarnings={Object {}}
+                          touch={[Function]}
+                          touchOnBlur={true}
+                          touchOnChange={false}
+                          unregisterField={[Function]}
+                          untouch={[Function]}
+                          updateSyncErrors={[Function]}
+                          updateSyncWarnings={[Function]}
+                          updateUnregisteredFields={false}
+                          valid={true}
+                          validExceptSubmit={true}
+                          values={Object {}}
                         >
-                          <Connect(Errors)>
-                            <Errors
-                              dispatch={[Function]}
-                            />
-                          </Connect(Errors)>
-                          <div
-                            className="midPanelItemContainer"
+                          <LoginForm
+                            anyTouched={false}
+                            array={
+                              Object {
+                                "insert": [Function],
+                                "move": [Function],
+                                "pop": [Function],
+                                "push": [Function],
+                                "remove": [Function],
+                                "removeAll": [Function],
+                                "shift": [Function],
+                                "splice": [Function],
+                                "swap": [Function],
+                                "unshift": [Function],
+                              }
+                            }
+                            asyncValidate={[Function]}
+                            asyncValidating={false}
+                            autofill={[Function]}
+                            blur={[Function]}
+                            change={[Function]}
+                            clearAsyncError={[Function]}
+                            clearFields={[Function]}
+                            clearSubmit={[Function]}
+                            clearSubmitErrors={[Function]}
+                            destroy={[Function]}
+                            dirty={false}
+                            dispatch={[Function]}
+                            form="login-form-alt"
+                            handleSubmit={[Function]}
+                            initialize={[Function]}
+                            initialized={false}
+                            invalid={false}
+                            isFormComplete={false}
+                            locations={Array []}
+                            onSubmit={[Function]}
+                            pristine={true}
+                            pure={true}
+                            reset={[Function]}
+                            resetSection={[Function]}
+                            submit={[Function]}
+                            submitFailed={false}
+                            submitSucceeded={false}
+                            submitting={false}
+                            touch={[Function]}
+                            untouch={[Function]}
+                            valid={true}
                           >
-                            <Field
-                              component={[Function]}
-                              id="username"
-                              name="username"
-                              placeholder="Username"
-                              type="text"
+                            <form
+                              className="panel"
+                              onSubmit={[Function]}
                             >
-                              <Connect(ConnectedField)
-                                _reduxForm={
-                                  Object {
-                                    "anyTouched": false,
-                                    "array": Object {
-                                      "insert": [Function],
-                                      "move": [Function],
-                                      "pop": [Function],
-                                      "push": [Function],
-                                      "remove": [Function],
-                                      "removeAll": [Function],
-                                      "shift": [Function],
-                                      "splice": [Function],
-                                      "swap": [Function],
-                                      "unshift": [Function],
-                                    },
-                                    "arrayInsert": [Function],
-                                    "arrayMove": [Function],
-                                    "arrayPop": [Function],
-                                    "arrayPush": [Function],
-                                    "arrayRemove": [Function],
-                                    "arrayRemoveAll": [Function],
-                                    "arrayShift": [Function],
-                                    "arraySplice": [Function],
-                                    "arraySwap": [Function],
-                                    "arrayUnshift": [Function],
-                                    "asyncErrors": undefined,
-                                    "asyncValidate": [Function],
-                                    "asyncValidating": false,
-                                    "autofill": [Function],
-                                    "blur": [Function],
-                                    "change": [Function],
-                                    "clearAsyncError": [Function],
-                                    "clearFields": [Function],
-                                    "clearSubmit": [Function],
-                                    "clearSubmitErrors": [Function],
-                                    "destroy": [Function],
-                                    "destroyOnUnmount": true,
-                                    "dirty": false,
-                                    "dispatch": [Function],
-                                    "enableReinitialize": false,
-                                    "error": undefined,
-                                    "focus": [Function],
-                                    "forceUnregisterOnUnmount": false,
-                                    "form": "login-form-alt",
-                                    "getFormState": [Function],
-                                    "getValues": [Function],
-                                    "initialValues": undefined,
-                                    "initialize": [Function],
-                                    "initialized": false,
-                                    "invalid": false,
-                                    "isFormComplete": false,
-                                    "keepDirtyOnReinitialize": false,
-                                    "locations": Array [],
-                                    "onSubmit": [Function],
-                                    "persistentSubmitErrors": false,
-                                    "pristine": true,
-                                    "pure": true,
-                                    "register": [Function],
-                                    "registerField": [Function],
-                                    "registerInnerOnSubmit": [Function],
-                                    "registeredFields": undefined,
-                                    "reset": [Function],
-                                    "resetSection": [Function],
-                                    "sectionPrefix": undefined,
-                                    "setSubmitFailed": [Function],
-                                    "setSubmitSucceeded": [Function],
-                                    "shouldAsyncValidate": [Function],
-                                    "shouldError": [Function],
-                                    "shouldValidate": [Function],
-                                    "shouldWarn": [Function],
-                                    "startAsyncValidation": [Function],
-                                    "startSubmit": [Function],
-                                    "stopAsyncValidation": [Function],
-                                    "stopSubmit": [Function],
-                                    "submit": [Function],
-                                    "submitFailed": false,
-                                    "submitSucceeded": false,
-                                    "submitting": false,
-                                    "syncErrors": Object {},
-                                    "syncWarnings": Object {},
-                                    "touch": [Function],
-                                    "touchOnBlur": true,
-                                    "touchOnChange": false,
-                                    "triggerSubmit": undefined,
-                                    "unregister": [Function],
-                                    "unregisterField": [Function],
-                                    "untouch": [Function],
-                                    "updateSyncErrors": [Function],
-                                    "updateSyncWarnings": [Function],
-                                    "updateUnregisteredFields": false,
-                                    "valid": true,
-                                    "validExceptSubmit": true,
-                                    "values": Object {},
-                                    "warning": undefined,
-                                  }
-                                }
-                                component={[Function]}
-                                id="username"
-                                name="username"
-                                normalize={[Function]}
-                                placeholder="Username"
-                                type="text"
-                              >
-                                <ConnectedField
-                                  _reduxForm={
-                                    Object {
-                                      "anyTouched": false,
-                                      "array": Object {
-                                        "insert": [Function],
-                                        "move": [Function],
-                                        "pop": [Function],
-                                        "push": [Function],
-                                        "remove": [Function],
-                                        "removeAll": [Function],
-                                        "shift": [Function],
-                                        "splice": [Function],
-                                        "swap": [Function],
-                                        "unshift": [Function],
-                                      },
-                                      "arrayInsert": [Function],
-                                      "arrayMove": [Function],
-                                      "arrayPop": [Function],
-                                      "arrayPush": [Function],
-                                      "arrayRemove": [Function],
-                                      "arrayRemoveAll": [Function],
-                                      "arrayShift": [Function],
-                                      "arraySplice": [Function],
-                                      "arraySwap": [Function],
-                                      "arrayUnshift": [Function],
-                                      "asyncErrors": undefined,
-                                      "asyncValidate": [Function],
-                                      "asyncValidating": false,
-                                      "autofill": [Function],
-                                      "blur": [Function],
-                                      "change": [Function],
-                                      "clearAsyncError": [Function],
-                                      "clearFields": [Function],
-                                      "clearSubmit": [Function],
-                                      "clearSubmitErrors": [Function],
-                                      "destroy": [Function],
-                                      "destroyOnUnmount": true,
-                                      "dirty": false,
-                                      "dispatch": [Function],
-                                      "enableReinitialize": false,
-                                      "error": undefined,
-                                      "focus": [Function],
-                                      "forceUnregisterOnUnmount": false,
-                                      "form": "login-form-alt",
-                                      "getFormState": [Function],
-                                      "getValues": [Function],
-                                      "initialValues": undefined,
-                                      "initialize": [Function],
-                                      "initialized": false,
-                                      "invalid": false,
-                                      "isFormComplete": false,
-                                      "keepDirtyOnReinitialize": false,
-                                      "locations": Array [],
-                                      "onSubmit": [Function],
-                                      "persistentSubmitErrors": false,
-                                      "pristine": true,
-                                      "pure": true,
-                                      "register": [Function],
-                                      "registerField": [Function],
-                                      "registerInnerOnSubmit": [Function],
-                                      "registeredFields": undefined,
-                                      "reset": [Function],
-                                      "resetSection": [Function],
-                                      "sectionPrefix": undefined,
-                                      "setSubmitFailed": [Function],
-                                      "setSubmitSucceeded": [Function],
-                                      "shouldAsyncValidate": [Function],
-                                      "shouldError": [Function],
-                                      "shouldValidate": [Function],
-                                      "shouldWarn": [Function],
-                                      "startAsyncValidation": [Function],
-                                      "startSubmit": [Function],
-                                      "stopAsyncValidation": [Function],
-                                      "stopSubmit": [Function],
-                                      "submit": [Function],
-                                      "submitFailed": false,
-                                      "submitSucceeded": false,
-                                      "submitting": false,
-                                      "syncErrors": Object {},
-                                      "syncWarnings": Object {},
-                                      "touch": [Function],
-                                      "touchOnBlur": true,
-                                      "touchOnChange": false,
-                                      "triggerSubmit": undefined,
-                                      "unregister": [Function],
-                                      "unregisterField": [Function],
-                                      "untouch": [Function],
-                                      "updateSyncErrors": [Function],
-                                      "updateSyncWarnings": [Function],
-                                      "updateUnregisteredFields": false,
-                                      "valid": true,
-                                      "validExceptSubmit": true,
-                                      "values": Object {},
-                                      "warning": undefined,
-                                    }
-                                  }
-                                  asyncValidating={false}
-                                  component={[Function]}
-                                  dirty={false}
+                              <Connect(Errors)>
+                                <Errors
                                   dispatch={[Function]}
+                                />
+                              </Connect(Errors)>
+                              <div
+                                className="midPanelItemContainer"
+                              >
+                                <Field
+                                  component={[Function]}
                                   id="username"
                                   name="username"
-                                  normalize={[Function]}
                                   placeholder="Username"
-                                  pristine={true}
                                   type="text"
                                 >
-                                  <FieldInput
-                                    id="username"
-                                    input={
+                                  <Connect(ConnectedField)
+                                    _reduxForm={
                                       Object {
-                                        "name": "username",
-                                        "onBlur": [Function],
-                                        "onChange": [Function],
-                                        "onDragStart": [Function],
-                                        "onDrop": [Function],
-                                        "onFocus": [Function],
-                                        "value": "",
-                                      }
-                                    }
-                                    meta={
-                                      Object {
-                                        "active": false,
+                                        "anyTouched": false,
+                                        "array": Object {
+                                          "insert": [Function],
+                                          "move": [Function],
+                                          "pop": [Function],
+                                          "push": [Function],
+                                          "remove": [Function],
+                                          "removeAll": [Function],
+                                          "shift": [Function],
+                                          "splice": [Function],
+                                          "swap": [Function],
+                                          "unshift": [Function],
+                                        },
+                                        "arrayInsert": [Function],
+                                        "arrayMove": [Function],
+                                        "arrayPop": [Function],
+                                        "arrayPush": [Function],
+                                        "arrayRemove": [Function],
+                                        "arrayRemoveAll": [Function],
+                                        "arrayShift": [Function],
+                                        "arraySplice": [Function],
+                                        "arraySwap": [Function],
+                                        "arrayUnshift": [Function],
+                                        "asyncErrors": undefined,
+                                        "asyncValidate": [Function],
                                         "asyncValidating": false,
-                                        "autofilled": false,
+                                        "autofill": [Function],
+                                        "blur": [Function],
+                                        "change": [Function],
+                                        "clearAsyncError": [Function],
+                                        "clearFields": [Function],
+                                        "clearSubmit": [Function],
+                                        "clearSubmitErrors": [Function],
+                                        "destroy": [Function],
+                                        "destroyOnUnmount": true,
                                         "dirty": false,
                                         "dispatch": [Function],
+                                        "enableReinitialize": false,
                                         "error": undefined,
+                                        "focus": [Function],
+                                        "forceUnregisterOnUnmount": false,
                                         "form": "login-form-alt",
-                                        "initial": undefined,
+                                        "getFormState": [Function],
+                                        "getValues": [Function],
+                                        "initialValues": undefined,
+                                        "initialize": [Function],
+                                        "initialized": false,
                                         "invalid": false,
+                                        "isFormComplete": false,
+                                        "keepDirtyOnReinitialize": false,
+                                        "locations": Array [],
+                                        "onSubmit": [Function],
+                                        "persistentSubmitErrors": false,
                                         "pristine": true,
+                                        "pure": true,
+                                        "register": [Function],
+                                        "registerField": [Function],
+                                        "registerInnerOnSubmit": [Function],
+                                        "registeredFields": undefined,
+                                        "reset": [Function],
+                                        "resetSection": [Function],
+                                        "sectionPrefix": undefined,
+                                        "setSubmitFailed": [Function],
+                                        "setSubmitSucceeded": [Function],
+                                        "shouldAsyncValidate": [Function],
+                                        "shouldError": [Function],
+                                        "shouldValidate": [Function],
+                                        "shouldWarn": [Function],
+                                        "startAsyncValidation": [Function],
+                                        "startSubmit": [Function],
+                                        "stopAsyncValidation": [Function],
+                                        "stopSubmit": [Function],
+                                        "submit": [Function],
                                         "submitFailed": false,
+                                        "submitSucceeded": false,
                                         "submitting": false,
-                                        "touched": false,
+                                        "syncErrors": Object {},
+                                        "syncWarnings": Object {},
+                                        "touch": [Function],
+                                        "touchOnBlur": true,
+                                        "touchOnChange": false,
+                                        "triggerSubmit": undefined,
+                                        "unregister": [Function],
+                                        "unregisterField": [Function],
+                                        "untouch": [Function],
+                                        "updateSyncErrors": [Function],
+                                        "updateSyncWarnings": [Function],
+                                        "updateUnregisteredFields": false,
                                         "valid": true,
-                                        "visited": false,
+                                        "validExceptSubmit": true,
+                                        "values": Object {},
                                         "warning": undefined,
                                       }
                                     }
+                                    component={[Function]}
+                                    id="username"
+                                    name="username"
+                                    normalize={[Function]}
                                     placeholder="Username"
                                     type="text"
                                   >
-                                    <div>
-                                      <FormControl
-                                        bsClass="form-control"
-                                        componentClass="input"
-                                        name="username"
-                                        onBlur={[Function]}
-                                        onChange={[Function]}
-                                        onDragStart={[Function]}
-                                        onDrop={[Function]}
-                                        onFocus={[Function]}
+                                    <ConnectedField
+                                      _reduxForm={
+                                        Object {
+                                          "anyTouched": false,
+                                          "array": Object {
+                                            "insert": [Function],
+                                            "move": [Function],
+                                            "pop": [Function],
+                                            "push": [Function],
+                                            "remove": [Function],
+                                            "removeAll": [Function],
+                                            "shift": [Function],
+                                            "splice": [Function],
+                                            "swap": [Function],
+                                            "unshift": [Function],
+                                          },
+                                          "arrayInsert": [Function],
+                                          "arrayMove": [Function],
+                                          "arrayPop": [Function],
+                                          "arrayPush": [Function],
+                                          "arrayRemove": [Function],
+                                          "arrayRemoveAll": [Function],
+                                          "arrayShift": [Function],
+                                          "arraySplice": [Function],
+                                          "arraySwap": [Function],
+                                          "arrayUnshift": [Function],
+                                          "asyncErrors": undefined,
+                                          "asyncValidate": [Function],
+                                          "asyncValidating": false,
+                                          "autofill": [Function],
+                                          "blur": [Function],
+                                          "change": [Function],
+                                          "clearAsyncError": [Function],
+                                          "clearFields": [Function],
+                                          "clearSubmit": [Function],
+                                          "clearSubmitErrors": [Function],
+                                          "destroy": [Function],
+                                          "destroyOnUnmount": true,
+                                          "dirty": false,
+                                          "dispatch": [Function],
+                                          "enableReinitialize": false,
+                                          "error": undefined,
+                                          "focus": [Function],
+                                          "forceUnregisterOnUnmount": false,
+                                          "form": "login-form-alt",
+                                          "getFormState": [Function],
+                                          "getValues": [Function],
+                                          "initialValues": undefined,
+                                          "initialize": [Function],
+                                          "initialized": false,
+                                          "invalid": false,
+                                          "isFormComplete": false,
+                                          "keepDirtyOnReinitialize": false,
+                                          "locations": Array [],
+                                          "onSubmit": [Function],
+                                          "persistentSubmitErrors": false,
+                                          "pristine": true,
+                                          "pure": true,
+                                          "register": [Function],
+                                          "registerField": [Function],
+                                          "registerInnerOnSubmit": [Function],
+                                          "registeredFields": undefined,
+                                          "reset": [Function],
+                                          "resetSection": [Function],
+                                          "sectionPrefix": undefined,
+                                          "setSubmitFailed": [Function],
+                                          "setSubmitSucceeded": [Function],
+                                          "shouldAsyncValidate": [Function],
+                                          "shouldError": [Function],
+                                          "shouldValidate": [Function],
+                                          "shouldWarn": [Function],
+                                          "startAsyncValidation": [Function],
+                                          "startSubmit": [Function],
+                                          "stopAsyncValidation": [Function],
+                                          "stopSubmit": [Function],
+                                          "submit": [Function],
+                                          "submitFailed": false,
+                                          "submitSucceeded": false,
+                                          "submitting": false,
+                                          "syncErrors": Object {},
+                                          "syncWarnings": Object {},
+                                          "touch": [Function],
+                                          "touchOnBlur": true,
+                                          "touchOnChange": false,
+                                          "triggerSubmit": undefined,
+                                          "unregister": [Function],
+                                          "unregisterField": [Function],
+                                          "untouch": [Function],
+                                          "updateSyncErrors": [Function],
+                                          "updateSyncWarnings": [Function],
+                                          "updateUnregisteredFields": false,
+                                          "valid": true,
+                                          "validExceptSubmit": true,
+                                          "values": Object {},
+                                          "warning": undefined,
+                                        }
+                                      }
+                                      asyncValidating={false}
+                                      component={[Function]}
+                                      dirty={false}
+                                      dispatch={[Function]}
+                                      id="username"
+                                      name="username"
+                                      normalize={[Function]}
+                                      placeholder="Username"
+                                      pristine={true}
+                                      type="text"
+                                    >
+                                      <FieldInput
+                                        id="username"
+                                        input={
+                                          Object {
+                                            "name": "username",
+                                            "onBlur": [Function],
+                                            "onChange": [Function],
+                                            "onDragStart": [Function],
+                                            "onDrop": [Function],
+                                            "onFocus": [Function],
+                                            "value": "",
+                                          }
+                                        }
+                                        meta={
+                                          Object {
+                                            "active": false,
+                                            "asyncValidating": false,
+                                            "autofilled": false,
+                                            "dirty": false,
+                                            "dispatch": [Function],
+                                            "error": undefined,
+                                            "form": "login-form-alt",
+                                            "initial": undefined,
+                                            "invalid": false,
+                                            "pristine": true,
+                                            "submitFailed": false,
+                                            "submitting": false,
+                                            "touched": false,
+                                            "valid": true,
+                                            "visited": false,
+                                            "warning": undefined,
+                                          }
+                                        }
                                         placeholder="Username"
                                         type="text"
-                                        value=""
                                       >
-                                        <input
-                                          className="form-control"
-                                          name="username"
-                                          onBlur={[Function]}
-                                          onChange={[Function]}
-                                          onDragStart={[Function]}
-                                          onDrop={[Function]}
-                                          onFocus={[Function]}
-                                          placeholder="Username"
-                                          type="text"
-                                          value=""
-                                        />
-                                      </FormControl>
-                                      <div>
-                                        <span
-                                          className="field-error"
-                                          style={
-                                            Object {
-                                              "visibility": "hidden",
-                                            }
-                                          }
-                                        >
-                                          _
-                                        </span>
-                                      </div>
-                                    </div>
-                                  </FieldInput>
-                                </ConnectedField>
-                              </Connect(ConnectedField)>
-                            </Field>
-                          </div>
-                          <div
-                            className="midPanelItemContainer"
-                          >
-                            <Field
-                              component={[Function]}
-                              id="password"
-                              name="password"
-                              placeholder="Password"
-                              type="password"
-                            >
-                              <Connect(ConnectedField)
-                                _reduxForm={
-                                  Object {
-                                    "anyTouched": false,
-                                    "array": Object {
-                                      "insert": [Function],
-                                      "move": [Function],
-                                      "pop": [Function],
-                                      "push": [Function],
-                                      "remove": [Function],
-                                      "removeAll": [Function],
-                                      "shift": [Function],
-                                      "splice": [Function],
-                                      "swap": [Function],
-                                      "unshift": [Function],
-                                    },
-                                    "arrayInsert": [Function],
-                                    "arrayMove": [Function],
-                                    "arrayPop": [Function],
-                                    "arrayPush": [Function],
-                                    "arrayRemove": [Function],
-                                    "arrayRemoveAll": [Function],
-                                    "arrayShift": [Function],
-                                    "arraySplice": [Function],
-                                    "arraySwap": [Function],
-                                    "arrayUnshift": [Function],
-                                    "asyncErrors": undefined,
-                                    "asyncValidate": [Function],
-                                    "asyncValidating": false,
-                                    "autofill": [Function],
-                                    "blur": [Function],
-                                    "change": [Function],
-                                    "clearAsyncError": [Function],
-                                    "clearFields": [Function],
-                                    "clearSubmit": [Function],
-                                    "clearSubmitErrors": [Function],
-                                    "destroy": [Function],
-                                    "destroyOnUnmount": true,
-                                    "dirty": false,
-                                    "dispatch": [Function],
-                                    "enableReinitialize": false,
-                                    "error": undefined,
-                                    "focus": [Function],
-                                    "forceUnregisterOnUnmount": false,
-                                    "form": "login-form-alt",
-                                    "getFormState": [Function],
-                                    "getValues": [Function],
-                                    "initialValues": undefined,
-                                    "initialize": [Function],
-                                    "initialized": false,
-                                    "invalid": false,
-                                    "isFormComplete": false,
-                                    "keepDirtyOnReinitialize": false,
-                                    "locations": Array [],
-                                    "onSubmit": [Function],
-                                    "persistentSubmitErrors": false,
-                                    "pristine": true,
-                                    "pure": true,
-                                    "register": [Function],
-                                    "registerField": [Function],
-                                    "registerInnerOnSubmit": [Function],
-                                    "registeredFields": undefined,
-                                    "reset": [Function],
-                                    "resetSection": [Function],
-                                    "sectionPrefix": undefined,
-                                    "setSubmitFailed": [Function],
-                                    "setSubmitSucceeded": [Function],
-                                    "shouldAsyncValidate": [Function],
-                                    "shouldError": [Function],
-                                    "shouldValidate": [Function],
-                                    "shouldWarn": [Function],
-                                    "startAsyncValidation": [Function],
-                                    "startSubmit": [Function],
-                                    "stopAsyncValidation": [Function],
-                                    "stopSubmit": [Function],
-                                    "submit": [Function],
-                                    "submitFailed": false,
-                                    "submitSucceeded": false,
-                                    "submitting": false,
-                                    "syncErrors": Object {},
-                                    "syncWarnings": Object {},
-                                    "touch": [Function],
-                                    "touchOnBlur": true,
-                                    "touchOnChange": false,
-                                    "triggerSubmit": undefined,
-                                    "unregister": [Function],
-                                    "unregisterField": [Function],
-                                    "untouch": [Function],
-                                    "updateSyncErrors": [Function],
-                                    "updateSyncWarnings": [Function],
-                                    "updateUnregisteredFields": false,
-                                    "valid": true,
-                                    "validExceptSubmit": true,
-                                    "values": Object {},
-                                    "warning": undefined,
-                                  }
-                                }
-                                component={[Function]}
-                                id="password"
-                                name="password"
-                                normalize={[Function]}
-                                placeholder="Password"
-                                type="password"
+                                        <div>
+                                          <FormControl
+                                            bsClass="form-control"
+                                            componentClass="input"
+                                            name="username"
+                                            onBlur={[Function]}
+                                            onChange={[Function]}
+                                            onDragStart={[Function]}
+                                            onDrop={[Function]}
+                                            onFocus={[Function]}
+                                            placeholder="Username"
+                                            type="text"
+                                            value=""
+                                          >
+                                            <input
+                                              className="form-control"
+                                              name="username"
+                                              onBlur={[Function]}
+                                              onChange={[Function]}
+                                              onDragStart={[Function]}
+                                              onDrop={[Function]}
+                                              onFocus={[Function]}
+                                              placeholder="Username"
+                                              type="text"
+                                              value=""
+                                            />
+                                          </FormControl>
+                                          <div
+                                            className="div-error"
+                                          >
+                                            <span
+                                              className="field-error"
+                                              style={
+                                                Object {
+                                                  "visibility": "hidden",
+                                                }
+                                              }
+                                            >
+                                              _
+                                            </span>
+                                          </div>
+                                        </div>
+                                      </FieldInput>
+                                    </ConnectedField>
+                                  </Connect(ConnectedField)>
+                                </Field>
+                              </div>
+                              <div
+                                className="midPanelItemContainer"
                               >
-                                <ConnectedField
-                                  _reduxForm={
-                                    Object {
-                                      "anyTouched": false,
-                                      "array": Object {
-                                        "insert": [Function],
-                                        "move": [Function],
-                                        "pop": [Function],
-                                        "push": [Function],
-                                        "remove": [Function],
-                                        "removeAll": [Function],
-                                        "shift": [Function],
-                                        "splice": [Function],
-                                        "swap": [Function],
-                                        "unshift": [Function],
-                                      },
-                                      "arrayInsert": [Function],
-                                      "arrayMove": [Function],
-                                      "arrayPop": [Function],
-                                      "arrayPush": [Function],
-                                      "arrayRemove": [Function],
-                                      "arrayRemoveAll": [Function],
-                                      "arrayShift": [Function],
-                                      "arraySplice": [Function],
-                                      "arraySwap": [Function],
-                                      "arrayUnshift": [Function],
-                                      "asyncErrors": undefined,
-                                      "asyncValidate": [Function],
-                                      "asyncValidating": false,
-                                      "autofill": [Function],
-                                      "blur": [Function],
-                                      "change": [Function],
-                                      "clearAsyncError": [Function],
-                                      "clearFields": [Function],
-                                      "clearSubmit": [Function],
-                                      "clearSubmitErrors": [Function],
-                                      "destroy": [Function],
-                                      "destroyOnUnmount": true,
-                                      "dirty": false,
-                                      "dispatch": [Function],
-                                      "enableReinitialize": false,
-                                      "error": undefined,
-                                      "focus": [Function],
-                                      "forceUnregisterOnUnmount": false,
-                                      "form": "login-form-alt",
-                                      "getFormState": [Function],
-                                      "getValues": [Function],
-                                      "initialValues": undefined,
-                                      "initialize": [Function],
-                                      "initialized": false,
-                                      "invalid": false,
-                                      "isFormComplete": false,
-                                      "keepDirtyOnReinitialize": false,
-                                      "locations": Array [],
-                                      "onSubmit": [Function],
-                                      "persistentSubmitErrors": false,
-                                      "pristine": true,
-                                      "pure": true,
-                                      "register": [Function],
-                                      "registerField": [Function],
-                                      "registerInnerOnSubmit": [Function],
-                                      "registeredFields": undefined,
-                                      "reset": [Function],
-                                      "resetSection": [Function],
-                                      "sectionPrefix": undefined,
-                                      "setSubmitFailed": [Function],
-                                      "setSubmitSucceeded": [Function],
-                                      "shouldAsyncValidate": [Function],
-                                      "shouldError": [Function],
-                                      "shouldValidate": [Function],
-                                      "shouldWarn": [Function],
-                                      "startAsyncValidation": [Function],
-                                      "startSubmit": [Function],
-                                      "stopAsyncValidation": [Function],
-                                      "stopSubmit": [Function],
-                                      "submit": [Function],
-                                      "submitFailed": false,
-                                      "submitSucceeded": false,
-                                      "submitting": false,
-                                      "syncErrors": Object {},
-                                      "syncWarnings": Object {},
-                                      "touch": [Function],
-                                      "touchOnBlur": true,
-                                      "touchOnChange": false,
-                                      "triggerSubmit": undefined,
-                                      "unregister": [Function],
-                                      "unregisterField": [Function],
-                                      "untouch": [Function],
-                                      "updateSyncErrors": [Function],
-                                      "updateSyncWarnings": [Function],
-                                      "updateUnregisteredFields": false,
-                                      "valid": true,
-                                      "validExceptSubmit": true,
-                                      "values": Object {},
-                                      "warning": undefined,
-                                    }
-                                  }
-                                  asyncValidating={false}
+                                <Field
                                   component={[Function]}
-                                  dirty={false}
-                                  dispatch={[Function]}
                                   id="password"
                                   name="password"
-                                  normalize={[Function]}
                                   placeholder="Password"
-                                  pristine={true}
                                   type="password"
                                 >
-                                  <FieldInput
-                                    id="password"
-                                    input={
+                                  <Connect(ConnectedField)
+                                    _reduxForm={
                                       Object {
-                                        "name": "password",
-                                        "onBlur": [Function],
-                                        "onChange": [Function],
-                                        "onDragStart": [Function],
-                                        "onDrop": [Function],
-                                        "onFocus": [Function],
-                                        "value": "",
-                                      }
-                                    }
-                                    meta={
-                                      Object {
-                                        "active": false,
+                                        "anyTouched": false,
+                                        "array": Object {
+                                          "insert": [Function],
+                                          "move": [Function],
+                                          "pop": [Function],
+                                          "push": [Function],
+                                          "remove": [Function],
+                                          "removeAll": [Function],
+                                          "shift": [Function],
+                                          "splice": [Function],
+                                          "swap": [Function],
+                                          "unshift": [Function],
+                                        },
+                                        "arrayInsert": [Function],
+                                        "arrayMove": [Function],
+                                        "arrayPop": [Function],
+                                        "arrayPush": [Function],
+                                        "arrayRemove": [Function],
+                                        "arrayRemoveAll": [Function],
+                                        "arrayShift": [Function],
+                                        "arraySplice": [Function],
+                                        "arraySwap": [Function],
+                                        "arrayUnshift": [Function],
+                                        "asyncErrors": undefined,
+                                        "asyncValidate": [Function],
                                         "asyncValidating": false,
-                                        "autofilled": false,
+                                        "autofill": [Function],
+                                        "blur": [Function],
+                                        "change": [Function],
+                                        "clearAsyncError": [Function],
+                                        "clearFields": [Function],
+                                        "clearSubmit": [Function],
+                                        "clearSubmitErrors": [Function],
+                                        "destroy": [Function],
+                                        "destroyOnUnmount": true,
                                         "dirty": false,
                                         "dispatch": [Function],
+                                        "enableReinitialize": false,
                                         "error": undefined,
+                                        "focus": [Function],
+                                        "forceUnregisterOnUnmount": false,
                                         "form": "login-form-alt",
-                                        "initial": undefined,
+                                        "getFormState": [Function],
+                                        "getValues": [Function],
+                                        "initialValues": undefined,
+                                        "initialize": [Function],
+                                        "initialized": false,
                                         "invalid": false,
+                                        "isFormComplete": false,
+                                        "keepDirtyOnReinitialize": false,
+                                        "locations": Array [],
+                                        "onSubmit": [Function],
+                                        "persistentSubmitErrors": false,
                                         "pristine": true,
+                                        "pure": true,
+                                        "register": [Function],
+                                        "registerField": [Function],
+                                        "registerInnerOnSubmit": [Function],
+                                        "registeredFields": undefined,
+                                        "reset": [Function],
+                                        "resetSection": [Function],
+                                        "sectionPrefix": undefined,
+                                        "setSubmitFailed": [Function],
+                                        "setSubmitSucceeded": [Function],
+                                        "shouldAsyncValidate": [Function],
+                                        "shouldError": [Function],
+                                        "shouldValidate": [Function],
+                                        "shouldWarn": [Function],
+                                        "startAsyncValidation": [Function],
+                                        "startSubmit": [Function],
+                                        "stopAsyncValidation": [Function],
+                                        "stopSubmit": [Function],
+                                        "submit": [Function],
                                         "submitFailed": false,
+                                        "submitSucceeded": false,
                                         "submitting": false,
-                                        "touched": false,
+                                        "syncErrors": Object {},
+                                        "syncWarnings": Object {},
+                                        "touch": [Function],
+                                        "touchOnBlur": true,
+                                        "touchOnChange": false,
+                                        "triggerSubmit": undefined,
+                                        "unregister": [Function],
+                                        "unregisterField": [Function],
+                                        "untouch": [Function],
+                                        "updateSyncErrors": [Function],
+                                        "updateSyncWarnings": [Function],
+                                        "updateUnregisteredFields": false,
                                         "valid": true,
-                                        "visited": false,
+                                        "validExceptSubmit": true,
+                                        "values": Object {},
                                         "warning": undefined,
                                       }
                                     }
+                                    component={[Function]}
+                                    id="password"
+                                    name="password"
+                                    normalize={[Function]}
                                     placeholder="Password"
                                     type="password"
                                   >
-                                    <div>
-                                      <FormControl
-                                        bsClass="form-control"
-                                        componentClass="input"
-                                        name="password"
-                                        onBlur={[Function]}
-                                        onChange={[Function]}
-                                        onDragStart={[Function]}
-                                        onDrop={[Function]}
-                                        onFocus={[Function]}
+                                    <ConnectedField
+                                      _reduxForm={
+                                        Object {
+                                          "anyTouched": false,
+                                          "array": Object {
+                                            "insert": [Function],
+                                            "move": [Function],
+                                            "pop": [Function],
+                                            "push": [Function],
+                                            "remove": [Function],
+                                            "removeAll": [Function],
+                                            "shift": [Function],
+                                            "splice": [Function],
+                                            "swap": [Function],
+                                            "unshift": [Function],
+                                          },
+                                          "arrayInsert": [Function],
+                                          "arrayMove": [Function],
+                                          "arrayPop": [Function],
+                                          "arrayPush": [Function],
+                                          "arrayRemove": [Function],
+                                          "arrayRemoveAll": [Function],
+                                          "arrayShift": [Function],
+                                          "arraySplice": [Function],
+                                          "arraySwap": [Function],
+                                          "arrayUnshift": [Function],
+                                          "asyncErrors": undefined,
+                                          "asyncValidate": [Function],
+                                          "asyncValidating": false,
+                                          "autofill": [Function],
+                                          "blur": [Function],
+                                          "change": [Function],
+                                          "clearAsyncError": [Function],
+                                          "clearFields": [Function],
+                                          "clearSubmit": [Function],
+                                          "clearSubmitErrors": [Function],
+                                          "destroy": [Function],
+                                          "destroyOnUnmount": true,
+                                          "dirty": false,
+                                          "dispatch": [Function],
+                                          "enableReinitialize": false,
+                                          "error": undefined,
+                                          "focus": [Function],
+                                          "forceUnregisterOnUnmount": false,
+                                          "form": "login-form-alt",
+                                          "getFormState": [Function],
+                                          "getValues": [Function],
+                                          "initialValues": undefined,
+                                          "initialize": [Function],
+                                          "initialized": false,
+                                          "invalid": false,
+                                          "isFormComplete": false,
+                                          "keepDirtyOnReinitialize": false,
+                                          "locations": Array [],
+                                          "onSubmit": [Function],
+                                          "persistentSubmitErrors": false,
+                                          "pristine": true,
+                                          "pure": true,
+                                          "register": [Function],
+                                          "registerField": [Function],
+                                          "registerInnerOnSubmit": [Function],
+                                          "registeredFields": undefined,
+                                          "reset": [Function],
+                                          "resetSection": [Function],
+                                          "sectionPrefix": undefined,
+                                          "setSubmitFailed": [Function],
+                                          "setSubmitSucceeded": [Function],
+                                          "shouldAsyncValidate": [Function],
+                                          "shouldError": [Function],
+                                          "shouldValidate": [Function],
+                                          "shouldWarn": [Function],
+                                          "startAsyncValidation": [Function],
+                                          "startSubmit": [Function],
+                                          "stopAsyncValidation": [Function],
+                                          "stopSubmit": [Function],
+                                          "submit": [Function],
+                                          "submitFailed": false,
+                                          "submitSucceeded": false,
+                                          "submitting": false,
+                                          "syncErrors": Object {},
+                                          "syncWarnings": Object {},
+                                          "touch": [Function],
+                                          "touchOnBlur": true,
+                                          "touchOnChange": false,
+                                          "triggerSubmit": undefined,
+                                          "unregister": [Function],
+                                          "unregisterField": [Function],
+                                          "untouch": [Function],
+                                          "updateSyncErrors": [Function],
+                                          "updateSyncWarnings": [Function],
+                                          "updateUnregisteredFields": false,
+                                          "valid": true,
+                                          "validExceptSubmit": true,
+                                          "values": Object {},
+                                          "warning": undefined,
+                                        }
+                                      }
+                                      asyncValidating={false}
+                                      component={[Function]}
+                                      dirty={false}
+                                      dispatch={[Function]}
+                                      id="password"
+                                      name="password"
+                                      normalize={[Function]}
+                                      placeholder="Password"
+                                      pristine={true}
+                                      type="password"
+                                    >
+                                      <FieldInput
+                                        id="password"
+                                        input={
+                                          Object {
+                                            "name": "password",
+                                            "onBlur": [Function],
+                                            "onChange": [Function],
+                                            "onDragStart": [Function],
+                                            "onDrop": [Function],
+                                            "onFocus": [Function],
+                                            "value": "",
+                                          }
+                                        }
+                                        meta={
+                                          Object {
+                                            "active": false,
+                                            "asyncValidating": false,
+                                            "autofilled": false,
+                                            "dirty": false,
+                                            "dispatch": [Function],
+                                            "error": undefined,
+                                            "form": "login-form-alt",
+                                            "initial": undefined,
+                                            "invalid": false,
+                                            "pristine": true,
+                                            "submitFailed": false,
+                                            "submitting": false,
+                                            "touched": false,
+                                            "valid": true,
+                                            "visited": false,
+                                            "warning": undefined,
+                                          }
+                                        }
                                         placeholder="Password"
                                         type="password"
-                                        value=""
                                       >
-                                        <input
-                                          className="form-control"
-                                          name="password"
-                                          onBlur={[Function]}
-                                          onChange={[Function]}
-                                          onDragStart={[Function]}
-                                          onDrop={[Function]}
-                                          onFocus={[Function]}
-                                          placeholder="Password"
-                                          type="password"
-                                          value=""
-                                        />
-                                      </FormControl>
-                                      <div>
-                                        <span
-                                          className="field-error"
-                                          style={
-                                            Object {
-                                              "visibility": "hidden",
-                                            }
-                                          }
-                                        >
-                                          _
-                                        </span>
-                                      </div>
-                                    </div>
-                                  </FieldInput>
-                                </ConnectedField>
-                              </Connect(ConnectedField)>
-                            </Field>
-                          </div>
-                          <div
-                            className="midPanelItemContainer"
-                          >
-                            <Field
-                              component={[Function]}
-                              id="location"
-                              name="location"
-                              options={Array []}
-                              placeholder="Select Location"
-                            >
-                              <Connect(ConnectedField)
-                                _reduxForm={
-                                  Object {
-                                    "anyTouched": false,
-                                    "array": Object {
-                                      "insert": [Function],
-                                      "move": [Function],
-                                      "pop": [Function],
-                                      "push": [Function],
-                                      "remove": [Function],
-                                      "removeAll": [Function],
-                                      "shift": [Function],
-                                      "splice": [Function],
-                                      "swap": [Function],
-                                      "unshift": [Function],
-                                    },
-                                    "arrayInsert": [Function],
-                                    "arrayMove": [Function],
-                                    "arrayPop": [Function],
-                                    "arrayPush": [Function],
-                                    "arrayRemove": [Function],
-                                    "arrayRemoveAll": [Function],
-                                    "arrayShift": [Function],
-                                    "arraySplice": [Function],
-                                    "arraySwap": [Function],
-                                    "arrayUnshift": [Function],
-                                    "asyncErrors": undefined,
-                                    "asyncValidate": [Function],
-                                    "asyncValidating": false,
-                                    "autofill": [Function],
-                                    "blur": [Function],
-                                    "change": [Function],
-                                    "clearAsyncError": [Function],
-                                    "clearFields": [Function],
-                                    "clearSubmit": [Function],
-                                    "clearSubmitErrors": [Function],
-                                    "destroy": [Function],
-                                    "destroyOnUnmount": true,
-                                    "dirty": false,
-                                    "dispatch": [Function],
-                                    "enableReinitialize": false,
-                                    "error": undefined,
-                                    "focus": [Function],
-                                    "forceUnregisterOnUnmount": false,
-                                    "form": "login-form-alt",
-                                    "getFormState": [Function],
-                                    "getValues": [Function],
-                                    "initialValues": undefined,
-                                    "initialize": [Function],
-                                    "initialized": false,
-                                    "invalid": false,
-                                    "isFormComplete": false,
-                                    "keepDirtyOnReinitialize": false,
-                                    "locations": Array [],
-                                    "onSubmit": [Function],
-                                    "persistentSubmitErrors": false,
-                                    "pristine": true,
-                                    "pure": true,
-                                    "register": [Function],
-                                    "registerField": [Function],
-                                    "registerInnerOnSubmit": [Function],
-                                    "registeredFields": undefined,
-                                    "reset": [Function],
-                                    "resetSection": [Function],
-                                    "sectionPrefix": undefined,
-                                    "setSubmitFailed": [Function],
-                                    "setSubmitSucceeded": [Function],
-                                    "shouldAsyncValidate": [Function],
-                                    "shouldError": [Function],
-                                    "shouldValidate": [Function],
-                                    "shouldWarn": [Function],
-                                    "startAsyncValidation": [Function],
-                                    "startSubmit": [Function],
-                                    "stopAsyncValidation": [Function],
-                                    "stopSubmit": [Function],
-                                    "submit": [Function],
-                                    "submitFailed": false,
-                                    "submitSucceeded": false,
-                                    "submitting": false,
-                                    "syncErrors": Object {},
-                                    "syncWarnings": Object {},
-                                    "touch": [Function],
-                                    "touchOnBlur": true,
-                                    "touchOnChange": false,
-                                    "triggerSubmit": undefined,
-                                    "unregister": [Function],
-                                    "unregisterField": [Function],
-                                    "untouch": [Function],
-                                    "updateSyncErrors": [Function],
-                                    "updateSyncWarnings": [Function],
-                                    "updateUnregisteredFields": false,
-                                    "valid": true,
-                                    "validExceptSubmit": true,
-                                    "values": Object {},
-                                    "warning": undefined,
-                                  }
-                                }
-                                component={[Function]}
-                                id="location"
-                                name="location"
-                                normalize={[Function]}
-                                options={Array []}
-                                placeholder="Select Location"
+                                        <div>
+                                          <FormControl
+                                            bsClass="form-control"
+                                            componentClass="input"
+                                            name="password"
+                                            onBlur={[Function]}
+                                            onChange={[Function]}
+                                            onDragStart={[Function]}
+                                            onDrop={[Function]}
+                                            onFocus={[Function]}
+                                            placeholder="Password"
+                                            type="password"
+                                            value=""
+                                          >
+                                            <input
+                                              className="form-control"
+                                              name="password"
+                                              onBlur={[Function]}
+                                              onChange={[Function]}
+                                              onDragStart={[Function]}
+                                              onDrop={[Function]}
+                                              onFocus={[Function]}
+                                              placeholder="Password"
+                                              type="password"
+                                              value=""
+                                            />
+                                          </FormControl>
+                                          <div
+                                            className="div-error"
+                                          >
+                                            <span
+                                              className="field-error"
+                                              style={
+                                                Object {
+                                                  "visibility": "hidden",
+                                                }
+                                              }
+                                            >
+                                              _
+                                            </span>
+                                          </div>
+                                        </div>
+                                      </FieldInput>
+                                    </ConnectedField>
+                                  </Connect(ConnectedField)>
+                                </Field>
+                              </div>
+                              <div
+                                className="midPanelItemContainer"
                               >
-                                <ConnectedField
-                                  _reduxForm={
-                                    Object {
-                                      "anyTouched": false,
-                                      "array": Object {
-                                        "insert": [Function],
-                                        "move": [Function],
-                                        "pop": [Function],
-                                        "push": [Function],
-                                        "remove": [Function],
-                                        "removeAll": [Function],
-                                        "shift": [Function],
-                                        "splice": [Function],
-                                        "swap": [Function],
-                                        "unshift": [Function],
-                                      },
-                                      "arrayInsert": [Function],
-                                      "arrayMove": [Function],
-                                      "arrayPop": [Function],
-                                      "arrayPush": [Function],
-                                      "arrayRemove": [Function],
-                                      "arrayRemoveAll": [Function],
-                                      "arrayShift": [Function],
-                                      "arraySplice": [Function],
-                                      "arraySwap": [Function],
-                                      "arrayUnshift": [Function],
-                                      "asyncErrors": undefined,
-                                      "asyncValidate": [Function],
-                                      "asyncValidating": false,
-                                      "autofill": [Function],
-                                      "blur": [Function],
-                                      "change": [Function],
-                                      "clearAsyncError": [Function],
-                                      "clearFields": [Function],
-                                      "clearSubmit": [Function],
-                                      "clearSubmitErrors": [Function],
-                                      "destroy": [Function],
-                                      "destroyOnUnmount": true,
-                                      "dirty": false,
-                                      "dispatch": [Function],
-                                      "enableReinitialize": false,
-                                      "error": undefined,
-                                      "focus": [Function],
-                                      "forceUnregisterOnUnmount": false,
-                                      "form": "login-form-alt",
-                                      "getFormState": [Function],
-                                      "getValues": [Function],
-                                      "initialValues": undefined,
-                                      "initialize": [Function],
-                                      "initialized": false,
-                                      "invalid": false,
-                                      "isFormComplete": false,
-                                      "keepDirtyOnReinitialize": false,
-                                      "locations": Array [],
-                                      "onSubmit": [Function],
-                                      "persistentSubmitErrors": false,
-                                      "pristine": true,
-                                      "pure": true,
-                                      "register": [Function],
-                                      "registerField": [Function],
-                                      "registerInnerOnSubmit": [Function],
-                                      "registeredFields": undefined,
-                                      "reset": [Function],
-                                      "resetSection": [Function],
-                                      "sectionPrefix": undefined,
-                                      "setSubmitFailed": [Function],
-                                      "setSubmitSucceeded": [Function],
-                                      "shouldAsyncValidate": [Function],
-                                      "shouldError": [Function],
-                                      "shouldValidate": [Function],
-                                      "shouldWarn": [Function],
-                                      "startAsyncValidation": [Function],
-                                      "startSubmit": [Function],
-                                      "stopAsyncValidation": [Function],
-                                      "stopSubmit": [Function],
-                                      "submit": [Function],
-                                      "submitFailed": false,
-                                      "submitSucceeded": false,
-                                      "submitting": false,
-                                      "syncErrors": Object {},
-                                      "syncWarnings": Object {},
-                                      "touch": [Function],
-                                      "touchOnBlur": true,
-                                      "touchOnChange": false,
-                                      "triggerSubmit": undefined,
-                                      "unregister": [Function],
-                                      "unregisterField": [Function],
-                                      "untouch": [Function],
-                                      "updateSyncErrors": [Function],
-                                      "updateSyncWarnings": [Function],
-                                      "updateUnregisteredFields": false,
-                                      "valid": true,
-                                      "validExceptSubmit": true,
-                                      "values": Object {},
-                                      "warning": undefined,
-                                    }
-                                  }
-                                  asyncValidating={false}
+                                <Field
                                   component={[Function]}
-                                  dirty={false}
-                                  dispatch={[Function]}
                                   id="location"
                                   name="location"
-                                  normalize={[Function]}
                                   options={Array []}
                                   placeholder="Select Location"
-                                  pristine={true}
                                 >
-                                  <Select
-                                    id="location"
-                                    input={
+                                  <Connect(ConnectedField)
+                                    _reduxForm={
                                       Object {
-                                        "name": "location",
-                                        "onBlur": [Function],
-                                        "onChange": [Function],
-                                        "onDragStart": [Function],
-                                        "onDrop": [Function],
-                                        "onFocus": [Function],
-                                        "value": "",
-                                      }
-                                    }
-                                    meta={
-                                      Object {
-                                        "active": false,
+                                        "anyTouched": false,
+                                        "array": Object {
+                                          "insert": [Function],
+                                          "move": [Function],
+                                          "pop": [Function],
+                                          "push": [Function],
+                                          "remove": [Function],
+                                          "removeAll": [Function],
+                                          "shift": [Function],
+                                          "splice": [Function],
+                                          "swap": [Function],
+                                          "unshift": [Function],
+                                        },
+                                        "arrayInsert": [Function],
+                                        "arrayMove": [Function],
+                                        "arrayPop": [Function],
+                                        "arrayPush": [Function],
+                                        "arrayRemove": [Function],
+                                        "arrayRemoveAll": [Function],
+                                        "arrayShift": [Function],
+                                        "arraySplice": [Function],
+                                        "arraySwap": [Function],
+                                        "arrayUnshift": [Function],
+                                        "asyncErrors": undefined,
+                                        "asyncValidate": [Function],
                                         "asyncValidating": false,
-                                        "autofilled": false,
+                                        "autofill": [Function],
+                                        "blur": [Function],
+                                        "change": [Function],
+                                        "clearAsyncError": [Function],
+                                        "clearFields": [Function],
+                                        "clearSubmit": [Function],
+                                        "clearSubmitErrors": [Function],
+                                        "destroy": [Function],
+                                        "destroyOnUnmount": true,
                                         "dirty": false,
                                         "dispatch": [Function],
+                                        "enableReinitialize": false,
                                         "error": undefined,
+                                        "focus": [Function],
+                                        "forceUnregisterOnUnmount": false,
                                         "form": "login-form-alt",
-                                        "initial": undefined,
+                                        "getFormState": [Function],
+                                        "getValues": [Function],
+                                        "initialValues": undefined,
+                                        "initialize": [Function],
+                                        "initialized": false,
                                         "invalid": false,
+                                        "isFormComplete": false,
+                                        "keepDirtyOnReinitialize": false,
+                                        "locations": Array [],
+                                        "onSubmit": [Function],
+                                        "persistentSubmitErrors": false,
                                         "pristine": true,
+                                        "pure": true,
+                                        "register": [Function],
+                                        "registerField": [Function],
+                                        "registerInnerOnSubmit": [Function],
+                                        "registeredFields": undefined,
+                                        "reset": [Function],
+                                        "resetSection": [Function],
+                                        "sectionPrefix": undefined,
+                                        "setSubmitFailed": [Function],
+                                        "setSubmitSucceeded": [Function],
+                                        "shouldAsyncValidate": [Function],
+                                        "shouldError": [Function],
+                                        "shouldValidate": [Function],
+                                        "shouldWarn": [Function],
+                                        "startAsyncValidation": [Function],
+                                        "startSubmit": [Function],
+                                        "stopAsyncValidation": [Function],
+                                        "stopSubmit": [Function],
+                                        "submit": [Function],
                                         "submitFailed": false,
+                                        "submitSucceeded": false,
                                         "submitting": false,
-                                        "touched": false,
+                                        "syncErrors": Object {},
+                                        "syncWarnings": Object {},
+                                        "touch": [Function],
+                                        "touchOnBlur": true,
+                                        "touchOnChange": false,
+                                        "triggerSubmit": undefined,
+                                        "unregister": [Function],
+                                        "unregisterField": [Function],
+                                        "untouch": [Function],
+                                        "updateSyncErrors": [Function],
+                                        "updateSyncWarnings": [Function],
+                                        "updateUnregisteredFields": false,
                                         "valid": true,
-                                        "visited": false,
+                                        "validExceptSubmit": true,
+                                        "values": Object {},
                                         "warning": undefined,
                                       }
                                     }
+                                    component={[Function]}
+                                    id="location"
+                                    name="location"
+                                    normalize={[Function]}
                                     options={Array []}
                                     placeholder="Select Location"
                                   >
-                                    <div>
-                                      <select
-                                        className="locationSelector"
-                                        name="location"
-                                        onBlur={[Function]}
-                                        onChange={[Function]}
-                                        onDragStart={[Function]}
-                                        onDrop={[Function]}
-                                        onFocus={[Function]}
-                                        value=""
+                                    <ConnectedField
+                                      _reduxForm={
+                                        Object {
+                                          "anyTouched": false,
+                                          "array": Object {
+                                            "insert": [Function],
+                                            "move": [Function],
+                                            "pop": [Function],
+                                            "push": [Function],
+                                            "remove": [Function],
+                                            "removeAll": [Function],
+                                            "shift": [Function],
+                                            "splice": [Function],
+                                            "swap": [Function],
+                                            "unshift": [Function],
+                                          },
+                                          "arrayInsert": [Function],
+                                          "arrayMove": [Function],
+                                          "arrayPop": [Function],
+                                          "arrayPush": [Function],
+                                          "arrayRemove": [Function],
+                                          "arrayRemoveAll": [Function],
+                                          "arrayShift": [Function],
+                                          "arraySplice": [Function],
+                                          "arraySwap": [Function],
+                                          "arrayUnshift": [Function],
+                                          "asyncErrors": undefined,
+                                          "asyncValidate": [Function],
+                                          "asyncValidating": false,
+                                          "autofill": [Function],
+                                          "blur": [Function],
+                                          "change": [Function],
+                                          "clearAsyncError": [Function],
+                                          "clearFields": [Function],
+                                          "clearSubmit": [Function],
+                                          "clearSubmitErrors": [Function],
+                                          "destroy": [Function],
+                                          "destroyOnUnmount": true,
+                                          "dirty": false,
+                                          "dispatch": [Function],
+                                          "enableReinitialize": false,
+                                          "error": undefined,
+                                          "focus": [Function],
+                                          "forceUnregisterOnUnmount": false,
+                                          "form": "login-form-alt",
+                                          "getFormState": [Function],
+                                          "getValues": [Function],
+                                          "initialValues": undefined,
+                                          "initialize": [Function],
+                                          "initialized": false,
+                                          "invalid": false,
+                                          "isFormComplete": false,
+                                          "keepDirtyOnReinitialize": false,
+                                          "locations": Array [],
+                                          "onSubmit": [Function],
+                                          "persistentSubmitErrors": false,
+                                          "pristine": true,
+                                          "pure": true,
+                                          "register": [Function],
+                                          "registerField": [Function],
+                                          "registerInnerOnSubmit": [Function],
+                                          "registeredFields": undefined,
+                                          "reset": [Function],
+                                          "resetSection": [Function],
+                                          "sectionPrefix": undefined,
+                                          "setSubmitFailed": [Function],
+                                          "setSubmitSucceeded": [Function],
+                                          "shouldAsyncValidate": [Function],
+                                          "shouldError": [Function],
+                                          "shouldValidate": [Function],
+                                          "shouldWarn": [Function],
+                                          "startAsyncValidation": [Function],
+                                          "startSubmit": [Function],
+                                          "stopAsyncValidation": [Function],
+                                          "stopSubmit": [Function],
+                                          "submit": [Function],
+                                          "submitFailed": false,
+                                          "submitSucceeded": false,
+                                          "submitting": false,
+                                          "syncErrors": Object {},
+                                          "syncWarnings": Object {},
+                                          "touch": [Function],
+                                          "touchOnBlur": true,
+                                          "touchOnChange": false,
+                                          "triggerSubmit": undefined,
+                                          "unregister": [Function],
+                                          "unregisterField": [Function],
+                                          "untouch": [Function],
+                                          "updateSyncErrors": [Function],
+                                          "updateSyncWarnings": [Function],
+                                          "updateUnregisteredFields": false,
+                                          "valid": true,
+                                          "validExceptSubmit": true,
+                                          "values": Object {},
+                                          "warning": undefined,
+                                        }
+                                      }
+                                      asyncValidating={false}
+                                      component={[Function]}
+                                      dirty={false}
+                                      dispatch={[Function]}
+                                      id="location"
+                                      name="location"
+                                      normalize={[Function]}
+                                      options={Array []}
+                                      placeholder="Select Location"
+                                      pristine={true}
+                                    >
+                                      <Select
+                                        id="location"
+                                        input={
+                                          Object {
+                                            "name": "location",
+                                            "onBlur": [Function],
+                                            "onChange": [Function],
+                                            "onDragStart": [Function],
+                                            "onDrop": [Function],
+                                            "onFocus": [Function],
+                                            "value": "",
+                                          }
+                                        }
+                                        meta={
+                                          Object {
+                                            "active": false,
+                                            "asyncValidating": false,
+                                            "autofilled": false,
+                                            "dirty": false,
+                                            "dispatch": [Function],
+                                            "error": undefined,
+                                            "form": "login-form-alt",
+                                            "initial": undefined,
+                                            "invalid": false,
+                                            "pristine": true,
+                                            "submitFailed": false,
+                                            "submitting": false,
+                                            "touched": false,
+                                            "valid": true,
+                                            "visited": false,
+                                            "warning": undefined,
+                                          }
+                                        }
+                                        options={Array []}
+                                        placeholder="Select Location"
                                       >
-                                        <option
-                                          key="0"
-                                          value=""
-                                        >
-                                          Select Location
-                                        </option>
-                                      </select>
-                                    </div>
-                                  </Select>
-                                </ConnectedField>
-                              </Connect(ConnectedField)>
-                            </Field>
-                          </div>
-                          <div
-                            className="bottomPanelItemContainer"
-                          >
-                            <Button
-                              active={false}
-                              block={false}
-                              bsClass="btn"
-                              bsStyle="default"
-                              className="loginButton"
-                              disabled={true}
-                              type="submit"
-                            >
-                              <button
-                                className="loginButton btn btn-default"
-                                disabled={true}
-                                type="submit"
+                                        <div>
+                                          <select
+                                            className="locationSelector"
+                                            name="location"
+                                            onBlur={[Function]}
+                                            onChange={[Function]}
+                                            onDragStart={[Function]}
+                                            onDrop={[Function]}
+                                            onFocus={[Function]}
+                                            value=""
+                                          >
+                                            <option
+                                              key="0"
+                                              value=""
+                                            >
+                                              Select Location
+                                            </option>
+                                          </select>
+                                        </div>
+                                      </Select>
+                                    </ConnectedField>
+                                  </Connect(ConnectedField)>
+                                </Field>
+                              </div>
+                              <div
+                                className="bottomPanelItemContainer"
                               >
-                                Login
-                              </button>
-                            </Button>
-                          </div>
-                        </form>
-                      </LoginForm>
-                    </Form(LoginForm)>
-                  </Connect(Form(LoginForm))>
-                </ReduxForm>
-              </Connect(ReduxForm)>
-            </div>
-          </Login>
-        </Connect(Login)>
+                                <Button
+                                  active={false}
+                                  block={false}
+                                  bsClass="btn"
+                                  bsStyle="default"
+                                  className="loginButton"
+                                  disabled={true}
+                                  type="submit"
+                                >
+                                  <button
+                                    className="loginButton btn btn-default"
+                                    disabled={true}
+                                    type="submit"
+                                  >
+                                    Login
+                                  </button>
+                                </Button>
+                              </div>
+                            </form>
+                          </LoginForm>
+                        </Form(LoginForm)>
+                      </Connect(Form(LoginForm))>
+                    </ReduxForm>
+                  </Connect(ReduxForm)>
+                </div>
+              </Login>
+            </Connect(Login)>
+          </div>
+        </div>
       </LoginPage>
     </Connect(LoginPage)>
   </MockRouter>

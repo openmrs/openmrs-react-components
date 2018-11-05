@@ -24,7 +24,7 @@ const Obs = (props) => {
         name={props.name}
         validate={props.validate}
       />
-    )
+    );
   }
   else if (props.widget === 'checkbox') {
     return (
@@ -45,12 +45,13 @@ const Obs = (props) => {
         <Field
           component={Dropdown}
           defaultValue={props.defaultValue}
+          disabled={props.disabled}
           displayValue={props.value}
-          placeholder={props.placeholder}
           dropDownStyle={props.dropDownStyle}
           list={props.conceptAnswers}
           mode={props.formContext.mode}
           name={props.name}
+          placeholder={props.placeholder}
           title={props.dropDownTitle}
         />
       );
