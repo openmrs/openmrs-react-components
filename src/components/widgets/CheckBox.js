@@ -30,11 +30,17 @@ class CheckBox extends PureComponent {
     }
 
     const edit = (
-      <Checkbox
-        {...input}
-        checked={checkedStatus}
-        onChange={(e) => this.handleToggle(e, checkBoxValue)}
-      >{title}</Checkbox>
+      <span>
+        <span>{title}</span>
+        <span>
+          <Checkbox
+            {...input}
+            checked={checkedStatus}
+            onChange={(e) => this.handleToggle(e, checkBoxValue)}
+            title={title}
+          />
+        </span>
+      </span>
     );
 
     const view = (
