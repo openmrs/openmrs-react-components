@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { Alert } from 'react-bootstrap';
+import { Alert } from 'reactstrap';
 
 class Errors extends React.Component {
 

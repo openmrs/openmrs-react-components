@@ -4,7 +4,7 @@ import ReduxToastr from 'react-redux-toastr';
 import AuthenticatedRoute from '../routes/AuthenticatedRoute';
 import HeaderAlt from '../header/HeaderAlt';
 import PatientHeader from '../header/PatientHeader';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
 import { selectors } from '../../store';
 import '../../../assets/css/basicLayout.css';
@@ -24,7 +24,7 @@ const BasicLayout = props => {
         closeOnToastrClick
         timeOut={1000}
       />
-      <Grid fluid={true}>
+      <Container fluid={true}>
         <Row style={{marginBottom:60}}>
           <HeaderAlt
             className="HeaderAlt"
@@ -50,7 +50,7 @@ const BasicLayout = props => {
             <AuthenticatedRoute {...props} />
           </Col>
         </Row>
-      </Grid>
+      </Container>
     </div>
   );
 };

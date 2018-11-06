@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Grid, Row, Col } from 'react-bootstrap';
+import { Button, Container, Row, Col } from 'reactstrap';
 import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { actions as toastrActions } from 'react-redux-toastr';
@@ -116,7 +116,7 @@ class EncounterFormPage extends React.PureComponent {
 
     return (
       <div style={this.divContainer}>
-        <Grid style={this.divContainer}>
+        <Container style={this.divContainer}>
           {this.props.title &&
           <Row style={this.rowStyles}>
             <Col sm={20} md={20} style={this.littlePaddingLeft}>
@@ -129,7 +129,7 @@ class EncounterFormPage extends React.PureComponent {
               <span><h2>{''}</h2></span>
             </Col>
           </Row>
-        </Grid>
+        </Container>
 
         {this.getForm() && (this.getForm().state === FORM_STATES.EDITING || this.getForm().state === FORM_STATES.VIEWING) ?
           (<div>

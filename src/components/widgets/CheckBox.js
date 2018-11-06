@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Checkbox } from 'react-bootstrap';
+import { Input } from 'reactstrap';
 
 class CheckBox extends PureComponent {
   constructor(props) {
@@ -34,11 +34,12 @@ class CheckBox extends PureComponent {
       <span>
         <span>{title}</span>
         <span>
-          <Checkbox
+          <Input
             {...input}
             checked={checkedStatus}
             onChange={(e) => this.handleToggle(e, checkBoxValue)}
             title={title}
+            type="checkbox"
           />
         </span>
       </span>

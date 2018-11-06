@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {  FormControl } from 'react-bootstrap';
+import { Input } from 'reactstrap';
 import '../../../assets/css/widgets.css';
 
 const FieldInput = ({
@@ -13,7 +13,7 @@ const FieldInput = ({
 }) => {
 
   const edit = (
-    <FormControl
+    <Input
       {...input}
       placeholder={placeholder}
       type={type}

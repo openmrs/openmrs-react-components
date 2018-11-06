@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ListGroupItem } from 'react-bootstrap';
+import { ListGroupItem } from 'reactstrap';
 
 let TaskListItem = props => {
 

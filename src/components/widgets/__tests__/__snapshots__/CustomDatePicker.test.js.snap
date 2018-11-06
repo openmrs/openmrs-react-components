@@ -25,7 +25,6 @@ exports[`Component: CustomDatePicker renders properly 1`] = `
             </span>
             <input
               className="form-control"
-              id={undefined}
               placeholder=""
               style={
                 Object {

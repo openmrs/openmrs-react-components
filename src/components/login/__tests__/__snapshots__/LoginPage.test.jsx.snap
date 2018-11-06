@@ -490,9 +490,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                         type="text"
                                       >
                                         <div>
-                                          <FormControl
-                                            bsClass="form-control"
-                                            componentClass="input"
+                                          <Input
                                             name="username"
                                             onBlur={[Function]}
                                             onChange={[Function]}
@@ -515,7 +513,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                               type="text"
                                               value=""
                                             />
-                                          </FormControl>
+                                          </Input>
                                           <div
                                             className="div-error"
                                           >
@@ -795,9 +793,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                         type="password"
                                       >
                                         <div>
-                                          <FormControl
-                                            bsClass="form-control"
-                                            componentClass="input"
+                                          <Input
                                             name="password"
                                             onBlur={[Function]}
                                             onChange={[Function]}
@@ -820,7 +816,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                               type="password"
                                               value=""
                                             />
-                                          </FormControl>
+                                          </Input>
                                           <div
                                             className="div-error"
                                           >
@@ -1127,17 +1123,17 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
                                 className="bottomPanelItemContainer"
                               >
                                 <Button
-                                  active={false}
-                                  block={false}
-                                  bsClass="btn"
-                                  bsStyle="default"
                                   className="loginButton"
+                                  color="secondary"
                                   disabled={true}
+                                  tag="button"
                                   type="submit"
                                 >
                                   <button
-                                    className="loginButton btn btn-default"
+                                    aria-label={null}
+                                    className="loginButton btn btn-secondary disabled"
                                     disabled={true}
+                                    onClick={[Function]}
                                     type="submit"
                                   >
                                     Login

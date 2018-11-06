@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavDropdown, MenuItem } from 'react-bootstrap';
+import { NavDropdown, NavItem } from 'reactstrap';
 import { sessionActions } from '../../features/session';
 
 export class LocationMenu extends React.Component {
@@ -14,13 +14,13 @@ export class LocationMenu extends React.Component {
         onSelect={this.props.onSelect}
       >
         {locations_array.map(location => (
-          <MenuItem key={location.uuid}
+          <NavItem key={location.uuid}
                     onSelect={() => {
                       this.props.dispatch(sessionActions.setSessionLocation(location.uuid));
                     }}
           >
             {location.display}
-          </MenuItem>))
+          </NavItem>))
         }
       </NavDropdown>
 

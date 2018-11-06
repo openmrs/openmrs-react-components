@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { reduxForm, formValueSelector, Field } from 'redux-form';
-import { Form } from 'react-bootstrap';
+import { Form } from 'reactstrap';
 import * as R from 'ramda';
 import FormContext from './FormContext';
 import { formActions } from '../../features/form';

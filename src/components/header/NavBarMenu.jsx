@@ -1,7 +1,7 @@
 import React from "react";
 import '../../../assets/css/headerAlt.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { NavDropdown, MenuItem } from 'react-bootstrap';
+import { NavDropdown, NavItem } from 'reactstrap';
 
 
 class NavBarMenu extends React.Component {
@@ -16,12 +16,12 @@ class NavBarMenu extends React.Component {
         onSelect={this.props.onSelect}
       >
         {page_path_array.map( path => (
-          <MenuItem eventKey={path} key={path} href={"#" + path}>
+          <NavItem eventKey={path} key={path} href={"#" + path}>
             {this.props.pageOptions[path].icon &&
               <FontAwesomeIcon icon={this.props.pageOptions[path].icon} size="lg" id="navItemIcon"/>
             }
             {this.props.pageOptions[path].display}
-            </MenuItem>
+            </NavItem>
         ))}
       </NavDropdown>
     );

@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FormControl } from 'react-bootstrap';
+import { Input } from 'reactstrap';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../../../assets/css/CustomDatePicker.css'
 import '../../../assets/css/widgets.css';
@@ -95,7 +95,7 @@ class CustomDatePicker extends PureComponent {
             otherProps.label
           }
         </span>
-        <FormControl
+        <Input
           placeholder=""
           style={this.props.formControlStyle}
           type="text"

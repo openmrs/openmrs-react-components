@@ -1,5 +1,5 @@
 import React from 'react';
-import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
+import { ButtonGroup as ReactStrapButtonGroup, Button } from 'reactstrap';
 import '../../../assets/css/widgets.css';
 import formUtil from '../../features/form/util';
 
@@ -15,17 +15,17 @@ const ButtonGroup = ({
 }) => {
 
   const edit = (
-    <ToggleButtonGroup type="radio" justified={true} {...input}>
+    <ReactStrapButtonGroup type="radio" justified={true} {...input}>
       {options.map(option =>
-        <ToggleButton
+        <Button
           key={option.uuid}
           style={buttonStyle}
           value={option.uuid}
         >
           {option.name || option.display}
-        </ToggleButton>
+        </Button>
       )}
-    </ToggleButtonGroup>
+    </ReactStrapButtonGroup>
   );
 
   const view = (

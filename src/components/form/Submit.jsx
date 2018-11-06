@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Button } from 'reactstrap';
 import withFormContext from './withFormContext';
 
 const Submit = (props) => {

@@ -11,7 +11,6 @@ exports[`Component: LoginForm should render correctly 1`] = `
     <div>
       <input
         className="form-control"
-        id={undefined}
         name="username"
         onBlur={[Function]}
         onChange={[Function]}
@@ -44,7 +43,6 @@ exports[`Component: LoginForm should render correctly 1`] = `
     <div>
       <input
         className="form-control"
-        id={undefined}
         name="password"
         onBlur={[Function]}
         onChange={[Function]}
@@ -98,8 +96,10 @@ exports[`Component: LoginForm should render correctly 1`] = `
     className="bottomPanelItemContainer"
   >
     <button
-      className="loginButton btn btn-default"
+      aria-label={null}
+      className="loginButton btn btn-secondary disabled"
       disabled={true}
+      onClick={[Function]}
       type="submit"
     >
       Login

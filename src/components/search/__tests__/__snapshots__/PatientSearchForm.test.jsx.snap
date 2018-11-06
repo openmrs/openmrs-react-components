@@ -12,16 +12,15 @@ exports[`patientSearchForm should render correctly 1`] = `
       className="row"
     >
       <div
-        className="form-group"
+        className="position-relative form-group"
       >
-        <label
-          className="control-label"
-          htmlFor={undefined}
+        <div
+          className="col"
         >
           Search
-        </label>
+        </div>
         <div
-          className=""
+          className="col"
         >
           <input
             name="query"
@@ -40,24 +39,31 @@ exports[`patientSearchForm should render correctly 1`] = `
       className="row"
     >
       <div
-        className="form-group"
+        className="position-relative form-group"
       >
         <div
-          className=""
+          className="col"
         >
           <div
             className="btn-toolbar"
             role="toolbar"
           >
             <button
-              className="btn btn-lg btn-success"
+              aria-label={null}
+              bsSize="large"
+              bsStyle="success"
+              className="btn btn-secondary disabled"
               disabled={true}
+              onClick={[Function]}
               type="submit"
             >
               Search
             </button>
             <button
-              className="btn btn-lg btn-danger"
+              aria-label={null}
+              bsSize="large"
+              bsStyle="danger"
+              className="btn btn-secondary disabled"
               disabled={true}
               onClick={[Function]}
               type="button"

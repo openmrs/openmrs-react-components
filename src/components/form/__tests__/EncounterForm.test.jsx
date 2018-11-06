@@ -2,7 +2,7 @@ import React from 'react';
 import configureMockStore from 'redux-mock-store';
 import {mount} from 'enzyme';
 import {Provider} from 'react-redux';
-import {Form} from 'react-bootstrap';
+import {Form} from 'reactstrap';
 import EncounterForm from '../EncounterForm';
 
 let props, store;

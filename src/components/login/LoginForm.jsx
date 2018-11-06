@@ -5,7 +5,7 @@ import { Field, reduxForm, formValueSelector } from 'redux-form';
 import FieldInput from '../widgets/FieldInput';
 import Errors from '../errors/Errors';
 import '../../../assets/css/loginForm.css';
-import { Button } from 'react-bootstrap';
+import { Button } from 'reactstrap';
 
 
 let LoginForm = props => {

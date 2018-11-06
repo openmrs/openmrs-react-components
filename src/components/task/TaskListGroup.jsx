@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListGroupItem } from 'react-bootstrap';
+import { ListGroupItem } from 'reactstrap';
 import TaskListItem from './TaskListItem';
 
 class TaskListGroup extends React.PureComponent {

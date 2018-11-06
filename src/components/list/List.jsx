@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Label, Checkbox } from 'react-bootstrap';
+import { Label, Input } from 'reactstrap';
 import DataGrid from '../grid/DataGrid';
 import { applyFilters} from "../../util/filterUtil";
 
@@ -125,9 +125,9 @@ class List extends React.Component {
 
     const filterCheckboxes = this.state.filters.map((filter) => {
       return (
-        <Checkbox onChange={(e) => this.handleFilterToggle(e, filter.key)}>
+        <Input onChange={(e) => this.handleFilterToggle(e, filter.key)} type="checkbox">
           {filter.label}
-        </Checkbox>
+        </Input>
       );
     });
 

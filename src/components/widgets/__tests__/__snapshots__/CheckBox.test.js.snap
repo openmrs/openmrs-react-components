@@ -7,21 +7,13 @@ exports[`Component: CheckBox renders properly 1`] = `
       
     </span>
     <span>
-      <div
-        className="checkbox"
-        style={undefined}
-      >
-        <label
-          title=""
-        >
-          <input
-            checked={false}
-            disabled={false}
-            onChange={[Function]}
-            type="checkbox"
-          />
-        </label>
-      </div>
+      <input
+        checked={false}
+        className="form-check-input"
+        onChange={[Function]}
+        title=""
+        type="checkbox"
+      />
     </span>
   </span>
 </div>

@@ -4,7 +4,6 @@ exports[`Component: FieldInput renders properly 1`] = `
 <div>
   <input
     className="form-control"
-    id={undefined}
     placeholder="mockplaceholder"
     type="mockType"
   />

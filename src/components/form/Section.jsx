@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'reactstrap';
 
 const sectionStyle = {
   backgroundColor: 'rgba(255, 177, 0, 0.26)'

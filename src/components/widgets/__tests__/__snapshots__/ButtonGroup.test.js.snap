@@ -3,30 +3,26 @@
 exports[`Component: ButtonGroup renders properly 1`] = `
 <div>
   <div
-    className="btn-group btn-group-justified"
-    data-toggle="buttons"
+    className="btn-group"
+    justified={true}
+    name="mockname"
+    role="group"
+    type="radio"
   >
-    <label
-      className="btn btn-default"
-      disabled={false}
+    <button
+      aria-label={null}
+      className="btn btn-secondary"
+      onClick={[Function]}
       style={
         Object {
           "whiteSpace": "normal",
         }
       }
-      type="button"
+      type={undefined}
+      value="1234"
     >
-      <input
-        autoComplete="off"
-        checked={false}
-        disabled={false}
-        name="mockname"
-        onChange={[Function]}
-        type="radio"
-        value="1234"
-      />
       mockName
-    </label>
+    </button>
   </div>
 </div>
 `;

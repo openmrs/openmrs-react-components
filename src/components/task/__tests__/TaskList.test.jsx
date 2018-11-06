@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { ListGroup } from 'react-bootstrap';
+import { ListGroup } from 'reactstrap';
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import TaskList from '../TaskList';

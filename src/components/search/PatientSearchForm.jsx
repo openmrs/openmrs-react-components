@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import { Field, reduxForm } from 'redux-form';
-import { Button, ButtonToolbar, Form, FormGroup, Grid, Row, Col, ControlLabel } from 'react-bootstrap';
+import { Button, ButtonToolbar, Form, FormGroup, Container, Row, Col } from 'reactstrap';
 
 
 const PatientSearchForm = props => {
@@ -9,11 +9,11 @@ const PatientSearchForm = props => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Grid>
+      <Container>
 
         <Row>
           <FormGroup>
-            <Col componentClass={ControlLabel}>
+            <Col>
               Search
             </Col>
             <Col>
@@ -50,7 +50,7 @@ const PatientSearchForm = props => {
             </Col>
           </FormGroup>
         </Row>
-      </Grid>
+      </Container>
     </Form>
   );
 };

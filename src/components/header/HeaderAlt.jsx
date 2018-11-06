@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import { Navbar, Nav, NavItem } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../../assets/css/headerAlt.css';
 import NavBarMenu from './NavBarMenu';
@@ -39,11 +39,11 @@ export class HeaderAlt extends React.Component {
         fixedTop
         onToggle={this.handleToggle}
       >
-        <Navbar.Toggle>
+        <Navbar>
           <FontAwesomeIcon icon="caret-down" size="2x" id='navbarIcon'/>
-        </Navbar.Toggle>
-        <Navbar.Collapse in={this.state.expanded}>
-          <Navbar.Header>
+        </Navbar>
+        <Navbar in={this.state.expanded}>
+          <Navbar>
             <Nav pullLeft id="nav">
               <NavBarMenu
                 pathname={this.props.pathname}
@@ -63,7 +63,7 @@ export class HeaderAlt extends React.Component {
                 />
               </NavItem>
             </Nav>
-          </Navbar.Header>
+          </Navbar>
 
           <Nav pullRight id="nav">
             <LocationMenu
@@ -92,7 +92,7 @@ export class HeaderAlt extends React.Component {
               }
             />
           </Nav>
-        </Navbar.Collapse>
+        </Navbar>
       </Navbar>
     );
   }

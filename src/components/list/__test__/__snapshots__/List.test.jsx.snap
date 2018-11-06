@@ -49,23 +49,39 @@ exports[`Component: List renders properly 1`] = `
     <div>
       <h3>
         <Label
-          bsClass="label"
-          bsStyle="default"
+          tag="label"
+          widths={
+            Array [
+              "xs",
+              "sm",
+              "md",
+              "lg",
+              "xl",
+            ]
+          }
         >
-          <span
-            className="label label-default"
+          <label
+            className=""
           >
             List
-          </span>
+          </label>
         </Label>
       </h3>
       <h3>
         <Label
-          bsClass="label"
-          bsStyle="default"
+          tag="label"
+          widths={
+            Array [
+              "xs",
+              "sm",
+              "md",
+              "lg",
+              "xl",
+            ]
+          }
         >
-          <span
-            className="label label-default hidden"
+          <label
+            className=""
           />
         </Label>
       </h3>
