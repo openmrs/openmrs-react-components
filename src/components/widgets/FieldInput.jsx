@@ -30,7 +30,7 @@ const FieldInput = ({
 
   const validations = (
     <div className="div-error">
-      {error && (
+      {(error || (error && warning)) && (
         <span className="field-error" style={{ visibility: error ? "visible" : "hidden"}}>
           { error ? error : "_" }
         </span>
