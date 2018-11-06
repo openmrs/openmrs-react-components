@@ -38,8 +38,10 @@
     "postcss-reporter": "^4.0.0",
     "postcss-scss": "0.4.1",
     "ramda": "^0.25.0",
+    "react": "^16.6.0",
     "react-bootstrap": "^0.32.1",
     "react-datepicker": "^1.6.0",
+    "react-dom": "^16.6.0",
     "react-dom-factories": "^1.0.2",
     "react-helmet": "^5.2.0",
     "react-intl": "^2.4.0",
@@ -55,6 +57,7 @@
     "uuid": "^3.2.1"
   },
   "devDependencies": {
+    "@storybook/react": "^4.0.4",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
@@ -82,8 +85,6 @@
     "moxios": "^0.4.0",
     "npm-snapshot": "^1.0.0",
     "prop-types": "^15.6.1",
-    "react": "^16.4.0",
-    "react-dom": "^16.6.0",
     "react-hot-loader": "^4.1.2",
     "react-mock-router": "^1.0.15",
     "react-test-renderer": "^16.3.2",
@@ -103,7 +104,8 @@
     "test": "jest",
     "test:update-snapshots": "jest -u",
     "test:watch": "jest --watch",
-    "ci-publish": "ci-publish"
+    "ci-publish": "ci-publish",
+    "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "files": [
     "lib/",
