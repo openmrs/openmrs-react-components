@@ -23,6 +23,7 @@ class CheckBox extends PureComponent {
   render() {
 
     const { title, input, checkBoxValue, mode, displayValue } = this.props;
+    const viewModeValue = displayValue ? 'X' : '';
 
     let checkedStatus = false;
     if (typeof input !== "undefined") {
@@ -44,7 +45,7 @@ class CheckBox extends PureComponent {
     );
 
     const view = (
-      <span>{`${title}: `} {displayValue ? 'X' : ''}</span>
+      <span>{title} : {viewModeValue} </span>
     );
 
     return (
