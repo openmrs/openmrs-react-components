@@ -27,6 +27,7 @@ import ButtonGroup from './components/widgets/ButtonGroup';
 import Dropdown from './components/widgets/Dropdown';
 import SortableTable from './components/table/SortableTable';
 import CustomDatePicker from './components/widgets/CustomDatePicker';
+import LabsSummary from './components/widgets/LabsSummary';
 import Obs from './components/form/Obs';
 import ObsGroup from './components/form/ObsGroup';
 import EncounterDate from './components/form/EncounterDate';
@@ -161,4 +162,5 @@ module.exports = {
   shallowWithIntl,
   Loader,
   Head,
+  LabsSummary,
 };
