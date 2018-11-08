@@ -15,7 +15,7 @@ const CustomLineChart = (props) => {
     <LineChart
       data={otherProps.data}
       height={otherProps.height}
-      margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+      margin={otherProps.margin}
       width={otherProps.width}
     >
       <YAxis
