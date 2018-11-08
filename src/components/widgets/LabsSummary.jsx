@@ -4,7 +4,6 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 
 import constantsRest from '../../rest/constantsRest';
-import orderRest from '../../rest/orderRest';
 import encounterRest from '../../rest/encounterRest';
 import conceptRest from '../../rest/conceptRest';
 
@@ -40,55 +39,44 @@ export class LabsSummary extends PureComponent {
     const labResultsTestLocationQuestionResponse = await constantsRest.fetchLabResultsTestLocationQuestion();
 
     if (encounterTypeResponse && labResultsTestOrderTypeResponse) {
-      const labResultsTestOrderType = labResultsTestOrderTypeResponse.results[0].value;
       const encounterTypeUUID = encounterTypeResponse.results[0].value;
       const labResultsTestOrderNumberConcept = labResultsTestOrderNumberConceptResponse.results[0].value;
       const labResultsDateConcept = labResultsDateConceptResponse.results[0].value;
       const labResultsTestLocationQuestion = labResultsTestLocationQuestionResponse.results[0].value;
+      const concealedConceptUUIDs = [
+        labResultsTestOrderNumberConcept,
+        labResultsTestLocationQuestion,
+        labResultsDateConcept,
+      ];
 
-      // Fetch patient's active orders and encounters
-      const patientOrdersResponse = await orderRest.fetchActiveOrdersByPatient(patientUUID, labResultsTestOrderType);
+      // Fetch patient's encounters
       const patientEncountersResponse = await encounterRest.fetchEncountersByPatient(patientUUID, encounterTypeUUID);
       
-      if (patientOrdersResponse && patientEncountersResponse) {
-        if (patientOrdersResponse.results.length) {
-          const orders = patientOrdersResponse.results;
+      if ( patientEncountersResponse) {
+        if (patientEncountersResponse.results.length) {
           const encounters= patientEncountersResponse.results;
-          const concealedConceptUUIDs = [
-            labResultsTestOrderNumberConcept,
-            labResultsTestLocationQuestion,
-            labResultsDateConcept,
-          ];
-
+          
           const labResults = encounters.map(async (encounter) => {
-            const testOrderObs = encounter.obs.filter(
-              item => item.concept.uuid === labResultsTestOrderNumberConcept,
-            );
             const encounterDatetime = encounter.encounterDatetime;
-            const testOrderNumber = testOrderObs[0].value;
-            const matchedOrder = orders.filter(order => order.orderNumber === testOrderNumber);
-            const conceptUuid = matchedOrder[0].concept.uuid;
-            const conceptResponse = await conceptRest.getConcept(conceptUuid);
-
-            // Get ranges
-            const {
-              hiNormal,
-              lowNormal,
-              units = '',
-            } = conceptResponse;
-            const range = (hiNormal && lowNormal) ? `${lowNormal} - ${hiNormal}${units}` : '';
-    
+            
             const hasObs = !R.isEmpty(encounter.obs);
             if (hasObs) {
               const obs = R.pipe(
                 R.filter(item => !concealedConceptUUIDs.includes(item.concept.uuid)),
               )(encounter.obs);
               if (!R.isEmpty(obs)) {
-
+                const conceptResponse = await conceptRest.getConcept(obs[0].concept.uuid);
+                const {
+                  hiNormal,
+                  lowNormal,
+                  units = '',
+                } = conceptResponse;
+                const range = (hiNormal && lowNormal) ? `${lowNormal} - ${hiNormal}${units}` : '';
+    
                 return {
                   range,
-                  isPanel: matchedOrder[0].concept.set,
-                  display: matchedOrder[0].display,
+                  isPanel: obs[0].concept.set,
+                  display: obs[0].concept.display,
                   value: this.getConceptValue(obs[0].value),
                   encounterDate: moment(encounterDatetime).format("DD-MMM-YYYY"),
                 };
