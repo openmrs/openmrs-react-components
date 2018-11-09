@@ -86,6 +86,7 @@ exports[`Component: List renders properly 1`] = `
             >
               <FormGroup
                 bsClass="form-group"
+                controlId="gridFilters"
               >
                 <div
                   className="form-group"
