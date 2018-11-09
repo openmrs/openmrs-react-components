@@ -478,7 +478,7 @@ exports[`Component: Login renders properly 1`] = `
                                   className="div-error"
                                 >
                                   <span
-                                    className="field-error"
+                                    className="field-warning"
                                     style={
                                       Object {
                                         "visibility": "hidden",
@@ -783,7 +783,7 @@ exports[`Component: Login renders properly 1`] = `
                                   className="div-error"
                                 >
                                   <span
-                                    className="field-error"
+                                    className="field-warning"
                                     style={
                                       Object {
                                         "visibility": "hidden",

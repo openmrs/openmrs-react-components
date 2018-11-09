@@ -12,12 +12,10 @@ function* activeVisits(action) {
     yield put(patientActions.setPatientStoreUpdating());
 
     let response = yield call(visitApi.getActiveVisits, {
-      representation: action.representation ? action.representation : "custom:" + DEFAULT_VISIT_REP
+      representation: action.representation ? action.representation : "custom:" + DEFAULT_VISIT_REP,
+      location: action.location
     });
     let filteredResults = response.results;
-    if (action.location) {
-      filteredResults = response.results.filter(visit => visit.location.uuid === action.location);
-    }
     yield put(patientActions.updateActiveVisitsInStore(filteredResults && filteredResults.length > 0 ? filteredResults : null));
     yield put(visitActions.fetchActiveVisitsSucceeded(filteredResults && filteredResults.length > 0 ? filteredResults : null));
   }

@@ -26,7 +26,7 @@ exports[`Component: LoginForm should render correctly 1`] = `
         className="div-error"
       >
         <span
-          className="field-error"
+          className="field-warning"
           style={
             Object {
               "visibility": "hidden",
@@ -59,7 +59,7 @@ exports[`Component: LoginForm should render correctly 1`] = `
         className="div-error"
       >
         <span
-          className="field-error"
+          className="field-warning"
           style={
             Object {
               "visibility": "hidden",

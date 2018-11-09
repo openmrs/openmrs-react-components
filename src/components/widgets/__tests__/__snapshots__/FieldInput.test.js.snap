@@ -12,7 +12,7 @@ exports[`Component: FieldInput renders properly 1`] = `
     className="div-error"
   >
     <span
-      className="field-error"
+      className="field-warning"
       style={
         Object {
           "visibility": "hidden",

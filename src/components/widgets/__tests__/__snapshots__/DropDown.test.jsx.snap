@@ -19,7 +19,7 @@ exports[`Component: Dropdown renders properly 1`] = `
           "width": "100%",
         }
       }
-      value=""
+      value={undefined}
     >
       <option
         value=""
