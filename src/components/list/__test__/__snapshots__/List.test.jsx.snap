@@ -69,6 +69,32 @@ exports[`Component: List renders properly 1`] = `
           />
         </Label>
       </h3>
+      <Grid
+        bsClass="container"
+        componentClass="div"
+        fluid={false}
+      >
+        <div
+          className="container"
+        >
+          <Row
+            bsClass="row"
+            componentClass="div"
+          >
+            <div
+              className="row"
+            >
+              <FormGroup
+                bsClass="form-group"
+              >
+                <div
+                  className="form-group"
+                />
+              </FormGroup>
+            </div>
+          </Row>
+        </div>
+      </Grid>
       <Connect(DataGrid)
         columnDefs={
           Array [
