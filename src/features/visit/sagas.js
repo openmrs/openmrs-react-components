@@ -18,8 +18,8 @@ function* activeVisits(action) {
     if (action.location) {
       filteredResults = response.results.filter(visit => visit.location.uuid === action.location);
     }
-    yield put(patientActions.updateActiveVisitsInStore(filteredResults));
-    yield put(visitActions.fetchActiveVisitsSucceeded(filteredResults));
+    yield put(patientActions.updateActiveVisitsInStore(filteredResults && filteredResults.length > 0 ? filteredResults : null));
+    yield put(visitActions.fetchActiveVisitsSucceeded(filteredResults && filteredResults.length > 0 ? filteredResults : null));
   }
   catch (e) {
     yield put(visitActions.fetchActiveVisitsFailed(e.message));
@@ -57,7 +57,7 @@ function* patientActiveVisit(action) {
       patientUuid: action.patientUuid,
       representation: action.representation ? action.representation : "custom:" + DEFAULT_VISIT_REP
     });
-    yield put(patientActions.updateActiveVisitsInStore([response.results[0]]));
+    yield put(patientActions.updateActiveVisitsInStore(response.results[0] ? [response.results[0]] : null));
     yield put(visitActions.fetchPatientActiveVisitSucceeded(response.results[0]));
   }
   catch (e) {

@@ -25,6 +25,7 @@ import FieldInput from './components/widgets/FieldInput';
 import Section from './components/form/Section';
 import ButtonGroup from './components/widgets/ButtonGroup';
 import Dropdown from './components/widgets/Dropdown';
+import LineChart from './components/widgets/LineChart';
 import SortableTable from './components/table/SortableTable';
 import CustomDatePicker from './components/widgets/CustomDatePicker';
 import LabsSummary from './components/widgets/LabsSummary';
@@ -163,4 +164,5 @@ module.exports = {
   Loader,
   Head,
   LabsSummary,
+  LineChart,
 };
