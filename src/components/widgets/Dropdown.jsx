@@ -38,7 +38,7 @@ class Dropdown extends PureComponent {
 
   render() {
     const { ...otherProps } = this.props;
-    let dropDownValue = '';
+    let dropDownValue = undefined;
     if (typeof otherProps.input !== "undefined") {
       dropDownValue = otherProps.input.value;
     }
