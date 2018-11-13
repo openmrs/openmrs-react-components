@@ -4,8 +4,8 @@ import {DEFAULT_ENCOUNTER_REP} from "../domain/encounter/constants";
 
 const api = {
 
-  createEncounter: (encounter) => {
-    return axiosInstance.post(`encounter/?v=custom:${DEFAULT_ENCOUNTER_REP}`, encounter)
+  createEncounter: (encounter, representation) => {
+    return axiosInstance.post(`encounter/?v=custom:${representation || DEFAULT_ENCOUNTER_REP}`, encounter)
       .then((response) => {
         if (response.status != 201) {
           throw response;
@@ -15,8 +15,8 @@ const api = {
       });
   },
 
-  updateEncounter: (encounter) => {
-    return axiosInstance.post(`encounter/${encounter.uuid}?v=custom:${DEFAULT_ENCOUNTER_REP}`, encounter)
+  updateEncounter: (encounter, representation) => {
+    return axiosInstance.post(`encounter/${encounter.uuid}?v=custom:${representation || DEFAULT_ENCOUNTER_REP}`, encounter)
       .then((response) => {
         if (response.status != 200) {
           throw response;
@@ -26,7 +26,7 @@ const api = {
       });
   },
 
-  getEncounter: (encounterUuid) => axiosInstance.get(`encounter/${encounterUuid}?v=custom:${DEFAULT_ENCOUNTER_REP}`)
+  getEncounter: (encounterUuid, representation) => axiosInstance.get(`encounter/${encounterUuid}?v=custom:${representation || DEFAULT_ENCOUNTER_REP}`)
     .then((response) => {
       if (response.status !== 200) {
         throw response;
@@ -35,7 +35,16 @@ const api = {
       }
     }),
 
-  fetchEncountersByPatient: (patient, encounterType) => axiosInstance.get(`encounter/?patient=${patient}&encounterType=${encounterType}&v=custom:${DEFAULT_ENCOUNTER_REP}`)
+  fetchEncountersByPatient: (patient, encounterType, representation) => axiosInstance.get(`encounter/?patient=${patient}&encounterType=${encounterType}&v=custom:${representation || DEFAULT_ENCOUNTER_REP}`)
+    .then((response) => {
+      if (response.status !== 200) {
+        throw response;
+      } else {
+        return response.data;
+      }
+    }),
+    
+  fetchEncountersByObs: (patient, concept, representation) => axiosInstance.get(`encounter?s=byObs&patient=${patient}&obsConcept=${concept}&v=custom:${representation || DEFAULT_ENCOUNTER_REP}`)
     .then((response) => {
       if (response.status !== 200) {
         throw response;
