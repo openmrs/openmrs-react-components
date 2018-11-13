@@ -83,16 +83,7 @@ exports[`Component: List renders properly 1`] = `
           >
             <div
               className="row"
-            >
-              <FormGroup
-                bsClass="form-group"
-                controlId="gridFilters"
-              >
-                <div
-                  className="form-group"
-                />
-              </FormGroup>
-            </div>
+            />
           </Row>
         </div>
       </Grid>

@@ -36,14 +36,16 @@ class PatientSearch extends React.Component {
     return (
       <div>
         <PatientSearchForm onSubmit={this.handleSubmit} />
-        <DataGrid
-          columnDefs={this.props.columnDefs}
-          rowData={this.props.rowData}
-          rowSelectedActionCreators={
-            [ patientActions.addPatientToStore,
-              patientActions.setSelectedPatient,
-              ...this.props.rowSelectedActionCreators]}
-        />
+        { (typeof this.props.rowData !== 'undefined') && (this.props.rowData.length > 0) &&
+          <DataGrid
+            columnDefs={this.props.columnDefs}
+            rowData={this.props.rowData}
+            rowSelectedActionCreators={
+              [patientActions.addPatientToStore,
+                patientActions.setSelectedPatient,
+                ...this.props.rowSelectedActionCreators]}
+          />
+        }
       </div>
     );
   };
@@ -60,7 +62,7 @@ PatientSearch.propTypes = {
 PatientSearch.defaultProps = {
   columnDefs: [
     { headerName: 'uuid', hide: true, field: 'uuid' },
-    { headerName: 'ID', valueGetter: (params) => patientUtil.getPreferredIdentifier(params.data) },
+    { headerName: 'Identifier', valueGetter: (params) => patientUtil.getPreferredIdentifier(params.data) },
     { headerName: 'Given Name', field: 'name.givenName' },
     { headerName: 'Family Name', field: 'name.familyName' },
     { headerName: 'Gender', field: 'gender' },

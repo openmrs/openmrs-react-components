@@ -138,7 +138,7 @@ class List extends React.Component {
         <h3><Label>{this.props.title}</Label></h3>
         <h3><Label>{''}</Label></h3>
         <Grid>
-          <Row><FormGroup controlId="gridFilters">{ filterCheckboxes }</FormGroup></Row>
+          <Row>{ filterCheckboxes }</Row>
         </Grid>
         <DataGrid
           columnDefs={this.props.columnDefs}

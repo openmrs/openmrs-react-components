@@ -15,25 +15,11 @@ exports[`patientSearchForm should render correctly 1`] = `
         className="form-group"
       >
         <label
-          className="control-label"
-          htmlFor={undefined}
+          className="col-sm-3 control-label"
+          htmlFor="searchLabel"
         >
-          Search
+          Search Patients
         </label>
-        <div
-          className=""
-        >
-          <input
-            name="query"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onDragStart={[Function]}
-            onDrop={[Function]}
-            onFocus={[Function]}
-            type="text"
-            value=""
-          />
-        </div>
       </div>
     </div>
     <div
@@ -43,29 +29,60 @@ exports[`patientSearchForm should render correctly 1`] = `
         className="form-group"
       >
         <div
-          className=""
+          className="col-sm-3"
         >
-          <div
-            className="btn-toolbar"
-            role="toolbar"
-          >
-            <button
-              className="btn btn-lg btn-success"
-              disabled={true}
-              type="submit"
-            >
-              Search
-            </button>
-            <button
-              className="btn btn-lg btn-danger"
-              disabled={true}
-              onClick={[Function]}
-              type="button"
-            >
-              Clear Values
-            </button>
-          </div>
+          <input
+            name="query"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onDragStart={[Function]}
+            onDrop={[Function]}
+            onFocus={[Function]}
+            placeholder="enter name or id"
+            style={
+              Object {
+                "height": "30px",
+                "width": "-webkit-fill-available",
+              }
+            }
+            type="text"
+            value=""
+          />
         </div>
+        <div
+          className="col-sm-2"
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          <button
+            className="btn btn-sm btn-primary"
+            disabled={true}
+            type="submit"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-md-20 col-sm-20"
+        style={
+          Object {
+            "height": "10px",
+          }
+        }
+      >
+        <span>
+          <h1>
+            
+          </h1>
+        </span>
       </div>
     </div>
   </div>

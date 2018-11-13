@@ -1,8 +1,18 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import { Field, reduxForm } from 'redux-form';
-import { Button, ButtonToolbar, Form, FormGroup, Grid, Row, Col, ControlLabel } from 'react-bootstrap';
+import { Button, Form, FormGroup, Grid, Row, Col, ControlLabel } from 'react-bootstrap';
 
+const leftTextAlign = {
+  textAlign: "left"
+};
+const colHeight = {
+  height: '10px'
+};
+const inputSearchStyle = {
+  width: "-webkit-fill-available",
+  height: "30px"
+};
 
 const PatientSearchForm = props => {
   const { handleSubmit, pristine, reset, submitting } = props;
@@ -10,46 +20,41 @@ const PatientSearchForm = props => {
   return (
     <Form onSubmit={handleSubmit}>
       <Grid>
-
         <Row>
-          <FormGroup>
-            <Col componentClass={ControlLabel}>
-              Search
+          <FormGroup controlId="searchLabel">
+            <Col sm={ 3 } componentClass={ControlLabel}>
+              Search Patients
             </Col>
-            <Col>
+          </FormGroup>
+        </Row>
+        <Row>
+          <FormGroup controlId="searchLabel">
+            <Col sm={ 3 }>
               <Field
                 component="input"
                 name="query"
                 type="text"
+                style={ inputSearchStyle }
+                placeholder="enter name or id"
               />
             </Col>
-          </FormGroup>
-        </Row>
-
-        <Row>
-          <FormGroup>
-            <Col>
-              <ButtonToolbar>
-                <Button
-                  bsSize="large"
-                  bsStyle="success"
-                  disabled={pristine || submitting}
-                  type="submit"
-                >
-                  Search
-                </Button>
-                <Button
-                  bsSize="large"
-                  bsStyle="danger"
-                  disabled={pristine || submitting}
-                  onClick={reset}
-                >
-                  Clear Values
-                </Button>
-              </ButtonToolbar>
+            <Col sm={2} style={ leftTextAlign }>
+              <Button
+                bsStyle="primary"
+                bsSize="small"
+                disabled={pristine || submitting}
+                type="submit">
+                Search
+              </Button>
             </Col>
           </FormGroup>
         </Row>
+        <Row>
+          <Col sm={20} md={20} style={ colHeight }>
+            <span><h1>{ '' }</h1></span>
+          </Col>
+        </Row>
+
       </Grid>
     </Form>
   );
