@@ -43,6 +43,15 @@ const api = {
         return response.data;
       }
     }),
+    
+  fetchEncountersByObs: (patient, concept) => axiosInstance.get(`encounter?s=byObs&patient=${patient}&obsConcept=${concept}&v=custom:(uuid,obs)`)
+    .then((response) => {
+      if (response.status !== 200) {
+        throw response;
+      } else {
+        return response.data;
+      }
+    }),
 };
 
 export default api;
