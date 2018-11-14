@@ -7,7 +7,15 @@ class TaskListGroup extends React.PureComponent {
 
   constructor(props) {
     super(props);
+
     this.requiredTasks = props.taskGroup.tasks.filter((task) => task.required ? task.required(props.patient) : true);
+
+    // TODO have a way for this to be overridden
+    this.taskListGroupStyle = {
+      'border': 0,
+      'padding': "5px",
+    };
+
     this.state = {
       expanded: typeof(props.taskGroup.expanded) !== 'undefined' ? props.taskGroup.expanded : true
     };
@@ -29,6 +37,7 @@ class TaskListGroup extends React.PureComponent {
           header={this.props.taskGroup.title}
           onClick={this.toggleExpanded.bind(this)}
           key={this.props.taskGroup.key}
+          style={this.taskListGroupStyle}
         >
           {this.state.expanded && this.requiredTasks.map(task => (
             <TaskListItem

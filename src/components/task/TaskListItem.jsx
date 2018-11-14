@@ -7,8 +7,10 @@ let TaskListItem = props => {
 
   const completed = props.completed ? props.completed(props.patient) : false;
 
+  // TODO have a way for this to be overridden
   let taskListItemStyle = {
     'border': 0,
+    'padding': "5px 2px",
     'color': completed ? props.colorComplete : props.colorPending
   };
 
