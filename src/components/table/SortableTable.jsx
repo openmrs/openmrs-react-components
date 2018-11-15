@@ -99,12 +99,15 @@ class SortableTable extends PureComponent {
           ofText={otherProps.ofText}
           pageSizeOptions={[10, 20, 25, 50, 100]}
           pageText={otherProps.pageText}
+          page={otherProps.page}
           previousText={otherProps.previousText}
           rowsText={otherProps.rowsText}
           showPagination={otherProps.showPagination}
           showPaginationBottom={this.renderPaginationBottom()}
           showPaginationTop={otherProps.showPaginationTop}
           sortable={otherProps.isSortable}
+          onPageSizeChange={otherProps.onPageSizeChange}
+          onPageChange={otherProps.onPageChange}
           SubComponent={otherProps.subComponent}
         />
       </div>
