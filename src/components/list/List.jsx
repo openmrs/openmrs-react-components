@@ -123,12 +123,12 @@ class List extends React.Component {
 
   render() {
 
-    const filterCheckboxes = this.state.filters.map((filter) => {
+    const filterCheckboxes = this.state.filters.map((filter, index) => {
       return (
-        <Col sm={ 1 }>
-        <Checkbox onChange={(e) => this.handleFilterToggle(e, filter.key)}>
-          {filter.label}
-        </Checkbox>
+        <Col sm={ 1 } key={ index }>
+          <Checkbox onChange={(e) => this.handleFilterToggle(e, filter.key)}>
+            {filter.label}
+          </Checkbox>
         </Col>
       );
     });
