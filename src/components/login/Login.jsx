@@ -12,11 +12,11 @@ class Login extends React.Component {
   }
 
   handleLogin(values) {
-    this.props.dispatch(errorsActions.clearErrors());
     this.props.dispatch(loginActions.login(values.username, values.password, values.location));
   }
 
   componentDidMount() {
+    this.props.dispatch(errorsActions.clearErrors());
     this.props.dispatch(loginActions.getLoginLocations());
   }
 

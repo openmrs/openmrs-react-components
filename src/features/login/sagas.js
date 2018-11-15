@@ -38,11 +38,15 @@ function* loginLocations(action) {
     let response = yield call(locationRest.fetchLoginLocations);
     if (response.results.length > 0 ) {
       yield put(loginActions.getLoginLocationsSucceeded(response.results));
+    } else {
+      yield put(loginActions.getLoginLocationsFailed("Login Locations not configured"));
+      yield put(reset('login-form'));
     }
 
   }
   catch (e) {
     yield put(loginActions.getLoginLocationsFailed(e.message));
+    yield put(reset('login-form'));
   }
 }
 
