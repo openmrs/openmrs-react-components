@@ -10,6 +10,7 @@ const Submit = (props) => {
       bsStyle="success"
       disabled={props.formContext.submitting || !props.formContext.valid}
       //onClick={() => props.onClick && props.onClick()}
+      style={props.style}
       type="submit"
     >
       Submit

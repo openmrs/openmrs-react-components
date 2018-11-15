@@ -67,6 +67,10 @@ class EncounterFormPage extends React.PureComponent {
     this.colHeight = {
       height: '40px'
     };
+
+    this.floatRight = {
+      float: 'right'
+    }
   }
 
   componentDidMount() {
@@ -151,7 +155,7 @@ class EncounterFormPage extends React.PureComponent {
               {this.props.formContent}
               <Grid>
                 <Row>
-                  <Col sm={2} xsOffset={2}>
+                  <Col sm={6}>
                     {this.getForm().state === FORM_STATES.EDITING ?
                       (<Cancel onClick={this.handleCancel}/>)
                       : this.props.backLink ?
@@ -159,10 +163,10 @@ class EncounterFormPage extends React.PureComponent {
                         : (null)
                     }
                   </Col>
-                  <Col sm={2} xsOffset={1}>
+                  <Col sm={6}>
                     {this.getForm().state === FORM_STATES.EDITING ?
-                      (<Submit onClick={this.exitEditMode}/>) :
-                      (<Button onClick={this.enterEditMode} bsSize="large">Edit</Button>)
+                      (<Submit style={this.floatRight} onClick={this.exitEditMode}/>) :
+                      (<Button style={this.floatRight} onClick={this.enterEditMode} bsSize="large">Edit</Button>)
                     }
                   </Col>
                 </Row>
