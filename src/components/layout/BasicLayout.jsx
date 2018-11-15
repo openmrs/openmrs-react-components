@@ -25,7 +25,7 @@ const BasicLayout = props => {
         timeOut={1000}
       />
       <Grid fluid={true}>
-        <Row style={{marginBottom:60}}>
+        <Row style={{marginBottom:40}}>
           <HeaderAlt
             className="HeaderAlt"
             logo={props.logo}
