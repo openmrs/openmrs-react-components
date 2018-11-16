@@ -6,7 +6,6 @@ const Cancel = (props) => {
 
   return (
     <Button
-      bsSize="large"
       bsStyle="danger"
       disabled={props.formContext.submitting}
       onClick={() => props.formContext.reset() && (props.onClick && props.onClick())}

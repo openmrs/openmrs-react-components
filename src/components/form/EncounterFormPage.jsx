@@ -159,14 +159,14 @@ class EncounterFormPage extends React.PureComponent {
                     {this.getForm().state === FORM_STATES.EDITING ?
                       (<Cancel onClick={this.handleCancel}/>)
                       : this.props.backLink ?
-                        (<Button onClick={this.handleBack} bsSize="large">Back</Button>)
+                        (<Button onClick={this.handleBack}>Back</Button>)
                         : (null)
                     }
                   </Col>
                   <Col sm={6}>
                     {this.getForm().state === FORM_STATES.EDITING ?
                       (<Submit style={this.floatRight} onClick={this.exitEditMode}/>) :
-                      (<Button style={this.floatRight} onClick={this.enterEditMode} bsSize="large">Edit</Button>)
+                      (<Button style={this.floatRight} onClick={this.enterEditMode}>Edit</Button>)
                     }
                   </Col>
                 </Row>
