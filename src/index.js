@@ -38,6 +38,7 @@ import Errors from './components/errors/Errors';
 import Loader from './components/widgets/Loader';
 import TaskList from './components/task/TaskList';
 import BasicLayout from './components/layout/BasicLayout';
+import EncounterHistory from './components/encounter/EncounterHistory';
 import createListReducer from './features/list/createListReducer';
 import { SESSION_TYPES, sessionSagas, sessionActions } from './features/session/';
 import { LOGIN_TYPES, loginSagas, loginActions } from './features/login';
@@ -127,6 +128,7 @@ module.exports = {
   Errors,
   TaskList,
   BasicLayout,
+  EncounterHistory,
   formActions,
   formValidations,
   VISIT_TYPES,
