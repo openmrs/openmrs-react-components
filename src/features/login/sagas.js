@@ -32,21 +32,31 @@ function* login(action) {
   }
 }
 
+function* getLocations() {
+
+  let response = response = yield call(locationRest.fetchLoginLocations);
+  if (response.results.length > 0) {
+    yield put(loginActions.getLoginLocationsSucceeded(response.results));
+  } else {
+    yield put(loginActions.getLoginLocationsFailed("Login Locations not configured"));
+    yield put(reset('login-form'));
+  }
+
+}
+
 function* loginLocations(action) {
+  let response = null;
   try {
-
-    let response = yield call(locationRest.fetchLoginLocations);
-    if (response.results.length > 0 ) {
-      yield put(loginActions.getLoginLocationsSucceeded(response.results));
-    } else {
-      yield put(loginActions.getLoginLocationsFailed("Login Locations not configured"));
-      yield put(reset('login-form'));
-    }
-
+    yield call(getLocations);
   }
   catch (e) {
-    yield put(loginActions.getLoginLocationsFailed(e.message));
-    yield put(reset('login-form'));
+    // try one more time
+    try {
+      yield call(getLocations);
+    } catch(e) {
+      yield put(loginActions.getLoginLocationsFailed(e.message));
+      yield put(reset('login-form'));
+    }
   }
 }
 
