@@ -15,19 +15,18 @@ const setPatientStoreUpdating =() =>  ( {
   type: PATIENT_TYPES.SET_PATIENT_STORE_UPDATING
 } );
 
-const updateActiveVisitsInStore = (visits) => ( {
-  visits: visits,
-  type: PATIENT_TYPES.UPDATE_ACTIVE_VISITS_IN_STORE
-} );
 
-const addPatientToStore = (patient) => ( {
-  patient: patient,
-  type: PATIENT_TYPES.ADD_PATIENT_TO_STORE
-} );
-
+// should add patient if they don't exist
 const updatePatientInStore = (patient) => ( {
   patient: patient,
   type: PATIENT_TYPES.UPDATE_PATIENT_IN_STORE
+} );
+
+// updates all patient information in the store
+// adds any new patients as needed
+const updatePatientsInStore = (patients) => ( {
+  patients: patients,
+  type: PATIENT_TYPES.UPDATE_PATIENTS_IN_STORE
 } );
 
 const setSelectedPatient = (patient) => ( {
@@ -39,13 +38,20 @@ const clearSelectedPatient = () => ( {
   type: PATIENT_TYPES.CLEAR_SELECTED_PATIENT
 } );
 
+// given a set of active visits, update each patient in the store with a matching visit (if found)
+// does not modify any other property of a patient besides "visit"
+const updateActiveVisitsInStore = (visits) => ( {
+  visits: visits,
+  type: PATIENT_TYPES.UPDATE_ACTIVE_VISITS_IN_STORE
+} );
+
 export default {
   setPatientStore,
   clearPatientStore,
   setPatientStoreUpdating,
   updateActiveVisitsInStore,
-  addPatientToStore,
   updatePatientInStore,
+  updatePatientsInStore,
   setSelectedPatient,
   clearSelectedPatient
 };

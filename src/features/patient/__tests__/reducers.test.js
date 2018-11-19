@@ -172,7 +172,8 @@ describe('patient set reducer', () => {
     expect(patients.isUpdating).toBe(false);
   });
 
-  it('should add patient with active visit but not in Object map', () => {
+  // we are no longer supporting this use case
+  /*it('should add patient with active visit but not in Object map', () => {
     const patients = patientsReducer(
       {
         set: {
@@ -202,7 +203,7 @@ describe('patient set reducer', () => {
             "uuid": "qrst-7890"
           }
       });
-  });
+  });*/
 
   it('add patient should not add patient if patient already in Object map', () => {
 
@@ -228,47 +229,6 @@ describe('patient set reducer', () => {
     });
 
     expect(updated).toEqual(initial);
-
-  });
-
-  it('add patient should add patient if patient not in Object map', () => {
-
-    const existingPatient = {
-      _openmrsClass: "Patient",
-      uuid: "abcd-1234",
-      givenName: "Bob"
-    };
-
-    const newPatient = {
-      _openmrsClass: "Patient",
-      uuid: "efgh-5678",
-      givenName: "Claire"
-    };
-
-    const initial = {
-      set: {
-        "abcd-1234": existingPatient
-      },
-      selected: null,
-      isUpdating: true
-    };
-
-    const expected = {
-      set: {
-        "abcd-1234": existingPatient,
-        "efgh-5678": newPatient
-      },
-      selected: null,
-      isUpdating: false
-    };
-
-
-    const updated = patientsReducer(initial, {
-      type: PATIENT_TYPES.ADD_PATIENT_TO_STORE,
-      patient: newPatient
-    });
-
-    expect(updated).toEqual(expected);
 
   });
 
@@ -310,6 +270,341 @@ describe('patient set reducer', () => {
     expect(updated).toEqual(expected);
 
   });
+
+  it('update patient should add patient if patient not in Object map', () => {
+
+    const existingPatient = {
+      _openmrsClass: "Patient",
+      uuid: "abcd-1234",
+      givenName: "Bob"
+    };
+
+    const newPatient = {
+      _openmrsClass: "Patient",
+      uuid: "efgh-5678",
+      givenName: "Claire"
+    };
+
+    const initial = {
+      set: {
+        "abcd-1234": existingPatient
+      },
+      selected: null,
+      isUpdating: true
+    };
+
+    const expected = {
+      set: {
+        "abcd-1234": existingPatient,
+        "efgh-5678": newPatient
+      },
+      selected: null,
+      isUpdating: false
+    };
+
+
+    const updated = patientsReducer(initial, {
+      type: PATIENT_TYPES.UPDATE_PATIENT_IN_STORE,
+      patient: newPatient
+    });
+
+    expect(updated).toEqual(expected);
+
+  });
+
+  it('update patient should not update active visit', () => {
+
+    const initial = {
+      set: {
+        'abcd-1234': {
+          _openmrsClass: "Patient",
+          uuid: "abcd-1234",
+          givenName: "Bob",
+          visit: {
+            uuid: "some-visit-uuid"
+          }
+        }
+      },
+      selected: null,
+      isUpdating: true
+    };
+
+    const expected = {
+      set: {
+        'abcd-1234': {
+          _openmrsClass: "Patient",
+          uuid: "abcd-1234",
+          givenName: "Joe",
+          visit: {
+            uuid: "some-visit-uuid"
+          }
+        }
+      },
+      selected: null,
+      isUpdating: false
+    };
+
+    const updated = patientsReducer(initial, {
+      type: PATIENT_TYPES.UPDATE_PATIENT_IN_STORE,
+      patient: {
+        _openmrsClass: "Patient",
+        uuid: "abcd-1234",
+        givenName: "Joe"
+      },
+      fieldsToExclude: ['visit']
+    });
+
+    expect(updated).toEqual(expected);
+
+  });
+
+  it('update patients should not modifiy set if no patients passed in', () => {
+
+    const initial = {
+      set: {
+        'abcd-1234': {
+          _openmrsClass: "Patient",
+          uuid: "abcd-1234",
+          givenName: "Bob"
+        },
+        'efgh-5678': {
+          _openmrsClass: "Patient",
+          uuid: "efgh-5678",
+          givenName: "Claire"
+        }
+      },
+      selected: null,
+      isUpdating: true
+    };
+
+    const expected = {
+      set: {
+        'abcd-1234': {
+          _openmrsClass: "Patient",
+          uuid: "abcd-1234",
+          givenName: "Bob"
+        },
+        'efgh-5678': {
+          _openmrsClass: "Patient",
+          uuid: "efgh-5678",
+          givenName: "Claire"
+        }
+      },
+      selected: null,
+      isUpdating: false
+    };
+
+    const updated = patientsReducer(initial, {
+      type: PATIENT_TYPES.UPDATE_PATIENTS_IN_STORE,
+      patients: [
+      ]
+    });
+
+    expect(updated).toEqual(expected);
+
+  });
+
+  it('update patients should update patients if patients already in Object map', () => {
+
+    const initial = {
+      set: {
+        'abcd-1234': {
+          _openmrsClass: "Patient",
+          uuid: "abcd-1234",
+          givenName: "Bob"
+        },
+        'efgh-5678': {
+          _openmrsClass: "Patient",
+          uuid: "efgh-5678",
+          givenName: "Claire"
+        }
+      },
+      selected: null,
+      isUpdating: true
+    };
+
+    const expected = {
+      set: {
+        'abcd-1234': {
+          _openmrsClass: "Patient",
+          uuid: "abcd-1234",
+          givenName: "Joe"
+        },
+        'efgh-5678': {
+          _openmrsClass: "Patient",
+          uuid: "efgh-5678",
+          givenName: "Fred"
+        }
+      },
+      selected: null,
+      isUpdating: false
+    };
+
+    const updated = patientsReducer(initial, {
+      type: PATIENT_TYPES.UPDATE_PATIENTS_IN_STORE,
+      patients: [
+        {
+          _openmrsClass: "Patient",
+          uuid: "abcd-1234",
+          givenName: "Joe"
+        },
+        {
+          _openmrsClass: "Patient",
+          uuid: "efgh-5678",
+          givenName: "Fred"
+        }
+      ]
+    });
+
+    expect(updated).toEqual(expected);
+
+  });
+
+  it('update patients should add patients if patients not in Object map', () => {
+
+    const initial = {
+      set: {
+        'efgh-5678': {
+          _openmrsClass: "Patient",
+          uuid: "efgh-5678",
+          givenName: "Claire"
+        }
+      },
+      selected: null,
+      isUpdating: true
+    };
+
+    const expected = {
+      set: {
+        'abcd-1234': {
+          _openmrsClass: "Patient",
+          uuid: "abcd-1234",
+          givenName: "Joe"
+        },
+        'efgh-5678': {
+          _openmrsClass: "Patient",
+          uuid: "efgh-5678",
+          givenName: "Fred"
+        }
+      },
+      selected: null,
+      isUpdating: false
+    };
+
+    const updated = patientsReducer(initial, {
+      type: PATIENT_TYPES.UPDATE_PATIENTS_IN_STORE,
+      patients: [
+        {
+          _openmrsClass: "Patient",
+          uuid: "abcd-1234",
+          givenName: "Joe"
+        },
+        {
+          _openmrsClass: "Patient",
+          uuid: "efgh-5678",
+          givenName: "Fred"
+        }
+      ]
+    });
+
+    expect(updated).toEqual(expected);
+
+  });
+
+  it('update patients should not remove patients if patients not in Object map', () => {
+
+    const initial = {
+      set: {
+        'efgh-5678': {
+          _openmrsClass: "Patient",
+          uuid: "efgh-5678",
+          givenName: "Claire"
+        }
+      },
+      selected: null,
+      isUpdating: true
+    };
+
+    const expected = {
+      set: {
+        'abcd-1234': {
+          _openmrsClass: "Patient",
+          uuid: "abcd-1234",
+          givenName: "Joe"
+        },
+        'efgh-5678': {
+          _openmrsClass: "Patient",
+          uuid: "efgh-5678",
+          givenName: "Claire"
+        }
+      },
+      selected: null,
+      isUpdating: false
+    };
+
+    const updated = patientsReducer(initial, {
+      type: PATIENT_TYPES.UPDATE_PATIENTS_IN_STORE,
+      patients: [
+        {
+          _openmrsClass: "Patient",
+          uuid: "abcd-1234",
+          givenName: "Joe"
+        }
+      ]
+    });
+
+    expect(updated).toEqual(expected);
+
+  });
+
+
+  it('update patients should not update active visit', () => {
+
+    const initial = {
+      set: {
+        'abcd-1234': {
+          _openmrsClass: "Patient",
+          uuid: "abcd-1234",
+          givenName: "Bob",
+          visit: {
+            uuid: "some-visit-uuid"
+          }
+        }
+      },
+      selected: null,
+      isUpdating: true
+    };
+
+    const expected = {
+      set: {
+        'abcd-1234': {
+          _openmrsClass: "Patient",
+          uuid: "abcd-1234",
+          givenName: "Joe",
+          visit: {
+            uuid: "some-visit-uuid"
+          }
+        }
+      },
+      selected: null,
+      isUpdating: false
+    };
+
+    const updated = patientsReducer(initial, {
+      type: PATIENT_TYPES.UPDATE_PATIENTS_IN_STORE,
+      patients: [
+        {
+          _openmrsClass: "Patient",
+          uuid: "abcd-1234",
+          givenName: "Joe"
+        }
+      ]
+    });
+
+    expect(updated).toEqual(expected);
+
+  });
+
 
   it('set selected patient should set patient as selected', () => {
 

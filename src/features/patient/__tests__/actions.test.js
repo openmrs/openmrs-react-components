@@ -52,20 +52,20 @@ describe('patient actions', () => {
     expect(patientActions.updateActiveVisitsInStore(activeVisits)).toEqual(expectedAction);
   });
 
-  it('should create add patient to store action', () => {
-    const expectedAction = {
-      type: PATIENT_TYPES.ADD_PATIENT_TO_STORE,
-      patient: patient
-    };
-    expect(patientActions.addPatientToStore(patient)).toEqual(expectedAction);
-  });
-
   it('should create update patient in store action', () => {
     const expectedAction = {
       type: PATIENT_TYPES.UPDATE_PATIENT_IN_STORE,
       patient: patient
     };
     expect(patientActions.updatePatientInStore(patient)).toEqual(expectedAction);
+  });
+
+  it('should create update patients in store action', () => {
+    const expectedAction = {
+      type: PATIENT_TYPES.UPDATE_PATIENTS_IN_STORE,
+      patients: patients
+    };
+    expect(patientActions.updatePatientsInStore(patients)).toEqual(expectedAction);
   });
 
 

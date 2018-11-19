@@ -42,41 +42,72 @@ export const patientsReducer = (state = {
         selected: null
       };
 
-    // adds a patient to the list, if necessary
-    case PATIENT_TYPES.ADD_PATIENT_TO_STORE:
-
-      // if the patient already in the list, do nothing
-      if (!action.patient || action.patient.uuid in state.set) {
-        return {
-          set: state.set,
-          selected: state.selected,
-          isUpdating: false
-        };
-      }
-      else {
-        return {
-          set: {
-            [action.patient.uuid]: patientUtil.createFromRestRep(action.patient),
-            ...state.set
-          },
-          selected: state.selected,
-          isUpdating: false
-        };
-      }
-
     case PATIENT_TYPES.UPDATE_PATIENT_IN_STORE:
+
+      // don't overwrite the active visit
+      // TODO note that the functionality to keep active visits may be removed in a future release
+      let visit = undefined;
+      if (state.set[action.patient.uuid]) {
+        visit = state.set[action.patient.uuid].visit;
+      }
+
       return {
         set: {
           ...state.set,
-          [action.patient.uuid]: patientUtil.createFromRestRep(action.patient)
+          [action.patient.uuid]: {
+            ...patientUtil.createFromRestRep(action.patient),
+            visit
+          }
         },
         selected: state.selected,
         isUpdating: false
       };
 
+    case PATIENT_TYPES.UPDATE_PATIENTS_IN_STORE:
+
+      if (action.patients === null || action.patients.length === 0) {
+        return {
+          set: state.set,
+          isUpdating: false,
+          selected: state.selected
+        };
+      }
+      else {
+        const set =
+          !action.patients ? {} :
+            action.patients.reduce((acc, patient) => {
+
+              // don't overwrite the active visit
+              // TODO note that the functionality to keep active visits may be removed in a future release
+              let visit = undefined;
+              if (state.set[patient.uuid]) {
+                visit = state.set[patient.uuid].visit;
+              }
+
+              acc[patient.uuid] = {
+                ...patientUtil.createFromRestRep(patient),
+                visit
+              };
+
+              return acc;
+            }, {});
+
+        return {
+          set: {
+            ...state.set,
+            ...set
+          },
+          isUpdating: false,
+          selected: state.selected
+        };
+      }
+
+
+
     case PATIENT_TYPES.UPDATE_ACTIVE_VISITS_IN_STORE:
 
       // TODO do we want to strip out patient information from visit to avoid duplication?
+      // TODO are we *not* going add patients with active visits once we get our baseline report to do so?
 
       // update the visits on all patients in the store
       const currentPatientsWithUpdatedVisits = mapObjIndexed((patient) => {
