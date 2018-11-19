@@ -75,12 +75,17 @@ class EncounterFormPage extends React.PureComponent {
 
   componentDidMount() {
     this.props.dispatch(formActions.initializeForm(this.formInstanceId, this.props.formId));
-
     if (this.props.encounter) {
       this.props.dispatch(formActions.loadFormBackingEncounter(this.formInstanceId, this.props.encounter.uuid));
     }
     else {
       this.props.dispatch(formActions.setFormState(this.formInstanceId, FORM_STATES.EDITING));
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!prevProps.encounter && this.props.encounter) {
+      this.props.dispatch(formActions.loadFormBackingEncounter(this.formInstanceId, this.props.encounter.uuid));
     }
   }
 
@@ -139,7 +144,7 @@ class EncounterFormPage extends React.PureComponent {
           (<div>
             <EncounterForm
               defaultValues={this.props.defaultValues}
-              encounter={this.getForm().encounter || this.props.encounter}  // TODO why do we need to pass in props.encounter?
+              encounter={this.getForm().encounter}
               encounterRole={this.props.encounterRole}
               encounterType={this.props.encounterType}
               formId={this.props.formId}
