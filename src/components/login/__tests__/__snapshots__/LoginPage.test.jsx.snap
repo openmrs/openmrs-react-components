@@ -45,7 +45,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
         }
       >
         <div
-          class="background darken-pseudo"
+          className="background darken-pseudo"
           style={
             Object {
               "backgroundImage": "",
@@ -53,7 +53,7 @@ exports[`Component: LoginPage renders Login if not authenticated 1`] = `
           }
         >
           <div
-            class="foreground"
+            className="foreground"
           >
             <Connect(Login)>
               <Login
