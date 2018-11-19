@@ -41,7 +41,7 @@ class PatientSearch extends React.Component {
             columnDefs={this.props.columnDefs}
             rowData={this.props.rowData}
             rowSelectedActionCreators={
-              [patientActions.addPatientToStore,
+              [patientActions.updatePatientInStore,
                 patientActions.setSelectedPatient,
                 ...this.props.rowSelectedActionCreators]}
           />
