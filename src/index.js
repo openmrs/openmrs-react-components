@@ -39,6 +39,7 @@ import Loader from './components/widgets/Loader';
 import TaskList from './components/task/TaskList';
 import BasicLayout from './components/layout/BasicLayout';
 import EncounterHistory from './components/encounter/EncounterHistory';
+import Head from './components/header/Head';
 import createListReducer from './features/list/createListReducer';
 import { SESSION_TYPES, sessionSagas, sessionActions } from './features/session/';
 import { LOGIN_TYPES, loginSagas, loginActions } from './features/login';
@@ -54,6 +55,7 @@ import {
   patientSearchActions,
   patientSearchSagas
 } from "./features/search/";
+import { axiosInstance } from "./config";
 import encounterRest from './rest/encounterRest';
 import orderRest from './rest/orderRest';
 import obsRest from './rest/obsRest';
@@ -71,7 +73,6 @@ import { faCaretDown, faCalendarAlt, faCheck, faArrowRight } from '@fortawesome/
 
 import withLocalisation, { setLocaleMessages } from './components/localization/withLocalisation';
 import { mountWithIntl, shallowWithIntl } from './components/localization/test/helpers/intl-test';
-import Head from './components/header/Head';
 
 fontAwesomeLibrary.add(faCaretDown, faCalendarAlt, faCheck, faArrowRight);
 
@@ -140,6 +141,7 @@ module.exports = {
   errorsActions,
   patientActions,
   PATIENT_TYPES,
+  axiosInstance,
   encounterRest,
   orderRest,
   obsRest,
