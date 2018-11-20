@@ -103,13 +103,10 @@ export const patientsReducer = (state = {
       }
 
 
-
     case PATIENT_TYPES.UPDATE_ACTIVE_VISITS_IN_STORE:
 
-      // TODO do we want to strip out patient information from visit to avoid duplication?
-      // TODO are we *not* going add patients with active visits once we get our baseline report to do so?
-
       // update the visits on all patients in the store
+      // note that patients that are not already in the store are ignored
       const currentPatientsWithUpdatedVisits = mapObjIndexed((patient) => {
         return {
           ...patient,
@@ -119,29 +116,11 @@ export const patientsReducer = (state = {
         };
       }, state.set);
 
-      // add in any missing patients that have active visits but aren't in expected list
-      if (action.visits != null) {
-        const set = action.visits.filter((visit) => {
-          return !(visit.patient.uuid in currentPatientsWithUpdatedVisits);
-        }).reduce((acc, visit) => {
-          acc[visit.patient.uuid] =
-            patientUtil.createFromRestRep(visit.patient, visit);
-          return acc;
-        }, currentPatientsWithUpdatedVisits);
-
-        return {
-          set: set,
-          selected: state.selected,
-          isUpdating: false
-        };
-      }
-      else {
-        return {
-          set: currentPatientsWithUpdatedVisits,
-          selected: state.selected,
-          isUpdating: false
-        };
-      }
+      return {
+        set: currentPatientsWithUpdatedVisits,
+        selected: state.selected,
+        isUpdating: false
+      };
 
     case PATIENT_TYPES.SET_SELECTED_PATIENT:
       return {
