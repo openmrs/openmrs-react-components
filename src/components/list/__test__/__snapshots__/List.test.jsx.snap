@@ -95,7 +95,18 @@ exports[`Component: List renders properly 1`] = `
             },
           ]
         }
-        filters={Array []}
+        filters={
+          <div>
+            <ButtonToolbar
+              bsClass="btn-toolbar"
+            >
+              <Uncontrolled(ToggleButtonGroup)
+                onChange={[Function]}
+                type="checkbox"
+              />
+            </ButtonToolbar>
+          </div>
+        }
         rowData={Array []}
       >
         <DataGrid
@@ -125,7 +136,18 @@ exports[`Component: List renders properly 1`] = `
             ]
           }
           dispatch={[Function]}
-          filters={Array []}
+          filters={
+            <div>
+              <ButtonToolbar
+                bsClass="btn-toolbar"
+              >
+                <Uncontrolled(ToggleButtonGroup)
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+              </ButtonToolbar>
+            </div>
+          }
           rowData={Array []}
         >
           <div>
@@ -248,7 +270,41 @@ exports[`Component: List renders properly 1`] = `
                         >
                           <div
                             className="col-sm-6"
-                          />
+                          >
+                            <div>
+                              <ButtonToolbar
+                                bsClass="btn-toolbar"
+                              >
+                                <div
+                                  className="btn-toolbar"
+                                  role="toolbar"
+                                >
+                                  <Uncontrolled(ToggleButtonGroup)
+                                    onChange={[Function]}
+                                    type="checkbox"
+                                  >
+                                    <ToggleButtonGroup
+                                      onChange={[Function]}
+                                      type="checkbox"
+                                    >
+                                      <ButtonGroup
+                                        block={false}
+                                        bsClass="btn-group"
+                                        data-toggle="buttons"
+                                        justified={false}
+                                        vertical={false}
+                                      >
+                                        <div
+                                          className="btn-group"
+                                          data-toggle="buttons"
+                                        />
+                                      </ButtonGroup>
+                                    </ToggleButtonGroup>
+                                  </Uncontrolled(ToggleButtonGroup)>
+                                </div>
+                              </ButtonToolbar>
+                            </div>
+                          </div>
                         </Col>
                       </div>
                     </FormGroup>

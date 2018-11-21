@@ -115,7 +115,7 @@ class DataGrid extends React.Component {
                 Filter:
               </Col>
               <Col sm={6}>
-                {this.props.filters}
+                { this.props.filters }
               </Col>
             </FormGroup>
           </Row>
