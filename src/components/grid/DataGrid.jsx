@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import { AgGridReact } from 'ag-grid-react';
-import { connect } from "react-redux";
-import { gridActions } from '../../features/grid';
+import React, {Component} from 'react';
+import {AgGridReact} from 'ag-grid-react';
+import {connect} from "react-redux";
+import {Grid, Row, Col, FormGroup, ControlLabel} from 'react-bootstrap';
+import {gridActions} from '../../features/grid';
 import '../../../assets/css/omrsGrid.css';
 import 'ag-grid/dist/styles/ag-grid.css';
 import 'ag-grid/dist/styles/ag-theme-balham.css';
@@ -54,7 +55,7 @@ class DataGrid extends React.Component {
   autoSizeAll() {
     if (this.gridColumnApi) {
       var allColumnIds = [];
-      this.gridColumnApi.getAllColumns().forEach(function(column) {
+      this.gridColumnApi.getAllColumns().forEach(function (column) {
         allColumnIds.push(column.colId);
       });
       this.gridColumnApi.autoSizeColumns(allColumnIds);
@@ -99,30 +100,50 @@ class DataGrid extends React.Component {
   render() {
     return (
       // the consuming app should provide a wrapping style as described here: https://www.ag-grid.com/react-more-details/
-      <div
-        id="omrsGrid"
-        className="grid-wrapper"
-      >
-        <label>
-          Search: {' '}
-          <input type="text" onChange={this.filterGrid}/>
-        </label>
-        <AgGridReact
-          columnDefs={this.props.columnDefs}
-          animateRows={true}
-          enableFiltering={ true }
-          enableSorting
+      <div>
+
+        <Grid>
+          <Row>
+            <FormGroup controlId="searchAndFilterForm">
+              <Col componentClass={ControlLabel} sm={1} style={{textAlign: "right"}}>
+                Search:
+              </Col>
+              <Col sm={3} style={{textAlign: "left"}}>
+                <input type="text" onChange={this.filterGrid}/>
+              </Col>
+              <Col componentClass={ControlLabel} sm={1} style={{textAlign: "right"}}>
+                Filter:
+              </Col>
+              <Col sm={6}>
+                {this.props.filters}
+              </Col>
+            </FormGroup>
+          </Row>
+
+        </Grid>
+        <div
           id="omrsGrid"
-          style="width: 100%; height: 100%;"
-          onGridReady={this.onGridReady.bind(this)}
-          onSelectionChanged={this.onSelectionChanged.bind(this)}
-          rowClassRules="rowClassRules"
-          rowData={this.props.rowData}
-          onRowDataChanged={ this.onDataRowChanged.bind(this) }
-          onFilterChanged = { this.onFilterChanged.bind(this) }
-          onGridSizeChanged = { this.onGridSizeChanged.bind(this) }
-          rowSelection={this.state.rowSelection}
-        />
+          className="grid-wrapper"
+        >
+          <AgGridReact
+            columnDefs={this.props.columnDefs}
+            animateRows={true}
+            enableFiltering={true}
+            enableSorting
+            id="omrsGrid"
+            style="width: 100%; height: 100%;"
+            onGridReady={this.onGridReady.bind(this)}
+            onSelectionChanged={this.onSelectionChanged.bind(this)}
+            rowClassRules="rowClassRules"
+            rowData={this.props.rowData}
+            onRowDataChanged={this.onDataRowChanged.bind(this)}
+            onFilterChanged={this.onFilterChanged.bind(this)}
+            onGridSizeChanged={this.onGridSizeChanged.bind(this)}
+            rowSelection={this.state.rowSelection}
+          />
+
+
+        </div>
       </div>
     );
   }

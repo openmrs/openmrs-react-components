@@ -21,41 +21,162 @@ exports[`Component: DataGrid renders properly 1`] = `
       dispatch={[Function]}
       rowData={Array []}
     >
-      <div
-        className="grid-wrapper"
-        id="omrsGrid"
-      >
-        <label>
-          Search: 
-           
-          <input
-            onChange={[Function]}
-            type="text"
-          />
-        </label>
-        <AgGridReact
-          animateRows={true}
-          enableFiltering={true}
-          enableSorting={true}
-          id="omrsGrid"
-          onFilterChanged={[Function]}
-          onGridReady={[Function]}
-          onGridSizeChanged={[Function]}
-          onRowDataChanged={[Function]}
-          onSelectionChanged={[Function]}
-          rowClassRules="rowClassRules"
-          rowData={Array []}
-          rowSelection="single"
-          style="width: 100%; height: 100%;"
+      <div>
+        <Grid
+          bsClass="container"
+          componentClass="div"
+          fluid={false}
         >
           <div
-            style={
-              Object {
-                "height": "100%",
+            className="container"
+          >
+            <Row
+              bsClass="row"
+              componentClass="div"
+            >
+              <div
+                className="row"
+              >
+                <FormGroup
+                  bsClass="form-group"
+                  controlId="searchAndFilterForm"
+                >
+                  <div
+                    className="form-group"
+                  >
+                    <Col
+                      bsClass="col"
+                      componentClass={[Function]}
+                      sm={1}
+                      style={
+                        Object {
+                          "textAlign": "right",
+                        }
+                      }
+                    >
+                      <ControlLabel
+                        bsClass="control-label"
+                        className="col-sm-1"
+                        srOnly={false}
+                        style={
+                          Object {
+                            "textAlign": "right",
+                          }
+                        }
+                      >
+                        <label
+                          className="col-sm-1 control-label"
+                          htmlFor="searchAndFilterForm"
+                          style={
+                            Object {
+                              "textAlign": "right",
+                            }
+                          }
+                        >
+                          Search:
+                        </label>
+                      </ControlLabel>
+                    </Col>
+                    <Col
+                      bsClass="col"
+                      componentClass="div"
+                      sm={3}
+                      style={
+                        Object {
+                          "textAlign": "left",
+                        }
+                      }
+                    >
+                      <div
+                        className="col-sm-3"
+                        style={
+                          Object {
+                            "textAlign": "left",
+                          }
+                        }
+                      >
+                        <input
+                          onChange={[Function]}
+                          type="text"
+                        />
+                      </div>
+                    </Col>
+                    <Col
+                      bsClass="col"
+                      componentClass={[Function]}
+                      sm={1}
+                      style={
+                        Object {
+                          "textAlign": "right",
+                        }
+                      }
+                    >
+                      <ControlLabel
+                        bsClass="control-label"
+                        className="col-sm-1"
+                        srOnly={false}
+                        style={
+                          Object {
+                            "textAlign": "right",
+                          }
+                        }
+                      >
+                        <label
+                          className="col-sm-1 control-label"
+                          htmlFor="searchAndFilterForm"
+                          style={
+                            Object {
+                              "textAlign": "right",
+                            }
+                          }
+                        >
+                          Filter:
+                        </label>
+                      </ControlLabel>
+                    </Col>
+                    <Col
+                      bsClass="col"
+                      componentClass="div"
+                      sm={6}
+                    >
+                      <div
+                        className="col-sm-6"
+                      />
+                    </Col>
+                  </div>
+                </FormGroup>
+              </div>
+            </Row>
+          </div>
+        </Grid>
+        <div
+          className="grid-wrapper"
+          id="omrsGrid"
+        >
+          <AgGridReact
+            animateRows={true}
+            enableFiltering={true}
+            enableSorting={true}
+            id="omrsGrid"
+            onFilterChanged={[Function]}
+            onGridReady={[Function]}
+            onGridSizeChanged={[Function]}
+            onRowDataChanged={[Function]}
+            onSelectionChanged={[Function]}
+            rowClassRules="rowClassRules"
+            rowData={Array []}
+            rowSelection="single"
+            style="width: 100%; height: 100%;"
+          >
+            <div
+              style={
+                Object {
+                  "height": "100%",
+                }
               }
-            }
-          />
-        </AgGridReact>
+            />
+          </AgGridReact>
+        </div>
       </div>
     </DataGrid>
   </Connect(DataGrid)>

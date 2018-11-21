@@ -125,7 +125,7 @@ class List extends React.Component {
 
     const filterCheckboxes = this.state.filters.map((filter, index) => {
       return (
-        <Col sm={ 1 } key={ index }>
+        <Col sm={ 2 } key={ index }>
           <Checkbox onChange={(e) => this.handleFilterToggle(e, filter.key)}>
             {filter.label}
           </Checkbox>
@@ -137,15 +137,13 @@ class List extends React.Component {
       <div>
         <h3><Label>{this.props.title}</Label></h3>
         <h3><Label>{''}</Label></h3>
-        <Grid>
-          <Row>{ filterCheckboxes }</Row>
-        </Grid>
         <DataGrid
           columnDefs={this.props.columnDefs}
           loading={this.props.loading}
           rowData={this.applyFiltersToList(this.props.rowData)}
           onRowCount={this.props.onRowCount}
           rowSelectedActionCreators={this.props.rowSelectedActionCreators}
+          filters = { filterCheckboxes }
         />
       </div>
     );
