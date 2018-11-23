@@ -31,3 +31,36 @@
 .field-warning {
     color: orange;
 }
+
+.history-key {
+    display: block;
+    margin-top: 40px;
+}
+
+.history-key-header {
+    display: flex;
+    flex-direction: column;
+    font-weight: 800px;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.history-key-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.abnormal {
+    color: orange;
+    font-size: 20px;
+}
+
+.critical {
+    color: red;
+    font-size: 20px;
+}
+
+.key-item {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}

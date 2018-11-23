@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import encounterRest from '../../rest/encounterRest';
 import { selectors } from "../../store";
 import { formatDate } from "../../util/dateUtil";
+import validations from '../../features/form/validations';
+import '../../../assets/css/widgets.css';
 
 class EncounterHistory extends React.Component {
 
@@ -50,10 +52,37 @@ class EncounterHistory extends React.Component {
           <table>
             <tbody>
               {encounter.obs.map((observation) => {
+                const {
+                  hiNormal,
+                  lowNormal,
+                  hiCritical,
+                  lowCritical,
+                } = observation.concept;
+                const validation = {
+                  abnormal: validations.abnormalMinValue(
+                    lowNormal
+                  )(
+                    observation.value.display ? observation.value.display : observation.value
+                  ) || validations.abnormalMaxValue(
+                    hiNormal
+                  )(
+                    observation.value.display ? observation.value.display : observation.value
+                  ),
+                  critical: validations.criticalMaxValue(
+                    hiCritical
+                  )(
+                    observation.value.display ? observation.value.display : observation.value
+                  ),
+                  criticalMin: validations.criticalMinValue(lowCritical)(observation.value.display ? observation.value.display : observation.value),
+                };
                 return (
                   <tr key={observation.id}>
                     <td style={this.cellPadding}><b>{ this.getLabel(observation) }:</b></td>
                     <td style={this.cellPadding}>{ observation.value.display ? observation.value.display : observation.value }</td>
+                    {<td
+                      className={validation.critical ? 'critical' : (validation.abnormal ? 'abnormal' : '')}
+                      style={{ visibility: (validation.critical || validation.abnormal) ? 'visible' : 'hidden'}}
+                    > ! </td>}
                   </tr>
                 );
               })}
@@ -62,9 +91,30 @@ class EncounterHistory extends React.Component {
         </div>
       );
     });
+
+    const key = (
+      <span className="history-key">
+        <span className="history-key-header" >Key</span>
+        <span className="history-key-items" >
+          <span className="key-item">
+            <span>Abnormal Value:</span>
+            <span className="abnormal"> ! </span>
+          </span>
+        </span>
+        <span className="key-item">
+          <span>Critical Value:</span>
+          <span className="critical"> ! </span>
+        </span>
+      </span>
+    );
+
     return (
       <div>
-        { history }
+        <span>{ history }</span>
+        {history.length && (
+          <span>{ key }</span>
+        )
+        }
       </div>
     );
   }
