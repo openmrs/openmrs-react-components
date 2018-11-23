@@ -54,6 +54,7 @@ class EncounterHistory extends React.Component {
                   <tr key={observation.id}>
                     <td style={this.cellPadding}><b>{ this.getLabel(observation) }:</b></td>
                     <td style={this.cellPadding}>{ observation.value.display ? observation.value.display : observation.value }</td>
+                    <td style={this.cellPadding}><b>{ observation.concept.units ? observation.concept.units : ''}</b></td>
                   </tr>
                 );
               })}
