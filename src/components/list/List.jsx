@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Row, Col, Label, Checkbox, FormGroup } from 'react-bootstrap';
+import { Label, ButtonToolbar, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import DataGrid from '../grid/DataGrid';
 import { applyFilters} from "../../util/filterUtil";
 
@@ -67,7 +67,6 @@ class List extends React.Component {
           return v;
         });
     }
-
   }
 
   componentDidMount() {
@@ -107,12 +106,14 @@ class List extends React.Component {
     return applyFilters(list, filters);
   }
 
-  handleFilterToggle(e, key) {
+  handleFilterToggle(e) {
     this.setState((state) => {
       state.filters = state.filters
         .map((filter) => {
-          if (filter.key === key) {
-            filter.enabled = !filter.enabled;
+          if ( e.includes(filter.key) ) {
+            filter.enabled = true;
+          } else {
+            filter.enabled = false;
           }
           return filter;
         });
@@ -125,27 +126,35 @@ class List extends React.Component {
 
     const filterCheckboxes = this.state.filters.map((filter, index) => {
       return (
-        <Col sm={ 1 } key={ index }>
-          <Checkbox onChange={(e) => this.handleFilterToggle(e, filter.key)}>
+        <ToggleButton value={ filter.key } key={index}>
             {filter.label}
-          </Checkbox>
-        </Col>
+          </ToggleButton>
       );
     });
+
+    const filterButtons = (
+      <div>
+        <ButtonToolbar>
+          <ToggleButtonGroup type="checkbox" onChange={ (e) => this.handleFilterToggle(e) }>
+            { filterCheckboxes }
+          </ToggleButtonGroup>
+        </ButtonToolbar>
+      </div>
+      )
+
+    ;
 
     return (
       <div>
         <h3><Label>{this.props.title}</Label></h3>
         <h3><Label>{''}</Label></h3>
-        <Grid>
-          <Row>{ filterCheckboxes }</Row>
-        </Grid>
         <DataGrid
           columnDefs={this.props.columnDefs}
           loading={this.props.loading}
           rowData={this.applyFiltersToList(this.props.rowData)}
           onRowCount={this.props.onRowCount}
           rowSelectedActionCreators={this.props.rowSelectedActionCreators}
+          filters = { filterButtons }
         />
       </div>
     );
