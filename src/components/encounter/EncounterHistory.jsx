@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import encounterRest from '../../rest/encounterRest';
 import { selectors } from "../../store";
 import { formatDate } from "../../util/dateUtil";
+import validations from '../../features/form/validations';
+import '../../../assets/css/widgets.css';
 
 class EncounterHistory extends React.Component {
 
@@ -50,11 +52,31 @@ class EncounterHistory extends React.Component {
           <table>
             <tbody>
               {encounter.obs.map((observation) => {
+                const {
+                  hiNormal,
+                  lowNormal,
+                  hiCritical,
+                  lowCritical,
+                } = observation.concept;
+                const obsValue = observation.value.display ? observation.value.display : observation.value;
+                const validation = {
+                  abnormal: validations.abnormalMinValue(lowNormal)(obsValue)
+                  || validations.abnormalMaxValue(hiNormal)(obsValue),
+                  critical: validations.criticalMaxValue(hiCritical)(obsValue)
+                  || validations.criticalMinValue(lowCritical)(obsValue),
+                };
+                const validationValue = validation.critical ? 'critical' : (validation.abnormal ? 'abnormal' : '');
                 return (
                   <tr key={observation.id}>
                     <td style={this.cellPadding}><b>{ this.getLabel(observation) }:</b></td>
-                    <td style={this.cellPadding}>{ observation.value.display ? observation.value.display : observation.value }</td>
+                    <td style={this.cellPadding}>{ obsValue }</td>
                     <td style={this.cellPadding}><b>{ observation.concept.units ? observation.concept.units : ''}</b></td>
+                    {<td
+                      className={validationValue}
+                      style={{ visibility: (validation.critical || validation.abnormal) ? 'visible' : 'hidden' }}
+                    >
+                      ({ validationValue })
+                    </td>}
                   </tr>
                 );
               })}
@@ -63,9 +85,10 @@ class EncounterHistory extends React.Component {
         </div>
       );
     });
+
     return (
       <div>
-        { history }
+        <span>{ history }</span>
       </div>
     );
   }
