@@ -58,33 +58,24 @@ class EncounterHistory extends React.Component {
                   hiCritical,
                   lowCritical,
                 } = observation.concept;
+                const obsValue = observation.value.display ? observation.value.display : observation.value;
                 const validation = {
-                  abnormal: validations.abnormalMinValue(
-                    lowNormal
-                  )(
-                    observation.value.display ? observation.value.display : observation.value
-                  ) || validations.abnormalMaxValue(
-                    hiNormal
-                  )(
-                    observation.value.display ? observation.value.display : observation.value
-                  ),
-                  critical: validations.criticalMaxValue(
-                    hiCritical
-                  )(
-                    observation.value.display ? observation.value.display : observation.value
-                  ),
-                  criticalMin: validations.criticalMinValue(lowCritical)(observation.value.display ? observation.value.display : observation.value),
+                  abnormal: validations.abnormalMinValue(lowNormal)(obsValue)
+                  || validations.abnormalMaxValue(hiNormal)(obsValue),
+                  critical: validations.criticalMaxValue(hiCritical)(obsValue)
+                  || validations.criticalMinValue(lowCritical)(obsValue),
                 };
+                const validationValue = validation.critical ? 'critical' : (validation.abnormal ? 'abnormal' : '');
                 return (
                   <tr key={observation.id}>
                     <td style={this.cellPadding}><b>{ this.getLabel(observation) }:</b></td>
-                    <td style={this.cellPadding}>{ observation.value.display ? observation.value.display : observation.value }</td>
+                    <td style={this.cellPadding}>{ obsValue }</td>
                     <td style={this.cellPadding}><b>{ observation.concept.units ? observation.concept.units : ''}</b></td>
                     {<td
-                      className={validation.critical ? 'critical' : (validation.abnormal ? 'abnormal' : '')}
+                      className={validationValue}
                       style={{ visibility: (validation.critical || validation.abnormal) ? 'visible' : 'hidden' }}
                     >
-                     ! 
+                      ({ validationValue })
                     </td>}
                   </tr>
                 );
@@ -95,29 +86,9 @@ class EncounterHistory extends React.Component {
       );
     });
 
-    const key = (
-      <span className="history-key">
-        <span className="history-key-header" >Key</span>
-        <span className="history-key-items" >
-          <span className="key-item">
-            <span>Abnormal Value:</span>
-            <span className="abnormal"> ! </span>
-          </span>
-        </span>
-        <span className="key-item">
-          <span>Critical Value:</span>
-          <span className="critical"> ! </span>
-        </span>
-      </span>
-    );
-
     return (
       <div>
         <span>{ history }</span>
-        {history.length && (
-          <span>{ key }</span>
-        )
-        }
       </div>
     );
   }

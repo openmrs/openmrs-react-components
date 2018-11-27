@@ -52,12 +52,14 @@
 
 .abnormal {
     color: orange;
-    font-size: 20px;
+    font-size: 10px;
+    font-weight: 800;
 }
 
 .critical {
     color: red;
-    font-size: 20px;
+    font-size: 10px;
+    font-weight: 800;
 }
 
 .key-item {
