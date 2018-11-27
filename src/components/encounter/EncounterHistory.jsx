@@ -6,13 +6,15 @@ import { selectors } from "../../store";
 import { formatDate } from "../../util/dateUtil";
 import validations from '../../features/form/validations';
 import '../../../assets/css/widgets.css';
+import {isUpdating} from "../../features/patient";
+import * as R from "ramda";
 
 class EncounterHistory extends React.Component {
 
   constructor(props) {
     super(props);
 
-    // TODO figure out how to extract this somehwere
+    // TODO figure out how to extract this somewhere
     this.cellPadding = {
       padding: "2px"
     };
@@ -22,7 +24,7 @@ class EncounterHistory extends React.Component {
     };
   }
 
-  componentDidMount() {
+  updateEncounters() {
     encounterRest.fetchEncountersByPatient(
       this.props.patient.uuid, this.props.encounterType.uuid
     ).then(data => {
@@ -32,6 +34,19 @@ class EncounterHistory extends React.Component {
         })
       });
     });
+  }
+
+  componentDidMount() {
+    this.updateEncounters();
+  }
+
+  componentDidUpdate(prevProps) {
+    // update if the selected patient has changed, or the patient store had been refreshed
+    // TODO: test if the 'selected patient changed' trigger works properly
+    if ((R.path(['patient','uuid'], prevProps) !== R.path(['patient','uuid'], this.props)) ||
+      (prevProps.isPatientStoreUpdating  && !this.props.isPatientStoreUpdating)) {
+      this.updateEncounters();
+    }
   }
 
   getLabel(obs) {
@@ -102,7 +117,8 @@ EncounterHistory.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    patient: selectors.getSelectedPatientFromStore(state)
+    patient: selectors.getSelectedPatientFromStore(state),
+    isPatientStoreUpdating: selectors.isPatientStoreUpdating(state)
   };
 };
 

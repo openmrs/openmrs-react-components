@@ -51,6 +51,8 @@ function* patientActiveVisit(action) {
 
   try {
 
+    yield put(patientActions.setPatientStoreUpdating());
+
     let response = yield call(visitApi.getPatientActiveVisit, {
       patientUuid: action.patientUuid,
       representation: action.representation ? action.representation : "custom:" + DEFAULT_VISIT_REP
