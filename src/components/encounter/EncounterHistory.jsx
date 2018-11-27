@@ -6,7 +6,6 @@ import { selectors } from "../../store";
 import { formatDate } from "../../util/dateUtil";
 import validations from '../../features/form/validations';
 import '../../../assets/css/widgets.css';
-import {isUpdating} from "../../features/patient";
 import * as R from "ramda";
 
 class EncounterHistory extends React.Component {
