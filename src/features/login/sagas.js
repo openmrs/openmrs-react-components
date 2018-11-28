@@ -66,7 +66,15 @@ function* logout(action) {
     yield put(loginActions.logoutSucceeded());
   }
   catch (e) {
-    yield put(loginActions.logoutFailed(e.message));
+    console.log("logout failed. probably because the JSESSION cookie expired. Just logout one more time");
+    try{
+      yield call(loginRest.logout);
+      yield put(loginActions.logoutSucceeded());
+    } catch(e) {
+      console.log("logout operation is not working");
+      yield put(loginActions.logoutFailed(e.message));
+    }
+
   }
 }
 
