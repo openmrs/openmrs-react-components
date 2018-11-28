@@ -84,9 +84,11 @@ class EncounterFormPage extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (!prevProps.encounter && this.props.encounter) {
+    // load the encounter if previously there was no encounter but now one has been passed in
+    if (!prevProps.encounter && !this.getForm().encounter && this.props.encounter) {
       this.props.dispatch(formActions.loadFormBackingEncounter(this.formInstanceId, this.props.encounter.uuid));
     }
+    // TODO should we also reload the form if the backing encounter *changes*... ie uuids aren't equal? or is this an invalid use case?
   }
 
   componentWillUnmount() {
