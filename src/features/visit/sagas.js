@@ -15,9 +15,14 @@ function* activeVisits(action) {
       representation: action.representation ? action.representation : "custom:" + DEFAULT_VISIT_REP,
       location: action.location
     });
-    let filteredResults = response.results;
-    yield put(patientActions.updateActiveVisitsInStore(filteredResults && filteredResults.length > 0 ? filteredResults : null));
-    yield put(visitActions.fetchActiveVisitsSucceeded(filteredResults && filteredResults.length > 0 ? filteredResults : null));
+    let results = response.results;
+
+    if (action.setPatientStore && results) {
+      yield put(patientActions.setPatientStore(results.map(v => v.patient)));
+    }
+
+    yield put(patientActions.updateActiveVisitsInStore(results && results.length > 0 ? results : null));
+    yield put(visitActions.fetchActiveVisitsSucceeded(results && results.length > 0 ? results : null));
   }
   catch (e) {
     yield put(visitActions.fetchActiveVisitsFailed(e.message));

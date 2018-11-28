@@ -16,6 +16,13 @@ const fetchActiveVisitsFailed = () => ( {
 } );
 
 
+const setPatientStoreWithActiveVisitPatients = (location, rep) => ( {
+  type: VISIT_TYPES.ACTIVE_VISITS.FETCH_REQUESTED,
+  representation: rep,
+  location: location,
+  setPatientStore: true
+} );
+
 const fetchInactiveVisits = (fromStartDate, location, rep) => ( {
   type: VISIT_TYPES.INACTIVE_VISITS.FETCH_REQUESTED,
   representation: rep,
@@ -33,11 +40,10 @@ const fetchInactiveVisitsFailed = () => ( {
 } );
 
 const fetchPatientActiveVisit = (patientUuid, rep) => ( {
-    type: VISIT_TYPES.PATIENT_ACTIVE_VISIT.FETCH_REQUESTED,
-    patientUuid: patientUuid,
-    representation: rep
-  }
-);
+  type: VISIT_TYPES.PATIENT_ACTIVE_VISIT.FETCH_REQUESTED,
+  patientUuid: patientUuid,
+  representation: rep
+});
 
 const fetchPatientActiveVisitSucceeded = (visit) => ( {
   type: VISIT_TYPES.PATIENT_ACTIVE_VISIT.FETCH_SUCCEEDED,
@@ -52,6 +58,7 @@ export default {
   fetchActiveVisits,
   fetchActiveVisitsSucceeded,
   fetchActiveVisitsFailed,
+  setPatientStoreWithActiveVisitPatients,
   fetchInactiveVisits,
   fetchInactiveVisitsSucceeded,
   fetchInactiveVisitsFailed,
