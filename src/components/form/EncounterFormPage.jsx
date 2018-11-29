@@ -64,10 +64,6 @@ class EncounterFormPage extends React.PureComponent {
       paddingRight: '0px'
     };
 
-    this.colHeight = {
-      height: '40px'
-    };
-
     this.floatRight = {
       float: 'right'
     }
@@ -135,11 +131,6 @@ class EncounterFormPage extends React.PureComponent {
             </Col>
           </Row>
           }
-          <Row>
-            <Col sm={20} md={20} style={this.colHeight}>
-              <span><h2>{''}</h2></span>
-            </Col>
-          </Row>
         </Grid>
 
         {this.getForm() && (this.getForm().state === FORM_STATES.EDITING || this.getForm().state === FORM_STATES.VIEWING) ?
