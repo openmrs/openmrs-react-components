@@ -155,7 +155,7 @@ class List extends React.Component {
           rowData={this.applyFiltersToList(this.props.rowData)}
           onRowCount={this.props.onRowCount}
           rowSelectedActionCreators={this.props.rowSelectedActionCreators}
-          filters = { filterButtons }
+          filters = { this.props.optionalFilters ? filterButtons : undefined }
         />
       </div>
     );
