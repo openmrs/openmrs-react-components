@@ -103,7 +103,7 @@ class List extends React.Component {
         ];
     }
 
-    return applyFilters(list, filters);
+    return applyFilters(list, filters, this.props.optionalFiltersType);
   }
 
   handleFilterToggle(e) {
@@ -127,8 +127,8 @@ class List extends React.Component {
     const filterCheckboxes = this.state.filters.map((filter, index) => {
       return (
         <ToggleButton value={ filter.key } key={index}>
-            {filter.label}
-          </ToggleButton>
+          {filter.label}
+        </ToggleButton>
       );
     });
 
@@ -170,9 +170,11 @@ List.propTypes = {
   onMountOtherActionCreators: PropTypes.array,
   onRowCount: PropTypes.func,
   optionalFilters: PropTypes.array,
+  optionalFiltersType: PropTypes.string,
   rowData: PropTypes.array.isRequired,
   rowSelectedActionCreators: PropTypes.array,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  
 };
 
 List.defaultProps = {
@@ -185,7 +187,8 @@ List.defaultProps = {
   ],
   delayInterval: 60000,
   title: 'List',
-  filters: []
+  filters: [],
+  optionalFiltersType: 'and',
 };
 
 export default List;
