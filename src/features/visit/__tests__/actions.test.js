@@ -29,4 +29,12 @@ describe('visit actions', () => {
     expect(visitActions.fetchActiveVisitsFailed()).toEqual(expectedAction);
   });
 
+  it('should create fetch active visits action with set patient store=true', () => {
+    const expectedAction = {
+      type: VISIT_TYPES.ACTIVE_VISITS.FETCH_REQUESTED,
+      setPatientStore: true
+    };
+    expect(visitActions.setPatientStoreWithActiveVisitPatients()).toEqual(expectedAction);
+  });
+
 });

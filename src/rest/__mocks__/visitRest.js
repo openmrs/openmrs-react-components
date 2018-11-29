@@ -14,10 +14,16 @@ const api = {
         {
           "results": [
             {
-              "uuid": "some_uuid"
+              "uuid": "some_uuid",
+              "patient": {
+                "uuid": "patient_uuid"
+              }
             },
             {
-              "uuid": "another_uuid"
+              "uuid": "another_uuid",
+              "patient": {
+                "uuid": "another_patient_uuid"
+              }
             }
           ]
         }
