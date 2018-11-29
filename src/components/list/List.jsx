@@ -33,6 +33,7 @@ import { applyFilters} from "../../util/filterUtil";
           filter: patient => patient.gender === 'M'
         }
       ];
+    * optionalFiltersType: string used to denpte predicate for filtering through list. Typical values are .$AND or $OR (default value is $AND).
     * rowData (required): data to display (generally an array of objects), passed on directly to DataGrid,
     * rowSelectedActionCreators: array of action creators for actions to trigger when row is selected, passed on directly to DataGrid
     * title: title for the grid (default is "List")
