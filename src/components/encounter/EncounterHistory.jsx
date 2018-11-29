@@ -59,12 +59,20 @@ class EncounterHistory extends React.Component {
                   lowCritical,
                 } = observation.concept;
                 const obsValue = observation.value.display ? observation.value.display : observation.value;
-                const validation = {
-                  abnormal: validations.abnormalMinValue(lowNormal)(obsValue)
-                  || validations.abnormalMaxValue(hiNormal)(obsValue),
-                  critical: validations.criticalMaxValue(hiCritical)(obsValue)
-                  || validations.criticalMinValue(lowCritical)(obsValue),
+
+                let validation = {
+                  abnormal: undefined,
+                  critical: undefined,
                 };
+
+                if (hiNormal || lowNormal) {
+                  validation.abnormal = validations.abnormalMinValue(lowNormal)(obsValue) || validations.abnormalMaxValue(hiNormal)(obsValue);
+                }
+
+                if (hiCritical || lowCritical) {
+                  validation.critical = validations.criticalMaxValue(hiCritical)(obsValue) || validations.criticalMinValue(lowCritical)(obsValue);
+                }
+
                 const validationValue = validation.critical ? 'critical' : (validation.abnormal ? 'abnormal' : '');
                 return (
                   <tr key={observation.id}>
