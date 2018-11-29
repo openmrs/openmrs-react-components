@@ -33,6 +33,7 @@ import { applyFilters} from "../../util/filterUtil";
           filter: patient => patient.gender === 'M'
         }
       ];
+    * optionalFiltersType: string used to denpte predicate for filtering through list. Typical values are .$AND or $OR (default value is $AND).
     * rowData (required): data to display (generally an array of objects), passed on directly to DataGrid,
     * rowSelectedActionCreators: array of action creators for actions to trigger when row is selected, passed on directly to DataGrid
     * title: title for the grid (default is "List")
@@ -103,7 +104,7 @@ class List extends React.Component {
         ];
     }
 
-    return applyFilters(list, filters);
+    return applyFilters(list, filters, this.props.optionalFiltersType);
   }
 
   handleFilterToggle(e) {
@@ -127,8 +128,8 @@ class List extends React.Component {
     const filterCheckboxes = this.state.filters.map((filter, index) => {
       return (
         <ToggleButton value={ filter.key } key={index}>
-            {filter.label}
-          </ToggleButton>
+          {filter.label}
+        </ToggleButton>
       );
     });
 
@@ -154,7 +155,7 @@ class List extends React.Component {
           rowData={this.applyFiltersToList(this.props.rowData)}
           onRowCount={this.props.onRowCount}
           rowSelectedActionCreators={this.props.rowSelectedActionCreators}
-          filters = { filterButtons }
+          filters = { this.props.optionalFilters ? filterButtons : undefined }
         />
       </div>
     );
@@ -170,9 +171,11 @@ List.propTypes = {
   onMountOtherActionCreators: PropTypes.array,
   onRowCount: PropTypes.func,
   optionalFilters: PropTypes.array,
+  optionalFiltersType: PropTypes.string,
   rowData: PropTypes.array.isRequired,
   rowSelectedActionCreators: PropTypes.array,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  
 };
 
 List.defaultProps = {
@@ -185,7 +188,8 @@ List.defaultProps = {
   ],
   delayInterval: 60000,
   title: 'List',
-  filters: []
+  filters: [],
+  optionalFiltersType: 'and',
 };
 
 export default List;

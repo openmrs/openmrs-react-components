@@ -111,12 +111,16 @@ class DataGrid extends React.Component {
               <Col sm={3} style={{textAlign: "left"}}>
                 <input type="text" onChange={this.filterGrid}/>
               </Col>
-              <Col componentClass={ControlLabel} sm={1} style={{textAlign: "right"}}>
-                Filter:
-              </Col>
-              <Col sm={6}>
-                { this.props.filters }
-              </Col>
+              {this.props.filters &&
+              <span>
+                <Col componentClass={ControlLabel} sm={1} style={{textAlign: "right"}}>
+                  Filter:
+                </Col>
+                <Col sm={6}>
+                  { this.props.filters }
+                </Col>
+              </span>
+              }
             </FormGroup>
           </Row>
 
