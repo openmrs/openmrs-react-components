@@ -1,3 +1,4 @@
+import * as R from 'ramda';
 
 export const applyFilters =  (list, filters, predicate) => {
   if (filters.length === 0) {
@@ -10,7 +11,7 @@ export const applyFilters =  (list, filters, predicate) => {
     if (predicate === 'or') {
       return filters.reduce((l, f) => {
         const filteredItems = list.filter(f);
-        const allFilteredItems = l.concat(filteredItems);
+        const allFilteredItems = R.unionWith(R.eqBy(R.prop('uuid')), l, filteredItems);
         return allFilteredItems;
       }, []);
     }
