@@ -125,7 +125,7 @@ class List extends React.Component {
 
   render() {
 
-    const filterCheckboxes = this.state.filters.map((filter, index) => {
+    const filterButtons = this.state.filters.map((filter, index) => {
       return (
         <ToggleButton value={ filter.key } key={index}>
           {filter.label}
@@ -133,11 +133,11 @@ class List extends React.Component {
       );
     });
 
-    const filterButtons = (
+    const filterButtonGroup = (
       <div>
         <ButtonToolbar>
           <ToggleButtonGroup type="checkbox" onChange={ (e) => this.handleFilterToggle(e) }>
-            { filterCheckboxes }
+            { filterButtons }
           </ToggleButtonGroup>
         </ButtonToolbar>
       </div>
@@ -155,7 +155,7 @@ class List extends React.Component {
           rowData={this.applyFiltersToList(this.props.rowData)}
           onRowCount={this.props.onRowCount}
           rowSelectedActionCreators={this.props.rowSelectedActionCreators}
-          filters = { this.props.optionalFilters ? filterButtons : undefined }
+          filters = { this.props.optionalFilters ? filterButtonGroup : undefined }
         />
       </div>
     );
