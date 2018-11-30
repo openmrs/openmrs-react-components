@@ -101,48 +101,6 @@ exports[`Component: DataGrid renders properly 1`] = `
                         />
                       </div>
                     </Col>
-                    <Col
-                      bsClass="col"
-                      componentClass={[Function]}
-                      sm={1}
-                      style={
-                        Object {
-                          "textAlign": "right",
-                        }
-                      }
-                    >
-                      <ControlLabel
-                        bsClass="control-label"
-                        className="col-sm-1"
-                        srOnly={false}
-                        style={
-                          Object {
-                            "textAlign": "right",
-                          }
-                        }
-                      >
-                        <label
-                          className="col-sm-1 control-label"
-                          htmlFor="searchAndFilterForm"
-                          style={
-                            Object {
-                              "textAlign": "right",
-                            }
-                          }
-                        >
-                          Filter:
-                        </label>
-                      </ControlLabel>
-                    </Col>
-                    <Col
-                      bsClass="col"
-                      componentClass="div"
-                      sm={6}
-                    >
-                      <div
-                        className="col-sm-6"
-                      />
-                    </Col>
                   </div>
                 </FormGroup>
               </div>
