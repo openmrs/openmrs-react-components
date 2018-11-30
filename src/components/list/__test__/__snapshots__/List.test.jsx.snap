@@ -43,6 +43,7 @@ exports[`Component: List renders properly 1`] = `
     dispatch={[Function]}
     fetchListActionCreator={[Function]}
     filters={Array []}
+    optionalFiltersType="and"
     rowData={Array []}
     title="List"
   >
@@ -95,18 +96,6 @@ exports[`Component: List renders properly 1`] = `
             },
           ]
         }
-        filters={
-          <div>
-            <ButtonToolbar
-              bsClass="btn-toolbar"
-            >
-              <Uncontrolled(ToggleButtonGroup)
-                onChange={[Function]}
-                type="checkbox"
-              />
-            </ButtonToolbar>
-          </div>
-        }
         rowData={Array []}
       >
         <DataGrid
@@ -136,18 +125,6 @@ exports[`Component: List renders properly 1`] = `
             ]
           }
           dispatch={[Function]}
-          filters={
-            <div>
-              <ButtonToolbar
-                bsClass="btn-toolbar"
-              >
-                <Uncontrolled(ToggleButtonGroup)
-                  onChange={[Function]}
-                  type="checkbox"
-                />
-              </ButtonToolbar>
-            </div>
-          }
           rowData={Array []}
         >
           <div>
@@ -228,82 +205,6 @@ exports[`Component: List renders properly 1`] = `
                               onChange={[Function]}
                               type="text"
                             />
-                          </div>
-                        </Col>
-                        <Col
-                          bsClass="col"
-                          componentClass={[Function]}
-                          sm={1}
-                          style={
-                            Object {
-                              "textAlign": "right",
-                            }
-                          }
-                        >
-                          <ControlLabel
-                            bsClass="control-label"
-                            className="col-sm-1"
-                            srOnly={false}
-                            style={
-                              Object {
-                                "textAlign": "right",
-                              }
-                            }
-                          >
-                            <label
-                              className="col-sm-1 control-label"
-                              htmlFor="searchAndFilterForm"
-                              style={
-                                Object {
-                                  "textAlign": "right",
-                                }
-                              }
-                            >
-                              Filter:
-                            </label>
-                          </ControlLabel>
-                        </Col>
-                        <Col
-                          bsClass="col"
-                          componentClass="div"
-                          sm={6}
-                        >
-                          <div
-                            className="col-sm-6"
-                          >
-                            <div>
-                              <ButtonToolbar
-                                bsClass="btn-toolbar"
-                              >
-                                <div
-                                  className="btn-toolbar"
-                                  role="toolbar"
-                                >
-                                  <Uncontrolled(ToggleButtonGroup)
-                                    onChange={[Function]}
-                                    type="checkbox"
-                                  >
-                                    <ToggleButtonGroup
-                                      onChange={[Function]}
-                                      type="checkbox"
-                                    >
-                                      <ButtonGroup
-                                        block={false}
-                                        bsClass="btn-group"
-                                        data-toggle="buttons"
-                                        justified={false}
-                                        vertical={false}
-                                      >
-                                        <div
-                                          className="btn-group"
-                                          data-toggle="buttons"
-                                        />
-                                      </ButtonGroup>
-                                    </ToggleButtonGroup>
-                                  </Uncontrolled(ToggleButtonGroup)>
-                                </div>
-                              </ButtonToolbar>
-                            </div>
                           </div>
                         </Col>
                       </div>
