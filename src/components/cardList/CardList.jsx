@@ -139,7 +139,7 @@ class CardList extends React.Component {
               </span>
             </div>
             <div className="right-items">
-              {Array.isArray(this.props.getIdentifiers(patient)) && this.props.getIdentifiers(patient).split('<br/>').map((identifier, index) => (
+              {this.props.getIdentifiers(patient) && this.props.getIdentifiers(patient).split('<br/>').map((identifier, index) => (
                 <span key={index}>{identifier}</span>
               ))}
             </div>
