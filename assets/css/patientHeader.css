@@ -3,6 +3,8 @@
 */
 
 .patient-header {
+  display: flex;
+  justify-content: space-between;
   position: relative;
   overflow: auto;
   background: #F9F9F9;
@@ -16,19 +18,11 @@
 .demographics {
   display: inline-block;
   position: relative;
-  float: left;
   vertical-align: top;
 }
 
 .demographics h2 span {
   display: inline-block;
-}
-
-.demographics h2 span em {
-  font-size: 0.4em;
-  color: #888;
-  border-top: 1px solid #DDD;
-  display: block;
 }
 
 .patient-header .demographics .gender-age {
@@ -39,21 +33,28 @@
 
 .identifiers {
   max-width: 520px;
-  display: inline-block;
-  float: right;
   text-align: center;
-  margin-left: 20px;
-  margin-top: 28px;
+  margin-top: 25px;
+  display: flex;
 }
 
-identifiers em {
-  max-width: 170px;
-  min-width: 120px;
-  display: inline-block;
-  color: #888;
-  font-style: normal;
-  font-size: 0.9em;
-  border-bottom: 1px solid #DDD;
+.identifiers em {
+  margin-right: 15px;
+  margin-top: 6px;
+  font-size: 1.2em;
+  white-space: nowrap;
+}
+
+.identifiers > em::after {
+  content: ':'
+}
+
+.identifiers-number {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  align-content: start;
 }
 
 .identifiers span {
@@ -62,9 +63,9 @@ identifiers em {
   letter-spacing: 1px;
   margin: 2px;
   display: inline-block;
-  padding: 2px 8px;
-  font-size: 0.8em;
+  padding: 6px 8px;
+  font-size: 0.9em;
   -webkit-border-radius: 50px;
   -moz-border-radius: 50px;
-  border-radius: 50px;
+  border-radius: 5px;
 }
