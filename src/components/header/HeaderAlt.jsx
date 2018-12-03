@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import { Navbar, Nav, NavItem, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../../assets/css/headerAlt.css';
 import NavBarMenu from './NavBarMenu';
+import MenuBar from './Menubar';
 import LocationMenu from './LocationMenu';
+import SlidingNavMenu from './SlidingNavMenu';
 
 
 export class HeaderAlt extends React.Component {
@@ -28,72 +30,111 @@ export class HeaderAlt extends React.Component {
   }
 
   handleSelect(){
-    this.setState(() => ({ expanded: false}));
+    this.setState(() => ({ expanded: false }));
   }
 
 
   render() {
     return (
-      <Navbar
-        className="header"
-        fixedTop
-        onToggle={this.handleToggle}
-      >
-        <Navbar.Toggle>
-          <FontAwesomeIcon icon="caret-down" size="2x" id='navbarIcon'/>
-        </Navbar.Toggle>
-        <Navbar.Collapse in={this.state.expanded}>
-          <Navbar.Header>
-            <Nav pullLeft id="nav">
-              <NavBarMenu
-                pathname={this.props.pathname}
-                pageOptions={this.props.navMenuPages}
-                title={<FontAwesomeIcon icon="bars" size="2x" id='navbarIcon'/>}
-                noCaret
-                onSelect={this.handleSelect}
+      <Col>
+        <Row style={{ height:60 }}>
+          <Navbar
+            className="header"
+            fixedTop
+            onToggle={this.handleToggle}
+          >
+            <Navbar.Toggle>
+              <FontAwesomeIcon
+                icon="caret-down"
+                id='navbarIcon'
+                size="2x"
               />
-              <NavItem
-                href={"#/"}
-                onSelect={this.handleSelect}
-              >
-                <img
-                  className="logo"
-                  alt=""
-                  src={this.props.logo}
-                />
-              </NavItem>
-            </Nav>
-          </Navbar.Header>
+            </Navbar.Toggle>
+            <Navbar.Collapse in={this.state.expanded}>
+              <Navbar.Header>
+                <Nav
+                  id="nav"
+                  pullLeft
+                >
+                  <MenuBar
+                    noCaret
+                    onSelect={this.handleSelect}
+                    pageOptions={this.props.navMenuPages}
+                    pathname={this.props.pathname}
+                    title={<FontAwesomeIcon
+                      icon="bars"
+                      id='navbarIcon'
+                      size="2x"
+                    />}
+                  />
+                  <NavItem
+                    href={"#/"}
+                    onSelect={this.handleSelect}
+                  >
+                    <img
+                      alt=""
+                      className="logo"
+                      src={this.props.logo}
+                    />
+                  </NavItem>
+                </Nav>
+              </Navbar.Header>
 
-          <Nav pullRight id="nav">
-            <LocationMenu
-              id="dropdown"
-              locations={this.props.locations ? this.props.locations : []}
-              sessionLocation={this.props.sessionLocation}
-              onSelect={this.handleSelect}
-              dispatch={this.props.dispatch}
-              title={
-                <span>
-                  <FontAwesomeIcon icon="map-marker" size="lg" id="navItemIcon"/>
-                  {this.props.sessionLocation.display}
-                </span>
-              }
-            />
-            <NavBarMenu
-              pathname={this.props.pathname}
-              pageOptions={this.props.userMenuPages}
-              id="dropdown"
-              onSelect={this.handleSelect}
-              title={
-                <span>
-                  <FontAwesomeIcon icon="user" size="lg" id="navItemIcon"/>
-                  {this.props.user.person ? this.props.user.person.display : 'user'}
-                </span>
-              }
-            />
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+              <Nav
+                id="nav"
+                pullRight
+              >
+                <LocationMenu
+                  dispatch={this.props.dispatch}
+                  id="dropdown"
+                  locations={this.props.locations ? this.props.locations : []}
+                  onSelect={this.handleSelect}
+                  sessionLocation={this.props.sessionLocation}
+                  title={
+                    <span>
+                      <FontAwesomeIcon
+                        icon="map-marker"
+                        id="navItemIcon"
+                        size="lg"
+                      />
+                      {this.props.sessionLocation.display}
+                    </span>
+                  }
+                />
+                <NavBarMenu
+                  id="dropdown"
+                  onSelect={this.handleSelect}
+                  pageOptions={this.props.userMenuPages}
+                  pathname={this.props.pathname}
+                  title={
+                    <span>
+                      <FontAwesomeIcon
+                        icon="user"
+                        id="navItemIcon"
+                        size="lg"
+                      />
+                      {this.props.user.person ? this.props.user.person.display : 'user'}
+                    </span>
+                  }
+                />
+              </Nav>
+            </Navbar.Collapse>
+          </Navbar>
+        </Row>
+        <Row style={{ height:42 }}>
+          <SlidingNavMenu
+            noCaret
+            onSelect={this.handleSelect}
+            pageOptions={this.props.navMenuPages}
+            pathname={this.props.pathname}
+            title={<FontAwesomeIcon
+              icon="bars"
+              id='navbarIcon'
+              size="2x"
+            />}
+          />
+        </Row>
+      </Col>
     );
   }
 }
