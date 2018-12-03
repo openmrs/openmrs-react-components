@@ -30,21 +30,18 @@ export class PatientHeader extends PureComponent {
       <div className="demographics">
         <h2 className="name">
           <span>
-            <span className="PersonName-givenName">{patientUtil.getGivenName(this.state.patient)}&nbsp;&nbsp;</span>
-            <em>Given</em>
+            <span className="PersonName-givenName">{patientUtil.getGivenName(this.state.patient)},&nbsp;&nbsp;</span>
           </span>
 
           {
             patientUtil.getMiddleName(this.state.patient) &&
             <span>
               <span className="PersonName-middleName">{patientUtil.getMiddleName(this.state.patient)}&nbsp;&nbsp;</span>
-              <em>Middle</em>
             </span>
           }
 
           <span>
             <span className="PersonName-familyName">{patientUtil.getFamilyName(this.state.patient)}</span>
-            <em>Family Name</em>
           </span>
 
           &nbsp;
@@ -66,10 +63,12 @@ export class PatientHeader extends PureComponent {
         {!this.props.identifierTypesToDisplay ? (
           <span>{patientUtil.getPreferredIdentifier(this.state.patient)}</span>
         ) : (
-          this.props.identifierTypesToDisplay.map((identifierType) => {
-            let identifier = patientUtil.getIdentifier(this.state.patient, identifierType);
-            return identifier ? <span key={identifier}>{identifier}</span> : "";
-          })
+          <div className="identifiers-number">
+            {this.props.identifierTypesToDisplay.map((identifierType) => {
+              let identifier = patientUtil.getIdentifier(this.state.patient, identifierType);
+              return identifier ? <span key={identifier}>{identifier}</span> : "";
+            })}
+          </div>
         )}
         <br />
       </div>
