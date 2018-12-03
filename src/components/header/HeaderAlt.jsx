@@ -5,7 +5,6 @@ import { Navbar, Nav, NavItem, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../../assets/css/headerAlt.css';
 import NavBarMenu from './NavBarMenu';
-import MenuBar from './Menubar';
 import LocationMenu from './LocationMenu';
 import SlidingNavMenu from './SlidingNavMenu';
 
@@ -56,7 +55,7 @@ export class HeaderAlt extends React.Component {
                   id="nav"
                   pullLeft
                 >
-                  <MenuBar
+                  <NavBarMenu
                     noCaret
                     onSelect={this.handleSelect}
                     pageOptions={this.props.navMenuPages}
@@ -123,15 +122,8 @@ export class HeaderAlt extends React.Component {
         </Row>
         <Row style={{ height:42 }}>
           <SlidingNavMenu
-            noCaret
-            onSelect={this.handleSelect}
             pageOptions={this.props.navMenuPages}
             pathname={this.props.pathname}
-            title={<FontAwesomeIcon
-              icon="bars"
-              id='navbarIcon'
-              size="2x"
-            />}
           />
         </Row>
       </Col>
