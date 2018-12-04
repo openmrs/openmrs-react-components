@@ -7,6 +7,10 @@
 
 .card-list:nth-child(even) {background: lightgray}
 
+.text-center {
+  text-align: center;
+}
+
 .filters {
   padding: 18px;
 }
