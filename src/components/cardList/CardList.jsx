@@ -85,6 +85,7 @@ class CardList extends React.Component {
   }
 
   render() {
+    const { rowData } = this.props;
 
     const filterCheckboxes = this.state.filters.map((filter, index) => {
       return (
@@ -108,21 +109,13 @@ class CardList extends React.Component {
       <div>
         <h3><Label>{this.props.title}</Label></h3>
         <h3><Label>{''}</Label></h3>
-        {/* <DataGrid
-          columnDefs={this.props.columnDefs}
-          loading={this.props.loading}
-          rowData={this.applyFiltersToList(this.props.rowData)}
-          onRowCount={this.props.onRowCount}
-          rowSelectedActionCreators={this.props.rowSelectedActionCreators}
-          filters = { this.props.optionalFilters ? filterButtons : undefined }
-        /> */}
         {this.props.filters &&
           <div className="filters">
             <span>Filter:</span>
             <span>{ this.props.optionalFilters ? filterButtons : undefined }</span>
           </div>
         }
-        {this.applyFiltersToList(this.props.rowData).map((patient, index) => (
+        {rowData.length > 0 ? this.applyFiltersToList(rowData).map((patient, index) => (
           <div 
             className="card-list"
             key={index} 
@@ -144,7 +137,7 @@ class CardList extends React.Component {
               ))}
             </div>
           </div>
-        ))
+        )) : <h2 className="text-center">No Data to display</h2>
         }
       </div>
     );
