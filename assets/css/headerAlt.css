@@ -34,3 +34,75 @@
     padding-top: 5px;
     padding-bottom: 5px;
 }
+
+@media only screen and (max-width: 768px) {
+    .menu-bar .hambuger-menu {
+     display: none;
+    }
+    .menu-bar .sliding-menu {
+        height: 100%;
+        width: 100%;
+        display:block;
+    }
+
+    .menu-bar, .sliding-menu {
+        height: 100%;
+        width: 100%;
+    }
+
+    .menu-bar .sliding-menu::-webkit-scrollbar {
+        display: none;
+    }
+
+    .sliding-menu .row {
+        background: #F9F9F9;
+        width:100%;
+        float: right;
+        height: 100%;
+    }
+
+    .sliding-menu .row .nav.nav-tabs {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+    }
+
+    .sliding-menu .row .nav.nav-tabs > li > a {
+        display: inline-block;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    .navbar-fixed-top, .navbar-fixed-bottom {
+        position: relative;
+        right: 0;
+        left: 0;
+        z-index: 100;
+    }
+
+    .patient-header {
+        margin-top: 0px !important;
+    }
+
+    .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+        color: #555;
+        background-color: #e7e7e7;
+        border-bottom: 3px solid #F8971D;
+    }
+}
+
+@media only screen and (min-width: 800px) {
+    .menu-bar {
+        float: left;
+    }
+    .menu-bar .sliding-menu {
+     display: none;
+    }
+
+    .header-alt-row {
+        margin-bottom: 40px;
+    }
+}

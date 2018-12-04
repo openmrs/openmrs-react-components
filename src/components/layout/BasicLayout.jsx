@@ -25,12 +25,12 @@ const BasicLayout = props => {
         timeOut={1000}
       />
       <Grid fluid={true}>
-        <Row style={{marginBottom:40}}>
+        <Row className="header-alt-row">
           <HeaderAlt
             className="HeaderAlt"
             logo={props.logo}
-            userMenuPages={props.userMenuPages}
             navMenuPages={props.navMenuPages}
+            userMenuPages={props.userMenuPages}
           />
         </Row>
         <Row>
