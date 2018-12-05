@@ -85,7 +85,7 @@ class CardList extends React.Component {
   }
 
   render() {
-    const { rowData } = this.props;
+    const { rowData, loading } = this.props;
 
     const filterCheckboxes = this.state.filters.map((filter, index) => {
       return (
@@ -103,7 +103,12 @@ class CardList extends React.Component {
           </ToggleButtonGroup>
         </ButtonToolbar>
       </div>
-      );
+    );
+
+    if (loading) {
+      return (
+        <Loader />);
+    }
 
     return (
       <div>
