@@ -18,16 +18,14 @@
         height: 100%;
         width: 100%;
     }
-    .basic-layout.row {
-        /* display: flex;
-        width: 100%; */
-    }
+
+
     .basic-layout.left-rail {
-        /* width: 45%; */
+        width: 100%;
     }
+
     .basic-layout.auth-route {
-        /* padding-right: 0px;
-        padding-left: 0px; */
+        width: 100% !important;
     }
 
 }
@@ -86,9 +84,6 @@
     .basic-layout.left-rail {
         padding-left: 0px;
         padding-right: 0px;
-    }
-    .basic-layout.auth-route {
-
     }
 }
 
