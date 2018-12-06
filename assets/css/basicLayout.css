@@ -13,3 +13,82 @@
     background: #f78b08;
 }
 
+@media only screen and (max-width: 500px) {
+    html, body {
+        height: 100%;
+        width: 100%;
+    }
+    .basic-layout.row {
+        /* display: flex;
+        width: 100%; */
+    }
+    .basic-layout.left-rail {
+        /* width: 45%; */
+    }
+    .basic-layout.auth-route {
+        /* padding-right: 0px;
+        padding-left: 0px; */
+    }
+
+}
+
+@media only screen and (min-width: 501px) and (max-width: 1024px) {
+    html, body {
+        height: 100%;
+        width: 100%;
+    }
+
+    #root, #outer-container, .ag-theme-material, .container-fluid,
+    .basic-layout.left-rail, .basic-layout.left-rail > div, .list-group,
+    .div-container.summary-and-form, .div-container.container, .basic-layout.auth-route > div {
+        height: 100%;
+    }
+
+    .div-container.container {
+        padding: 0px;
+    }
+
+    .basic-layout.row {
+        display: flex;
+        width: 100%;
+        margin: 0 auto;
+        height: inherit;
+    }
+    .basic-layout.left-rail {
+        width: 45%;
+        z-index: 100;
+        background: #fff;
+    }
+
+    .row-container.row {
+        margin: 0 auto;
+        padding-left: 10px;
+    }
+
+    .row-container {
+        background: #ffa500b3;
+    }
+
+    .basic-layout.auth-route {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+
+    .summary-form {
+        margin-right: 25%;
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    .basic-layout.row {
+        display: flex;
+    }
+    .basic-layout.left-rail {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .basic-layout.auth-route {
+
+    }
+}
+

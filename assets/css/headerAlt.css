@@ -35,7 +35,11 @@
     padding-bottom: 5px;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1024px) {
+
+    .header-alt-row .row {
+        margin: 0 !important;
+    }
     .menu-bar .hambuger-menu {
      display: none;
     }
@@ -94,15 +98,11 @@
     }
 }
 
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 1025px) {
     .menu-bar {
         float: left;
     }
     .menu-bar .sliding-menu {
      display: none;
-    }
-
-    .header-alt-row {
-        margin-bottom: 40px;
     }
 }

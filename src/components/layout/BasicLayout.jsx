@@ -13,10 +13,8 @@ const BasicLayout = props => {
 
   const contentCols = props.patient ? 10 : 12;
 
-  const zeroPadding = {
-    paddingLeft: '0px',
-    paddingRight: '0px'
-  };
+
+  const colWidth = props.patient ? '55%' : '100%';
 
   return (
     <div id="outer-container" className="ag-theme-material">
@@ -40,13 +38,13 @@ const BasicLayout = props => {
             patient={props.patient}/>
           }
         </Row>
-        <Row>
+        <Row className="basic-layout">
           {props.patient && props.leftRail &&
-          <Col xs={2} sm={2} md={2} lg={2} style={ zeroPadding }>
+          <Col className="basic-layout left-rail">
             {React.cloneElement(props.leftRail, { patient: props.patient })}
           </Col>
           }
-          <Col xs={contentCols} sm={contentCols} md={contentCols} lg={contentCols}>
+          <Col xs={contentCols} sm={contentCols} md={contentCols} style={{ width: colWidth }} lg={contentCols} className="basic-layout auth-route">
             <AuthenticatedRoute {...props} />
           </Col>
         </Row>
