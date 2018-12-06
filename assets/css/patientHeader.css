@@ -27,7 +27,6 @@
 
 .patient-header .demographics .gender-age {
   font-size: 0.6em;
-  vertical-align: top;
   margin-top: 10px;
 }
 
@@ -55,6 +54,7 @@
   align-items: flex-start;
   flex-wrap: wrap;
   align-content: start;
+  white-space: nowrap;
 }
 
 .identifiers span {
