@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Label, ButtonToolbar, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
-import '../../../assets/css/cardList.css';
 import moment from 'moment';
 import { applyFilters} from "../../util/filterUtil";
-import Loader from '../widgets/Loader'
+import Loader from '../widgets/Loader';
+import '../../../assets/css/cardList.css';
+
 class CardList extends React.Component {
 
   constructor(props) {
