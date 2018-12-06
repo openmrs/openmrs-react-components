@@ -101,8 +101,8 @@ class List extends React.Component {
     if (this.state.filters) {
       let optional =
         [ ...(this.state.filters
-            .filter((v) => v.enabled)
-            .map((v) => v.filter))
+          .filter((v) => v.enabled)
+          .map((v) => v.filter))
         ];
       if (optional) {
         return applyFilters(list, optional, this.props.optionalFiltersType);

@@ -88,7 +88,7 @@ class CardList extends React.Component {
   render() {
     const { rowData, loading } = this.props;
 
-    const filterCheckboxes = this.state.filters.map((filter, index) => {
+    const filterButtons = this.state.filters.map((filter, index) => {
       return (
         <ToggleButton value={ filter.key } key={index}>
           {filter.label}
@@ -96,11 +96,11 @@ class CardList extends React.Component {
       );
     });
 
-    const filterButtons = (
+    const filterButtonToolbar = (
       <div>
         <ButtonToolbar>
-          <ToggleButtonGroup type="checkbox" onChange={ (e) => this.handleFilterToggle(e) }>
-            { filterCheckboxes }
+          <ToggleButtonGroup type="checkbox" >
+            { filterButtons }
           </ToggleButtonGroup>
         </ButtonToolbar>
       </div>
@@ -118,7 +118,7 @@ class CardList extends React.Component {
         {this.props.filters &&
           <div className="filters">
             <span>Filter:</span>
-            <span>{ this.props.optionalFilters ? filterButtons : undefined }</span>
+            <span>{ this.props.optionalFilters ? filterButtonToolbar : undefined }</span>
           </div>
         }
         {rowData.length > 0 ? this.applyFiltersToList(rowData).map((patient, index) => (
