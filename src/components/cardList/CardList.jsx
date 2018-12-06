@@ -50,17 +50,22 @@ class CardList extends React.Component {
   applyFiltersToList(list) {
     let filters = this.props.filters ? [...this.props.filters] : [];
 
+    // screening queue filters should always be AND (at least for now)
+    list = applyFilters(list, filters, 'and');
+
     // add any optional filters
     if (this.state.filters) {
-      filters =
-        [...filters,
-          ...(this.state.filters
-            .filter((v) => v.enabled)
-            .map((v) => v.filter))
+      let optional =
+        [ ...(this.state.filters
+          .filter((v) => v.enabled)
+          .map((v) => v.filter))
         ];
+      if (optional) {
+        return applyFilters(list, optional, this.props.optionalFiltersType);
+      }
     }
 
-    return applyFilters(list, filters, this.props.optionalFiltersType);
+    return list;
   }
 
   handleFilterToggle(e) {
