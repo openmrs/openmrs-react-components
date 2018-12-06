@@ -104,7 +104,7 @@ class CardList extends React.Component {
     const filterButtonToolbar = (
       <div>
         <ButtonToolbar>
-          <ToggleButtonGroup type="checkbox" >
+          <ToggleButtonGroup type="checkbox" onChange={ (e) => this.handleFilterToggle(e)}>
             { filterButtons }
           </ToggleButtonGroup>
         </ButtonToolbar>
