@@ -5,7 +5,7 @@
   padding: 10px;
 }
 
-.card-list:nth-child(even) {background: lightgray}
+.card-list:nth-child(even) {background: #e3e3e5}
 
 .custom-loader {
   margin-left: 46%;
