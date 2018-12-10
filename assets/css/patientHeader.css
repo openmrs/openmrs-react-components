@@ -52,7 +52,6 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  flex-wrap: wrap;
   align-content: start;
   white-space: nowrap;
 }
@@ -68,4 +67,10 @@
   -webkit-border-radius: 50px;
   -moz-border-radius: 50px;
   border-radius: 5px;
+}
+
+@media screen and (max-width: 604px) {
+  .identifiers-number {
+    flex-wrap: wrap;
+  }
 }

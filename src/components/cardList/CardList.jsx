@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Label, ButtonToolbar, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
-import moment from 'moment';
 import { applyFilters} from "../../util/filterUtil";
 import Loader from '../widgets/Loader';
 import '../../../assets/css/cardList.css';
@@ -91,7 +90,7 @@ class CardList extends React.Component {
   }
 
   render() {
-    const { rowData, loading } = this.props;
+    const { rowData, loading, card } = this.props;
 
     const filterButtons = this.state.filters.map((filter, index) => {
       return (
@@ -126,29 +125,9 @@ class CardList extends React.Component {
             <span>{ this.props.optionalFilters ? filterButtonToolbar : undefined }</span>
           </div>
         }
-        {rowData.length > 0 ? this.applyFiltersToList(rowData).map((patient, index) => (
-          <div 
-            className="card-list"
-            key={index} 
-            onClick={() => this.onRowSelected(patient)}>
-            <div className="left-items">
-              <span className="name">
-                <span className="given-name">{patient.name && patient.name.givenName && patient.name.givenName}</span>
-                <span className="family-name">{patient.name && patient.name.familyName && patient.name.familyName}</span>
-              </span>
-              <span className="gender-age">
-                <span className="gender">{patient.gender && patient.gender === 'M' ? "Male" : "Female"}</span>
-                <span className="age">{patient.age && patient.age} yrs old</span>
-                <span className="dob">({patient.birthdate && moment(patient.birthdate).format('DD, MMM, YYYY')})</span>
-              </span>
-            </div>
-            <div className="right-items">
-              {this.props.getIdentifiers(patient) && this.props.getIdentifiers(patient).split('<br/>').map((identifier, index) => (
-                <span key={index}>{identifier}</span>
-              ))}
-            </div>
-          </div>
-        )) : <h2 className="text-center">No Data to display</h2>
+        {rowData.length > 0 ? this.applyFiltersToList(rowData).map((patientData, index) => 
+          card(patientData, index, this.onRowSelected)
+        ) : <h2 className="text-center">No Data to display</h2>
         }
       </div>
     );
