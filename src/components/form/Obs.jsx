@@ -102,7 +102,8 @@ Obs.propTypes = {
     PropTypes.number]),	
   warn: PropTypes.oneOfType([	
     PropTypes.array,	
-    PropTypes.func]),	
+    PropTypes.func]),
+  widget: PropTypes.string
 };
 
 Obs.defaultProps = {	
