@@ -7,6 +7,7 @@ import constantsRest from '../../rest/constantsRest';
 import encounterRest from '../../rest/encounterRest';
 import conceptRest from '../../rest/conceptRest';
 
+// TODO this doesn't belong here, should likely be moved to the lab workflow owa
 export class LabsSummary extends PureComponent {
   constructor(props) {
     super(props);
