@@ -39,18 +39,27 @@
 .header-alt-row .row {
     margin: 0 !important;
 }
-.menu-bar .hambuger-menu {
+
+.hambuger-menu a > svg {
     display: none;
 }
-.menu-bar .sliding-menu {
-    height: 100%;
-    width: 100%;
-    display:block;
+
+.hambuger-menu > .dropdown {
+    margin-top: 5px;
+    margin-left: 10px;
 }
 
-.menu-bar, .sliding-menu {
+.hambuger-menu > .dropdown > a {
+    background: #F8971D !important;
+}
+
+.sliding-menu {
     height: 100%;
-    width: 100%;
+    width: 100vw;
+}
+
+.menu-bar {
+    display: inline-block;
 }
 
 .menu-bar .sliding-menu::-webkit-scrollbar {
@@ -87,7 +96,11 @@
 }
 
 .patient-header {
-    margin-top: 0px !important;
+    margin-top: 0px !important; 
+}
+
+.navbar-toggle {
+    padding: 5px 10px;
 }
 
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
@@ -96,4 +109,9 @@
     border-bottom: 3px solid #F8971D;
 }
 
-
+@media only screen and (max-width: 763px) {
+    .nav > li > a > img {
+        position: absolute;
+        top: -20px;
+    }
+}
