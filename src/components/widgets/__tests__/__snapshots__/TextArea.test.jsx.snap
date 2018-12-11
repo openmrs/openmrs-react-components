@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: TextArea renders properly 1`] = `
+<div>
+  <textarea
+    className="form-control"
+    id={undefined}
+    name="mockname"
+    placeholder="mockplaceholder"
+    type={undefined}
+  />
+</div>
+`;

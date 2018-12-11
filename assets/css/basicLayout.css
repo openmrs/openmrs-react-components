@@ -3,6 +3,7 @@
 */
 .header {
     background: #F8971D;
+    z-index: 999;
 }
 
 #dropdown {

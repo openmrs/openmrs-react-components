@@ -6,6 +6,7 @@ import formUtil from '../../features/form/util';
 import ButtonGroup from '../widgets/ButtonGroup';
 import CheckBox from '../widgets/CheckBox';
 import FieldInput from "../widgets/FieldInput";
+import TextArea from "../widgets/TextArea";
 import Dropdown from '../widgets/Dropdown';
 import CustomDatePicker from '../widgets/CustomDatePicker';
 import withFormContext from './withFormContext';
@@ -36,6 +37,17 @@ const Obs = (props) => {
         name={props.name}
         onBlur={e => { e.preventDefault(); }}
         title={props.checkBoxTitle}
+      />
+    );
+  }
+  else if (props.widget === 'textarea') {
+    return (
+      <Field
+        component={TextArea}
+        displayValue={props.value}
+        mode={props.formContext.mode}
+        name={props.name}
+        placeholder={props.placeholder}
       />
     );
   }
