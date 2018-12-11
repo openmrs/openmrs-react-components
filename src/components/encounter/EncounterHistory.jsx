@@ -47,12 +47,21 @@ class EncounterHistory extends React.Component {
     }
   }
 
-  getLabel(obs) {
+  getObsLabel(obs) {
     if (!this.props.labels || !this.props.labels[obs.concept.uuid]) {
       return obs.concept.display;
     }
     else {
       return this.props.labels[obs.concept.uuid];
+    }
+  }
+
+  getObsValue(obs) {
+    if (!this.props.labels || !obs.value.uuid || !this.props.labels[obs.value.uuid]) {
+      return obs.value.display ? obs.value.display : obs.value;
+    }
+    else {
+      return this.props.labels[obs.value.uuid];
     }
   }
 
@@ -71,7 +80,8 @@ class EncounterHistory extends React.Component {
                   hiCritical,
                   lowCritical,
                 } = observation.concept;
-                const obsValue = observation.value.display ? observation.value.display : observation.value;
+
+                const obsValue = this.getObsValue(observation);
 
                 let validation = {
                   abnormal: undefined,
@@ -89,7 +99,7 @@ class EncounterHistory extends React.Component {
                 const validationValue = validation.critical ? 'critical' : (validation.abnormal ? 'abnormal' : '');
                 return (
                   <tr key={observation.id}>
-                    <td style={this.cellPadding}><b>{ this.getLabel(observation) }:</b></td>
+                    <td style={this.cellPadding}><b>{ this.getObsLabel(observation) }:</b></td>
                     <td style={this.cellPadding}>{ obsValue }</td>
                     <td style={this.cellPadding}><b>{ observation.concept.units ? observation.concept.units : ''}</b></td>
                     {<td
