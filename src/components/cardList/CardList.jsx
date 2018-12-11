@@ -90,7 +90,7 @@ class CardList extends React.Component {
   }
 
   render() {
-    const { rowData, loading, card } = this.props;
+    const { rowData, loading, card, getPatientIdentifiers } = this.props;
 
     const filterButtons = this.state.filters.map((filter, index) => {
       return (
@@ -126,7 +126,7 @@ class CardList extends React.Component {
           </div>
         }
         {rowData.length > 0 ? this.applyFiltersToList(rowData).map((patientData, index) => 
-          card(patientData, index, this.onRowSelected)
+          card(patientData, index, this.onRowSelected, getPatientIdentifiers)
         ) : <h2 className="text-center">No Data to display</h2>
         }
       </div>

@@ -11,6 +11,7 @@ import LocationMenu from './components/header/LocationMenu';
 import List from './components/list/List';
 import CardList from './components/cardList/CardList';
 import PatientHeader from './components/header/PatientHeader';
+import PatientCard from './components/patient/PatientCard';
 import ToolTip from './components/tooltip/ToolTip';
 import LoadingView from './components/loading/LoadingView';
 import Login from './components/login/Login';
@@ -106,6 +107,7 @@ module.exports = {
   CardList,
   ToolTip,
   PatientHeader,
+  PatientCard,
   Login,
   LoginPage,
   Logout,
