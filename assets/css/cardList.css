@@ -53,3 +53,12 @@
 .right-items > span {
   display: flex;
 }
+
+.patient-alert {
+  padding-top: 2px;
+}
+
+.patient-alert > span {
+  display: flex;
+  color: red;
+}

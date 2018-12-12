@@ -16,6 +16,15 @@ const PatientCard = (patient, index, onRowSelected, getPatientIdentifiers) => (
         <span className="age">{patient.age && patient.age} yrs old</span>
         <span className="dob">({patient.birthdate && moment(patient.birthdate).format('DD, MMM, YYYY')})</span>
       </span>
+      { ( typeof patient.alert !== 'undefined' ) &&
+                      ( patient.alert !== null ) &&
+                      ( patient.alert.length > 0  ) &&
+      <span className="patient-alert">
+        { patient.alert.map((alert, index) => (
+          <span key={index}>{alert}</span>
+        ))}
+      </span>
+      }
     </div>
     <div className="right-items">
       {getPatientIdentifiers(patient) && getPatientIdentifiers(patient).split('<br/>').map((identifier, index) => (
