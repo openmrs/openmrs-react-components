@@ -119,12 +119,13 @@ class CardList extends React.Component {
       <div>
         <h3><Label>{this.props.title}</Label></h3>
         <h3><Label>{''}</Label></h3>
-        {this.props.filters &&
+        {/* Temporarily commenting this out till I understand what should happen to this filter */}
+        {/* {this.props.filters &&
           <div className="filters">
             <span>Filter:</span>
             <span>{ this.props.optionalFilters ? filterButtonToolbar : undefined }</span>
           </div>
-        }
+        } */}
         {this.props.cardListFilters && this.props.cardListFilters()}
         {rowData.length > 0 ? this.applyFiltersToList(rowData).map((patientData, index) => 
           card(patientData, index, this.onRowSelected, getPatientIdentifiers)
