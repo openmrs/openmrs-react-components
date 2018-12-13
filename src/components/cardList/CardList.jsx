@@ -125,6 +125,7 @@ class CardList extends React.Component {
             <span>{ this.props.optionalFilters ? filterButtonToolbar : undefined }</span>
           </div>
         }
+        {this.props.cardListFilters && this.props.cardListFilters()}
         {rowData.length > 0 ? this.applyFiltersToList(rowData).map((patientData, index) => 
           card(patientData, index, this.onRowSelected, getPatientIdentifiers)
         ) : <h2 className="text-center">No Data to display</h2>
@@ -137,6 +138,7 @@ class CardList extends React.Component {
 CardList.propTypes = {
   delayInterval: PropTypes.number.isRequired,
   fetchListActionCreator: PropTypes.func,
+  cardListFilters: PropTypes.func,
   filters: PropTypes.array,
   loading: PropTypes.bool,
   onMountOtherActionCreators: PropTypes.array,
