@@ -10,7 +10,6 @@ import { selectors } from '../../store';
 import '../../../assets/css/basicLayout.css';
 
 const BasicLayout = props => {
-
   const contentCols = props.patient ? 10 : 12;
 
 
@@ -32,10 +31,12 @@ const BasicLayout = props => {
           />
         </Row>
         <Row>
-          {props.patient &&
+          {props.patient && 
           <PatientHeader
             identifierTypesToDisplay={props.identifierTypesToDisplay}
-            patient={props.patient}/>
+            patient={props.patient}
+            showBackButton={props.patientHeaderShowBackButton}
+          />
           }
         </Row>
         <Row className="basic-layout">
@@ -58,7 +59,8 @@ BasicLayout.propTypes = {
   leftRail: PropTypes.object,
   navMenuPages: PropTypes.object,
   patient: PropTypes.object,
-  userMenuPages: PropTypes.object
+  patientHeaderShowBackButton: PropTypes.bool,
+  userMenuPages: PropTypes.object,
 
 };
 
