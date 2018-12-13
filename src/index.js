@@ -41,6 +41,7 @@ import Loader from './components/widgets/Loader';
 import TaskList from './components/task/TaskList';
 import BasicLayout from './components/layout/BasicLayout';
 import EncounterHistory from './components/encounter/EncounterHistory';
+import ProgramEnrollment from './components/program/ProgramEnrollment';
 import Head from './components/header/Head';
 import createListReducer from './features/list/createListReducer';
 import { SESSION_TYPES, sessionSagas, sessionActions } from './features/session/';
@@ -173,4 +174,5 @@ module.exports = {
   Head,
   LabsSummary,
   LineChart,
+  ProgramEnrollment,
 };
