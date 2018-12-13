@@ -9,49 +9,79 @@ import { connect } from 'react-redux';
 import { selectors } from '../../store';
 import '../../../assets/css/basicLayout.css';
 
-const BasicLayout = props => {
-  const contentCols = props.patient ? 10 : 12;
+class BasicLayout extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { width: 0 };
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+  }
+  
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+  }
+  
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+  
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth });
+  }
+  render() {
+    const props = this.props;
+    const contentCols = props.patient ? 10 : 12;
+    const colWidth = props.patient ? '55%' : '100%';
 
-
-  const colWidth = props.patient ? '55%' : '100%';
-
-  return (
-    <div id="outer-container" className="ag-theme-material">
-      <ReduxToastr
-        closeOnToastrClick
-        timeOut={1000}
-      />
-      <Grid fluid={true}>
-        <Row className="header-alt-row">
-          <HeaderAlt
-            className="HeaderAlt"
-            logo={props.logo}
-            navMenuPages={props.navMenuPages}
-            userMenuPages={props.userMenuPages}
-          />
-        </Row>
-        <Row>
-          {props.patient && 
-          <PatientHeader
-            identifierTypesToDisplay={props.identifierTypesToDisplay}
-            patient={props.patient}
-            showBackButton={props.patientHeaderShowBackButton}
-          />
-          }
-        </Row>
-        <Row className="basic-layout">
-          {props.patient && props.leftRail &&
-          <Col className="basic-layout left-rail">
-            {React.cloneElement(props.leftRail, { patient: props.patient })}
-          </Col>
-          }
-          <Col xs={contentCols} sm={contentCols} md={contentCols} style={{ width: colWidth }} lg={contentCols} className="basic-layout auth-route">
-            <AuthenticatedRoute {...props} />
-          </Col>
-        </Row>
-      </Grid>
-    </div>
-  );
+    return (
+      <div
+        className="ag-theme-material"
+        id="outer-container"
+      >
+        <ReduxToastr
+          closeOnToastrClick
+          timeOut={1000}
+        />
+        <Grid fluid>
+          <Row className="header-alt-row">
+            <HeaderAlt
+              className="HeaderAlt"
+              logo={props.logo}
+              navMenuPages={props.navMenuPages}
+              userMenuPages={props.userMenuPages}
+            />
+          </Row>
+          <Row>
+            {props.patient && 
+            <PatientHeader
+              identifierTypesToDisplay={props.identifierTypesToDisplay}
+              patient={props.patient}
+              showBackButton={props.path === '/screening' ? true : false}
+            />
+            }
+          </Row>
+          {this.state.width > 600 ? (props.patient && props.leftRail &&
+          <Row className="basic-layout">
+            <Col className="basic-layout left-rail">
+              {React.cloneElement(props.leftRail, { patient: props.patient })}
+            </Col>
+            <Col
+              className="basic-layout auth-route"
+              lg={contentCols}
+              md={contentCols}
+              sm={contentCols}
+              style={{ width: colWidth }}
+              xs={contentCols}
+            >
+              <AuthenticatedRoute {...props} />
+            </Col>
+          </Row>
+          ) :  
+            (props.path === '/screening' ? React.cloneElement(props.leftRail, { patient: props.patient }) : <AuthenticatedRoute {...props} />)}
+        </Grid>
+      </div>
+    );
+  }
 };
 
 BasicLayout.propTypes = {
