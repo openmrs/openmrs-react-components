@@ -153,7 +153,7 @@ class EncounterFormPage extends React.PureComponent {
               {this.props.formContent}
               <Grid>
                 <Row>
-                  <Col sm={6}>
+                  <Col xs={6}>
                     {this.getForm().state === FORM_STATES.EDITING ?
                       (<Cancel onClick={this.handleCancel}/>)
                       : this.props.backLink ?
@@ -161,7 +161,7 @@ class EncounterFormPage extends React.PureComponent {
                         : (null)
                     }
                   </Col>
-                  <Col sm={6}>
+                  <Col xs={6}>
                     {this.getForm().state === FORM_STATES.EDITING ?
                       (<Submit style={this.floatRight} onClick={this.exitEditMode}/>) :
                       (<Button style={this.floatRight} onClick={this.enterEditMode}>Edit</Button>)

@@ -9,7 +9,7 @@ const FieldInput = ({
   placeholder,
   displayValue,
   type,
-  meta: { touched, error, warning }
+  meta: { error, warning }
 }) => {
 
   const edit = (
@@ -46,6 +46,13 @@ const FieldInput = ({
     </div>
   );
 
+};
+
+FieldInput.defaultProps = {
+  meta: {
+    error: false,
+    warning: false,
+  }
 };
 
 FieldInput.propTypes = {

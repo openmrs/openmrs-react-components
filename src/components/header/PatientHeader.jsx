@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import dateFns from 'date-fns';
+import { Glyphicon } from 'react-bootstrap';
+import { withRouter } from "react-router";
 import { DATE_FORMAT } from "../../constants";
 import patientUtil from '../../domain/patient/patientUtil';
 import '../../../assets/css/patientHeader.css';
@@ -82,6 +84,14 @@ export class PatientHeader extends PureComponent {
       return (
         <div>
           <div className="patient-header ">
+            {this.props.showBackButton && <span 
+              className="back-button" 
+              onClick={() => this.props.history.push('/')}
+            >
+              <Glyphicon
+                className="back-button-icon"
+                glyph="menu-left"
+              /></span>}
             {this.state.patient && this.renderDemographics()}
             {this.state.patient && this.renderPatientIdentifier()}
           </div>
@@ -94,7 +104,8 @@ export class PatientHeader extends PureComponent {
 
 PatientHeader.propTypes = {
   identifierTypesToDisplay: PropTypes.array,
-  patient: PropTypes.shape({})
+  patient: PropTypes.shape({}),
+  showBackButton: PropTypes.bool,
 };
 
-export default PatientHeader;
+export default withRouter(PatientHeader);

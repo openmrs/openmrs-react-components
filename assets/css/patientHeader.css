@@ -15,6 +15,11 @@
   min-height: 40px;
 }
 
+.patient-header .back-button {
+  font-size: 40px;
+  margin: auto 10px;
+}
+
 .demographics {
   display: inline-block;
   position: relative;
@@ -35,6 +40,7 @@
   text-align: center;
   margin-top: 25px;
   display: flex;
+  margin-left: auto;
 }
 
 .identifiers em {
@@ -72,5 +78,6 @@
 @media screen and (max-width: 604px) {
   .identifiers-number {
     flex-wrap: wrap;
+    width: min-content;
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import PatientHeader from '../PatientHeader';
+import {PatientHeader} from '../PatientHeader';
 
 
 let props;

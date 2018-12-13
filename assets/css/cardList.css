@@ -6,6 +6,7 @@
 }
 
 .card-list:nth-child(even) {background: #e3e3e5}
+.card-list:last-child { border-bottom: 1px solid black}
 
 .custom-loader {
   margin-left: 46%;
