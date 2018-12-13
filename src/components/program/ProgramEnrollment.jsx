@@ -52,7 +52,7 @@ class ProgramEnrollment extends React.Component {
           <span>
             <b>{display} </b>
             since
-            <em>{formatDate(program.dateEnrolled)}</em>
+            <em> {formatDate(program.dateEnrolled)}</em>
           </span>
         </ul>
       );
