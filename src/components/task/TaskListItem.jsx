@@ -24,10 +24,7 @@ let TaskListItem = props => {
         style={{ visibility: completed ? "visible" : "hidden" }}
       />
       &nbsp;{props.title}
-      { props.timeFn && (
-        bull
-        )
-      }
+      { props.timeFn }
     </ListGroupItem>
   );
 
