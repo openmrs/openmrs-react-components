@@ -63,3 +63,18 @@
   display: flex;
   color: red;
 }
+
+.refresh-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 5px;
+}
+
+.refresh-button.glyphicon.glyphicon-refresh {
+  font-size: 20px;
+  border: 1px black solid;
+  border-radius: 7px;
+  padding: 3px 13px;
+  font-weight: bold;
+  color: darkblue;
+}

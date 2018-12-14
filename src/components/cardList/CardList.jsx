@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Label, ButtonToolbar, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
+import { Label, ButtonToolbar, ToggleButtonGroup, ToggleButton, Glyphicon } from 'react-bootstrap';
 import { applyFilters} from "../../util/filterUtil";
 import Loader from '../widgets/Loader';
 import '../../../assets/css/cardList.css';
@@ -11,10 +11,11 @@ class CardList extends React.Component {
     super(props);
 
     this.state = {
-      filters: []
+      filters: [],
     };
 
     this.onRowSelected = this.onRowSelected.bind(this);
+    this.handleFetchData = this.handleFetchData.bind(this);
     if (props.optionalFilters) {
       this.state.filters = props.optionalFilters
         .map((v) => {
@@ -26,7 +27,14 @@ class CardList extends React.Component {
   }
 
   componentDidMount() {
-
+    this.handleFetchData();
+  }
+  
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+  
+  handleFetchData() {
     if (this.props.fetchListActionCreator !== undefined) {
       this.props.fetchListActionCreator();
 
@@ -39,11 +47,6 @@ class CardList extends React.Component {
     if (this.props.onMountOtherActionCreators !== undefined) {
       this.props.onMountOtherActionCreators.forEach((action) =>action());
     }
-
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval);
   }
 
   applyFiltersToList(list) {
@@ -117,6 +120,9 @@ class CardList extends React.Component {
 
     return (
       <div>
+        <div className="refresh-button-container">
+          <Glyphicon className="refresh-button" glyph="refresh" onClick={() => this.handleFetchData()}/>
+        </div>
         <h3><Label>{this.props.title}</Label></h3>
         <h3><Label>{''}</Label></h3>
         {/* Temporarily commenting this out till I understand what should happen to this filter */}
