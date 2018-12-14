@@ -8,7 +8,7 @@ class SlidingNavMenu extends React.PureComponent {
   constructor(props) {
     super(props);
     const { pageOptions, pathname } = props;
-    const pagePathArray = Object.keys(pageOptions).filter(path => path !== pathname);
+    const pagePathArray = Object.keys(pageOptions);
 
     this.state = {
       activeKey: pagePathArray[0],
