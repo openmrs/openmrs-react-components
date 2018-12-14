@@ -36,7 +36,7 @@ class ProgramEnrollment extends React.Component {
       this.setState({
         programs: data.results.sort(function (a, b) {
           return +new Date(b.dateEnrolled) - +new Date(a.dateEnrolled);
-        })
+        }).filter(item => R.isNil(item.dateCompleted))
       });
     });
   }
