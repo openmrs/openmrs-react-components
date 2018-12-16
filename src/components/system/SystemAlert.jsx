@@ -7,9 +7,6 @@ import systemActions from '../../features/system/actions';
 import '../../../assets/css/widgets.css';
 
 class Alert extends Component {
-  state = {
-    display: false,
-  };
 
   componentDidMount() {
     this.getSystemInfo();
