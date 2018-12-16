@@ -6,4 +6,4 @@ const systemPollStopAction = () => ({ type: types.SYSTEM_POLL_STOP });
 export default {
   systemPollStartAction,
   systemPollStopAction
-}
+};
