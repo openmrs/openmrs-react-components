@@ -66,3 +66,30 @@
     margin-top: 2px;
     margin-bottom: 2px;
 }
+
+.system-alerts {
+    display: flex;
+    flex-direction: column;
+}
+
+.alert.system {
+    padding: 0px;
+    margin: 0 auto;
+}
+
+.time-zone-offset-alert,
+.time-difference-alert,
+.connectivity-alert {
+    height: 40px;
+    border: 1px solid;
+    display: flex;
+    justify-content: center;
+    line-height: 40px;
+    font-weight: 800;
+    border-radius: 4px;
+    background: #ffcc00;
+}
+
+.connectivity-alert {
+    background: #ff704d !important;
+}

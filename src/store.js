@@ -7,12 +7,14 @@ import { patientSearchReducers } from "./features/search";
 import { errorsReducers } from "./features/errors";
 import { formReducers } from "./features/form";
 import { constantsReducers } from "./features/constants";
+import { systemReducers } from './features/system';
 import { getPatients, getSelectedPatient, isUpdating } from "./features/patient";
 
 const PATIENTS = "patients";
 
 export const reducers = combineReducers({
   session: sessionReducers,
+  system: systemReducers,
   loginLocations: loginReducers,
   header: headerReducers,
   patients: patientsReducer,
