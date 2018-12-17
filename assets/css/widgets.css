@@ -88,8 +88,69 @@
     font-weight: 800;
     border-radius: 4px;
     background: #ffcc00;
+    -webkit-animation: fadein 2s;
+    -moz-animation: fadein 2s;
+    -ms-animation: fadein 2s;
+    -o-animation: fadein 2s;
+     animation: fadein 2s;
 }
 
 .connectivity-alert {
     background: #ff704d !important;
+}
+
+
+@keyframes fadein {
+    0% {
+        opacity: 0;
+        transform: translateX(20px);
+     }
+     100% {
+        opacity: 1;
+        transform: translateX(0);
+     }
+}
+
+@-moz-keyframes fadein {
+    0% {
+        opacity: 0;
+        transform: translateX(20px);
+     }
+     100% {
+        opacity: 1;
+        transform: translateX(0);
+     }
+}
+
+@-webkit-keyframes fadein {
+    0% {
+        opacity: 0;
+        transform: translateX(20px);
+     }
+     100% {
+        opacity: 1;
+        transform: translateX(0);
+     }
+}
+
+@-ms-keyframes fadein {
+    0% {
+        opacity: 0;
+        transform: translateX(20px);
+     }
+     100% {
+        opacity: 1;
+        transform: translateX(0);
+     }
+}
+
+@-o-keyframes fadein {
+    0% {
+        opacity: 0;
+        transform: translateX(20px);
+     }
+     100% {
+        opacity: 1;
+        transform: translateX(0);
+     }
 }
