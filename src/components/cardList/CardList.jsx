@@ -75,7 +75,7 @@ class CardList extends React.Component {
 
   render() {
     // TODO "getPatientIdentifiers" should be generalizible in some way
-    const { rowData, loading, card, additionalFilters, getPatientIdentifiers } = this.props;
+    const { rowData, loading, card, AdditionalFilters, getPatientIdentifiers } = this.props;
 
     if (loading) {
       return (
@@ -90,7 +90,7 @@ class CardList extends React.Component {
           <h3><Label>{this.props.title}</Label></h3>
           <Glyphicon className="refresh-button" glyph="refresh" onClick={() => this.handleFetchData()} />
         </div>
-        {additionalFilters && <AdditionalFilters
+        {AdditionalFilters && <AdditionalFilters
           handleSearchChange={this.handleSearchChange}
           rowData={data} />}
         {this.props.searchFilterFields && <div className="">
@@ -125,7 +125,7 @@ class CardList extends React.Component {
 }
 
 CardList.propTypes = {
-  additionalFilters: PropTypes.element,
+  AdditionalFilters: PropTypes.element,
   card: PropTypes.element.isRequired,
   delayInterval: PropTypes.number.isRequired,
   fetchListActionCreator: PropTypes.func,
