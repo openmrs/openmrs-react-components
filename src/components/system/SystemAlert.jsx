@@ -48,7 +48,7 @@ class Alert extends Component {
       ));
 
     const hasTimeDifference = timeDifference > 5;
-    const hasConnection = system.systemConnection || navigator.onLine;
+    const hasConnection = system.systemConnection && navigator.onLine;
 
     let alertMessages = [];
 
@@ -72,7 +72,7 @@ class Alert extends Component {
       }];
     }
 
-    const display = (hasTimeDifference || hasTimeZoneOffset || !navigator.onLine);
+    const display = (hasTimeDifference || hasTimeZoneOffset || !hasConnection);
 
 
     const displayStyle = display
