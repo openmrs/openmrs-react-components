@@ -100,8 +100,12 @@ class CardList extends React.Component {
     }
   }
 
-  handleSearchChange(e) {
-    this.setState({ searchValue: e.target.value });
+  handleSearchChange(e, filter) {
+    if (filter === 'identifierFilter') {
+      this.setState({ searchValue: e });
+    } else {
+      this.setState({ searchValue: e.target.value });
+    }
   }
 
   handleSearchClear() {
@@ -109,7 +113,7 @@ class CardList extends React.Component {
   }
 
   render() {
-    const { rowData, loading, card, getPatientIdentifiers } = this.props;
+    const { rowData, loading, card, getPatientIdentifiers, ScreeningFilters } = this.props;
 
     const filterButtons = this.state.filters.map((filter, index) => {
       return (
@@ -135,6 +139,7 @@ type="checkbox">
       return (
         <Loader />);
     }
+    const data = this.applyFiltersToList(rowData);
     return (
       <div>
         <div className="refresh-button-container">
@@ -147,7 +152,10 @@ type="checkbox">
             <span>{ this.props.optionalFilters ? filterButtonToolbar : undefined }</span>
           </div>
         }
-        {this.props.searchFilterFields && <div className="queue-filters">
+        {ScreeningFilters && <ScreeningFilters 
+          handleSearchChange={this.handleSearchChange}
+          rowData={data} />}
+        {this.props.searchFilterFields && <div className="">
           <div className="name-filter-container">
             <div>Name/id search:</div>
             <span className="name-filter">

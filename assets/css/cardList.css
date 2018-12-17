@@ -80,8 +80,9 @@
 }
 
 /** FILTERS STYLING */
-.queue-filters {
-  padding: 20px 0px;
+.name-filter-container {
+  padding-top: 10px;
+  padding-bottom: 20px;
   font-size: 14px;
 }
 
