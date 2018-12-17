@@ -43,8 +43,10 @@ import BasicLayout from './components/layout/BasicLayout';
 import EncounterHistory from './components/encounter/EncounterHistory';
 import ProgramEnrollment from './components/program/ProgramEnrollment';
 import Head from './components/header/Head';
+import SystemAlert from './components/system/SystemAlert';
 import createListReducer from './features/list/createListReducer';
 import { SESSION_TYPES, sessionSagas, sessionActions } from './features/session/';
+import { systemWatcherSaga } from './features/system';
 import { LOGIN_TYPES, loginSagas, loginActions } from './features/login';
 import { openmrsFormSagas, formActions, formValidations, formUtil } from './features/form';
 import { headerSagas, headerActions } from './features/header';
@@ -84,11 +86,12 @@ const sagas = function* () {
   yield all([
     loginSagas(),
     sessionSagas(),
+    systemWatcherSaga(),
     patientSearchSagas(),
     visitSagas(),
     headerSagas(),
     openmrsFormSagas(),
-    constantsSagas()
+    constantsSagas(),
   ]);
 };
 
@@ -175,4 +178,5 @@ module.exports = {
   LabsSummary,
   LineChart,
   ProgramEnrollment,
+  SystemAlert,
 };
