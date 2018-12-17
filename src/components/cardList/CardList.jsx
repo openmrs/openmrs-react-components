@@ -12,13 +12,14 @@ class CardList extends React.Component {
     super(props);
 
     this.state = {
-      searchValue: ''
+      searchValue: '',
+      searchIdentifierValue: ''
     };
 
     this.onRowSelected = this.onRowSelected.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleSearchClear = this.handleSearchClear.bind(this);
-
+    this.handleIdentifierSearchChange = this.handleIdentifierSearchChange.bind(this);
   }
 
   componentDidMount() {
@@ -49,7 +50,8 @@ class CardList extends React.Component {
     list = applyFilters(list, filters, 'and');
 
     if (this.props.searchFilterFields) {
-      list = matchSorter(list, this.state.searchValue, {keys: this.props.searchFilterFields})
+      list = matchSorter(list, this.state.searchValue, { keys: this.props.searchFilterFields });
+      list = matchSorter(list, this.state.searchIdentifierValue, { keys: this.props.searchFilterFields });
     }
 
     return list;
@@ -61,12 +63,12 @@ class CardList extends React.Component {
     }
   }
 
-  handleSearchChange(e, filter) {
-    if (filter === 'identifierFilter') {
-      this.setState({ searchValue: e });
-    } else {
-      this.setState({ searchValue: e.target.value });
-    }
+  handleSearchChange(e) {
+    this.setState({ searchValue: e.target.value });
+  }
+  
+  handleIdentifierSearchChange(e) {
+    this.setState({ searchIdentifierValue: e });
   }
 
   handleSearchClear() {
@@ -91,7 +93,7 @@ class CardList extends React.Component {
           <Glyphicon className="refresh-button" glyph="refresh" onClick={() => this.handleFetchData()} />
         </div>
         {AdditionalFilters && <AdditionalFilters
-          handleSearchChange={this.handleSearchChange}
+          handleSearchChange={this.handleIdentifierSearchChange}
           rowData={data} />}
         {this.props.searchFilterFields && <div className="">
           <div className="name-filter-container">
@@ -130,6 +132,7 @@ CardList.propTypes = {
   delayInterval: PropTypes.number.isRequired,
   fetchListActionCreator: PropTypes.func,
   filters: PropTypes.array,
+  getPatientIdentifiers: PropTypes.func,
   loading: PropTypes.bool,
   onMountOtherActionCreators: PropTypes.array,
   rowData: PropTypes.array.isRequired,
