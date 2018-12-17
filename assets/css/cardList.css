@@ -66,8 +66,7 @@
 
 .refresh-button-container {
   display: flex;
-  justify-content: flex-end;
-  margin-top: 5px;
+  justify-content: space-between;
 }
 
 .refresh-button.glyphicon.glyphicon-refresh {
@@ -77,4 +76,41 @@
   padding: 3px 13px;
   font-weight: bold;
   color: darkblue;
+  align-self: center;
+}
+
+/** FILTERS STYLING */
+.queue-filters {
+  padding: 20px 0px;
+  font-size: 14px;
+}
+
+.name-filter-container > div {
+  margin-bottom: 10px;
+}
+
+.name-filter {
+  display: flex;
+  width: 400px;
+  position: relative;
+  font-size: 20px;
+}
+
+.name-filter input {
+  width: 80%;
+  padding: 0px 0px 0px 40px;
+  background-color: #FFF;
+  border: 1px solid #DDD;
+  color: #003f5e;
+  display: block;
+}
+.name-filter .left-icon{
+  position: absolute;
+  left: 1%;
+  line-height: 30px;
+}
+.name-filter .right-icon {
+  position: absolute;
+  left: 73%;
+  line-height: 30px;
 }
