@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import dateFns from 'date-fns';
 import { Glyphicon } from 'react-bootstrap';
 import { withRouter } from "react-router";
+import moment from "moment";
 import { DATE_FORMAT } from "../../constants";
 import patientUtil from '../../domain/patient/patientUtil';
 import '../../../assets/css/patientHeader.css';
@@ -50,7 +50,7 @@ export class PatientHeader extends PureComponent {
           <span className="gender-age">
             <span className="gender">{this.state.patient.gender === 'M' ? "Male" : "Female"}&nbsp;</span>
             <span className="age">
-              {this.state.patient.age} year(s) { this.state.patient.birthdate ? ('(' + dateFns.format(new Date(this.state.patient.birthdate), DATE_FORMAT) + ')') : ''}
+              {this.state.patient.age} year(s) { this.state.patient.birthdate ? ('(' + moment(this.state.patient.birthdate).format(DATE_FORMAT) + ')') : ''}
             </span>
           </span>
         </h2>
