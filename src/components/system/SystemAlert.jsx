@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import * as R from 'ramda';
-import { differenceInMinutes } from 'date-fns';
+import moment from 'moment';
+import { differenceInMinutes, differenceInHours } from 'date-fns';
 import systemActions from '../../features/system/actions';
 import '../../../assets/css/widgets.css';
 
@@ -29,13 +30,23 @@ class Alert extends Component {
   renderAlertMessage() {
     const { system } = this.props;
     const deviceTime = new Date();
-    const serverTime = new Date(`${system.systemDate}T${system.systemTime}`);
+    const serverTime = new Date(`${system.systemDate}T${system.systemTime}Z`);
+
+    const deviceTimeInUTC = deviceTime.toISOString();
+
     const hasTimeZoneOffset = serverTime.getTimezoneOffset() === deviceTime.getTimezoneOffset();
+    const timeOffset = Math.abs(
+      differenceInHours(
+        new Date(`${system.systemDate}T${system.systemTime}`),
+        deviceTime
+      )
+    );
     const timeDifference = Math.abs(
       differenceInMinutes(
         serverTime,
-        deviceTime
-      )) ;
+        deviceTimeInUTC
+      ));
+
     const hasTimeDifference = timeDifference > 5;
     const hasConnection = system.systemConnection || navigator.onLine;
 
@@ -43,7 +54,7 @@ class Alert extends Component {
 
     if (hasTimeZoneOffset) {
       alertMessages.push({
-        message: `Your current time zone is different from the server by ${timeDifference / 60}hour(s)`,
+        message: `Your current time zone is different from the server by ${timeOffset} hour(s)`,
         type: 'time-zone-offset-alert',
       });
     }
