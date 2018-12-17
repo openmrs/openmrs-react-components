@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import matchSorter from 'match-sorter';
-import { Label, ButtonToolbar, ToggleButtonGroup, ToggleButton, Glyphicon, FormControl } from 'react-bootstrap';
+import { Label, Glyphicon, FormControl } from 'react-bootstrap';
 import { applyFilters } from "../../util/filterUtil";
 import Loader from '../widgets/Loader';
 import '../../../assets/css/cardList.css';
@@ -12,22 +12,13 @@ class CardList extends React.Component {
     super(props);
 
     this.state = {
-      filters: [],
       searchValue: ''
     };
 
     this.onRowSelected = this.onRowSelected.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleSearchClear = this.handleSearchClear.bind(this);
-    
-    if (props.optionalFilters) {
-      this.state.filters = props.optionalFilters
-        .map((v) => {
-          v.enabled = false;
-          v.key = v.label.toLowerCase().replace(/\s/g,'');
-          return v;
-        });
-    }
+
   }
 
   componentDidMount() {
@@ -41,8 +32,6 @@ class CardList extends React.Component {
     clearInterval(this.interval);
   }
 
-  
-  
   handleFetchData() {
     if (this.props.fetchListActionCreator !== undefined) {
       this.props.fetchListActionCreator();
@@ -55,43 +44,15 @@ class CardList extends React.Component {
   }
 
   applyFiltersToList(list) {
-    let filters = this.props.filters ? [...this.props.filters] : [];
-    // screening queue filters should always be AND (at least for now)
-    list = applyFilters(list, filters, 'and');
 
-    // add any optional filters
-    if (this.state.filters) {
-      let optional =
-        [ ...(this.state.filters
-          .filter((v) => v.enabled)
-          .map((v) => v.filter))
-        ];
-      if (optional) {
-        list = applyFilters(list, optional, this.props.optionalFiltersType);
-      }
-    }
+    let filters = this.props.filters ? [...this.props.filters] : [];
+    list = applyFilters(list, filters, 'and');
 
     if (this.props.searchFilterFields) {
       list = matchSorter(list, this.state.searchValue, {keys: this.props.searchFilterFields})
     }
 
     return list;
-  }
-
-  handleFilterToggle(e) {
-    this.setState((state) => {
-      state.filters = state.filters
-        .map((filter) => {
-          if ( e.includes(filter.key) ) {
-            filter.enabled = true;
-          } else {
-            filter.enabled = false;
-          }
-          return filter;
-        });
-
-      return state;
-    });
   }
 
   onRowSelected(row) {
@@ -113,51 +74,27 @@ class CardList extends React.Component {
   }
 
   render() {
-    const { rowData, loading, card, getPatientIdentifiers, ScreeningFilters } = this.props;
-
-    const filterButtons = this.state.filters.map((filter, index) => {
-      return (
-        <ToggleButton key={index}
-value={ filter.key }>
-          {filter.label}
-        </ToggleButton>
-      );
-    });
-
-    const filterButtonToolbar = (
-      <div>
-        <ButtonToolbar>
-          <ToggleButtonGroup onChange={ (e) => this.handleFilterToggle(e)}
-type="checkbox">
-            { filterButtons }
-          </ToggleButtonGroup>
-        </ButtonToolbar>
-      </div>
-    );
+    // TODO "getPatientIdentifiers" should be generalizible in some way
+    const { rowData, loading, card, additionalFilters, getPatientIdentifiers } = this.props;
 
     if (loading) {
       return (
         <Loader />);
     }
+
     const data = this.applyFiltersToList(rowData);
+
     return (
       <div>
         <div className="refresh-button-container">
           <h3><Label>{this.props.title}</Label></h3>
-          <Glyphicon className="refresh-button" glyph="refresh" onClick={() => this.handleFetchData()}/>
+          <Glyphicon className="refresh-button" glyph="refresh" onClick={() => this.handleFetchData()} />
         </div>
-        {this.props.optionalFilters &&
-          <div className="filters">
-            <span>Filter:</span>
-            <span>{ this.props.optionalFilters ? filterButtonToolbar : undefined }</span>
-          </div>
-        }
-        {ScreeningFilters && <ScreeningFilters 
+        {additionalFilters && <AdditionalFilters
           handleSearchChange={this.handleSearchChange}
           rowData={data} />}
         {this.props.searchFilterFields && <div className="">
           <div className="name-filter-container">
-            <div>Name/id search:</div>
             <span className="name-filter">
               <Glyphicon
                 className="left-icon"
@@ -188,13 +125,13 @@ type="checkbox">
 }
 
 CardList.propTypes = {
+  additionalFilters: PropTypes.element,
+  card: PropTypes.element.isRequired,
   delayInterval: PropTypes.number.isRequired,
   fetchListActionCreator: PropTypes.func,
   filters: PropTypes.array,
   loading: PropTypes.bool,
   onMountOtherActionCreators: PropTypes.array,
-  optionalFilters: PropTypes.array,
-  optionalFiltersType: PropTypes.string,
   rowData: PropTypes.array.isRequired,
   rowSelectedActionCreators: PropTypes.array,
   searchFilterFields: PropTypes.array,
@@ -206,7 +143,7 @@ CardList.defaultProps = {
   delayInterval: 60000,
   title: 'List',
   filters: [],
-  optionalFiltersType: 'and',
+  searchFilterFields: []
 };
 
 export default CardList;
