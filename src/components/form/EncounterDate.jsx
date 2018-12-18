@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Field } from 'redux-form';
-import moment from 'moment';
-import { DATE_FORMAT } from "../../constants";
+import { endOfDay } from 'date-fns';
 import CustomDatePicker from '../widgets/CustomDatePicker';
 import withFormContext from './withFormContext';
 import validators from '../../features/form/validations';
 
-const maxDateRange = validators.maxDateValue(moment().endOf('day'));
+const maxDateRange = validators.maxDateValue(endOfDay(new Date()));
 
 const EncounterDate = (props) => {
   return (

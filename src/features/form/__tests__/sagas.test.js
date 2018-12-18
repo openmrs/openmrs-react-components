@@ -1,9 +1,9 @@
 import SagaTester from 'redux-saga-tester';
+import { format, startOfDay } from 'date-fns';
 import formActions from '../actions';
 import openmrsFormSagas from '../sagas';
 import encounterRest from '../../../rest/encounterRest';
 import obsRest from '../../../rest/obsRest';
-import moment from "moment";
 
 jest.mock('../../../rest/encounterRest');
 jest.mock('../../../rest/obsRest');
@@ -26,7 +26,7 @@ describe('form sagas', () => {
   it('should create an encounter and issue formSubmittedActionCreator', () => {
 
     const formInstanceId = "form-instance-id";
-    const date = moment().format();
+    const date = format(new Date());
 
     const values =  {
       'encounter-datetime': date,
@@ -181,7 +181,7 @@ describe('form sagas', () => {
   it('should update encounter and issue formSubmittedActionCreator', () => {
 
     const formInstanceId = "form-instance-id";
-    const date = moment().format();
+    const date = format(new Date());
 
     const values =  {
       'encounter-datetime': date,
@@ -367,7 +367,7 @@ describe('form sagas', () => {
   it('should not include encounter provider if no encounter role specified', () => {
 
     const formInstanceId = "form-instance-id";
-    const date = moment().format();
+    const date = format(new Date());
 
     const values =  {
       'encounter-datetime': date,
@@ -438,7 +438,7 @@ describe('form sagas', () => {
 
     const formInstanceId = "form-instance-id";
 
-    const date = moment().startOf('day').format();
+    const date = format(startOfDay(new Date()));
 
     const values =  {
       'encounter-datetime': date,

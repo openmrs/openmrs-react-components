@@ -1,5 +1,5 @@
-import moment from 'moment';
+import { format, startOfDay } from 'date-fns';
 
 export const formatDate = (date) => {
-  return moment(date).startOf('day').format('DD MMM YYYY');
+  return format(startOfDay(date), 'DD MMM YYYY');
 }

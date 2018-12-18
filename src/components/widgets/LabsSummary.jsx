@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import * as R from 'ramda';
-import moment from 'moment';
+import { format } from 'date-fns';
 import PropTypes from 'prop-types';
 
 import constantsRest from '../../rest/constantsRest';
@@ -79,7 +79,7 @@ export class LabsSummary extends PureComponent {
                   isPanel: obs[0].concept.set,
                   display: obs[0].concept.display,
                   value: this.getConceptValue(obs[0].value),
-                  encounterDate: moment(encounterDatetime).format("DD-MMM-YYYY"),
+                  encounterDate: format(encounterDatetime, "DD-MMM-YYYY"),
                 };
               }
             }

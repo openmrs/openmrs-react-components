@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment';
+import { parse } from 'date-fns';
 import renderer from 'react-test-renderer';
 import CustomDatePicker from '../CustomDatePicker';
 
@@ -16,7 +16,7 @@ const getComponent = () => {
 describe('Component: CustomDatePicker', () => {
   beforeEach(() => {
     props = {
-      defaultDate: moment('2018-10-23T00:00:00.000'),
+      defaultDate: parse('2018-10-23T00:00:00.000'),
       excludeDates: []
     };
     mountedComponent = undefined;

@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { PureComponent } from 'react';
 import DatePicker from 'react-datepicker';
-import moment from 'moment';
+import { startOfDay, format, parse, addDays } from 'date-fns';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormControl } from 'react-bootstrap';
@@ -22,7 +22,7 @@ class CustomDatePicker extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      selectedDate: props.defaultDate || moment().startOf('day'),
+      selectedDate: props.defaultDate || startOfDay(new Date()),
       field: props.field,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -34,10 +34,10 @@ class CustomDatePicker extends PureComponent {
       const { onChange } = input;
       if (input.value) {
         this.setState({
-          selectedDate: moment(input.value)
+          selectedDate: new Date(input.value)
         })
       } else {
-        onChange(moment().startOf('day').format())
+        onChange(format(startOfDay(new Date())));
       }
     }
   }
@@ -50,11 +50,11 @@ class CustomDatePicker extends PureComponent {
     if (typeof input !== 'undefined') {
       if (input.value !== this.props.input.value) {
         this.setState({
-          selectedDate: moment(input.value)
+          selectedDate: parse(input.value)
         });
-        input.onChange(moment(input.value).startOf('day').format());
+        input.onChange(format(startOfDay(parse(input.value))));
       } else {
-        input.onChange(moment().startOf('day').format())
+        input.onChange(format(startOfDay(new Date())))
       }
     }
   }
@@ -67,10 +67,10 @@ class CustomDatePicker extends PureComponent {
     });
     
     if (typeof handleDateChange === 'function') {
-      handleDateChange(field, date.startOf('day').format('YYYY-MM-DD'));
+      handleDateChange(field, format(startOfDay(date), 'YYYY-MM-DD'));
     } else if (typeof input !== "undefined") {
       const { onChange } = input;
-      onChange(date.startOf('day').format());
+      onChange(format(startOfDay(date, 'day')));
     }
   }
 
@@ -121,12 +121,12 @@ class CustomDatePicker extends PureComponent {
         customInput={<DateDisplayComponent />}
         onChange={this.handleChange}
         selected={selectedDate}
-        excludeDates={hasInput && [moment().add(7, "days")]}
+        excludeDates={[hasInput]}
       />
     );
 
     const view = (
-      <span className="datepicker-view">{moment(new Date(otherProps.displayValue)).format(DATE_FORMAT)}</span>
+      <span className="datepicker-view">{format(parse(otherProps.displayValue), DATE_FORMAT)}</span>
     )
 
     return (
@@ -140,7 +140,7 @@ class CustomDatePicker extends PureComponent {
 CustomDatePicker.defaultProps = {
   labelClassName: '',
   label: '',
-  defaultDate: moment(),
+  defaultDate: new Date(),
   field: '',
   formControlStyle: {
     marginRight: '5px',

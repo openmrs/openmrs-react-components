@@ -2,43 +2,41 @@
 
 exports[`Component: CustomDatePicker renders properly 1`] = `
 <div>
-  <div>
+  <div
+    className="react-datepicker-wrapper"
+  >
     <div
-      className="react-datepicker-wrapper"
+      className="react-datepicker__input-container"
     >
-      <div
-        className="react-datepicker__input-container"
-      >
-        <span>
+      <span>
+        <span
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "space-around",
+            }
+          }
+        >
           <span
+            className=""
+          >
+            
+          </span>
+          <input
+            className="form-control"
+            id={undefined}
+            placeholder=""
             style={
               Object {
-                "display": "flex",
-                "justifyContent": "space-around",
+                "marginRight": "5px",
+                "width": "100px",
               }
             }
-          >
-            <span
-              className=""
-            >
-              
-            </span>
-            <input
-              className="form-control"
-              id={undefined}
-              placeholder=""
-              style={
-                Object {
-                  "marginRight": "5px",
-                  "width": "100px",
-                }
-              }
-              type="text"
-              value="10/23/2018"
-            />
-          </span>
+            type="text"
+            value="10/23/2018"
+          />
         </span>
-      </div>
+      </span>
     </div>
   </div>
 </div>

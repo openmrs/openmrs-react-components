@@ -1,5 +1,6 @@
 import React from 'react';
-import moment from 'moment';
+import { format } from 'date-fns';
+import {DATE_FORMAT} from "../../constants";
 
 const PatientCard = (patient, index, onRowSelected, getPatientIdentifiers) => (
   <div 
@@ -14,7 +15,7 @@ const PatientCard = (patient, index, onRowSelected, getPatientIdentifiers) => (
       <span className="gender-age">
         <span className="gender">{patient.gender && patient.gender === 'M' ? "Male" : "Female"}</span>
         <span className="age">{patient.age && patient.age} yrs old</span>
-        <span className="dob">({patient.birthdate && moment(patient.birthdate).format('DD, MMM, YYYY')})</span>
+        <span className="dob">({patient.birthdate && format(patient.birthdate, DATE_FORMAT)})</span>
       </span>
       { ( typeof patient.alert !== 'undefined' ) &&
                       ( patient.alert !== null ) &&

@@ -1,5 +1,5 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import moment from 'moment';
+import { format } from 'date-fns';
 import FORM_TYPES from './types';
 import formActions from './actions';
 import formUtil from './util';
@@ -138,7 +138,7 @@ function* submit(action) {
     }
 
     if (action.values['encounter-datetime']) {
-      encounter.encounterDatetime = moment(action.values['encounter-datetime']).format();
+      encounter.encounterDatetime = format(action.values['encounter-datetime']);
     }
 
     // create the obs to add to the encounter
