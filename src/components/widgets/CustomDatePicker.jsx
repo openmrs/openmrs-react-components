@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { PureComponent } from 'react';
 import DatePicker from 'react-datepicker';
-import { startOfDay, format, parse, addDays } from 'date-fns';
+import { startOfDay, format, parse } from 'date-fns';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormControl } from 'react-bootstrap';
@@ -22,7 +22,7 @@ class CustomDatePicker extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      selectedDate: props.defaultDate || startOfDay(new Date()),
+      selectedDate: parse(props.defaultDate) || startOfDay(new Date()),
       field: props.field,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -34,7 +34,7 @@ class CustomDatePicker extends PureComponent {
       const { onChange } = input;
       if (input.value) {
         this.setState({
-          selectedDate: new Date(input.value)
+          selectedDate: parse(input.value)
         })
       } else {
         onChange(format(startOfDay(new Date())));
@@ -70,7 +70,7 @@ class CustomDatePicker extends PureComponent {
       handleDateChange(field, format(startOfDay(date), 'YYYY-MM-DD'));
     } else if (typeof input !== "undefined") {
       const { onChange } = input;
-      onChange(format(startOfDay(date, 'day')));
+      onChange(format(startOfDay(date)));
     }
   }
 
