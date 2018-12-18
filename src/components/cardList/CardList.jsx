@@ -126,9 +126,10 @@ class CardList extends React.Component {
   }
 }
 
+// TODO fix AdditioanlFilers and card prop-types?
 CardList.propTypes = {
-  AdditionalFilters: PropTypes.element,
-  card: PropTypes.element.isRequired,
+  AdditionalFilters: PropTypes.func,
+  card: PropTypes.func.isRequired,
   delayInterval: PropTypes.number.isRequired,
   fetchListActionCreator: PropTypes.func,
   filters: PropTypes.array,
