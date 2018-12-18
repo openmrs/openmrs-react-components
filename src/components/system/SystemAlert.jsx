@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import * as R from 'ramda';
-import moment from 'moment';
 import { differenceInMinutes, differenceInHours } from 'date-fns';
 import systemActions from '../../features/system/actions';
 import '../../../assets/css/widgets.css';
