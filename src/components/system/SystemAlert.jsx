@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import * as R from 'ramda';
-import { differenceInMinutes, differenceInHours } from 'date-fns';
+import { parse, differenceInMinutes } from 'date-fns';
+import { getUTCOffset, findTimeZone } from 'timezone-support';
+import { parseFromTimeZone } from 'date-fns-timezone';
 import systemActions from '../../features/system/actions';
 import '../../../assets/css/widgets.css';
 
@@ -28,22 +30,25 @@ class Alert extends Component {
 
   renderAlertMessage() {
     const { system } = this.props;
+
     const deviceTime = new Date();
-    const serverTime = new Date(`${system.systemDate}T${system.systemTime}Z`);
+    const deviceOffset = deviceTime.getTimezoneOffset();
 
-    const deviceTimeInUTC = deviceTime.toISOString();
+    const serverTime =  system.timeZone ? parseFromTimeZone(`${system.systemDate}T${system.systemTime}`, { timeZone: `${system.timeZone}` })
+      : parse(`${system.systemDate}T${system.systemTime}Z`);
 
-    const hasTimeZoneOffset = serverTime.getTimezoneOffset() === deviceTime.getTimezoneOffset();
-    const timeOffset = Math.abs(
-      differenceInHours(
-        new Date(`${system.systemDate}T${system.systemTime}`),
-        deviceTime
-      )
-    );
+    const serverOffset = system.timeZone ? getUTCOffset(serverTime, findTimeZone(`${system.timeZone}`)).offset : 0;
+
+    const hasTimeZoneOffset = serverOffset !== deviceOffset;
+
+    const timezoneOffset = Math.abs(
+      deviceOffset - serverOffset
+    ) / 60;
+
     const timeDifference = Math.abs(
       differenceInMinutes(
         serverTime,
-        deviceTimeInUTC
+        deviceTime
       ));
 
     const hasTimeDifference = timeDifference > 5;
@@ -53,7 +58,7 @@ class Alert extends Component {
 
     if (hasTimeZoneOffset) {
       alertMessages.push({
-        message: `Your current time zone is different from the server by ${timeOffset} hour(s)`,
+        message: `Your current time zone is different from the server by ${timezoneOffset} hour(s)`,
         type: 'time-zone-offset-alert',
       });
     }
