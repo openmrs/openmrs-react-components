@@ -8,6 +8,8 @@ import '../../../assets/css/cardList.css';
 
 class CardList extends React.Component {
 
+  // TODO the "additionalFilters" is still too tightly coupled, need to rework
+
   constructor(props) {
     super(props);
 
