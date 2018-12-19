@@ -1,0 +1,32 @@
+a.list-group-item {
+  border-top: 1px solid gray !important;
+  border-radius: 0px !important;
+  font-weight: 600;
+  padding: 10px !important;
+}
+
+a.list-group-item::before {
+  content: "\00a0\00a0";
+}
+
+.list-group-item-heading {
+  border-top: 1px solid black !important;
+  background: gainsboro;
+  padding: 13px;
+  margin-bottom: 0px;
+  font-size: 20px;
+}
+
+.task-list {
+  position: absolute;
+  left: 0px;
+  width: 100vw;
+}
+
+.list-group-item {
+  padding: 0px !important;
+}
+
+.list-group button:last-child .list-group-item:last-child {
+  border-bottom: 1px solid gray !important;
+}
