@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import { ListGroup } from 'react-bootstrap';
 import TaskListGroup from './TaskListGroup';
 
+import '../../../assets/css/taskList.css';
+
 let TaskList = props => {
 
   return (
-    <div>
+    <div className="task-list">
       <ListGroup>
         {props.taskGroups.map(taskGroup => (
           <TaskListGroup

@@ -23,7 +23,7 @@ let TaskListItem = props => {
         icon="check"
         style={{ visibility: completed ? "visible" : "hidden" }}
       />
-      &nbsp;{props.title}
+      &nbsp;&nbsp;&nbsp;{props.title}
       { props.timeFn }
     </ListGroupItem>
   );
