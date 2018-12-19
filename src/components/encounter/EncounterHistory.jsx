@@ -57,12 +57,17 @@ class EncounterHistory extends React.Component {
   }
 
   getObsValue(obs) {
-    if (!this.props.labels || !obs.value.uuid || !this.props.labels[obs.value.uuid]) {
-      return obs.value.display ? obs.value.display : obs.value;
+
+    if (obs.value) {
+      if (!this.props.labels || !obs.value.uuid || !this.props.labels[obs.value.uuid]) {
+        return obs.value.display ? obs.value.display : obs.value;
+      }
+      else {
+        return this.props.labels[obs.value.uuid];
+      }
     }
-    else {
-      return this.props.labels[obs.value.uuid];
-    }
+
+    return null;
   }
 
   render() {
