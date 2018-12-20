@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import encounterRest from '../../rest/encounterRest';
+import * as R from "ramda";
 import { selectors } from "../../store";
 import { formatDate } from "../../util/dateUtil";
 import ObsValue from '../obs/ObsValue';
 import '../../../assets/css/widgets.css';
-import * as R from "ramda";
 
 
 // TODO should this be changed to use redux? should we extract the REST calls into actions/reducers/etc
@@ -48,13 +48,18 @@ class EncounterHistory extends React.Component {
 
   render() {
 
-    let history = this.state.encounters.map((encounter, i) => {
+    const history = this.state.encounters.map((encounter, i) => {
       return (
         <div key={encounter.id}>
           <h5><u>{ formatDate(encounter.encounterDatetime) }</u></h5>
           <table>
             <tbody>
-              {encounter.obs.map((o) => <ObsValue key={o.id} obs={o} />)}
+              {encounter.obs.map((o) =>
+                <ObsValue
+                  key={o.id}
+                  labels={this.props.labels}
+                  obs={o}
+                />)}
             </tbody>
           </table>
         </div>

@@ -13,15 +13,17 @@ const api = {
       });
   },
 
-  fetchObsByPatient: (patient, concept, limit) => axiosInstance.get(`obs/?patient=${patient}&concept=${concept}&v=custom:${DEFAULT_OBS_REP}`
-    + ( limit ? "&limit=" + limit : ''))
-    .then((response) => {
-      if (response.status !== 200) {
-        throw response;
-      } else {
-        return response.data;
-      }
-    }),
+  fetchObsByPatient: (patient, concepts, limit) => {
+    return axiosInstance.get(`obs/?patient=${patient}&concepts=${concepts.constructor === String ? concepts : concepts.join(",")}&v=custom:${DEFAULT_OBS_REP}`
+      + (limit ? "&limit=" + limit : ''))
+      .then((response) => {
+        if (response.status !== 200) {
+          throw response;
+        } else {
+          return response.data;
+        }
+      });
+  }
 };
 
 export default api;

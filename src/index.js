@@ -45,6 +45,7 @@ import ProgramEnrollment from './components/program/ProgramEnrollment';
 import Head from './components/header/Head';
 import SystemAlert from './components/system/SystemAlert';
 import ObsValue from './components/obs/ObsValue';
+import ObsHistory from './components/obs/ObsHistory';
 import createListReducer from './features/list/createListReducer';
 import { SESSION_TYPES, sessionSagas, sessionActions } from './features/session/';
 import { systemWatcherSaga } from './features/system';
@@ -133,6 +134,7 @@ module.exports = {
   Obs,
   ObsGroup,
   ObsValue,
+  ObsHistory,
   EncounterDate,
   Submit,
   Cancel,
