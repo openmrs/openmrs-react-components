@@ -124,7 +124,7 @@ class EncounterFormPage extends React.PureComponent {
     return (
       <div style={this.divContainer}>
         <Grid style={this.divContainer}>
-          {this.props.title &&
+        {this.props.title &&
           <Row style={this.rowStyles}>
             <Col sm={20} md={20} style={this.littlePaddingLeft}>
               <span><h2>{this.props.title}</h2></span>
@@ -151,24 +151,27 @@ class EncounterFormPage extends React.PureComponent {
               visitType={this.props.visitType ? this.props.visitType : null}
             >
               {this.props.formContent}
-              <Grid>
-                <Row>
-                  <Col xs={6}>
-                    {this.getForm().state === FORM_STATES.EDITING ?
-                      (<Cancel onClick={this.handleCancel}/>)
-                      : this.props.backLink ?
-                        (<Button onClick={this.handleBack}>Back</Button>)
-                        : (null)
-                    }
-                  </Col>
-                  <Col xs={6}>
-                    {this.getForm().state === FORM_STATES.EDITING ?
-                      (<Submit style={this.floatRight} onClick={this.exitEditMode}/>) :
-                      (<Button style={this.floatRight} onClick={this.enterEditMode}>Edit</Button>)
-                    }
-                  </Col>
-                </Row>
-              </Grid>
+
+              {!this.props.hideActionButtons &&
+                (<Grid>
+                  <Row>
+                    <Col xs={6}>
+                      {this.getForm().state === FORM_STATES.EDITING ?
+                        (<Cancel onClick={this.handleCancel}/>)
+                        : this.props.backLink ?
+                          (<Button onClick={this.handleBack}>Back</Button>)
+                          : (null)
+                      }
+                    </Col>
+                    <Col xs={6}>
+                      {this.getForm().state === FORM_STATES.EDITING ?
+                        (<Submit style={this.floatRight} onClick={this.exitEditMode}/>) :
+                        (<Button style={this.floatRight} onClick={this.enterEditMode}>Edit</Button>)
+                      }
+                    </Col>
+                  </Row>
+                </Grid>)
+              }
             </EncounterForm>
           </div>)
           :
@@ -194,6 +197,7 @@ EncounterFormPage.propTypes = {
   formId: PropTypes.string.isRequired,
   formInstanceId: PropTypes.string,
   formSubmittedActionCreators: PropTypes.array,
+  hideActionButtons: PropTypes.bool,
   location: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string]),
