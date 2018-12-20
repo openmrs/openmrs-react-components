@@ -105,7 +105,6 @@ class CardList extends React.Component {
                 glyph="search"
               />
               <FormControl
-                autoFocus
                 onChange={this.handleSearchChange}
                 placeholder="search by text"
                 type="text"
