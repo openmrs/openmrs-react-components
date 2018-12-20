@@ -4,18 +4,17 @@ import PropTypes from 'prop-types';
 import encounterRest from '../../rest/encounterRest';
 import { selectors } from "../../store";
 import { formatDate } from "../../util/dateUtil";
-import validations from '../../features/form/validations';
+import ObsValue from '../obs/ObsValue';
 import '../../../assets/css/widgets.css';
 import * as R from "ramda";
+
+
+// TODO should this be changed to use redux? should we extract the REST calls into actions/reducers/etc
+// TODO add limit or date range restrictions?
 class EncounterHistory extends React.Component {
 
   constructor(props) {
     super(props);
-
-    // TODO figure out how to extract this somewhere
-    this.cellPadding = {
-      padding: "2px"
-    };
 
     this.state = {
       encounters: []
@@ -47,29 +46,6 @@ class EncounterHistory extends React.Component {
     }
   }
 
-  getObsLabel(obs) {
-    if (!this.props.labels || !this.props.labels[obs.concept.uuid]) {
-      return obs.concept.display;
-    }
-    else {
-      return this.props.labels[obs.concept.uuid];
-    }
-  }
-
-  getObsValue(obs) {
-
-    if (obs.value) {
-      if (!this.props.labels || !obs.value.uuid || !this.props.labels[obs.value.uuid]) {
-        return obs.value.display ? obs.value.display : obs.value;
-      }
-      else {
-        return this.props.labels[obs.value.uuid];
-      }
-    }
-
-    return null;
-  }
-
   render() {
 
     let history = this.state.encounters.map((encounter, i) => {
@@ -78,44 +54,7 @@ class EncounterHistory extends React.Component {
           <h5><u>{ formatDate(encounter.encounterDatetime) }</u></h5>
           <table>
             <tbody>
-              {encounter.obs.map((observation) => {
-                const {
-                  hiNormal,
-                  lowNormal,
-                  hiCritical,
-                  lowCritical,
-                } = observation.concept;
-
-                const obsValue = this.getObsValue(observation);
-
-                let validation = {
-                  abnormal: undefined,
-                  critical: undefined,
-                };
-
-                if (hiNormal || lowNormal) {
-                  validation.abnormal = validations.abnormalMinValue(lowNormal)(obsValue) || validations.abnormalMaxValue(hiNormal)(obsValue);
-                }
-
-                if (hiCritical || lowCritical) {
-                  validation.critical = validations.criticalMaxValue(hiCritical)(obsValue) || validations.criticalMinValue(lowCritical)(obsValue);
-                }
-
-                const validationValue = validation.critical ? 'critical' : (validation.abnormal ? 'abnormal' : '');
-                return (
-                  <tr key={observation.id}>
-                    <td style={this.cellPadding}><b>{ this.getObsLabel(observation) }:</b></td>
-                    <td style={this.cellPadding}>{ obsValue }</td>
-                    <td style={this.cellPadding}><b>{ observation.concept.units ? observation.concept.units : ''}</b></td>
-                    {<td
-                      className={validationValue}
-                      style={{ visibility: (validation.critical || validation.abnormal) ? 'visible' : 'hidden' }}
-                    >
-                      ({ validationValue })
-                    </td>}
-                  </tr>
-                );
-              })}
+              {encounter.obs.map((o) => <ObsValue key={o.id} obs={o} />)}
             </tbody>
           </table>
         </div>
