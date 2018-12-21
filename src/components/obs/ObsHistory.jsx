@@ -2,9 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as R from "ramda";
+import { chain } from 'underscore';
+import { getDayOfYear } from 'date-fns';
 import ObsValue from '../obs/ObsValue';
 import obsRest from '../../rest/obsRest';
 import { selectors } from "../../store";
+import {formatDate} from "../../util/dateUtil";
 
 class ObsHistory extends React.PureComponent {
 
@@ -21,9 +24,26 @@ class ObsHistory extends React.PureComponent {
       this.props.patient.uuid, this.props.concepts.map((concept) => concept.uuid)
     ).then(data => {
       this.setState({
-        obs: data.results
+        obs: this.sortAndGroupResults(data.results)
       });
     });
+  }
+
+  // TODO all this [0][0] and [0][0][0] stuff smells, is there a better way to use actual maps instead of arrays, etc?
+
+  sortAndGroupResults(results) {
+
+
+    const set = chain(results)
+      .groupBy((obs) => obs.obsGroup ? obs.obsGroup : obs.uuid)   // group by obs group, if present
+      .values()
+      .groupBy((obsSet) => obsSet[0].encounter ? obsSet[0].encounter.uuid : obsSet[0].uuid)  //group by encounter, if present
+      .values()
+      .groupBy((obsSet) => getDayOfYear(obsSet[0][0].encounter ? obsSet[0][0].encounter.encounterDatetime : obsSet[0][0].obsDatetime))  // group by encounter date or obs date
+      .values()
+      .value();
+
+    return set;
   }
 
   componentDidMount() {
@@ -42,23 +62,45 @@ class ObsHistory extends React.PureComponent {
   render() {
     return (
       <div>
-        <table>
-          <tbody>
-            {this.state.obs.map((o) =>
-              <ObsValue
-                key={o.id}
-                labels={this.props.labels}
-                obs={o}
-              />)}
-          </tbody>
-        </table>
+        {this.state.obs.map((obsByDate) => {
+          return (
+            <div key={obsByDate[0][0][0].id}>
+              <h5>
+                <u>
+                  {formatDate(obsByDate[0][0][0].encounter ? obsByDate[0][0][0].encounter.encounterDatetime : obsByDate[0][0][0].obsDatetime)}
+                </u>
+              </h5>
+              <table>
+                {obsByDate.map((obsByEncounter)=> {
+                  return (
+                    <tbody key={obsByEncounter[0][0].id}>
+                      {obsByEncounter.map((obsByGroup) =>
+                        obsByGroup.map((obs) => {
+                          return (
+                            <ObsValue
+                              key={obs.id}
+                              labels={this.props.labels}
+                              obs={obs} />
+                          );
+                        })
+                      )}
+                      <tr>
+                        <td colSpan={4} />
+                      </tr>
+                    </tbody>
+                  );
+                })}
+              </table>
+            </div>
+          );
+        })}
       </div>
     );
   }
 }
 
 ObsHistory.propTypes = {
-  concepts: PropTypes.object,
+  concepts: PropTypes.array,
   labels: PropTypes.object,
   patient: PropTypes.object.isRequired
 };
