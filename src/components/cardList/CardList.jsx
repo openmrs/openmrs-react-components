@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import matchSorter from 'match-sorter';
+import * as R from "ramda";
 import { Label, Glyphicon, FormControl } from 'react-bootstrap';
 import { applyFilters } from "../../util/filterUtil";
 import Loader from '../widgets/Loader';
@@ -46,14 +47,32 @@ class CardList extends React.Component {
     }
   }
 
-  applyFiltersToList(list) {
+  getSortFields(index) {
+    const { sortFields } = this.props;
+    return sortFields[index] ? sortFields[index].split('.') : '';
 
+  }
+
+  applyFiltersToList(list) {
+    const { sortFields, searchFilterFields } = this.props;
     let filters = this.props.filters ? [...this.props.filters] : [];
     list = applyFilters(list, filters, 'and');
 
-    if (this.props.searchFilterFields) {
-      list = matchSorter(list, this.state.searchValue, { keys: this.props.searchFilterFields });
-      list = matchSorter(list, this.state.searchIdentifierValue, { keys: this.props.searchFilterFields });
+    if (searchFilterFields) {
+      list = matchSorter(list, this.state.searchValue, { keys: searchFilterFields });
+      list = matchSorter(list, this.state.searchIdentifierValue, { keys: searchFilterFields });
+    }
+
+    if (sortFields) {
+      // Can accept up to 5 fallback sorting params
+      let sorter = R.sortWith([
+        R.ascend(R.path(this.getSortFields(0))),
+        R.ascend(R.path(this.getSortFields(1))),
+        R.ascend(R.path(this.getSortFields(2))),
+        R.ascend(R.path(this.getSortFields(3))),
+        R.ascend(R.path(this.getSortFields(4))),
+      ]);
+      list = sorter(list);
     }
 
     return list;
@@ -140,6 +159,7 @@ CardList.propTypes = {
   rowData: PropTypes.array.isRequired,
   rowSelectedActionCreators: PropTypes.array,
   searchFilterFields: PropTypes.array,
+  sortFields: PropTypes.array,
   title: PropTypes.string.isRequired,
   
 };
@@ -148,7 +168,8 @@ CardList.defaultProps = {
   delayInterval: 60000,
   title: 'List',
   filters: [],
-  searchFilterFields: []
+  searchFilterFields: [],
+  sortFields: []
 };
 
 export default CardList;
