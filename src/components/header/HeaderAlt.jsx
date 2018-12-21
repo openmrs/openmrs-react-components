@@ -42,6 +42,11 @@ export class HeaderAlt extends React.Component {
             fixedTop
             onToggle={this.handleToggle}
           >
+            {!this.state.expanded && <img
+              alt=""
+              className="header-logo"
+              src={this.props.logo}
+            />}
             <Navbar.Toggle>
               <FontAwesomeIcon
                 icon="caret-down"
