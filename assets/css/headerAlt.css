@@ -25,6 +25,10 @@
     max-height: 48px;
 }
 
+.header-logo {
+    display: none;
+}
+
 .change-location a {
     outline: none;
 }
@@ -113,5 +117,11 @@
     .nav > li > a > img {
         position: absolute;
         top: -20px;
+    }
+
+    .header-logo {
+        max-height: 48px;
+        display: unset;
+        margin-top: 4px;
     }
 }
