@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as R from "ramda";
 import { chain } from 'underscore';
-import { getDayOfYear } from 'date-fns';
+import { getDayOfYear, parse  } from 'date-fns';
 import ObsValue from '../obs/ObsValue';
 import obsRest from '../../rest/obsRest';
 import { selectors } from "../../store";
@@ -30,17 +30,18 @@ class ObsHistory extends React.PureComponent {
   }
 
   // TODO all this [0][0] and [0][0][0] stuff smells, is there a better way to use actual maps instead of arrays, etc?
-
+  // TODO can we better sort by day?
   sortAndGroupResults(results) {
 
 
     const set = chain(results)
       .groupBy((obs) => obs.obsGroup ? obs.obsGroup : obs.uuid)   // group by obs group, if present
       .values()
-      .groupBy((obsSet) => obsSet[0].encounter ? obsSet[0].encounter.uuid : obsSet[0].uuid)  //group by encounter, if present
+      .groupBy((obsByGroup) => obsByGroup[0].encounter ? obsByGroup[0].encounter.uuid : obsByGroup[0].uuid)  //group by encounter, if present
       .values()
-      .groupBy((obsSet) => getDayOfYear(obsSet[0][0].encounter ? obsSet[0][0].encounter.encounterDatetime : obsSet[0][0].obsDatetime))  // group by encounter date or obs date
+      .groupBy((obsByEncounter) => getDayOfYear(obsByEncounter[0][0].encounter ? obsByEncounter[0][0].encounter.encounterDatetime : obsByEncounter[0][0].obsDatetime))  // group by encounter date or obs date
       .values()
+      .sortBy((obsByDate) => -parse(obsByDate[0][0][0].encounter ? obsByDate[0][0][0].encounter.encounterDatetime : obsByDate[0][0][0].obsDatetime))
       .value();
 
     return set;
