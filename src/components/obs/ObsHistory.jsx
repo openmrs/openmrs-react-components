@@ -34,7 +34,7 @@ class ObsHistory extends React.PureComponent {
     return obs.encounter ? obs.encounter.encounterDatetime : obs.obsDatetime;
   }
 
-  // TODO all this [0][0] and [0][0][0] stuff smells, is there a better way to use actual maps instead of arrays, etc?
+  // TODO all this [0][0] and [0][0][0] stuff smells, is there a better way? use actual maps instead of arrays, etc?
   sortAndGroupResults(results) {
     const set = chain(results)
       .groupBy((obs) => obs.obsGroup ? obs.obsGroup.uuid : obs.uuid)   // group by obs group, if present
