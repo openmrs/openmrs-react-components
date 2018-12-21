@@ -36,8 +36,8 @@ class ObsHistory extends React.PureComponent {
 
   // TODO all this [0][0] and [0][0][0] stuff smells, is there a better way to use actual maps instead of arrays, etc?
   sortAndGroupResults(results) {
-    return chain(results)
-      .groupBy((obs) => obs.obsGroup ? obs.obsGroup : obs.uuid)   // group by obs group, if present
+    const set = chain(results)
+      .groupBy((obs) => obs.obsGroup ? obs.obsGroup.uuid : obs.uuid)   // group by obs group, if present
       .values()
       .groupBy((obsByGroup) => obsByGroup[0].encounter ? obsByGroup[0].encounter.uuid : obsByGroup[0].uuid)  //group by encounter, if present
       .values()
@@ -46,6 +46,7 @@ class ObsHistory extends React.PureComponent {
       // TODO can we do better than just sort by day?
       .sortBy((obsByDateAndEncounterAndGroup) => -parse(this.getDateFromObs(obsByDateAndEncounterAndGroup[0][0][0])))
       .value();
+    return set;
   }
 
   componentDidMount() {
