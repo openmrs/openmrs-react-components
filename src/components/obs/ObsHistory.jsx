@@ -35,6 +35,7 @@ class ObsHistory extends React.PureComponent {
   }
 
   // TODO all this [0][0] and [0][0][0] stuff smells, is there a better way? use actual maps instead of arrays, etc?
+  // TODO we only want to import the methods we use to save space (ie does chaining import everything?)
   sortAndGroupResults(results) {
     const set = chain(results)
       .groupBy((obs) => obs.obsGroup ? obs.obsGroup.uuid : obs.uuid)   // group by obs group, if present
