@@ -29,22 +29,23 @@ class ObsHistory extends React.PureComponent {
     });
   }
 
+  getDateFromObs(obs) {
+    // prefer encounterDatetime if present
+    return obs.encounter ? obs.encounter.encounterDatetime : obs.obsDatetime;
+  }
+
   // TODO all this [0][0] and [0][0][0] stuff smells, is there a better way to use actual maps instead of arrays, etc?
-  // TODO can we better sort by day?
   sortAndGroupResults(results) {
-
-
-    const set = chain(results)
+    return chain(results)
       .groupBy((obs) => obs.obsGroup ? obs.obsGroup : obs.uuid)   // group by obs group, if present
       .values()
       .groupBy((obsByGroup) => obsByGroup[0].encounter ? obsByGroup[0].encounter.uuid : obsByGroup[0].uuid)  //group by encounter, if present
       .values()
-      .groupBy((obsByEncounter) => getDayOfYear(obsByEncounter[0][0].encounter ? obsByEncounter[0][0].encounter.encounterDatetime : obsByEncounter[0][0].obsDatetime))  // group by encounter date or obs date
+      .groupBy((obsByEncounterAndGroup) => getDayOfYear(this.getDateFromObs(obsByEncounterAndGroup[0][0])))  // group by encounter date or obs date
       .values()
-      .sortBy((obsByDate) => -parse(obsByDate[0][0][0].encounter ? obsByDate[0][0][0].encounter.encounterDatetime : obsByDate[0][0][0].obsDatetime))
+      // TODO can we do better than just sort by day?
+      .sortBy((obsByDateAndEncounterAndGroup) => -parse(this.getDateFromObs(obsByDateAndEncounterAndGroup[0][0][0])))
       .value();
-
-    return set;
   }
 
   componentDidMount() {
@@ -63,19 +64,19 @@ class ObsHistory extends React.PureComponent {
   render() {
     return (
       <div>
-        {this.state.obs.map((obsByDate) => {
+        {this.state.obs.map((obsByDateAndEncounterAndGroup) => {
           return (
-            <div key={obsByDate[0][0][0].id}>
+            <div key={obsByDateAndEncounterAndGroup[0][0][0].id}>
               <h5>
                 <u>
-                  {formatDate(obsByDate[0][0][0].encounter ? obsByDate[0][0][0].encounter.encounterDatetime : obsByDate[0][0][0].obsDatetime)}
+                  {formatDate(this.getDateFromObs(obsByDateAndEncounterAndGroup[0][0][0]))}
                 </u>
               </h5>
               <table>
-                {obsByDate.map((obsByEncounter)=> {
+                {obsByDateAndEncounterAndGroup.map((obsByEncounterAndGroup)=> {
                   return (
-                    <tbody key={obsByEncounter[0][0].id}>
-                      {obsByEncounter.map((obsByGroup) =>
+                    <tbody key={obsByEncounterAndGroup[0][0].id}>
+                      {obsByEncounterAndGroup.map((obsByGroup) =>
                         obsByGroup.map((obs) => {
                           return (
                             <ObsValue
