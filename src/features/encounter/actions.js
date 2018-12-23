@@ -6,6 +6,7 @@ const fetchEncounters = (patient, encounterType) => ( {
   encounterType: encounterType
 } );
 
+// TODO: change from "results" to "encounters"
 const fetchEncountersSucceeded = (results) => ( {
   type: FETCH_ENCOUNTERS_TYPES.SUCCEEDED,
   results: results

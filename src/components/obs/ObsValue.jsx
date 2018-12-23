@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import validations from "../../features/form/validations";
+import {selectors} from "../../store";
+import connect from "react-redux/es/connect/connect";
 
 
 const ObsValue = (props) => {
@@ -79,4 +81,10 @@ ObsValue.propTypes = {
   obs: PropTypes.object.isRequired
 };
 
-export default ObsValue;
+const mapStateToProps = (state) => {
+  return {
+    concepts: selectors.getConcepts(state)
+  };
+};
+
+export default connect(mapStateToProps)(ObsValue);
