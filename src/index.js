@@ -57,6 +57,7 @@ import { constantsSagas, constantsActions } from './features/constants';
 import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
 import { GRID_TYPES, gridActions } from './features/grid';
 import { patientActions, PATIENT_TYPES } from "./features/patient";
+import { conceptSagas } from "./features/concept";
 import {
   PATIENT_SEARCH_TYPES,
   patientSearchActions,
@@ -94,6 +95,7 @@ const sagas = function* () {
     headerSagas(),
     openmrsFormSagas(),
     constantsSagas(),
+    conceptSagas()
   ]);
 };
 

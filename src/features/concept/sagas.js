@@ -1,4 +1,4 @@
-import { call, put, takeLatest, select, all } from "redux-saga/effects";
+import { call, put, takeEvery, select, all } from "redux-saga/effects";
 
 import CONCEPT_TYPES from "./types";
 import conceptActions from "./actions";
@@ -9,10 +9,12 @@ function* fetchConcepts(action) {
 
 
   // TODO
-  // modify ObsHistory or Encounter History or ObsValue to fetch the concept?
+  // clean up/simplify the default OBS rep (but check out lab entry uses it)
+  // update form to use concept from store
   // reducer to clear the store
   // REST endpoint to return multiple concepts
   // clean up types (bigger task)
+  // review takeLatest vs takeAll
 
   // only fetch concepts that aren't already in the store
   const concepts = yield select(selectors.getConcepts);
@@ -20,11 +22,14 @@ function* fetchConcepts(action) {
 
   try {
 
-    const results =  yield all(
-      conceptUuids.map((conceptUuid) => call(conceptRest.getConcept, conceptUuid))
-    );
+    if (conceptUuids.length > 0) {
+      const results =  yield all(
+        conceptUuids.map((conceptUuid) => call(conceptRest.getConcept, conceptUuid))
+      );
 
-    yield put(conceptActions.fetchConceptsSucceeded(results));
+      yield put(conceptActions.fetchConceptsSucceeded(results));
+    }
+    // TODO some other action if no concepts to fetch?
   }
   catch (e) {
     yield put(conceptActions.fetchConceptsFailed(e.message));
@@ -33,7 +38,7 @@ function* fetchConcepts(action) {
 }
 
 function* conceptSagas() {
-  yield takeLatest(CONCEPT_TYPES.FETCH_REQUESTED, fetchConcepts);
+  yield takeEvery(CONCEPT_TYPES.FETCH_REQUESTED, fetchConcepts);
 }
 
 export default conceptSagas;

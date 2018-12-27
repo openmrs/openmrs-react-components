@@ -1,89 +1,100 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import validations from "../../features/form/validations";
-import {selectors} from "../../store";
 import connect from "react-redux/es/connect/connect";
+import validations from "../../features/form/validations";
+import { selectors } from "../../store";
+import { conceptActions } from "../../features/concept";
+
+class ObsValue extends React.PureComponent{
 
 
-const ObsValue = (props) => {
+  componentDidMount() {
+    if (!this.props.concept) {
+      this.props.dispatch(conceptActions.fetchConcepts([this.props.obs.concept.uuid]));
+    }
+  }
 
-  // TODO figure out how to extract this somewhere
-  const cellPadding = {
-    padding: "2px"
-  };
-
-  const getObsLabel = (obs) => {
-    if (!props.labels || !props.labels[obs.concept.uuid]) {
-      return obs.concept.display;
+  getObsLabel(obs) {
+    if (!this.props.labels || !this.props.labels[obs.concept.uuid]) {
+      return this.props.concept ? this.props.concept.display : null;
     }
     else {
-      return props.labels[obs.concept.uuid];
+      return this.props.labels[obs.concept.uuid];
     }
   };
 
-  const getObsValue = (obs) => {
-
+  getObsValue(obs) {
     if (obs.value) {
-      if (!props.labels || !obs.value.uuid || !props.labels[obs.value.uuid]) {
+      if (!this.props.labels || !this.obs.value.uuid || !this.props.labels[obs.value.uuid]) {
         return obs.value.display ? obs.value.display : obs.value;
       }
       else {
-        return props.labels[obs.value.uuid];
+        return this.props.labels[obs.value.uuid];
       }
     }
-
     return null;
   };
 
-  const {
-    hiNormal,
-    lowNormal,
-    hiCritical,
-    lowCritical,
-  } = props.obs.concept;
+  render() {
 
-  const obsValue = getObsValue(props.obs);
+    const cellPadding = {
+      padding: "2px"
+    };
 
-  let validation = {
-    abnormal: undefined,
-    critical: undefined,
-  };
+    const {
+      hiNormal,
+      lowNormal,
+      hiCritical,
+      lowCritical,
+    } = this.props.concept || {};
 
-  if (hiNormal || lowNormal) {
-    validation.abnormal = validations.abnormalMinValue(lowNormal)(obsValue) || validations.abnormalMaxValue(hiNormal)(obsValue);
+    const obsValue = this.getObsValue(this.props.obs);
+
+    let validation = {
+      abnormal: undefined,
+      critical: undefined,
+    };
+
+    if (hiNormal || lowNormal) {
+      validation.abnormal = validations.abnormalMinValue(lowNormal)(obsValue) || validations.abnormalMaxValue(hiNormal)(obsValue);
+    }
+
+    if (hiCritical || lowCritical) {
+      validation.critical = validations.criticalMaxValue(hiCritical)(obsValue) || validations.criticalMinValue(lowCritical)(obsValue);
+    }
+
+    const validationValue = validation.critical ? 'critical' : (validation.abnormal ? 'abnormal' : '');
+
+    // TODO provide a way to support other formats than a table?
+    return (
+      <tr>
+        <td style={cellPadding}><b>{ this.getObsLabel(this.props.obs) }:</b></td>
+        <td style={cellPadding}>{ obsValue }</td>
+        <td style={cellPadding}><b>{ this.props.concept && this.props.concept.units ? this.props.concept.units : ''}</b></td>
+        {
+          <td
+            className={validationValue}
+            style={{ visibility: (validation.critical || validation.abnormal) ? 'visible' : 'hidden' }}
+          >
+          ({ validationValue })
+          </td>
+        }
+      </tr>
+    );
+
   }
 
-  if (hiCritical || lowCritical) {
-    validation.critical = validations.criticalMaxValue(hiCritical)(obsValue) || validations.criticalMinValue(lowCritical)(obsValue);
-  }
-
-  const validationValue = validation.critical ? 'critical' : (validation.abnormal ? 'abnormal' : '');
-
-  // TODO provide a way to support other formats than a table?
-  return (
-    <tr>
-      <td style={cellPadding}><b>{ getObsLabel(props.obs) }:</b></td>
-      <td style={cellPadding}>{ obsValue }</td>
-      <td style={cellPadding}><b>{ props.obs.concept.units ? props.obs.concept.units : ''}</b></td>
-      {<td
-        className={validationValue}
-        style={{ visibility: (validation.critical || validation.abnormal) ? 'visible' : 'hidden' }}
-      >
-        ({ validationValue })
-      </td>}
-    </tr>
-  );
-
-};
+}
 
 ObsValue.propTypes = {
+  concept: PropTypes.object,
   labels: PropTypes.object,
   obs: PropTypes.object.isRequired
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    concepts: selectors.getConcepts(state)
+    concept: selectors.getConcept(state, ownProps.obs.concept.uuid)
   };
 };
 

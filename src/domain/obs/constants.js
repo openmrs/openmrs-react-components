@@ -1,8 +1,8 @@
 // The default REST representation to use when fetching an obs
 
 // TODO is there a better way to handle rep of nested group members?
-// TODO extract concept out into concept store so that we only have to fetch concept uuid
+// TODO now that we've extracted concept out into store, do we really need to fetch display?
+// TODO do we really need the ids here?
 export const DEFAULT_OBS_REP = '(id,uuid,display,obsDatetime,value:(id,uuid,display,name:(uuid,name)),' +
-  'concept:(uuid,display,name,datatype,units,hiNormal,hiAbsolute,hiCritical,lowNormal,lowAbsolute,lowCritical),' +
-  'encounter:(id,uuid,encounterDatetime),groupMembers(uuid),obsGroup)';
+  'concept:(uuid),encounter:(id,uuid,encounterDatetime),groupMembers(uuid),obsGroup)';
 
