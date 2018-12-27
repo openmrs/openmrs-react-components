@@ -11,90 +11,100 @@ import Dropdown from '../widgets/Dropdown';
 import CustomDatePicker from '../widgets/CustomDatePicker';
 import withFormContext from './withFormContext';
 import withObsGroupContext from './withObsGroupContext';
+import { conceptActions } from "../../features/concept";
+import {selectors} from "../../store";
 
 // TODO perhaps a little refactoring to have all these if/thens... maybe make underlying ObsDate, ObsCoded, ObsNumeric, worth it?
-const Obs = (props) => {
+class Obs extends React.PureComponent {
 
-  // TODO: type should be controlled based on datatype of concept
-  if (props.datatype === 'date') {
-    return (
-      <Field
-        component={CustomDatePicker}
-        displayValue={props.value}
-        mode={props.formContext.mode}
-        name={props.name}
-        validate={props.validate}
-      />
-    );
-  }
-  else if (props.widget === 'checkbox') {
-    return (
-      <Field
-        checkBoxValue={props.conceptAnswer}
-        component={CheckBox}
-        displayValue={props.value}
-        mode={props.formContext.mode}
-        name={props.name}
-        onBlur={e => { e.preventDefault(); }}
-        title={props.checkBoxTitle}
-      />
-    );
-  }
-  else if (props.widget === 'textarea') {
-    return (
-      <Field
-        component={TextArea}
-        displayValue={props.value}
-        mode={props.formContext.mode}
-        name={props.name}
-        placeholder={props.placeholder}
-      />
-    );
-  }
-  else if ( typeof props.conceptAnswers !== 'undefined' ) {
-    if (props.widget === 'dropdown') {
-      return (
-        <Field
-          component={Dropdown}
-          defaultValue={props.defaultValue}
-          disabled={props.disabled}
-          displayValue={props.value}
-          dropDownStyle={props.dropDownStyle}
-          list={props.conceptAnswers}
-          mode={props.formContext.mode}
-          name={props.name}
-          placeholder={props.placeholder}
-          title={props.dropDownTitle}
-        />
-      );
-    }
-    else {
-      return (
-        <Field
-          component={ButtonGroup}
-          displayValue={props.value}
-          mode={props.formContext.mode}
-          name={props.name}
-          options={props.conceptAnswers}
-        />
-      );
+  componentDidMount() {
+    if (!this.props.concept) {
+      this.props.dispatch(conceptActions.fetchConcepts([this.props.conceptUuid]));
     }
   }
-  else {
-    return (
-      <div>
+
+  // TODO change datatype to be be driven by concept.datatype (need to test in lab workflow module)
+  // TODO change validations and warning to be potentially driven by hi/low of concepts
+
+  render() {
+
+    if (this.props.datatype === 'date') {
+      return (
         <Field
-          component={FieldInput}
-          displayValue={props.value}
-          mode={props.formContext.mode}
-          name={props.name}
-          placeholder={props.placeholder}
-          type={props.datatype}
-          validate={props.validate}
-          warn={props.warn}
+          component={CustomDatePicker}
+          displayValue={this.props.value}
+          mode={this.props.formContext.mode}
+          name={this.props.name}
+          validate={this.props.validate}
         />
-      </div>
-    );
+      );
+    } else if (this.props.widget === 'checkbox') {
+      return (
+        <Field
+          checkBoxValue={this.props.conceptAnswer}
+          component={CheckBox}
+          displayValue={this.props.value}
+          mode={this.props.formContext.mode}
+          name={this.props.name}
+          onBlur={e => {
+            e.preventDefault();
+          }}
+          title={this.props.checkBoxTitle}
+        />
+      );
+    } else if (this.props.widget === 'textarea') {
+      return (
+        <Field
+          component={TextArea}
+          displayValue={this.props.value}
+          mode={this.props.formContext.mode}
+          name={this.props.name}
+          placeholder={this.props.placeholder}
+        />
+      );
+    } else if (typeof this.props.conceptAnswers !== 'undefined') {
+      if (this.props.widget === 'dropdown') {
+        return (
+          <Field
+            component={Dropdown}
+            defaultValue={this.props.defaultValue}
+            disabled={this.props.disabled}
+            displayValue={this.props.value}
+            dropDownStyle={this.props.dropDownStyle}
+            list={this.props.conceptAnswers}
+            mode={this.props.formContext.mode}
+            name={this.props.name}
+            placeholder={this.props.placeholder}
+            title={this.props.dropDownTitle}
+          />
+        );
+      } else {
+        return (
+          <Field
+            component={ButtonGroup}
+            displayValue={this.props.value}
+            mode={this.props.formContext.mode}
+            name={this.props.name}
+            options={this.props.conceptAnswers}
+          />
+        );
+      }
+    } else {
+      return (
+        <div>
+          <Field
+            component={FieldInput}
+            displayValue={this.props.value}
+            mode={this.props.formContext.mode}
+            name={this.props.name}
+            placeholder={this.props.placeholder}
+            type={this.props.datatype}
+            validate={this.props.validate}
+            warn={this.props.warn}
+          />
+        </div>
+      );
+    }
   }
 };
 
@@ -102,9 +112,9 @@ Obs.propTypes = {
   concept: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string]).isRequired,
-  conceptAnswers: PropTypes.array,	
-  datatype: PropTypes.string.isRequired,	
-  path: PropTypes.string.isRequired,	
+  conceptAnswers: PropTypes.array,
+  conceptUuid: PropTypes.string.isRequired,
+  datatype: PropTypes.string.isRequired,
   placeholder: PropTypes.string,	
   validate: PropTypes.oneOfType([	
     PropTypes.array,	
@@ -145,7 +155,9 @@ const mapStateToProps = (state, props) => {
 
   return {
     name: name,
-    value: props.formContext ? props.formContext.selector(state, name) : null
+    value: props.formContext ? props.formContext.selector(state, name) : null,
+    concept: selectors.getConcept(state, getUuid(props.concept)),
+    conceptUuid: getUuid(props.concept)  // TODO better way to handle this
   };
 };
 
