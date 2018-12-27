@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from "redux-saga/effects";
+import { call, put, takeEvery } from "redux-saga/effects";
 import FETCH_ENCOUNTERS_TYPES from "./types";
 import fetchEncountersActions from './actions';
 import encounterRest from "../../rest/encounterRest";
@@ -20,7 +20,7 @@ function* fetchEncounters(action) {
 }
 
 function* fetchEncountersSagas() {
-  yield takeLatest(FETCH_ENCOUNTERS_TYPES.REQUESTED, fetchEncounters);
+  yield takeEvery(FETCH_ENCOUNTERS_TYPES.REQUESTED, fetchEncounters);
 }
 
 

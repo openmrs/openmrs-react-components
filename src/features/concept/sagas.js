@@ -7,15 +7,6 @@ import conceptRest from "../../rest/conceptRest";
 
 function* fetchConcepts(action) {
 
-
-  // TODO
-  // clean up/simplify the default OBS rep (but check out lab entry uses it)
-  // update form to use concept from store
-  // reducer to clear the store
-  // REST endpoint to return multiple concepts
-  // clean up types (bigger task)
-  // review takeLatest vs takeAll
-
   // only fetch concepts that aren't already in the store
   const concepts = yield select(selectors.getConcepts);
   const conceptUuids = action.conceptUuids.filter((conceptUuid) => !(conceptUuid in concepts));

@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest, takeEvery } from 'redux-saga/effects';
 import VISIT_TYPES from './types';
 import visitApi from '../../rest/visitRest';
 import visitActions from './actions';
@@ -73,10 +73,9 @@ function* patientActiveVisit(action) {
 
 
 function* visitSagas() {
-  // TODO take latest, or take all?
   yield takeLatest(VISIT_TYPES.ACTIVE_VISITS.FETCH_REQUESTED, activeVisits);
-  yield takeLatest(VISIT_TYPES.INACTIVE_VISITS.FETCH_REQUESTED, inactiveVisits);
-  yield takeLatest(VISIT_TYPES.PATIENT_ACTIVE_VISIT.FETCH_REQUESTED, patientActiveVisit);
+  yield takeEvery(VISIT_TYPES.INACTIVE_VISITS.FETCH_REQUESTED, inactiveVisits);
+  yield takeEvery(VISIT_TYPES.PATIENT_ACTIVE_VISIT.FETCH_REQUESTED, patientActiveVisit);
 }
 
 export default visitSagas;
