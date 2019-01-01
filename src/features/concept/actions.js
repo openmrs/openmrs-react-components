@@ -18,7 +18,7 @@ import CONCEPT_TYPES from "./types";
  *
  * // fetch the concept on mount if not available
  * componentDidMount() {
- *   if (!this.props.concept) {
+ *   if (!this.props.someConcept) {
  *     this.props.dispatch(conceptActions.fetchConcepts(['some-concept-we-need-uuid']));
  *   }
  * }
@@ -28,7 +28,7 @@ import CONCEPT_TYPES from "./types";
  * // map the concept from state to props
  * const mapStateToProps = (state) => {
  *  return {
- *    concept: selectors.getConcept(state, 'some-concept-we-need-uuid')
+ *    someConcept: selectors.getConcept(state, 'some-concept-we-need-uuid')
  *  };
  * };
  *
