@@ -17,9 +17,8 @@ import Loader from './../widgets/Loader';
  * Provides a basic wrapper around an Encounter Form with a title, toast success message, and afterSubmitLink
  * Handling fetching the encounter, managing state, etc
  */
-// TODO this should likely be renamed "EncounterFormPanel"?
 
-class EncounterFormPage extends React.PureComponent {
+class EncounterFormPanel extends React.PureComponent {
 
   constructor(props) {
     super(props);
@@ -183,7 +182,7 @@ class EncounterFormPage extends React.PureComponent {
   }
 }
 
-EncounterFormPage.propTypes = {
+EncounterFormPanel.propTypes = {
   afterSubmitLink: PropTypes.string,
   backLink: PropTypes.string,
   defaultValues: PropTypes.array,
@@ -220,4 +219,4 @@ const mapStateToProps = (state, props) => {
   };
 };
 
-export default connect(mapStateToProps)(EncounterFormPage);
+export default connect(mapStateToProps)(EncounterFormPanel);

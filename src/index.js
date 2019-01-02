@@ -21,7 +21,7 @@ import HomePage from './components/home/HomePage';
 import PatientSearch from './components/search/PatientSearch';
 import AuthenticatedRoute from './components/routes/AuthenticatedRoute';
 import DataGrid from './components/grid/DataGrid';
-import EncounterFormPage from './components/form/EncounterFormPage';
+import EncounterFormPanel from './components/form/EncounterFormPanel';
 import EncounterForm from './components/form/EncounterForm';
 import FieldInput from './components/widgets/FieldInput';
 import Section from './components/form/Section';
@@ -125,7 +125,7 @@ module.exports = {
   PatientSearch,
   AuthenticatedRoute,
   DataGrid,
-  EncounterFormPage,
+  EncounterFormPanel,
   EncounterForm,
   Section,
   FieldInput,
