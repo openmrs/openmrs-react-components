@@ -17,6 +17,7 @@ import Loader from './../widgets/Loader';
  * Provides a basic wrapper around an Encounter Form with a title, toast success message, and afterSubmitLink
  * Handling fetching the encounter, managing state, etc
  */
+// TODO this should likely be renamed "EncounterFormPanel"?
 
 class EncounterFormPage extends React.PureComponent {
 

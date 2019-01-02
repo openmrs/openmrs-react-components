@@ -50,7 +50,7 @@ import createListReducer from './features/list/createListReducer';
 import { SESSION_TYPES, sessionSagas, sessionActions } from './features/session/';
 import { systemWatcherSaga } from './features/system';
 import { LOGIN_TYPES, loginSagas, loginActions } from './features/login';
-import { openmrsFormSagas, formActions, formValidations, formUtil } from './features/form';
+import { openmrsFormSagas, formActions, formValidations, formUtil, FORM_STATES } from './features/form';
 import { headerSagas, headerActions } from './features/header';
 import { errorsActions } from './features/errors';
 import { constantsSagas, constantsActions } from './features/constants';
@@ -146,6 +146,7 @@ module.exports = {
   EncounterHistory,
   formActions,
   formValidations,
+  FORM_STATES,
   VISIT_TYPES,
   visitActions,
   PATIENT_SEARCH_TYPES,
