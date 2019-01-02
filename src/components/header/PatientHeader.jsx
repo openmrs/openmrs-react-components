@@ -86,7 +86,7 @@ export class PatientHeader extends PureComponent {
           <div className="patient-header ">
             {this.props.showBackButton && <span 
               className="back-button" 
-              onClick={() => this.props.history.push('/')}
+              onClick={() => this.props.history.push(this.props.backLink || '/')}
             >
               <Glyphicon
                 className="back-button-icon"

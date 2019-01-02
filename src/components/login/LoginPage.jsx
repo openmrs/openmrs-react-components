@@ -8,9 +8,9 @@ import '../../../assets/css/background.css';
 
 const LoginPage = props => {
   const { from } = props.location.state || { from: { pathname: "/" } };
-
+  
   if (props.session.authenticated === true) {
-    return <Redirect to={from} />;
+    return <Redirect to={from || '/'} />;
   }
   else {
     return(
