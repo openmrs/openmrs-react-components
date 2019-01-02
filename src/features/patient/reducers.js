@@ -143,6 +143,13 @@ export const patientsReducer = (state = {
         isUpdating: true
       };
 
+    case PATIENT_TYPES.SET_PATIENT_STORE_NOT_UPDATING:
+      return {
+        set: state.set,
+        selected: state.selected,
+        isUpdating: false
+      };
+
     default: return state;
   }
 };

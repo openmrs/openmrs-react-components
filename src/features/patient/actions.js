@@ -15,6 +15,10 @@ const setPatientStoreUpdating =() =>  ( {
   type: PATIENT_TYPES.SET_PATIENT_STORE_UPDATING
 } );
 
+// sets the "updating" flag of the patient store to false
+const setPatientStoreNotUpdating =() =>  ( {
+  type: PATIENT_TYPES.SET_PATIENT_STORE_NOT_UPDATING
+} );
 
 // should add patient if they don't exist
 const updatePatientInStore = (patient) => ( {
@@ -49,6 +53,7 @@ export default {
   setPatientStore,
   clearPatientStore,
   setPatientStoreUpdating,
+  setPatientStoreNotUpdating,
   updateActiveVisitsInStore,
   updatePatientInStore,
   updatePatientsInStore,
