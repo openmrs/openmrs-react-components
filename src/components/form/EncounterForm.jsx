@@ -16,7 +16,6 @@ class EncounterForm extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -72,25 +71,6 @@ class EncounterForm extends React.PureComponent {
     this.props.initialize(this.initialData);
   }
 
-  onSubmit(values) {
-    this.props.dispatch(formActions.formSubmitted({
-      values: values,
-      formId: this.props.formId,
-      formInstanceId: this.props.formInstanceId,
-      patient: this.props.patient,
-      encounter: this.props.encounter,
-      encounterRole: this.props.encounterRole ? this.props.encounterRole : null,
-      encounterType: this.props.encounterType,
-      location: this.props.location ? this.props.location :
-        this.props.sessionLocation ? this.props.sessionLocation : null,
-      provider: this.props.provider ? this.props.provider :
-        this.props.currentProvider ? this.props.currentProvider : null,
-      visit: this.props.visit,
-      visitType: this.props.visitType,
-      formSubmittedActionCreator: this.props.formSubmittedActionCreator
-    }));
-  };
-
   render() {
 
     const { blur, handleSubmit, mode, reset, submitting, formInstanceId, valid } = this.props;
@@ -112,7 +92,7 @@ class EncounterForm extends React.PureComponent {
     };
 
     return (
-      <Form horizontal onSubmit={handleSubmit(this.onSubmit)}>
+      <Form horizontal onSubmit={handleSubmit}>
         <FormContext.Provider value={context} >
           {this.props.children}
           <Field
@@ -165,16 +145,40 @@ EncounterForm.defaultProps = {
   mode: 'edit'
 };
 
-
 const mapStateToProps = (state, props) => {
+
+  const sessionLocation = R.path(['openmrs', 'session', 'sessionLocation'], state);
+  const currentProvider =  R.path(['openmrs', 'session', 'currentProvider'], state);
+
   return {
-    // note that this actually just maps a prop within the form, doesn't interact with state?
+    // note that this actually just maps a prop within the form, doesn't interact with state
     form: props.formInstanceId ? props.formInstanceId : 'openmrs-form',
-    sessionLocation: R.path(['openmrs', 'session', 'sessionLocation'], state),
-    currentProvider: R.path(['openmrs', 'session', 'currentProvider'], state)
+    onSubmit: (values, dispatch) => {
+      dispatch(formActions.formSubmitted({
+        values: values,
+        formId: props.formId,
+        formInstanceId: props.formInstanceId,
+        patient: props.patient,
+        encounter: props.encounter,
+        encounterRole: props.encounterRole ? props.encounterRole : null,
+        encounterType: props.encounterType,
+        location: props.location ? props.location :
+          sessionLocation ? sessionLocation : null,
+        provider: props.provider ? props.provider :
+          currentProvider ? currentProvider : null,
+        visit: props.visit,
+        visitType: props.visitType,
+        formSubmittedActionCreator: props.formSubmittedActionCreator
+      }));
+    },
+    sessionLocation: sessionLocation,
+    currentProvider: currentProvider
 
   };
+
 };
+
+
 
 export default connect(mapStateToProps)(reduxForm()(EncounterForm));
 
