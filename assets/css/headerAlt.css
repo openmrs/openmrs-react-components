@@ -125,3 +125,15 @@
         margin-top: 4px;
     }
 }
+
+@media only screen and (max-width: 1024px) {
+    .full-width.logo, .full-width.user-display {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    .portrait.logo, .portrait.user-display {
+        display: none;
+    }
+}

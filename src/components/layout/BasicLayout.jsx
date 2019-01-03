@@ -25,6 +25,7 @@ class BasicLayout extends React.Component {
             <HeaderAlt
               className="HeaderAlt"
               logo={this.props.logo}
+              smallWidthLogo={this.props.smallWidthLogo}
               navMenuPages={this.props.navMenuPages}
               userMenuPages={this.props.userMenuPages}
             />
