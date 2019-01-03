@@ -8,8 +8,9 @@ class Errors extends React.Component {
     let errorMessages = null;
 
     if (this.props.errors) {
-      errorMessages = this.props.errors.map((e, i) => {
-        return (<Alert key={ i }>{ e.message }</Alert>);
+      const uniqueErrorMessage = [...new Set(this.props.errors.map(error => error.message))];
+      errorMessages = uniqueErrorMessage.map((e, i) => {
+        return (<Alert key={ i }>{ e }</Alert>);
       });
     }
 
