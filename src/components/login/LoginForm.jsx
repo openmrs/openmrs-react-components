@@ -61,10 +61,10 @@ let LoginForm = props => {
 
 LoginForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
+  locations: PropTypes.array.isRequired,
   pristine: PropTypes.bool.isRequired,
   reset: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
-  locations: PropTypes.array.isRequired
 };
 
 LoginForm = reduxForm({
