@@ -25,7 +25,7 @@ class ObsValue extends React.PureComponent{
 
   getObsValue(obs) {
     if (obs.value) {
-      if (!this.props.labels || !this.obs.value.uuid || !this.props.labels[obs.value.uuid]) {
+      if (!this.props.labels || !obs.value.uuid || !this.props.labels[obs.value.uuid]) {
         return obs.value.display ? obs.value.display : obs.value;
       }
       else {
