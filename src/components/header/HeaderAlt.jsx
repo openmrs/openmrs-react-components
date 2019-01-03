@@ -46,7 +46,8 @@ export class HeaderAlt extends React.Component {
               alt=""
               className="header-logo"
               src={this.props.logo}
-            />}
+            />
+            }
             <Navbar.Toggle>
               <FontAwesomeIcon
                 icon="caret-down"
@@ -72,6 +73,7 @@ export class HeaderAlt extends React.Component {
                     />}
                   />
                   <NavItem
+                    className="full-width logo"
                     href={"#/"}
                     onSelect={this.handleSelect}
                   >
@@ -79,6 +81,17 @@ export class HeaderAlt extends React.Component {
                       alt=""
                       className="logo"
                       src={this.props.logo}
+                    />
+                  </NavItem>
+                  <NavItem
+                    className="portrait logo"
+                    href={"#/"}
+                    onSelect={this.handleSelect}
+                  >
+                    <img
+                      alt=""
+                      className="logo"
+                      src={this.props.smallWidthLogo}
                     />
                   </NavItem>
                 </Nav>
@@ -105,22 +118,43 @@ export class HeaderAlt extends React.Component {
                     </span>
                   }
                 />
-                <NavBarMenu
-                  id="dropdown"
-                  onSelect={this.handleSelect}
-                  pageOptions={this.props.userMenuPages}
-                  pathname={this.props.pathname}
-                  title={
-                    <span>
-                      <FontAwesomeIcon
-                        icon="user"
-                        id="navItemIcon"
-                        size="lg"
-                      />
-                      {this.props.user.person ? this.props.user.person.display : 'user'}
-                    </span>
-                  }
-                />
+                <span className="full-width user-display">
+                  <NavBarMenu
+                    id="dropdown"
+                    onSelect={this.handleSelect}
+                    pageOptions={this.props.userMenuPages}
+                    pathname={this.props.pathname}
+                    title={
+                      <span>
+                        <FontAwesomeIcon
+                          icon="user"
+                          id="navItemIcon"
+                          size="lg"
+                        />
+                        {this.props.user.person ? this.props.user.person.display : 'user'}
+                      </span>
+                    }
+                
+                  />
+                </span>
+                <span className="portrait user-display">
+                  <NavBarMenu
+                    id="dropdown"
+                    onSelect={this.handleSelect}
+                    pageOptions={this.props.userMenuPages}
+                    pathname={this.props.pathname}
+                    title={
+                      <span>
+                        <FontAwesomeIcon
+                          icon="user"
+                          id="navItemIcon"
+                          size="lg"
+                        />
+                        {this.props.user.person ? this.props.user.person.display : 'user'}
+                      </span>
+                    }
+                  />
+                </span>
               </Nav>
             </Navbar.Collapse>
           </Navbar>
