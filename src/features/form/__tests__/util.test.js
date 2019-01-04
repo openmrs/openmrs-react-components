@@ -25,6 +25,19 @@ describe('form util', () => {
 
   });
 
+  /*it('should create field name with extra parameters', () => {
+
+    const fieldName = formUtil.obsFieldName(["some_path"], ["some_concept_path"], ["inverted", "special"]);
+    expect(fieldName).toEqual("obs|path=some_path|conceptPath=some_concept_path|inverted^special");
+
+  });
+
+  it('should create field name with extra parameters as string', () => {
+
+    const fieldName = formUtil.obsFieldName(["some_path"], ["some_concept_path"], ["inverted^special"]);
+    expect(fieldName).toEqual("obs|path=some_path|conceptPath=some_concept_path|inverted^special");
+
+  });*/
 
   it('should parse field name with single path elements', () => {
     const { path, concepts } = formUtil.parseObsFieldName("obs|path=some_path|conceptPath=some_concept_path");
@@ -134,7 +147,44 @@ describe('form util', () => {
 
     expect(formUtil.flattenObs(obs)).toEqual(expectedFlattened);
 
+  });
 
+  it('should extract form and path from obs comment', () => {
+
+    const obs = {
+      comment: "form-id^second_grouping^first-nested-obs^double-nested-obs"
+    };
+
+    const { form, path } = formUtil.getFormAndPathFromObs(obs);
+    expect(form).toEqual("form-id");
+    expect(path).toEqual(["second_grouping", "first-nested-obs", "double-nested-obs"]);
+
+  });
+
+  it('should set form and path on obs comment', () => {
+
+    let obs = {
+      comment: ""
+    };
+
+    const form = "form-id";
+    const path = ["second_grouping", "first-nested-obs", "double-nested-obs"];
+
+    formUtil.setFormAndPathOnObs(obs, form, path);
+
+    expect(obs.comment).toEqual("form-id^second_grouping^first-nested-obs^double-nested-obs");
+
+  });
+
+  it('should properly compare obs with form and path', () => {
+
+    const obs = {
+      comment: "form-id^second_grouping^first-nested-obs^double-nested-obs"
+    };
+
+    expect(formUtil.hasMatchingFormAndPath(obs, "form-id", ["second_grouping", "first-nested-obs", "double-nested-obs"])).toEqual(true);
+    expect(formUtil.hasMatchingFormAndPath(obs, "another-form-id", ["second_grouping", "first-nested-obs", "double-nested-obs"])).toEqual(false);
+    expect(formUtil.hasMatchingFormAndPath(obs, "form-id", ["different_second_grouping", "first-nested-obs", "double-nested-obs"])).toEqual(false);
   });
 
 });

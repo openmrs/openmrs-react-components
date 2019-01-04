@@ -516,8 +516,9 @@ describe('form sagas', () => {
     expect(sagaTester.getCalledActions()).toContainEqual(formSubmittedActionCreator());
   });
 
-  /**
-  it('should submit delete obs call for any obs not in post', () => {
+
+  // TODO we aren't actually doing this, doesn't work because we prepopulate post with values
+/*  it('should submit delete obs call for any obs not in post', () => {
 
     const formInstanceId = "form-instance-id";
 
@@ -578,8 +579,8 @@ describe('form sagas', () => {
     expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitFailed(formInstanceId));
     expect(formSubmittedActionCreator.mock.calls.length).toBe(1);
     expect(sagaTester.getCalledActions()).toContainEqual(formSubmittedActionCreator());
-  });
-   **/
+  });*/
+
 
 
 });

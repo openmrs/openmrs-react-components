@@ -2,6 +2,27 @@
 
 const util = {
 
+  // TODO update this next two methods to use form field and namespace instead of comment when running OpenMRS 1.11+
+  getFormAndPathFromObs: (obs) => {
+
+    const [form, ...path] = obs.comment.split("^");
+
+    return {
+      form,
+      path
+    };
+
+  },
+
+  setFormAndPathOnObs: (obs, form, path) => {
+    obs.comment = form + "^" + path.join("^");
+  },
+
+  hasMatchingFormAndPath: (obs, testForm, testPath) => {
+    const { form, path } = util.getFormAndPathFromObs(obs);
+    return form === testForm && util.areEqual(path, testPath);
+  },
+
   // note that this should handle both arrays for path and concepts, as well as strings
   // if strings, it assumes that the join("^") has already been performed
   obsFieldName: (path, concepts) => {
@@ -68,10 +89,10 @@ const util = {
       equal = true;
     }
     if (array1 !== null ) {
-      json1 = JSON.stringify(array1)
+      json1 = JSON.stringify(array1);
     }
     if (array2 !== null ) {
-      json2 = JSON.stringify(array1)
+      json2 = JSON.stringify(array2);
     }
     if (json1 === json2) {
       equal = true;
