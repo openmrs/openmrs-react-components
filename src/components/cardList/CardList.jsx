@@ -8,21 +8,17 @@ import Loader from '../widgets/Loader';
 import '../../../assets/css/cardList.css';
 
 class CardList extends React.Component {
-
-  // TODO the "additionalFilters" is still too tightly coupled, need to rework
-
   constructor(props) {
     super(props);
 
     this.state = {
       searchValue: '',
-      searchIdentifierValue: ''
+      additionalSearchValue: ''
     };
 
     this.onRowSelected = this.onRowSelected.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleSearchClear = this.handleSearchClear.bind(this);
-    this.handleIdentifierSearchChange = this.handleIdentifierSearchChange.bind(this);
   }
 
   componentDidMount() {
@@ -60,7 +56,7 @@ class CardList extends React.Component {
 
     if (searchFilterFields) {
       list = matchSorter(list, this.state.searchValue, { keys: searchFilterFields });
-      list = matchSorter(list, this.state.searchIdentifierValue, { keys: searchFilterFields });
+      list = matchSorter(list, this.state.additionalSearchValue, { keys: searchFilterFields });
     }
 
     if (sortFields) {
@@ -85,20 +81,20 @@ class CardList extends React.Component {
   }
 
   handleSearchChange(e) {
-    this.setState({ searchValue: e.target.value });
+    if (e.hasOwnProperty('target')) {
+      this.setState({ searchValue: e.target.value });
+    } else {
+      this.setState({ additionalSearchValue: e });
+    }
   }
   
-  handleIdentifierSearchChange(e) {
-    this.setState({ searchIdentifierValue: e });
-  }
-
   handleSearchClear() {
     this.setState({ searchValue: '' });
   }
 
   render() {
     // TODO "getPatientIdentifiers" should be generalizible in some way
-    const { rowData, loading, card, AdditionalFilters, getPatientIdentifiers } = this.props;
+    const { rowData, loading, card, AdditionalSearchFilters, getPatientIdentifiers } = this.props;
 
     if (loading) {
       return (
@@ -113,9 +109,8 @@ class CardList extends React.Component {
           <h3><Label>{this.props.title}</Label></h3>
           <Glyphicon className="refresh-button" glyph="refresh" onClick={() => this.handleFetchData()} />
         </div>
-        {AdditionalFilters && <AdditionalFilters
-          handleSearchChange={this.handleIdentifierSearchChange}
-          rowData={data} />}
+        {AdditionalSearchFilters && <AdditionalSearchFilters
+          handleSearchChange={this.handleSearchChange} />}
         {this.props.searchFilterFields && <div className="">
           <div className="name-filter-container">
             <span className="name-filter">
@@ -148,7 +143,7 @@ class CardList extends React.Component {
 
 // TODO fix AdditioanlFilers and card prop-types?
 CardList.propTypes = {
-  AdditionalFilters: PropTypes.func,
+  AdditionalSearchFilters: PropTypes.func,
   card: PropTypes.func.isRequired,
   delayInterval: PropTypes.number.isRequired,
   fetchListActionCreator: PropTypes.func,
