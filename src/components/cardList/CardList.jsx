@@ -100,11 +100,6 @@ class CardList extends React.Component {
     // TODO "getPatientIdentifiers" should be generalizible in some way
     const { rowData, loading, card, AdditionalFilters, getPatientIdentifiers } = this.props;
 
-    if (loading) {
-      return (
-        <Loader />);
-    }
-
     const data = this.applyFiltersToList(rowData);
 
     return (
@@ -137,9 +132,10 @@ class CardList extends React.Component {
             </span>
           </div>
         </div>}
-        {rowData.length > 0 ? this.applyFiltersToList(rowData).map((patientData, index) => 
-          card(patientData, index, this.onRowSelected, getPatientIdentifiers)
-        ) : <h2 className="text-center">No Data to display</h2>
+        {loading ? <Loader /> : 
+          (rowData.length > 0 ? this.applyFiltersToList(rowData).map((patientData, index) => 
+            card(patientData, index, this.onRowSelected, getPatientIdentifiers)
+          ) : <h2 className="text-center">No Data to display</h2>)
         }
       </div>
     );
