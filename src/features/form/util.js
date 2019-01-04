@@ -2,7 +2,20 @@
 
 const util = {
 
-  obsFieldName: (path, concepts) => `obs|path=${path}|conceptPath=${concepts}`,
+  // note that this should handle both arrays for path and concepts, as well as strings
+  // if strings, it assumes that the join("^") has already been performed
+  obsFieldName: (path, concepts) => {
+    return `obs|path=${Array.isArray(path) ? path.join("^") : path}|conceptPath=${Array.isArray(concepts) ? concepts.join("^") : concepts}`;
+  },
+
+  parseObsFieldName: (fieldName) => {
+    const fieldElements = fieldName.split('|');
+
+    return {
+      path: fieldElements[1].split('=')[1].split('^'),
+      concepts: fieldElements[2].split('=')[1].split('^')
+    };
+  },
 
   conceptAnswerDisplay: (value, conceptAnswers) => {
 

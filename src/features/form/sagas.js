@@ -10,17 +10,9 @@ import visitRest from '../../rest/visitRest';
 
 // TODO need to handle fields that aren't obs!
 // TODO this should really pass back something... the id of the created encounter, etc?
+// TODO clear out hanging obs groups?
 
 // TODO update to use form field and namespace instead of comment when running OpenMRS 1.11+
-
-
-function getPathFromFieldName(fieldName) {
-  return fieldName.split('|')[1].split('=')[1].split('^');
-}
-
-function getConceptPathFromFieldName(fieldName) {
-  return fieldName.split('|')[2].split('=')[1].split('^');
-}
 
 function findExistingObsUuid(formId, path, flattenedObs) {
 
@@ -36,15 +28,14 @@ function findExistingObsUuid(formId, path, flattenedObs) {
 
 function addObs(allObs, value, formId, existingObsFlattened) {
 
-  let path = getPathFromFieldName(value[0]);
-  let conceptPath = getConceptPathFromFieldName(value[0]);
+  const { path, concepts } = formUtil.parseObsFieldName(value[0]);
   let val = value[1];
 
   // create the obs
-  const obs = createObs(val, path, conceptPath[conceptPath.length - 1], formId, existingObsFlattened);
+  const obs = createObs(val, path, concepts[concepts.length - 1], formId, existingObsFlattened);
 
   // figure out where to add it in the tree
-  addObsHelper(allObs, 0, obs, path, conceptPath, formId, existingObsFlattened);
+  addObsHelper(allObs, 0, obs, path, concepts, formId, existingObsFlattened);
 }
 
 // add the obs to the obs tree, creating any intermediate obs groups as necessary
@@ -178,7 +169,7 @@ function* submit(action) {
     // now delete any existing obs if necessary
     let obsToDelete = Object.entries(action.values)
       .filter(value => !value[1])  // any ones without a value
-      .map(value => ({ uuid: findExistingObsUuid(action.formId, getPathFromFieldName(value[0]), existingFlattenedObs ) }))  // match to any existing obs
+      .map(value => ({ uuid: findExistingObsUuid(action.formId, formUtil.parseObsFieldName(value[0]).path, existingFlattenedObs ) }))  // match to any existing obs
       .filter(obs => obs.uuid); // only ones with matching uuid
 
     // we do this in a standard for instead of for-each because haven't figured out how to handle nested generator functions yet

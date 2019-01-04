@@ -139,17 +139,20 @@ const getUuid = (concept) => {
 
 const mapStateToProps = (state, props) => {
 
-  let concepts = '';
-
-  if (props.obsGroupContext) {
-    concepts = props.obsGroupContext.groupingConcepts
+  let concepts = (props.obsGroupContext ?
+    props.obsGroupContext.groupingConcepts
       .map((concept) => getUuid(concept))
-      .reduce((acc, item) => acc + item + '^', '');
-  }
+    : []
+  );
 
   concepts += getUuid(props.concept);
 
-  const fullPath = (props.obsGroupContext ? props.obsGroupContext.path + '^' : '') + props.path;
+  let fullPath = (props.obsGroupContext ?
+    props.obsGroupContext.path.split("^")
+    : []
+  );
+
+  fullPath +=  props.path;
 
   const name = formUtil.obsFieldName(fullPath, concepts);
 
