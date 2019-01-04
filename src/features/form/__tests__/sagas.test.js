@@ -315,7 +315,7 @@ describe('form sagas', () => {
     expect(sagaTester.getCalledActions()).toContainEqual(formSubmittedActionCreator());
   });
 
-  it('should not call delete obs for obs that is not previously exisitng', () => {
+  it('should not call delete obs for obs that is not previously exisiting', () => {
 
     const formInstanceId = "form-instance-id";
 
@@ -515,5 +515,72 @@ describe('form sagas', () => {
     expect(formSubmittedActionCreator.mock.calls.length).toBe(1);
     expect(sagaTester.getCalledActions()).toContainEqual(formSubmittedActionCreator());
   });
+
+
+  // TODO we aren't actually doing this, doesn't work because we prepopulate post with values
+/*  it('should submit delete obs call for any obs not in post', () => {
+
+    const formInstanceId = "form-instance-id";
+
+    const values =  { 'obs|path=first-obs|conceptPath=first-obs-uuid': 100 }  ;
+
+    const patient = {
+      uuid: "some_patient_uuid"
+    };
+
+    const encounterType = {
+      uuid: "some_encounter_type_uuid"
+    };
+
+    const visit = {
+      uuid: "some_visit_uuid"
+    };
+
+    const encounter = {
+      "uuid": "existing_encounter_uuid",
+      "obs": [
+        {
+          "uuid": "existing_obs_uuid",
+          "concept": {
+            "uuid": "existing-obs-concept-uuid"
+          },
+          "comment": "form-id^second-obs"
+        }
+      ]
+    };
+
+    const expectedEncounterPost = {
+      "uuid": "existing_encounter_uuid",
+      "obs": [
+        { "comment": "form-id^first-obs",
+          "concept": "first-obs-uuid",
+          "value": 100
+        }
+      ],
+    };
+
+    sagaTester.dispatch(formActions.formSubmitted( {
+      values: values,
+      formId: "form-id",
+      formInstanceId: formInstanceId,
+      patient: patient,
+      encounter: encounter,
+      encounterType: encounterType,
+      visit: visit,
+      formSubmittedActionCreator:
+      formSubmittedActionCreator
+    } ));
+    expect(encounterRest.updateEncounter).toHaveBeenCalledTimes(1);
+    expect(encounterRest.updateEncounter.mock.calls[0][0]).toMatchObject(expectedEncounterPost);
+    expect(obsRest.deleteObs).toHaveBeenCalledTimes(1);
+    expect(obsRest.deleteObs.mock.calls[0][0].uuid).toBe("existing_obs_uuid");
+
+    expect(sagaTester.getCalledActions()).toContainEqual(formActions.formSubmitSucceeded(formInstanceId, formSubmittedActionCreator));
+    expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitFailed(formInstanceId));
+    expect(formSubmittedActionCreator.mock.calls.length).toBe(1);
+    expect(sagaTester.getCalledActions()).toContainEqual(formSubmittedActionCreator());
+  });*/
+
+
 
 });

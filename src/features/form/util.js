@@ -2,7 +2,41 @@
 
 const util = {
 
-  obsFieldName: (path, concepts) => `obs|path=${path}|conceptPath=${concepts}`,
+  // TODO update this next two methods to use form field and namespace instead of comment when running OpenMRS 1.11+
+  getFormAndPathFromObs: (obs) => {
+
+    const [form, ...path] = obs.comment.split("^");
+
+    return {
+      form,
+      path
+    };
+
+  },
+
+  setFormAndPathOnObs: (obs, form, path) => {
+    obs.comment = form + "^" + path.join("^");
+  },
+
+  hasMatchingFormAndPath: (obs, testForm, testPath) => {
+    const { form, path } = util.getFormAndPathFromObs(obs);
+    return form === testForm && util.areEqual(path, testPath);
+  },
+
+  // note that this should handle both arrays for path and concepts, as well as strings
+  // if strings, it assumes that the join("^") has already been performed
+  obsFieldName: (path, concepts) => {
+    return `obs|path=${Array.isArray(path) ? path.join("^") : path}|conceptPath=${Array.isArray(concepts) ? concepts.join("^") : concepts}`;
+  },
+
+  parseObsFieldName: (fieldName) => {
+    const fieldElements = fieldName.split('|');
+
+    return {
+      path: fieldElements[1].split('=')[1].split('^'),
+      concepts: fieldElements[2].split('=')[1].split('^')
+    };
+  },
 
   conceptAnswerDisplay: (value, conceptAnswers) => {
 
@@ -55,10 +89,10 @@ const util = {
       equal = true;
     }
     if (array1 !== null ) {
-      json1 = JSON.stringify(array1)
+      json1 = JSON.stringify(array1);
     }
     if (array2 !== null ) {
-      json2 = JSON.stringify(array1)
+      json2 = JSON.stringify(array2);
     }
     if (json1 === json2) {
       equal = true;
