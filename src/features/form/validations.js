@@ -20,6 +20,42 @@ const dateToInt = dateStr => new Date(dateStr).getTime();
 const maxDateValue = maxDate => value =>
   value && (dateToInt(value)) > dateToInt(maxDate) ? `Date should be earlier or equal to today's date` : undefined;
 
+const getNormalRangeFromConcept = concept => {
+  const {
+    hiAbsolute,	
+    lowAbsolute,
+  } = concept;
+  let hiAbsoluteRange, lowAbsoluteRange;
+
+  if (hiAbsolute || lowAbsolute) {
+    hiAbsoluteRange = hiAbsolute ? maxValue(hiAbsolute) : undefined;
+    lowAbsoluteRange = hiAbsolute ? minValue(lowAbsolute) : undefined;
+    return [hiAbsoluteRange, lowAbsoluteRange].filter(Boolean);
+  } else {
+    return [];
+  }
+};
+
+const getAbNormalRangeFromConcept = concept => {
+  const {
+    hiNormal,	
+    hiCritical,
+    lowCritical,	
+    lowNormal,
+  } = concept;
+  let hiNormalRange, lowNormalRange, hiCriticalRange, lowCriticalRange;
+  
+  if (hiNormal || hiCritical || lowCritical || lowNormal) {
+    hiNormalRange = hiNormal ? maxValue(hiNormal) : undefined;
+    lowNormalRange = lowNormal ? minValue(lowNormal) : undefined;
+    hiCriticalRange = hiCritical ? maxValue(hiCritical) : undefined;
+    lowCriticalRange = lowCritical ? minValue(lowCritical) : undefined;
+    return [hiNormalRange, lowNormalRange, hiCriticalRange, lowCriticalRange].filter(Boolean);
+  } else {
+    return [];
+  }
+};
+
 export default {
   minValue,
   maxValue,
@@ -28,4 +64,6 @@ export default {
   criticalMinValue,
   criticalMaxValue,
   maxDateValue,
+  getNormalRangeFromConcept,
+  getAbNormalRangeFromConcept
 };
