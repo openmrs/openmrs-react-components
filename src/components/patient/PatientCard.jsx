@@ -18,11 +18,10 @@ const PatientCard = (patient, index, onRowSelected, getPatientIdentifiers) => (
         <span className="dob">({patient.birthdate && format(patient.birthdate, DATE_FORMAT)})</span>
       </span>
       { ( typeof patient.alert !== 'undefined' ) &&
-                      ( patient.alert !== null ) &&
-                      ( patient.alert.length > 0  ) &&
+                      ( patient.alert !== null ) &&         
       <span className="patient-alert">
-        { patient.alert.map((alert, index) => (
-          <span key={index}>{alert}</span>
+        { Object.keys(patient.alert).map((alert) => (
+          <span key={alert}>{alert}</span>
         ))}
       </span>
       }
