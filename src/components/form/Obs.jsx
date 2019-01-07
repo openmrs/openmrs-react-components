@@ -167,7 +167,7 @@ const mapStateToProps = (state, props) => {
   return {
     name: name,
     value: props.formContext ? props.formContext.selector(state, name) : null,
-    concept: { ...concept, ...props.concept },  N
+    concept: { ...concept, ...props.concept },
     conceptUuid: getUuid(props.concept)  // TODO better way to handle this
   };
 };
