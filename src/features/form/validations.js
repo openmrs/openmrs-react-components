@@ -20,7 +20,7 @@ const dateToInt = dateStr => new Date(dateStr).getTime();
 const maxDateValue = maxDate => value =>
   value && (dateToInt(value)) > dateToInt(maxDate) ? `Date should be earlier or equal to today's date` : undefined;
 
-const getNormalRangeFromConcept = concept => {
+const generateAbsoluteRangeValidators = concept => {
   const {
     hiAbsolute,	
     lowAbsolute,
@@ -36,7 +36,7 @@ const getNormalRangeFromConcept = concept => {
   }
 };
 
-const getAbnormalRangeFromConcept = concept => {
+const generateAbnormalAndCriticalWarningFunctions = concept => {
   const {
     hiNormal,	
     hiCritical,
@@ -64,6 +64,6 @@ export default {
   criticalMinValue,
   criticalMaxValue,
   maxDateValue,
-  getNormalRangeFromConcept,
-  getAbnormalRangeFromConcept
+  generateAbsoluteRangeValidators,
+  generateAbnormalAndCriticalWarningFunctions
 };

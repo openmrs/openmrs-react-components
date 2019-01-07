@@ -93,7 +93,7 @@ ObsValue.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   const concept = selectors.getConcept(state, ownProps.obs.concept.uuid);
   return {
-    concept: { ...concept, ...ownProps.concept }
+    concept: { ...concept, ...ownProps.concept }    // this allows user to override the absolute, abnormal, and critical ranges defined on the concept
   };
 };
 

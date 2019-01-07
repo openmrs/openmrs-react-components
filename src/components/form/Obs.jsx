@@ -21,8 +21,8 @@ class Obs extends React.PureComponent {
     super(props);
 
     this.state = {
-      getValidationAbnormalRange: formValidations.getAbnormalRangeFromConcept(this.props.concept),
-      getValidationNormalRange: formValidations.getNormalRangeFromConcept(this.props.concept)
+      getValidationAbnormalRange: formValidations.generateAbnormalAndCriticalWarningFunctions(this.props.concept),
+      getValidationAbsoluteRange: formValidations.generateAbsoluteRangeValidators(this.props.concept)
     }; 
   }
 
@@ -43,7 +43,7 @@ class Obs extends React.PureComponent {
           displayValue={this.props.value}
           mode={this.props.formContext.mode}
           name={this.props.name}
-          validate={this.props.validate || this.state.getValidationNormalRange}
+          validate={this.props.validate || this.state.getValidationAbsoluteRange}
         />
       );
     } else if (this.props.widget === 'checkbox') {
@@ -107,7 +107,7 @@ class Obs extends React.PureComponent {
             name={this.props.name}
             placeholder={this.props.placeholder}
             type={this.props.datatype}
-            validate={this.props.validate|| this.state.getValidationNormalRange}
+            validate={this.props.validate|| this.state.getValidationAbsoluteRange}
             warn={this.props.warn || this.state.getValidationAbnormalRange}
           />
         </div>
@@ -167,7 +167,7 @@ const mapStateToProps = (state, props) => {
   return {
     name: name,
     value: props.formContext ? props.formContext.selector(state, name) : null,
-    concept: { ...concept, ...props.concept },
+    concept: { ...concept, ...props.concept },  N
     conceptUuid: getUuid(props.concept)  // TODO better way to handle this
   };
 };

@@ -82,7 +82,7 @@ class ObsHistory extends React.PureComponent {
                         obsByGroup.map((obs) => {
                           return (
                             <ObsValue
-                              concept={this.props.concepts.find(concept => concept.uuid === obs.concept.uuid)}
+                              concept={this.props.concepts.find(concept => concept.uuid === obs.concept.uuid)}     // to support user to override the absolute, abnormal, and critical ranges defined on the concept
                               key={obs.id}
                               labels={this.props.labels}
                               obs={obs} />
