@@ -9,9 +9,7 @@ class ObsValue extends React.PureComponent{
 
 
   componentDidMount() {
-    if (!this.props.concept) {
-      this.props.dispatch(conceptActions.fetchConcepts([this.props.obs.concept.uuid]));
-    }
+    this.props.dispatch(conceptActions.fetchConcepts([this.props.obs.concept.uuid]));
   }
 
   getObsLabel(obs) {
