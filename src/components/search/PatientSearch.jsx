@@ -8,6 +8,7 @@ import patientUtil from '../../domain/patient/patientUtil';
 import PatientSearchForm from './PatientSearchForm';
 import DataGrid from "../grid/DataGrid";
 
+
 // TODO: do we want a way override the default actions to clear the selected patient and add the patient to the store?
 
 class PatientSearch extends React.Component {
@@ -25,9 +26,9 @@ class PatientSearch extends React.Component {
     }
   }
 
-  handleSubmit(values) {
+  handleSubmit(value) {
     this.props.dispatch(patientSearchActions.patientSearch(
-      values.query,
+      value,
       this.props.parseResults, // the can override with a callback function to parse the results returned by the REST API
       this.props.representation));
   };
@@ -35,6 +36,15 @@ class PatientSearch extends React.Component {
   render() {
     return (
       <div>
+        {this.props.AdditionalFilters &&
+          (
+            <this.props.AdditionalFilters
+              handleSearchChange={this.handleSubmit}
+              rowData={this.props.rowData}
+              searchType="server"
+           />
+          )
+        }
         <PatientSearchForm onSubmit={this.handleSubmit} />
         { (typeof this.props.rowData !== 'undefined') && (this.props.rowData.length > 0) &&
           <DataGrid

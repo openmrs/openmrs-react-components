@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import { Field, reduxForm } from 'redux-form';
-import { Button, Form, FormGroup, Grid, Row, Col, ControlLabel } from 'react-bootstrap';
+import { Button, Form, FormGroup, Grid, Row, Col, ControlLabel, Glyphicon, FormControl } from 'react-bootstrap';
 
 const leftTextAlign = {
   textAlign: "left"
@@ -14,51 +14,52 @@ const inputSearchStyle = {
   height: "30px"
 };
 
-const PatientSearchForm = props => {
-  const { handleSubmit, pristine, reset, submitting } = props;
-
+const patientSearchInput = (field) => {
   return (
-    <Form onSubmit={handleSubmit}>
-      <Grid>
-        <Row>
-          <FormGroup controlId="searchLabel">
-            <Col sm={ 3 } componentClass={ControlLabel}>
-              Search Patients
-            </Col>
-          </FormGroup>
-        </Row>
-        <Row>
-          <FormGroup controlId="searchLabel">
-            <Col sm={ 3 }>
-              <Field
-                component="input"
-                name="query"
-                type="text"
-                style={ inputSearchStyle }
-                placeholder="enter name or id"
-              />
-            </Col>
-            <Col sm={2} style={ leftTextAlign }>
-              <Button
-                bsStyle="primary"
-                bsSize="small"
-                disabled={pristine || submitting}
-                type="submit">
-                Search
-              </Button>
-            </Col>
-          </FormGroup>
-        </Row>
-        <Row>
-          <Col sm={20} md={20} style={ colHeight }>
-            <span><h1>{ '' }</h1></span>
-          </Col>
-        </Row>
+  <div className="name-filter-container">
+    <span className="name-filter">
+      <Glyphicon
+        className="left-icon"
+        glyph="search"
+      />
+      <FormControl
+        placeholder="search by text"
+        type="text"
+        {...field.input}
+      />           
+      <Glyphicon 
+        className="right-icon"
+        glyph="remove-sign" 
+        onClick={() => {}}
+      />
+    </span>
+</div>
+);
+  }
 
-      </Grid>
-    </Form>
-  );
-};
+class PatientSearchForm extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(e) {
+    this.props.onSubmit(e.target.value);
+  }
+
+  render() {
+
+    return (
+      <div>
+        <Field
+          component={patientSearchInput}
+          name="query"
+          onChange={this.handleChange}
+        />
+      </div>
+  
+    );
+  };
+}
 
 PatientSearchForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
