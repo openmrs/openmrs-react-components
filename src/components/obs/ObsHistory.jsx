@@ -38,6 +38,7 @@ class ObsHistory extends React.PureComponent {
   // TODO we only want to import the methods we use to save space (ie does chaining import everything?)
   sortAndGroupResults(results) {
     const set = chain(results)
+      .sortBy((obs) => this.props.concepts.findIndex(concept => concept.uuid === obs.concept.uuid))  // sort based on order of concepts in props list; this may be inefficient to do before grouping?
       .groupBy((obs) => obs.obsGroup ? obs.obsGroup.uuid : obs.uuid)   // group by obs group, if present
       .values()
       .groupBy((obsByGroup) => obsByGroup[0].encounter ? obsByGroup[0].encounter.uuid : obsByGroup[0].uuid)  //group by encounter, if present
