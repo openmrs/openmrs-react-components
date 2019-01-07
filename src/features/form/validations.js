@@ -36,7 +36,7 @@ const getNormalRangeFromConcept = concept => {
   }
 };
 
-const getAbNormalRangeFromConcept = concept => {
+const getAbnormalRangeFromConcept = concept => {
   const {
     hiNormal,	
     hiCritical,
@@ -65,5 +65,5 @@ export default {
   criticalMaxValue,
   maxDateValue,
   getNormalRangeFromConcept,
-  getAbNormalRangeFromConcept
+  getAbnormalRangeFromConcept
 };
