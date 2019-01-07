@@ -46,10 +46,10 @@ const getAbnormalRangeFromConcept = concept => {
   let hiNormalRange, lowNormalRange, hiCriticalRange, lowCriticalRange;
   
   if (hiNormal || hiCritical || lowCritical || lowNormal) {
-    hiNormalRange = hiNormal ? maxValue(hiNormal) : undefined;
-    lowNormalRange = lowNormal ? minValue(lowNormal) : undefined;
-    hiCriticalRange = hiCritical ? maxValue(hiCritical) : undefined;
-    lowCriticalRange = lowCritical ? minValue(lowCritical) : undefined;
+    hiNormalRange = hiNormal ? abnormalMaxValue(hiNormal) : undefined;
+    lowNormalRange = lowNormal ? abnormalMinValue(lowNormal) : undefined;
+    hiCriticalRange = hiCritical ? criticalMaxValue(hiCritical) : undefined;
+    lowCriticalRange = lowCritical ? criticalMinValue(lowCritical) : undefined;
     return [hiNormalRange, lowNormalRange, hiCriticalRange, lowCriticalRange].filter(Boolean);
   } else {
     return [];
