@@ -82,6 +82,7 @@ class ObsHistory extends React.PureComponent {
                         obsByGroup.map((obs) => {
                           return (
                             <ObsValue
+                              concept={this.props.concepts.find(concept => concept.uuid === obs.concept.uuid)}
                               key={obs.id}
                               labels={this.props.labels}
                               obs={obs} />

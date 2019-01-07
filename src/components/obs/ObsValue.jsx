@@ -93,8 +93,9 @@ ObsValue.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
+  const concept = selectors.getConcept(state, ownProps.obs.concept.uuid);
   return {
-    concept: selectors.getConcept(state, ownProps.obs.concept.uuid)
+    concept: { ...concept, ...ownProps.concept }
   };
 };
 
