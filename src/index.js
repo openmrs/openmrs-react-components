@@ -57,6 +57,7 @@ import { constantsSagas, constantsActions } from './features/constants';
 import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
 import { GRID_TYPES, gridActions } from './features/grid';
 import { patientActions, PATIENT_TYPES } from "./features/patient";
+import { locationActions, locationSagas } from "./features/location";
 import { conceptSagas } from "./features/concept";
 import {
   PATIENT_SEARCH_TYPES,
@@ -95,7 +96,8 @@ const sagas = function* () {
     headerSagas(),
     openmrsFormSagas(),
     constantsSagas(),
-    conceptSagas()
+    conceptSagas(),
+    locationSagas()
   ]);
 };
 
@@ -156,6 +158,7 @@ module.exports = {
   errorsActions,
   patientActions,
   PATIENT_TYPES,
+  locationActions,
   axiosInstance,
   encounterRest,
   orderRest,
