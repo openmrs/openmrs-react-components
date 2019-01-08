@@ -98,7 +98,7 @@
 }
 
 .name-filter input {
-  width: 80%;
+  width: 73%;
   padding: 0px 0px 0px 40px;
   background-color: #FFF;
   border: 1px solid #DDD;
@@ -112,6 +112,11 @@
 }
 .name-filter .right-icon {
   position: absolute;
-  left: 73%;
+  left: 65%;
   line-height: 30px;
+}
+
+.name-filter-container .search-button {
+  border: 1px solid black;
+  margin-left: 20px
 }

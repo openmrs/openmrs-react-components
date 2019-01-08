@@ -50,13 +50,13 @@ class CardList extends React.Component {
   }
 
   applyFiltersToList(list) {
-    const { sortFields, searchFilterFields } = this.props;
+    const { sortFields, searchFilterFields, additionalSearchFilterFields } = this.props;
     let filters = this.props.filters ? [...this.props.filters] : [];
     list = applyFilters(list, filters, 'and');
 
-    if (searchFilterFields) {
+    if (searchFilterFields || additionalSearchFilterFields) {
       list = matchSorter(list, this.state.searchValue, { keys: searchFilterFields });
-      list = matchSorter(list, this.state.additionalSearchValue, { keys: searchFilterFields });
+      list = matchSorter(list, this.state.additionalSearchValue, { keys: additionalSearchFilterFields });
     }
 
     if (sortFields) {
@@ -83,7 +83,7 @@ class CardList extends React.Component {
   handleSearchChange(e) {
     if (e.hasOwnProperty('target')) {
       this.setState({ searchValue: e.target.value });
-    } else {
+    } else if (e){
       this.setState({ additionalSearchValue: e });
     }
   }
@@ -115,7 +115,7 @@ class CardList extends React.Component {
               />
               <FormControl
                 onChange={this.handleSearchChange}
-                placeholder="search by text"
+                placeholder="search by name"
                 type="text"
                 value={this.state.searchValue}
               />           
@@ -124,6 +124,7 @@ class CardList extends React.Component {
                 glyph="remove-sign" 
                 onClick={this.handleSearchClear}
               />
+              <button className="search-button">search</button>
             </span>
           </div>
         </div>}
@@ -140,6 +141,7 @@ class CardList extends React.Component {
 // TODO fix AdditioanlFilers and card prop-types?
 CardList.propTypes = {
   AdditionalSearchFilters: PropTypes.func,
+  additionalSearchFilterFields: PropTypes.array,
   card: PropTypes.func.isRequired,
   delayInterval: PropTypes.number.isRequired,
   fetchListActionCreator: PropTypes.func,
