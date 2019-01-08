@@ -54,8 +54,10 @@ class CardList extends React.Component {
     let filters = this.props.filters ? [...this.props.filters] : [];
     list = applyFilters(list, filters, 'and');
 
-    if (searchFilterFields || additionalSearchFilterFields) {
+    if (searchFilterFields) {
       list = matchSorter(list, this.state.searchValue, { keys: searchFilterFields });
+    }
+    if (additionalSearchFilterFields) {
       list = matchSorter(list, this.state.additionalSearchValue, { keys: additionalSearchFilterFields });
     }
 
