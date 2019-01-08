@@ -44,17 +44,54 @@ export class HeaderAlt extends React.Component {
           >
             {!this.state.expanded && <img
               alt=""
-              className="header-logo"
+              className="header-logo full-width"
               src={this.props.logo}
             />
             }
-            <Navbar.Toggle>
-              <FontAwesomeIcon
-                icon="caret-down"
-                id='navbarIcon'
-                size="2x"
+            {!this.state.expanded && <img
+              alt=""
+              className="header-logo portrait"
+              src={this.props.smallWidthLogo}
+            />
+            }
+
+            <div className="navbar-menu portrait">
+              <div className="location-dropdown-icon">
+                <LocationMenu
+                  dispatch={this.props.dispatch}
+                  id="dropdown"
+                  locations={this.props.locations ? this.props.locations : []}
+                  onSelect={this.handleSelect}
+                  sessionLocation={this.props.sessionLocation}
+                  title={
+                    <span>
+                      <FontAwesomeIcon
+                        icon="map-marker"
+                        id="navItemIcon"
+                        size="lg"
+                      />
+                      <span className="session-location-dropdown">{this.props.sessionLocation.display}</span>
+                    </span>
+                  }
+                />
+              </div>
+              <NavBarMenu
+                id="dropdown"
+                onSelect={this.handleSelect}
+                pageOptions={this.props.userMenuPages}
+                pathname={this.props.pathname}
+                title={
+                  <span>
+                    <FontAwesomeIcon
+                      icon="user"
+                      id="navItemIcon"
+                      size="lg"
+                    />
+                    <span className="current-user-dropdown">{this.props.user.person ? this.props.user.person.display : 'user'}</span>
+                  </span>
+                }
               />
-            </Navbar.Toggle>
+            </div>
             <Navbar.Collapse in={this.state.expanded}>
               <Navbar.Header>
                 <Nav
@@ -83,79 +120,69 @@ export class HeaderAlt extends React.Component {
                       src={this.props.logo}
                     />
                   </NavItem>
-                  <NavItem
-                    className="portrait logo"
-                    href={"#/"}
-                    onSelect={this.handleSelect}
-                  >
-                    <img
-                      alt=""
-                      className="logo"
-                      src={this.props.smallWidthLogo}
-                    />
-                  </NavItem>
                 </Nav>
               </Navbar.Header>
-
-              <Nav
-                id="nav"
-                pullRight
-              >
-                <LocationMenu
-                  dispatch={this.props.dispatch}
-                  id="dropdown"
-                  locations={this.props.locations ? this.props.locations : []}
-                  onSelect={this.handleSelect}
-                  sessionLocation={this.props.sessionLocation}
-                  title={
-                    <span>
-                      <FontAwesomeIcon
-                        icon="map-marker"
-                        id="navItemIcon"
-                        size="lg"
-                      />
-                      {this.props.sessionLocation.display}
-                    </span>
-                  }
-                />
-                <span className="full-width user-display">
-                  <NavBarMenu
+              <span className="navbar-menu full-wdith">
+                <Nav
+                  id="nav"
+                  pullRight
+                >
+                  <LocationMenu
+                    dispatch={this.props.dispatch}
                     id="dropdown"
+                    locations={this.props.locations ? this.props.locations : []}
                     onSelect={this.handleSelect}
-                    pageOptions={this.props.userMenuPages}
-                    pathname={this.props.pathname}
+                    sessionLocation={this.props.sessionLocation}
                     title={
                       <span>
                         <FontAwesomeIcon
-                          icon="user"
+                          icon="map-marker"
                           id="navItemIcon"
                           size="lg"
                         />
-                        {this.props.user.person ? this.props.user.person.display : 'user'}
-                      </span>
-                    }
-                
-                  />
-                </span>
-                <span className="portrait user-display">
-                  <NavBarMenu
-                    id="dropdown"
-                    onSelect={this.handleSelect}
-                    pageOptions={this.props.userMenuPages}
-                    pathname={this.props.pathname}
-                    title={
-                      <span>
-                        <FontAwesomeIcon
-                          icon="user"
-                          id="navItemIcon"
-                          size="lg"
-                        />
-                        {this.props.user.person ? this.props.user.person.display : 'user'}
+                        <span className="session-location-dropdown">{this.props.sessionLocation.display}</span>
                       </span>
                     }
                   />
-                </span>
-              </Nav>
+                  <span className="full-width user-display">
+                    <NavBarMenu
+                      id="dropdown"
+                      onSelect={this.handleSelect}
+                      pageOptions={this.props.userMenuPages}
+                      pathname={this.props.pathname}
+                      title={
+                        <span>
+                          <FontAwesomeIcon
+                            icon="user"
+                            id="navItemIcon"
+                            size="lg"
+                          />
+                          {this.props.user.person ? this.props.user.person.display : 'user'}
+                        </span>
+                      }
+                  
+                    />
+                  </span>
+                  <span className="portrait user-display">
+                    <NavBarMenu
+                      id="dropdown"
+                      onSelect={this.handleSelect}
+                      pageOptions={this.props.userMenuPages}
+                      pathname={this.props.pathname}
+                      title={
+                        <span>
+                          <FontAwesomeIcon
+                            icon="user"
+                            id="navItemIcon"
+                            size="lg"
+                          />
+                          <span className="current-user-dropdown">{this.props.user.person ? this.props.user.person.display : 'user'}</span>
+                        </span>
+                      }
+                    />
+                  </span>
+                </Nav>
+              </span>
             </Navbar.Collapse>
           </Navbar>
         </Row>
