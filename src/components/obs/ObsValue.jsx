@@ -9,9 +9,7 @@ class ObsValue extends React.PureComponent{
 
 
   componentDidMount() {
-    if (!this.props.concept) {
-      this.props.dispatch(conceptActions.fetchConcepts([this.props.obs.concept.uuid]));
-    }
+    this.props.dispatch(conceptActions.fetchConcepts([this.props.obs.concept.uuid]));
   }
 
   getObsLabel(obs) {
@@ -93,8 +91,9 @@ ObsValue.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
+  const concept = selectors.getConcept(state, ownProps.obs.concept.uuid);
   return {
-    concept: selectors.getConcept(state, ownProps.obs.concept.uuid)
+    concept: { ...concept, ...ownProps.concept }    // this allows user to override the absolute, abnormal, and critical ranges defined on the concept
   };
 };
 

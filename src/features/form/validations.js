@@ -20,6 +20,42 @@ const dateToInt = dateStr => new Date(dateStr).getTime();
 const maxDateValue = maxDate => value =>
   value && (dateToInt(value)) > dateToInt(maxDate) ? `Date should be earlier or equal to today's date` : undefined;
 
+const generateAbsoluteRangeValidators = concept => {
+  const {
+    hiAbsolute,	
+    lowAbsolute,
+  } = concept;
+  let hiAbsoluteRange, lowAbsoluteRange;
+
+  if (hiAbsolute || lowAbsolute) {
+    hiAbsoluteRange = hiAbsolute ? maxValue(hiAbsolute) : undefined;
+    lowAbsoluteRange = hiAbsolute ? minValue(lowAbsolute) : undefined;
+    return [hiAbsoluteRange, lowAbsoluteRange].filter(Boolean);
+  } else {
+    return [];
+  }
+};
+
+const generateAbnormalAndCriticalWarningFunctions = concept => {
+  const {
+    hiNormal,	
+    hiCritical,
+    lowCritical,	
+    lowNormal,
+  } = concept;
+  let hiNormalRange, lowNormalRange, hiCriticalRange, lowCriticalRange;
+  
+  if (hiNormal || hiCritical || lowCritical || lowNormal) {
+    hiNormalRange = hiNormal ? abnormalMaxValue(hiNormal) : undefined;
+    lowNormalRange = lowNormal ? abnormalMinValue(lowNormal) : undefined;
+    hiCriticalRange = hiCritical ? criticalMaxValue(hiCritical) : undefined;
+    lowCriticalRange = lowCritical ? criticalMinValue(lowCritical) : undefined;
+    return [hiNormalRange, lowNormalRange, hiCriticalRange, lowCriticalRange].filter(Boolean);
+  } else {
+    return [];
+  }
+};
+
 export default {
   minValue,
   maxValue,
@@ -28,4 +64,6 @@ export default {
   criticalMinValue,
   criticalMaxValue,
   maxDateValue,
+  generateAbsoluteRangeValidators,
+  generateAbnormalAndCriticalWarningFunctions
 };

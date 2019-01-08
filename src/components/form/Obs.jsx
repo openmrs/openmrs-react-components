@@ -12,10 +12,19 @@ import CustomDatePicker from '../widgets/CustomDatePicker';
 import withFormContext from './withFormContext';
 import withObsGroupContext from './withObsGroupContext';
 import { conceptActions } from "../../features/concept";
-import {selectors} from "../../store";
+import { selectors } from "../../store";
+import formValidations from '../../features/form/validations';
 
 // TODO perhaps a little refactoring to have all these if/thens... maybe make underlying ObsDate, ObsCoded, ObsNumeric, worth it?
 class Obs extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      getValidationAbnormalRange: formValidations.generateAbnormalAndCriticalWarningFunctions(this.props.concept),
+      getValidationAbsoluteRange: formValidations.generateAbsoluteRangeValidators(this.props.concept)
+    }; 
+  }
 
   componentDidMount() {
     if (!this.props.concept) {
@@ -27,7 +36,6 @@ class Obs extends React.PureComponent {
   // TODO change validations and warning to be potentially driven by hi/low of concepts
 
   render() {
-
     if (this.props.datatype === 'date') {
       return (
         <Field
@@ -35,7 +43,7 @@ class Obs extends React.PureComponent {
           displayValue={this.props.value}
           mode={this.props.formContext.mode}
           name={this.props.name}
-          validate={this.props.validate}
+          validate={this.props.validate || this.state.getValidationAbsoluteRange}
         />
       );
     } else if (this.props.widget === 'checkbox') {
@@ -99,8 +107,8 @@ class Obs extends React.PureComponent {
             name={this.props.name}
             placeholder={this.props.placeholder}
             type={this.props.datatype}
-            validate={this.props.validate}
-            warn={this.props.warn}
+            validate={this.props.validate|| this.state.getValidationAbsoluteRange}
+            warn={this.props.warn || this.state.getValidationAbnormalRange}
           />
         </div>
       );
@@ -155,11 +163,11 @@ const mapStateToProps = (state, props) => {
   fullPath +=  props.path;
 
   const name = formUtil.obsFieldName(fullPath, concepts);
-
+  const concept = selectors.getConcept(state, getUuid(props.concept));
   return {
     name: name,
     value: props.formContext ? props.formContext.selector(state, name) : null,
-    concept: selectors.getConcept(state, getUuid(props.concept)),
+    concept: { ...concept, ...props.concept },
     conceptUuid: getUuid(props.concept)  // TODO better way to handle this
   };
 };

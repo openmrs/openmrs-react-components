@@ -1,90 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`patientSearchForm should render correctly 1`] = `
-<form
-  className=""
-  onSubmit={[Function]}
->
+<div>
   <div
-    className="container"
+    className="name-filter-container"
   >
-    <div
-      className="row"
+    <span
+      className="name-filter"
     >
-      <div
-        className="form-group"
-      >
-        <label
-          className="col-sm-3 control-label"
-          htmlFor="searchLabel"
-        >
-          Search Patients
-        </label>
-      </div>
-    </div>
-    <div
-      className="row"
-    >
-      <div
-        className="form-group"
-      >
-        <div
-          className="col-sm-3"
-        >
-          <input
-            name="query"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onDragStart={[Function]}
-            onDrop={[Function]}
-            onFocus={[Function]}
-            placeholder="enter name or id"
-            style={
-              Object {
-                "height": "30px",
-                "width": "-webkit-fill-available",
-              }
-            }
-            type="text"
-            value=""
-          />
-        </div>
-        <div
-          className="col-sm-2"
-          style={
-            Object {
-              "textAlign": "left",
-            }
-          }
-        >
-          <button
-            className="btn btn-sm btn-primary"
-            disabled={true}
-            type="submit"
-          >
-            Search
-          </button>
-        </div>
-      </div>
-    </div>
-    <div
-      className="row"
-    >
-      <div
-        className="col-md-20 col-sm-20"
-        style={
-          Object {
-            "height": "10px",
-          }
-        }
-      >
-        <span>
-          <h1>
-            
-          </h1>
-        </span>
-      </div>
-    </div>
+      <span
+        className="left-icon glyphicon glyphicon-search"
+      />
+      <input
+        className="form-control"
+        id={undefined}
+        name="query"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onDragStart={[Function]}
+        onDrop={[Function]}
+        onFocus={[Function]}
+        placeholder="search by text"
+        type="text"
+        value=""
+      />
+      <span
+        className="right-icon glyphicon glyphicon-remove-sign"
+        onClick={[Function]}
+      />
+    </span>
   </div>
-</form>
+</div>
 `;
