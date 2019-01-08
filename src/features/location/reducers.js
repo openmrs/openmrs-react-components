@@ -23,7 +23,4 @@ export const locationsReducer = (state = initialState, action) => {
   }
 };
 
-export const getPrefixFromLocations = (state) => {
-  const prefixes = R.map(R.path(['attributes', '0', 'value']))(state);
-  return prefixes.filter(Boolean);
-};
+export const getLocations = (state) => state.locations;
