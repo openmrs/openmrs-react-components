@@ -75,22 +75,24 @@ export class HeaderAlt extends React.Component {
                   }
                 />
               </div>
-              <NavBarMenu
-                id="dropdown"
-                onSelect={this.handleSelect}
-                pageOptions={this.props.userMenuPages}
-                pathname={this.props.pathname}
-                title={
-                  <span>
-                    <FontAwesomeIcon
-                      icon="user"
-                      id="navItemIcon"
-                      size="lg"
-                    />
-                    <span className="current-user-dropdown">{this.props.user.person ? this.props.user.person.display : 'user'}</span>
-                  </span>
-                }
-              />
+              <div className="user-dropdown-icon">
+                <NavBarMenu
+                  id="dropdown"
+                  onSelect={this.handleSelect}
+                  pageOptions={this.props.userMenuPages}
+                  pathname={this.props.pathname}
+                  title={
+                    <span>
+                      <FontAwesomeIcon
+                        icon="user"
+                        id="navItemIcon"
+                        size="lg"
+                      />
+                      <span className="current-user-dropdown">{this.props.user.person ? this.props.user.display : 'user'}</span>
+                    </span>
+                  }
+                />
+              </div>
             </div>
             <Navbar.Collapse in={this.state.expanded}>
               <Navbar.Header>
