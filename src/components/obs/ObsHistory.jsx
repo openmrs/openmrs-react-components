@@ -7,7 +7,7 @@ import { getDayOfYear, parse  } from 'date-fns';
 import ObsValue from '../obs/ObsValue';
 import obsRest from '../../rest/obsRest';
 import { selectors } from "../../store";
-import {formatDate} from "../../util/dateUtil";
+import { formatDate } from "../../util/dateUtil";
 
 class ObsHistory extends React.PureComponent {
 
@@ -19,9 +19,23 @@ class ObsHistory extends React.PureComponent {
     };
   }
 
+  componentDidMount() {
+    this.updateObs();
+  }
+
+  componentDidUpdate(prevProps) {
+    // update if the selected patient has changed, or the patient store had been refreshed
+    // TODO: test if the 'selected patient changed' trigger works properly
+    if ((R.path(['patient','uuid'], prevProps) !== R.path(['patient','uuid'], this.props)) ||
+      (prevProps.isPatientStoreUpdating  && !this.props.isPatientStoreUpdating)) {
+      this.updateObs();
+    }
+  }
+
   updateObs() {
     obsRest.fetchObsByPatient(
-      this.props.patient.uuid, this.props.concepts.map((concept) => concept.uuid)
+      this.props.patient.uuid, this.props.concepts.map((concept) => concept.uuid), this.props.answers.map((answer) => answer.uuid),
+      this.props.groupingConcepts.map((groupingConcept) => groupingConcept.uuid)
     ).then(data => {
       this.setState({
         obs: this.sortAndGroupResults(data.results)
@@ -51,19 +65,6 @@ class ObsHistory extends React.PureComponent {
     return set;
   }
 
-  componentDidMount() {
-    this.updateObs();
-  }
-
-  componentDidUpdate(prevProps) {
-    // update if the selected patient has changed, or the patient store had been refreshed
-    // TODO: test if the 'selected patient changed' trigger works properly
-    if ((R.path(['patient','uuid'], prevProps) !== R.path(['patient','uuid'], this.props)) ||
-      (prevProps.isPatientStoreUpdating  && !this.props.isPatientStoreUpdating)) {
-      this.updateObs();
-    }
-  }
-
   render() {
     return (
       <div>
@@ -86,7 +87,8 @@ class ObsHistory extends React.PureComponent {
                               concept={this.props.concepts.find(concept => concept.uuid === obs.concept.uuid)}     // to support user to override the absolute, abnormal, and critical ranges defined on the concept
                               key={obs.id}
                               labels={this.props.labels}
-                              obs={obs} />
+                              obs={obs}
+                            />
                           );
                         })
                       )}
@@ -105,8 +107,15 @@ class ObsHistory extends React.PureComponent {
   }
 }
 
+ObsHistory.defaultProps = {
+  answers: [],
+  groupingConcepts: [],
+};
+
 ObsHistory.propTypes = {
+  answers: PropTypes.array,
   concepts: PropTypes.array,
+  groupingConcepts: PropTypes.array,
   labels: PropTypes.object,
   patient: PropTypes.object.isRequired
 };

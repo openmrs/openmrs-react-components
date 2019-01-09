@@ -11,6 +11,7 @@ import { systemReducers } from './features/system';
 import { conceptReducer} from "./features/concept/reducers";
 import { getPatients, getSelectedPatient, isUpdating } from './features/patient';
 import { getConcept, getConcepts } from './features/concept';
+import { locationsReducer, getLocations } from './features/location';
 
 export const reducers = combineReducers({
   session: sessionReducers,
@@ -24,6 +25,7 @@ export const reducers = combineReducers({
   CONSTANTS: constantsReducers,
   metadata: combineReducers({
     concepts: conceptReducer,
+    locations: locationsReducer
   })
 });
 
@@ -47,5 +49,9 @@ export const selectors = {
 
   getConcepts: (state) => {
     return getConcepts(state.openmrs.metadata.concepts);
+  },
+
+  getLocations: (state) => {
+    return getLocations(state.openmrs.metadata.locations);
   }
 };

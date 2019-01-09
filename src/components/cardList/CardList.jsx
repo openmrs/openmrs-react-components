@@ -96,9 +96,9 @@ class CardList extends React.Component {
 
   render() {
     // TODO "getPatientIdentifiers" should be generalizible in some way
-    const { rowData, loading, card, AdditionalSearchFilters, getPatientIdentifiers } = this.props;
+    const { rowData, loading, card, AdditionalSearchFilters, getPatientIdentifiers, noDataMessage } = this.props;
 
-    const data = this.applyFiltersToList(rowData);
+    const filteredRowData = this.applyFiltersToList(rowData);
 
     return (
       <div>
@@ -131,9 +131,9 @@ class CardList extends React.Component {
           </div>
         </div>}
         {loading ? <Loader /> : 
-          (rowData.length > 0 ? this.applyFiltersToList(rowData).map((patientData, index) => 
+          (filteredRowData.length > 0 ? filteredRowData.map((patientData, index) => 
             card(patientData, index, this.onRowSelected, getPatientIdentifiers)
-          ) : <h2 className="text-center">No Data to display</h2>)
+          ) : <h2 className="text-center">{noDataMessage || 'No Data to display'}</h2>)
         }
       </div>
     );
@@ -150,6 +150,7 @@ CardList.propTypes = {
   filters: PropTypes.array,
   getPatientIdentifiers: PropTypes.func,
   loading: PropTypes.bool,
+  noDataMessage: PropTypes.string,
   onMountOtherActionCreators: PropTypes.array,
   rowData: PropTypes.array.isRequired,
   rowSelectedActionCreators: PropTypes.array,

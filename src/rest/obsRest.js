@@ -13,9 +13,11 @@ const api = {
       });
   },
 
-  fetchObsByPatient: (patient, concepts, limit) => {
-    return axiosInstance.get(`obs/?patient=${patient}&concepts=${concepts.constructor === String ? concepts : concepts.join(",")}&v=custom:${DEFAULT_OBS_REP}`
-      + (limit ? "&limit=" + limit : ''))
+  fetchObsByPatient: (patient, concepts, answers, groupingConcepts, limit) => {
+    return axiosInstance.get(`obs/?patient=${patient}&concepts=${concepts.constructor === String ? concepts : concepts.join(",")}
+      ${answers.constructor === String ? `&answers=${answers}` : (answers.length > 0 ? `&answers=${answers.join(",")}` : '')}
+      ${groupingConcepts.constructor === String ? `&groupingConcepts=${groupingConcepts}` : (groupingConcepts.length > 0 ? `&groupingConcepts=${groupingConcepts.join(",")}` : '')}
+      &v=custom:${DEFAULT_OBS_REP}`+ (limit ? "&limit=" + limit : ''))
       .then((response) => {
         if (response.status !== 200) {
           throw response;
