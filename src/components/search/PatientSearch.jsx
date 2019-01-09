@@ -7,6 +7,8 @@ import { DEFAULT_PATIENT_REP} from "../../domain/patient/constants";
 import patientUtil from '../../domain/patient/patientUtil';
 import PatientSearchForm from './PatientSearchForm';
 import DataGrid from "../grid/DataGrid";
+import Loader from '../widgets/Loader';
+import PatientCard from '../patient/PatientCard';
 
 
 // TODO: do we want a way override the default actions to clear the selected patient and add the patient to the store?
@@ -33,28 +35,38 @@ class PatientSearch extends React.Component {
       this.props.representation));
   };
 
+  handleRowClick(patient) {
+    const { dispatch } = this.props;
+    dispatch(patientActions.updatePatientInStore(patient));
+    dispatch(patientActions.setSelectedPatient(patient));
+    dispatch(this.props.rowSelectedActionCreators(patient));
+  }
+
   render() {
+    const { rowData, loading, rowSelectedActionCreators } = this.props;
     return (
       <div>
         {this.props.AdditionalFilters &&
           (
             <this.props.AdditionalFilters
               handleSearchChange={this.handleSubmit}
-              rowData={this.props.rowData}
+              rowData={rowData}
               searchType="server"
            />
           )
         }
         <PatientSearchForm onSubmit={this.handleSubmit} />
-        { (typeof this.props.rowData !== 'undefined') && (this.props.rowData.length > 0) &&
-          <DataGrid
-            columnDefs={this.props.columnDefs}
-            rowData={this.props.rowData}
-            rowSelectedActionCreators={
-              [patientActions.updatePatientInStore,
-                patientActions.setSelectedPatient,
-                ...this.props.rowSelectedActionCreators]}
-          />
+        {loading ? <Loader /> : 
+          (rowData.length > 0 ? rowData.map((patientData, index) => 
+            (
+              PatientCard(
+              patientData,
+              index,
+              (patient) => this.handleRowClick(patient),
+              patientUtil.getPreferredIdentifier
+              )
+            )
+          ) : <h2 className="text-center">No Data to display</h2>)
         }
       </div>
     );
@@ -70,14 +82,7 @@ PatientSearch.propTypes = {
 };
 
 PatientSearch.defaultProps = {
-  columnDefs: [
-    { headerName: 'uuid', hide: true, field: 'uuid' },
-    { headerName: 'Identifier', valueGetter: (params) => patientUtil.getPreferredIdentifier(params.data) },
-    { headerName: 'Given Name', field: 'name.givenName' },
-    { headerName: 'Family Name', field: 'name.familyName' },
-    { headerName: 'Gender', field: 'gender' },
-    { headerName: 'Age', field: 'age' }
-  ],
+  loading: false,
   parseResults:(results) => {
     // convert results to the patient domain object
     return results.map((result) => {
