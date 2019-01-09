@@ -129,7 +129,6 @@ li.dropdown {
         top: -20px;
     }
 
-    .session-location-dropdown,
     .current-user-dropdown,
     .header-logo.full-wdith,
     .full-width.logo,
@@ -139,10 +138,17 @@ li.dropdown {
         display: none;
     }
 
+
+
     .navbar-menu.portrait {
         display: inline-flex;
         position: relative;
-        left: 50%;
+        left: 60%;
+    }
+
+    .navbar-menu.portrait .dropdown-menu {
+        left: -30px;
+        min-width: 0px;
     }
 
     .header-logo.portrait {
