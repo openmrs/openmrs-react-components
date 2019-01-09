@@ -50,7 +50,7 @@ class Dropdown extends PureComponent {
           disabled={otherProps.disabled || false}
           onChange={this.handleChange}
           style={otherProps.dropDownStyle || dropDownStyle}
-          value={dropDownValue}
+          value={dropDownValue || otherProps.dropdownValue}
         >
           { otherProps.placeholder && <option
             key={0}
