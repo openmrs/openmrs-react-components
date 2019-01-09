@@ -39,7 +39,11 @@ class PatientSearch extends React.Component {
     const { dispatch } = this.props;
     dispatch(patientActions.updatePatientInStore(patient));
     dispatch(patientActions.setSelectedPatient(patient));
-    dispatch(this.props.rowSelectedActionCreators(patient));
+
+    if (this.props.rowSelectedActionCreators) {
+      this.props.rowSelectedActionCreators.forEach((f) => this.props.dispatch(f(patient)));
+    }
+
   }
 
   render() {
