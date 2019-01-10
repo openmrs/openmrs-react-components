@@ -85,7 +85,7 @@ class CardList extends React.Component {
   handleSearchChange(e) {
     if (e.hasOwnProperty('target')) {
       this.setState({ searchValue: e.target.value });
-    } else if (e){
+    } else {
       this.setState({ additionalSearchValue: e });
     }
   }
