@@ -123,6 +123,18 @@ li.dropdown {
     border-bottom: 3px solid #F8971D;
 }
 
+@media only screen and (min-width: 200px) and (max-width: 600px) {
+    .navbar-menu.portrait {
+        left: 60%;
+    }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 800px) {
+    .navbar-menu.portrait {
+        left: 70%;
+    }
+}
+
 @media only screen and (min-width: 200px) and (max-width: 939px) {
     .nav > li > a > img {
         position: absolute;
@@ -143,7 +155,6 @@ li.dropdown {
     .navbar-menu.portrait {
         display: inline-flex;
         position: relative;
-        left: 60%;
     }
 
     .navbar-menu.portrait .dropdown-menu {
