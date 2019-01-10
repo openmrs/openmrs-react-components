@@ -1,3 +1,8 @@
+.card-list-container {
+  overflow: scroll;
+  height: calc(100vh - 300px);
+}
+
 .card-list {
   display: flex;
   justify-content: space-between;

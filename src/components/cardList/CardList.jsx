@@ -130,11 +130,13 @@ class CardList extends React.Component {
             </span>
           </div>
         </div>}
+        <div className="card-list-container">
         {loading ? <Loader /> : 
           (filteredRowData.length > 0 ? filteredRowData.map((patientData, index) => 
             card(patientData, index, this.onRowSelected, getPatientIdentifiers)
           ) : <h2 className="text-center">{noDataMessage || 'No Data to display'}</h2>)
         }
+        </div>
       </div>
     );
   }
