@@ -15,8 +15,10 @@ import { conceptActions } from "../../features/concept";
 import { selectors } from "../../store";
 import formValidations from '../../features/form/validations';
 
+// TODO change datatype to be be driven by concept.datatype (need to test in lab workflow module)
 // TODO perhaps a little refactoring to have all these if/thens... maybe make underlying ObsDate, ObsCoded, ObsNumeric, worth it?
 class Obs extends React.PureComponent {
+
   constructor(props) {
     super(props);
 
@@ -33,8 +35,15 @@ class Obs extends React.PureComponent {
     }
   }
 
-  // TODO change datatype to be be driven by concept.datatype (need to test in lab workflow module)
-  // TODO change validations and warning to be potentially driven by hi/low of concepts
+  componentDidUpdate(prevProps) {
+    // reset the validation after loading the concept
+    if (!prevProps.concept._openmrsClass && this.props.concept._openmrsClass) {
+      this.setState({
+        getValidationAbnormalRange: formValidations.generateAbnormalAndCriticalWarningFunctions(this.props.concept),
+        getValidationAbsoluteRange: formValidations.generateAbsoluteRangeValidators(this.props.concept)
+      });
+    }
+  }
 
   render() {
     if (this.props.datatype === 'date') {
