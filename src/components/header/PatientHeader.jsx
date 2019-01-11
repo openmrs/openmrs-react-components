@@ -58,18 +58,22 @@ export class PatientHeader extends PureComponent {
     );
   }
 
+  // TODO allow limit by preferred?
   renderPatientIdentifier() {
     return (
       <div className="identifiers">
         <em>Patient ID</em>
         {!this.props.identifierTypesToDisplay ? (
-          <span>{patientUtil.getPreferredIdentifier(this.state.patient)}</span>
+          <div className="identifiers-number">
+            { patientUtil.getIdentifiers(this.state.patient)
+              .map(identifier => <span key={identifier}>{identifier}</span>)}
+          </div>
         ) : (
           <div className="identifiers-number">
-            {this.props.identifierTypesToDisplay.map((identifierType) => {
-              let identifier = patientUtil.getIdentifier(this.state.patient, identifierType);
-              return identifier ? <span key={identifier}>{identifier}</span> : "";
-            })}
+            {this.props.identifierTypesToDisplay.reduce((acc, identifierType) =>
+              [...acc, ...patientUtil.getIdentifiers(this.state.patient, identifierType)]
+              , [])
+              .map(identifier => <span key={identifier}>{identifier}</span>)}
           </div>
         )}
         <br />

@@ -101,8 +101,8 @@ const patientUtil = {
 
   getIdentifiers: (patient, identifierType) => {
     return patient.identifiers ? patient.identifiers
-      .filter((i) => i.identifierType.uuid === identifierType.uuid)
-      .map((i) => i.identifier) : null;
+      .filter((i) => identifierType ? i.identifierType.uuid === identifierType.uuid : true)
+      .map((i) => i.identifier) : [];
   },
 
   // just gets the first identifier marked as preferred

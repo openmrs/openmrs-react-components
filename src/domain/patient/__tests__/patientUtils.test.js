@@ -687,13 +687,11 @@ describe('Domain Object: Patient', () => {
       };
 
     identifier1 = "123";
-    identifierType1 = { uuid: "A2" };
-
     identifier2 = "456";
-    identifierType2 = { uuid: "A3" };
-
     identifier3 = "789";
-    identifierType3 = { uuid: "A3" };
+
+    identifierType1 = { uuid: "A2" };
+    identifierType2 = { uuid: "A3" };
 
   });
 
@@ -834,17 +832,28 @@ describe('Domain Object: Patient', () => {
     var testPatient = Object.assign({}, patient1);
     // add two identifiers of the same type
     patientUtil.addIdentifier(testPatient, identifier2, identifierType2, false);
-    patientUtil.addIdentifier(testPatient, identifier3, identifierType3, true);
+    patientUtil.addIdentifier(testPatient, identifier3, identifierType2, true);
     expect(testPatient.identifiers.length).toBe(3);
     expect(patientUtil.getIdentifiers(testPatient, { uuid: "A3" })).toContain("456");
     expect(patientUtil.getIdentifiers(testPatient, { uuid: "A3" })).toContain("789");
+  });
+
+  it('should fetch all identifiers if no identifier type preseent', () => {
+    var testPatient = Object.assign({}, patient1);
+    // add two identifiers of the same type
+    patientUtil.addIdentifier(testPatient, identifier2, identifierType1, false);
+    patientUtil.addIdentifier(testPatient, identifier3, identifierType2, true);
+    expect(testPatient.identifiers.length).toBe(3);
+    expect(patientUtil.getIdentifiers(testPatient)).toContain("identifier");
+    expect(patientUtil.getIdentifiers(testPatient)).toContain("456");
+    expect(patientUtil.getIdentifiers(testPatient)).toContain("789");
   });
 
   it('should fetch first preferred identifiers', () => {
     var testPatient = Object.assign({}, patient1);
     // add two identifiers of the same type
     patientUtil.addIdentifier(testPatient, identifier2, identifierType2, false);
-    patientUtil.addIdentifier(testPatient, identifier3, identifierType3, true);
+    patientUtil.addIdentifier(testPatient, identifier3, identifierType2, true);
     expect(patientUtil.getPreferredIdentifier(testPatient)).toContain("789");
   });
 
