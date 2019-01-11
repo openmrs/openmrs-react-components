@@ -3,16 +3,20 @@ import CONCEPT_TYPES from '../types';
 
 describe('patient set reducer', () => {
 
+  // TODO really should test that _openmrsClass gets set instead of just adding it here
   const concept = {
-    uuid: "some-concept"
+    uuid: "some-concept",
+    _openmrsClass: "Concept"
   };
 
   const anotherConcept = {
-    uuid: "another-concept"
+    uuid: "another-concept",
+    _openmrsClass: "Concept"
   };
 
   const thirdConcept = {
-    uuid: "third-concept"
+    uuid: "third-concept",
+    _openmrsClass: "Concept"
   };
 
   it('should return the initial state', () => {
