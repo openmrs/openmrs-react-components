@@ -9,7 +9,10 @@ class ObsValue extends React.PureComponent{
 
 
   componentDidMount() {
-    this.props.dispatch(conceptActions.fetchConcepts([this.props.obs.concept.uuid]));
+    // we need to test on "props.concept._openmrsClass" instead of just "props.concept" because we allow user to pass their own concept prop to supply custom validation values
+    if (!this.props.concept._openmrsClass) {
+      this.props.dispatch(conceptActions.fetchConcepts([this.props.obs.concept.uuid]));
+    }
   }
 
   getObsLabel(obs) {
@@ -93,7 +96,7 @@ ObsValue.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   const concept = selectors.getConcept(state, ownProps.obs.concept.uuid);
   return {
-    concept: { ...concept, ...ownProps.concept }    // this allows user to override the absolute, abnormal, and critical ranges defined on the concept
+    concept: { ...concept, ...ownProps.concept }   // this allows user to override the absolute, abnormal, and critical ranges defined on the concept
   };
 };
 

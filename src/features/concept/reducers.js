@@ -9,7 +9,10 @@ export const conceptReducer = (state = {}, action) => {
       if (action.concepts && action.concepts.length > 0) {
         const addedConcepts =
           action.concepts.reduce((acc, concept) => {
-            acc[concept.uuid] = concept;
+            acc[concept.uuid] = {
+              _openmrsClass: 'Concept',
+              ...concept
+            };
             return acc;
           }, {});
 

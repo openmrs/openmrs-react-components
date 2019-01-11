@@ -27,7 +27,8 @@ class Obs extends React.PureComponent {
   }
 
   componentDidMount() {
-    if (!this.props.concept) {
+    // we need to test on "props.concept._openmrsClass" instead of just "props.concept" because we allow user to pass their own concept prop to supply custom validation values
+    if (!this.props.concept._openmrsClass) {
       this.props.dispatch(conceptActions.fetchConcepts([this.props.conceptUuid]));
     }
   }
@@ -167,7 +168,7 @@ const mapStateToProps = (state, props) => {
   return {
     name: name,
     value: props.formContext ? props.formContext.selector(state, name) : null,
-    concept: { ...concept, ...props.concept },
+    concept: { ...concept, ...props.concept },      // this allows fetching by uuid, and allows user to override the absolute, abnormal, and critical ranges defined on the concept
     conceptUuid: getUuid(props.concept)  // TODO better way to handle this
   };
 };
