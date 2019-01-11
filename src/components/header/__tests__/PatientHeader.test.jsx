@@ -661,7 +661,8 @@ describe("patientHeader", () => {
     expect(patientHeader().find('.age').text()).toContain("24 year(s)");
     expect(patientHeader().find('.age').text()).toContain("01 Jan 1994");
     expect(patientHeader().find('.gender').text()).toContain("Male");
-    expect(patientHeader().find('.identifiers span').text()).toBe("second-identifier");
+    expect(patientHeader().find('.identifiers span').first().text()).toBe("first-identifier");
+    expect(patientHeader().find('.identifiers span').length).toBe(3);
   });
 
   it('should render properly if REST rep passed in', () => {
@@ -672,7 +673,8 @@ describe("patientHeader", () => {
     expect(patientHeader().find('.age').text()).toContain("24 year(s)");
     expect(patientHeader().find('.age').text()).toContain("01 Jan 1994");
     expect(patientHeader().find('.gender').text()).toContain("Male");
-    expect(patientHeader().find('.identifiers span').text()).toBe("Y2A5H1");
+    expect(patientHeader().find('.identifiers span').first().text()).toBe("Y2A5H1");
+    expect(patientHeader().find('.identifiers span').length).toBe(7);
   });
 
   it('should specific identifiers if identifier properties passed', () => {
