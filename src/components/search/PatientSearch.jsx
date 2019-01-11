@@ -78,7 +78,6 @@ class PatientSearch extends React.Component {
 }
 
 PatientSearch.propTypes = {
-  columnDefs: PropTypes.array.isRequired,
   parseResults: PropTypes.func.isRequired,
   representation: PropTypes.string.isRequired,
   rowData: PropTypes.array,

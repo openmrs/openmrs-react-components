@@ -34,6 +34,7 @@ const api = {
 
   getPatientActiveVisit: (params) => {
     return axiosInstance.get("visit?includeInactive=false&patient=" + params.patientUuid
+      + ( params.location ? "&location=" + params.location : '')
       + ( params.representation ? "&v=" + params.representation : ''))
       .then((response) => {
         if (response.status !== 200) {
