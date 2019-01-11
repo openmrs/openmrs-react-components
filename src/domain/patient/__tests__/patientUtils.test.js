@@ -1,10 +1,8 @@
 import patientUtil from '../patientUtil';
-import {ATTRIBUTE_TYPES} from '../constants';
 
 describe('Domain Object: Patient', () => {
 
-  let patientFullRep, patientSimplifiedRep, patient1, identifier1, identifier2, identifier3, identifierType1, identifierType2,
-    identifierType3;
+  let patientFullRep, patientSimplifiedRep, patient1, identifier1, identifier2, identifier3, identifierType1, identifierType2;
 
   beforeEach(() => {
 
