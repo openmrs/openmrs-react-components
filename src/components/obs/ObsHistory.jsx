@@ -9,6 +9,15 @@ import obsRest from '../../rest/obsRest';
 import { selectors } from "../../store";
 import { formatDate } from "../../util/dateUtil";
 
+// TODO document better!
+
+// this component gets the obs to display by one of two means:
+// 1) if there is an "obs" prop, use the obs in the prop
+// 2) otherwise, make a REST call to fetch the obs based on concept prop
+
+// TODO perhaps support Encounter or Visit here?
+// TODO perhaps decouple the display from the REST call that fetches the obs?
+
 class ObsHistory extends React.PureComponent {
 
   constructor(props) {
@@ -24,23 +33,37 @@ class ObsHistory extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
+
+    // TODO do we need a deep compare here?
+    if (this.props.obs && this.props.obs !== prevProps.obs) {
+      this.updateObs();
+    }
     // update if the selected patient has changed, or the patient store had been refreshed
     // TODO: test if the 'selected patient changed' trigger works properly
-    if ((R.path(['patient','uuid'], prevProps) !== R.path(['patient','uuid'], this.props)) ||
+    else if (R.path(['patient','uuid'], prevProps) !== R.path(['patient','uuid'], this.props) ||
       (prevProps.isPatientStoreUpdating  && !this.props.isPatientStoreUpdating)) {
       this.updateObs();
     }
   }
 
   updateObs() {
-    obsRest.fetchObsByPatient(
-      this.props.patient.uuid, this.props.concepts.map((concept) => concept.uuid), this.props.answers.map((answer) => answer.uuid),
-      this.props.groupingConcepts.map((groupingConcept) => groupingConcept.uuid)
-    ).then(data => {
+
+    if (this.props.obs) {
       this.setState({
-        obs: this.sortAndGroupResults(data.results)
+        obs: this.sortAndGroupResults(this.props.obs)
       });
-    });
+    }
+    else {
+      obsRest.fetchObsByPatient(
+        this.props.patient.uuid, this.props.concepts.map((concept) => concept.uuid), this.props.answers.map((answer) => answer.uuid),
+        this.props.groupingConcepts.map((groupingConcept) => groupingConcept.uuid)
+      ).then(data => {
+        this.setState({
+          obs: this.sortAndGroupResults(data.results)
+        });
+      });
+    }
+
   }
 
   getDateFromObs(obs) {
@@ -52,6 +75,7 @@ class ObsHistory extends React.PureComponent {
   // TODO we only want to import the methods we use to save space (ie does chaining import everything?)
   sortAndGroupResults(results) {
     const set = chain(results)
+    // TODO if this.props.concepts, then filter by this, so we can control which obs to display?
       .sortBy((obs) => this.props.concepts.findIndex(concept => concept.uuid === obs.concept.uuid))  // sort based on order of concepts in props list; this may be inefficient to do before grouping?
       .groupBy((obs) => obs.obsGroup ? obs.obsGroup.uuid : obs.uuid)   // group by obs group, if present
       .values()
@@ -71,11 +95,11 @@ class ObsHistory extends React.PureComponent {
         {this.state.obs.map((obsByDateAndEncounterAndGroup) => {
           return (
             <div key={obsByDateAndEncounterAndGroup[0][0][0].id}>
-              <h5>
+              {this.props.showDates && (<h5>
                 <u>
                   {formatDate(this.getDateFromObs(obsByDateAndEncounterAndGroup[0][0][0]))}
                 </u>
-              </h5>
+              </h5>)}
               <table>
                 {obsByDateAndEncounterAndGroup.map((obsByEncounterAndGroup)=> {
                   return (
@@ -110,6 +134,8 @@ class ObsHistory extends React.PureComponent {
 ObsHistory.defaultProps = {
   answers: [],
   groupingConcepts: [],
+  concepts: [],
+  showDates: true
 };
 
 ObsHistory.propTypes = {
@@ -117,7 +143,9 @@ ObsHistory.propTypes = {
   concepts: PropTypes.array,
   groupingConcepts: PropTypes.array,
   labels: PropTypes.object,
-  patient: PropTypes.object.isRequired
+  obs: PropTypes.array,
+  patient: PropTypes.object.isRequired,
+  showDates: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => {

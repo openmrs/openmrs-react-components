@@ -58,6 +58,7 @@ const util = {
     }
   },
 
+  // TODO this could be used in more than forms, potentially moved somewhere else?
   flattenObs: (obs, acc = [], path = []) => {
 
     if (!obs) {
