@@ -96,10 +96,9 @@ class CardList extends React.Component {
 
   render() {
     // TODO "getPatientIdentifiers" should be generalizible in some way
-    const { rowData, loading, card, AdditionalSearchFilters, getPatientIdentifiers, noDataMessage } = this.props;
+    const { rowData, loading, card, AdditionalSearchFilters, getPatientIdentifiers, noDataMessage, handleSearchChange, searchType } = this.props;
 
     const filteredRowData = this.applyFiltersToList(rowData);
-
     return (
       <div>
         <div className="refresh-button-container">
@@ -107,8 +106,9 @@ class CardList extends React.Component {
           <Glyphicon className="refresh-button" glyph="refresh" onClick={() => this.handleFetchData()} />
         </div>
         {AdditionalSearchFilters && <AdditionalSearchFilters
-          handleSearchChange={this.handleSearchChange} />}
-        {this.props.searchFilterFields && <div className="">
+          handleSearchChange={handleSearchChange ? handleSearchChange : this.handleSearchChange}
+          searchType={searchType ? searchType : ''} />}
+        {<div className="">
           <div className="name-filter-container">
             <span className="name-filter">
               <Glyphicon
@@ -126,16 +126,17 @@ class CardList extends React.Component {
                 glyph="remove-sign" 
                 onClick={this.handleSearchClear}
               />
-              <button className="search-button">search</button>
+              <button className="search-button" 
+                onClick={() => this.props.handleSearchSubmit(this.state.searchValue) }>search</button>
             </span>
           </div>
         </div>}
         <div className="card-list-container">
-        {loading ? <Loader /> : 
-          (filteredRowData.length > 0 ? filteredRowData.map((patientData, index) => 
-            card(patientData, index, this.onRowSelected, getPatientIdentifiers)
-          ) : <h2 className="text-center">{noDataMessage || 'No Data to display'}</h2>)
-        }
+          { loading ? <Loader /> : 
+            (filteredRowData.length > 0 ? filteredRowData.map((patientData, index) => 
+              card(patientData, index, this.onRowSelected, getPatientIdentifiers)
+            ) : <h2 className="text-center">{noDataMessage || 'No Data to display'}</h2>)
+          }
         </div>
       </div>
     );
@@ -166,7 +167,6 @@ CardList.defaultProps = {
   delayInterval: 60000,
   title: 'List',
   filters: [],
-  searchFilterFields: [],
   sortFields: []
 };
 
