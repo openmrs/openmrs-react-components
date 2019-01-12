@@ -99,7 +99,6 @@ class CardList extends React.Component {
     const { rowData, loading, card, AdditionalSearchFilters, getPatientIdentifiers, noDataMessage, handleSearchChange, searchType } = this.props;
 
     const filteredRowData = this.applyFiltersToList(rowData);
-
     return (
       <div>
         <div className="refresh-button-container">
@@ -168,7 +167,6 @@ CardList.defaultProps = {
   delayInterval: 60000,
   title: 'List',
   filters: [],
-  // searchFilterFields: [],
   sortFields: []
 };
 
