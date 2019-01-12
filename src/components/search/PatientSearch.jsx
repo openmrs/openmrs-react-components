@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { patientSearchActions } from '../../features/search';
 import { patientActions } from "../../features/patient/index";
-import { DEFAULT_PATIENT_REP} from "../../domain/patient/constants";
+import { DEFAULT_PATIENT_REP } from "../../domain/patient/constants";
 import patientUtil from '../../domain/patient/patientUtil';
-import PatientSearchForm from './PatientSearchForm';
-import DataGrid from "../grid/DataGrid";
-import Loader from '../widgets/Loader';
+import CardList from "../cardList/CardList";
 import PatientCard from '../patient/PatientCard';
 
 
@@ -20,14 +18,6 @@ class PatientSearch extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   };
 
-  componentWillMount(){
-    this.props.dispatch(patientSearchActions.clearPatientSearch());
-    this.props.dispatch(patientActions.clearSelectedPatient());
-    if (this.props.searchQuery !== undefined && this.props.searchQuery.length > 0) {
-      this.handleSubmit({query: this.props.searchQuery});
-    }
-  }
-
   handleSubmit(value) {
     this.props.dispatch(patientSearchActions.patientSearch(
       value,
@@ -35,53 +25,46 @@ class PatientSearch extends React.Component {
       this.props.representation));
   };
 
-  handleRowClick(patient) {
-    const { dispatch } = this.props;
-    dispatch(patientActions.updatePatientInStore(patient));
-    dispatch(patientActions.setSelectedPatient(patient));
-
-    if (this.props.rowSelectedActionCreators) {
-      this.props.rowSelectedActionCreators.forEach((f) => this.props.dispatch(f(patient)));
-    }
-
-  }
-
   render() {
-    const { rowData, loading, rowSelectedActionCreators } = this.props;
+    const onMountOtherActionCreators = this.props.onMountOtherActionCreators ? this.props.onMountOtherActionCreators :
+      [
+        () => this.props.dispatch(patientSearchActions.clearPatientSearch()),
+        () => this.props.dispatch(patientActions.clearSelectedPatient()),
+      ];
+
     return (
       <div>
-        {this.props.AdditionalFilters &&
-          (
-            <this.props.AdditionalFilters
-              handleSearchChange={this.handleSubmit}
-              rowData={rowData}
-              searchType="server"
-           />
-          )
-        }
-        <PatientSearchForm onSubmit={this.handleSubmit} />
-        {loading ? <Loader /> : 
-          (rowData.length > 0 ? rowData.map((patientData, index) => 
-            (
-              PatientCard(
-              patientData,
-              index,
-              (patient) => this.handleRowClick(patient),
-              patientUtil.getPreferredIdentifier
-              )
-            )
-          ) : <h2 className="text-center">No Data to display</h2>)
-        }
+        <CardList 
+          AdditionalSearchFilters={this.props.AdditionalFilters}
+          card={PatientCard}
+          delayInterval={0}
+          dispatch={this.props.dispatch}
+          getPatientIdentifiers={this.props.getPatientIdentifiers}
+          handleSearchChange={this.handleSubmit}
+          handleSearchSubmit={this.handleSubmit}
+          loading={this.props.isUpdating}
+          noDataMessage="No patients to display"
+          onMountOtherActionCreators={onMountOtherActionCreators}
+          rowData={this.props.rowData}
+          rowSelectedActionCreators={[patientActions.setSelectedPatient, patientActions.updatePatientInStore, ...this.props.rowSelectedActionCreators]}
+          searchFilterFields={null}
+          searchType="server"
+          title={this.props.title}
+        />
       </div>
     );
   };
 }
 
 PatientSearch.propTypes = {
+  AdditionalFilters: PropTypes.func,
+  getPatientIdentifiers: PropTypes.func,
+  isUpdating: PropTypes.bool,
   parseResults: PropTypes.func.isRequired,
   representation: PropTypes.string.isRequired,
   rowData: PropTypes.array,
-  rowSelectedActionCreators: PropTypes.array.isRequired
+  rowSelectedActionCreators: PropTypes.array.isRequired,
+  title: PropTypes.string,
 };
 
 PatientSearch.defaultProps = {
@@ -98,7 +81,8 @@ PatientSearch.defaultProps = {
 
 const mapStateToProps = (state) => {
   return {
-    rowData: state.openmrs.patientSearch.results ? state.openmrs.patientSearch.results : []
+    rowData: state.openmrs.patientSearch.results ? state.openmrs.patientSearch.results : [],
+    isUpdating: state.openmrs.patientSearch.isUpdating
   };
 };
 

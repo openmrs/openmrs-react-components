@@ -22,7 +22,8 @@ describe('patient search reducers', () => {
       type: PATIENT_SEARCH_TYPES.SUCCEEDED,
       results: results
     })).toEqual({
-      results: results
+      results: results,
+      isUpdating: false
     });
 
   });
@@ -34,7 +35,8 @@ describe('patient search reducers', () => {
     })).toEqual({
       error: {
         message: "Unable to find patients"
-      }
+      },
+      isUpdating: false
     });
 
   });
@@ -51,7 +53,7 @@ describe('patient search reducers', () => {
         }
       ] }, {
         type: PATIENT_SEARCH_TYPES.CLEAR_SEARCH
-      })).toEqual({});
+      })).toEqual({ isUpdating: false });
 
   });
 
