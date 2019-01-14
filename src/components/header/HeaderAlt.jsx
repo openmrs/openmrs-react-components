@@ -32,8 +32,14 @@ export class HeaderAlt extends React.Component {
     this.setState(() => ({ expanded: false }));
   }
 
-
   render() {
+
+    const hasLongLocationName = this.props.sessionLocation.display.length > 15;
+    let portraitNavMenuClass = 'navbar-menu portrait';
+    if (hasLongLocationName) {
+      portraitNavMenuClass = 'navbar-menu portrait long';
+    }
+
     return (
       <Col>
         <Row style={{ height:60 }}>
@@ -55,7 +61,7 @@ export class HeaderAlt extends React.Component {
             />
             }
 
-            <div className="navbar-menu portrait">
+            <div className={portraitNavMenuClass}>
               <div className="location-dropdown-icon">
                 <LocationMenu
                   dispatch={this.props.dispatch}
