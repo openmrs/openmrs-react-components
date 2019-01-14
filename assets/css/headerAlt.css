@@ -136,6 +136,9 @@ li.dropdown {
     .navbar-menu.portrait {
         left: 70%;
     }
+    .navbar-menu.portrait.long{
+        left: 54%;
+    }
 }
 
 @media only screen and (min-width: 200px) and (max-width: 939px) {
