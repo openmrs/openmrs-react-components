@@ -11,7 +11,7 @@ class SlidingNavMenu extends React.PureComponent {
     const pagePathArray = Object.keys(pageOptions);
 
     this.state = {
-      activeKey: pagePathArray[0],
+      activeKey: pathname,
       pagePathArray,
     };
     this.handleSelect = this.handleSelect.bind(this);
@@ -21,6 +21,12 @@ class SlidingNavMenu extends React.PureComponent {
     this.setState({
       activeKey: path,
     });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.pathname !== this.props.pathname) {
+      this.setState({ activeKey: this.props.pathname})
+    }
   }
 
   render() {
