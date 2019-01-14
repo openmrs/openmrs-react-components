@@ -49,7 +49,6 @@ class BasicLayout extends React.Component {
 
 BasicLayout.propTypes = {
   identifierTypesToDisplay: PropTypes.array,
-  leftRail: PropTypes.object,
   navMenuPages: PropTypes.object,
   patient: PropTypes.object,
   patientHeaderShowBackButton: PropTypes.bool,
