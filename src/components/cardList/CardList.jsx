@@ -96,7 +96,8 @@ class CardList extends React.Component {
 
   render() {
     // TODO "getPatientIdentifiers" should be generalizible in some way
-    const { rowData, loading, card, AdditionalSearchFilters, getPatientIdentifiers, noDataMessage, handleSearchChange, searchType } = this.props;
+    const { rowData, loading, card, AdditionalSearchFilters, getPatientIdentifiers, noDataMessage, handleSearchChange, searchType,
+      handleSearchSubmit } = this.props;
 
     const filteredRowData = this.applyFiltersToList(rowData);
     return (
@@ -127,7 +128,7 @@ class CardList extends React.Component {
                 onClick={this.handleSearchClear}
               />
               <button className="search-button" 
-                onClick={() => this.props.handleSearchSubmit(this.state.searchValue) }>search</button>
+                onClick={() => handleSearchSubmit && handleSearchSubmit(this.state.searchValue) }>search</button>
             </span>
           </div>
         </div>}
