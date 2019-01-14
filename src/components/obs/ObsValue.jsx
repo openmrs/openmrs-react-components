@@ -70,8 +70,7 @@ class ObsValue extends React.PureComponent{
     return (
       <tr>
         <td style={cellPadding}><b>{ this.getObsLabel(this.props.obs) }:</b></td>
-        <td style={cellPadding}>{ obsValue }</td>
-        <td style={cellPadding}><b>{ this.props.concept && this.props.concept.units ? this.props.concept.units : ''}</b></td>
+        <td style={cellPadding}>{ obsValue } { this.props.concept && this.props.concept.units ? this.props.concept.units : ''}</td>
         {
           <td
             className={validationValue}
