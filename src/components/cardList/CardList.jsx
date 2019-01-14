@@ -46,7 +46,6 @@ class CardList extends React.Component {
   getSortFields(index) {
     const { sortFields } = this.props;
     return sortFields[index] ? sortFields[index].split('.') : '';
-
   }
 
   applyFiltersToList(list) {
