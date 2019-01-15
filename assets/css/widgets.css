@@ -79,6 +79,7 @@
 
 .time-zone-offset-alert,
 .time-difference-alert,
+.service-worker-updated-alert,
 .connectivity-alert {
     height: 40px;
     border: 1px solid;

@@ -59,6 +59,7 @@ import { GRID_TYPES, gridActions } from './features/grid';
 import { patientActions, PATIENT_TYPES } from "./features/patient";
 import { locationActions, locationSagas } from "./features/location";
 import { conceptSagas, conceptActions } from "./features/concept";
+import { systemActions } from "./features/system";
 import {
   PATIENT_SEARCH_TYPES,
   patientSearchActions,
@@ -158,6 +159,7 @@ module.exports = {
   gridActions,
   errorsActions,
   patientActions,
+  systemActions,
   PATIENT_TYPES,
   locationActions,
   axiosInstance,
