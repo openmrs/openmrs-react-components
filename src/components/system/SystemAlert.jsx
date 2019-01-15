@@ -62,6 +62,7 @@ class Alert extends Component {
         type: 'time-zone-offset-alert',
       });
     }
+
     if (hasTimeDifference) {
       alertMessages.push({
         message: `Your device time is different from the server by ${timeDifference} minutes`,
@@ -74,6 +75,18 @@ class Alert extends Component {
         message: 'APPLICATION DISCONECTED FROM SERVER',
         type: 'connectivity-alert'
       }];
+    }
+
+    if (system.serviceWorkerUpdated) {
+      alertMessages.push({
+        message: `Thers is a newer version of this app`,
+        type: 'time-zone-offset-alert',
+        key: 'serviceWorkerUpdated'
+      });
+    } else {
+      alertMessages.filter(function( messages ) {
+        return messages.key !== 'serviceWorkerUpdated';
+      });
     }
 
     const display = (hasTimeDifference || hasTimeZoneOffset || !hasConnection);
