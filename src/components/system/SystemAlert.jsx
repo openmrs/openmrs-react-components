@@ -79,8 +79,8 @@ class Alert extends Component {
 
     if (system.serviceWorkerUpdated) {
       alertMessages.push({
-        message: `Thers is a newer version of this app`,
-        type: 'time-zone-offset-alert',
+        message: `There is a newer version of this app, please close and reopen the app to update`,
+        type: 'service-worker-updated-alert',
         key: 'serviceWorkerUpdated'
       });
     } else {
