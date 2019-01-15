@@ -24,6 +24,15 @@ const api = {
         return response.data;
       }
     }),
+
+  getPatientIdentifierTypes: () => axiosInstance.get(`patientidentifiertype`)
+    .then((response) => {
+      if (response.status !== 200) {
+        throw response;
+      } else {
+        return response.data;
+      }
+    }),
 };
 
 export default api;
