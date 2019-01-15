@@ -19,10 +19,10 @@ export const patientIdentifierTypesReducer = (state = {}, action) => {
 };
 
 
-export const getPatientIdentifiertypes = (state) => {
+export const getPatientIdentifierTypes = (state) => {
   return state;
 };
 
-export const getPatientIdentifiertype = (state, patientIdentifierTypeUuid) => {
+export const getPatientIdentifierType = (state, patientIdentifierTypeUuid) => {
   return state.find(patientIdentifierTypes => patientIdentifierTypes.uuid === patientIdentifierTypeUuid);
 };
