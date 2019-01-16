@@ -67,10 +67,14 @@ class ObsValue extends React.PureComponent{
     const validationValue = validation.critical ? 'critical' : (validation.abnormal ? 'abnormal' : '');
 
     // TODO provide a way to support other formats than a table?
+
+    const label = this.getObsLabel(this.props.obs);
+    const value = `${ obsValue } ${ this.props.concept && this.props.concept.units ? this.props.concept.units : ''}`;
+
     return (
       <tr>
-        <td style={cellPadding}><b>{ this.getObsLabel(this.props.obs) }:</b></td>
-        <td style={cellPadding}>{ obsValue } { this.props.concept && this.props.concept.units ? this.props.concept.units : ''}</td>
+        <td style={cellPadding}><b>{ !this.props.reverseLabelAndValue ? label : value }:</b></td>
+        <td style={cellPadding}>{ !this.props.reverseLabelAndValue ? value : label }</td>
         {
           <td
             className={validationValue}
@@ -86,10 +90,15 @@ class ObsValue extends React.PureComponent{
 
 }
 
+ObsValue.defaultProps = {
+  reverseLabelAndValue: false
+};
+
 ObsValue.propTypes = {
   concept: PropTypes.object,
   labels: PropTypes.object,
-  obs: PropTypes.object.isRequired
+  obs: PropTypes.object.isRequired,
+  reverseLabelAndValue: PropTypes.bool.isRequired      // true: display "{value}: {label}" instead of "{label}: {value}"
 };
 
 const mapStateToProps = (state, ownProps) => {

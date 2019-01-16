@@ -116,6 +116,7 @@ class ObsHistory extends React.PureComponent {
                               key={obs.id}
                               labels={this.props.labels}
                               obs={obs}
+                              reverseLabelAndValue={this.props.reverseLabelAndValue}
                             />
                           );
                         })
@@ -137,8 +138,9 @@ class ObsHistory extends React.PureComponent {
 
 ObsHistory.defaultProps = {
   answers: [],
-  groupingConcepts: [],
   concepts: [],
+  groupingConcepts: [],
+  reverseLabelAndValue: false,    // for displaying obs where the question is really answer
   showDates: true
 };
 
@@ -149,6 +151,7 @@ ObsHistory.propTypes = {
   labels: PropTypes.object,
   obs: PropTypes.array,
   patient: PropTypes.object.isRequired,
+  reverseLabelAndValue: PropTypes.bool.isRequired,
   showDates: PropTypes.bool.isRequired
 };
 
