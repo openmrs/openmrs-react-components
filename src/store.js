@@ -9,7 +9,7 @@ import { formReducers } from './features/form';
 import { constantsReducers } from './features/constants';
 import { systemReducers } from './features/system';
 import { conceptReducer} from "./features/concept/reducers";
-import { getPatients, getSelectedPatient, isUpdating } from './features/patient';
+import { getPatients, getSelectedPatient, isUpdating, getSelectPatientActionCreators } from './features/patient';
 import { getConcept, getConcepts } from './features/concept';
 import { locationsReducer, getLocations } from './features/location';
 import { patientIdentifierTypesReducer, getPatientIdentifierTypes, getPatientIdentifierType } from './features/patientIdentifierTypes';
@@ -37,8 +37,17 @@ export const selectors = {
     return getPatients(state.openmrs.patients);
   },
 
+  getSelectedPatient: (state) => {
+    return getSelectedPatient(state.openmrs.patients);
+  },
+
+  // deprecated, replaced with "getSelectedPatient" as store is redundant for a selector
   getSelectedPatientFromStore: (state) => {
     return getSelectedPatient(state.openmrs.patients);
+  },
+
+  getSelectPatientActionCreators: (state) => {
+    return getSelectPatientActionCreators(state.openmrs.patients);
   },
 
   isPatientStoreUpdating: (state) => {
@@ -63,5 +72,6 @@ export const selectors = {
 
   getLocations: (state) => {
     return getLocations(state.openmrs.metadata.locations);
-  }
+  },
+
 };

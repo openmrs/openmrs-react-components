@@ -34,7 +34,7 @@ function* login(action) {
 
 function* getLocations() {
 
-  let response = response = yield call(locationRest.fetchLoginLocations);
+  let response = yield call(locationRest.fetchLoginLocations);
   if (response.results.length > 0) {
     yield put(loginActions.getLoginLocationsSucceeded(response.results));
   } else {
@@ -45,7 +45,6 @@ function* getLocations() {
 }
 
 function* loginLocations(action) {
-  let response = null;
   try {
     yield call(getLocations);
   }

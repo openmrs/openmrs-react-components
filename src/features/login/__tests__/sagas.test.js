@@ -2,7 +2,6 @@ import SagaTester from 'redux-saga-tester';
 import { reset } from 'redux-form';
 import loginSagas from "../sagas";
 import loginActions from '../actions';
-import { sessionActions } from "../../session";
 
 jest.mock('../../../rest/loginRest');
 jest.mock('../../../rest/sessionRest');

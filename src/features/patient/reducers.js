@@ -5,7 +5,8 @@ import PATIENT_TYPES from './types';
 export const patientsReducer = (state = {
   set: {},
   isUpdating: false,
-  selected: null
+  selected: null,
+  selectPatientActionCreators: null
 }, action) => {
 
   switch (action.type) {
@@ -14,9 +15,9 @@ export const patientsReducer = (state = {
 
       if (action.patients === null) {
         return {
+          ...state,
           set: null,
           isUpdating: false,
-          selected: state.selected
         };
       }
       else {
@@ -28,15 +29,16 @@ export const patientsReducer = (state = {
             }, {});
 
         return {
+          ...state,
           set: set,
-          isUpdating: false,
-          selected: state.selected
+          isUpdating: false
         };
       }
 
     case PATIENT_TYPES.CLEAR_PATIENT_STORE:
 
       return {
+        ...state,
         set: {},
         isUpdating: false,
         selected: null
@@ -52,6 +54,7 @@ export const patientsReducer = (state = {
       }
 
       return {
+        ...state,
         set: {
           ...state.set,
           [action.patient.uuid]: {
@@ -59,7 +62,6 @@ export const patientsReducer = (state = {
             visit
           }
         },
-        selected: state.selected,
         isUpdating: false
       };
 
@@ -67,9 +69,9 @@ export const patientsReducer = (state = {
 
       if (action.patients === null || action.patients.length === 0) {
         return {
+          ...state,
           set: state.set,
-          isUpdating: false,
-          selected: state.selected
+          isUpdating: false
         };
       }
       else {
@@ -93,12 +95,12 @@ export const patientsReducer = (state = {
             }, {});
 
         return {
+          ...state,
           set: {
             ...state.set,
             ...set
           },
-          isUpdating: false,
-          selected: state.selected
+          isUpdating: false
         };
       }
 
@@ -117,37 +119,39 @@ export const patientsReducer = (state = {
       }, state.set);
 
       return {
+        ...state,
         set: currentPatientsWithUpdatedVisits,
-        selected: state.selected,
         isUpdating: false
       };
 
     case PATIENT_TYPES.SET_SELECTED_PATIENT:
       return {
-        set: state.set,
-        selected: action.patient ? action.patient.uuid : null,
-        isUpdating: state.isUpdating
+        ...state,
+        selected: action.patient ? action.patient.uuid : null
       };
 
     case PATIENT_TYPES.CLEAR_SELECTED_PATIENT:
       return {
-        set: state.set,
-        selected: null,
-        isUpdating: state.isUpdating
+        ...state,
+        selected: null
       };
 
     case PATIENT_TYPES.SET_PATIENT_STORE_UPDATING:
       return {
-        set: state.set,
-        selected: state.selected,
+        ...state,
         isUpdating: true
       };
 
     case PATIENT_TYPES.SET_PATIENT_STORE_NOT_UPDATING:
       return {
-        set: state.set,
-        selected: state.selected,
+        ...state,
         isUpdating: false
+      };
+
+    case PATIENT_TYPES.REGISTER_SELECT_PATIENT_ACTION_CREATORS:
+      return {
+        ...state,
+        selectPatientActionCreators: action.actionCreators
       };
 
     default: return state;
@@ -166,3 +170,6 @@ export const getSelectedPatient = (state) => {
   return (state.set && state.selected) ? state.set[state.selected] : null;
 };
 
+export const getSelectPatientActionCreators = (state) => {
+  return state.selectPatientActionCreators;
+};

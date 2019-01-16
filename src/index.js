@@ -56,7 +56,7 @@ import { errorsActions } from './features/errors';
 import { constantsSagas, constantsActions } from './features/constants';
 import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
 import { GRID_TYPES, gridActions } from './features/grid';
-import { patientActions, PATIENT_TYPES } from "./features/patient";
+import { patientSagas, patientActions, PATIENT_TYPES } from "./features/patient";
 import { locationActions, locationSagas } from "./features/location";
 import { conceptSagas, conceptActions } from "./features/concept";
 import { patientIdentifierTypesActions, patientIdentifierTypesSagas } from "./features/patientIdentifierTypes";
@@ -100,7 +100,8 @@ const sagas = function* () {
     constantsSagas(),
     conceptSagas(),
     locationSagas(),
-    patientIdentifierTypesSagas()
+    patientIdentifierTypesSagas(),
+    patientSagas()
   ]);
 };
 
