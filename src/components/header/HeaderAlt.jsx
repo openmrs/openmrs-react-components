@@ -32,13 +32,32 @@ export class HeaderAlt extends React.Component {
     this.setState(() => ({ expanded: false }));
   }
 
-  render() {
+  getPotraitMenuClassName() {
+    const locationLength = this.props.sessionLocation.display.length;
+    let navClassName = "navbar-menu portrait";
 
-    const hasLongLocationName = this.props.sessionLocation.display.length > 15;
-    let portraitNavMenuClass = 'navbar-menu portrait';
-    if (hasLongLocationName) {
-      portraitNavMenuClass = 'navbar-menu portrait long';
+    switch (true) {
+      case (locationLength > 15 && locationLength < 21): {
+        navClassName = "navbar-menu portrait mid";
+        break;
+      }
+      case (locationLength > 21 && locationLength < 25): {
+        navClassName = "navbar-menu portrait semi";
+        break;
+      }
+      case (locationLength > 25): {
+        navClassName = "navbar-menu portrait long";
+        break;
+      }
+      default: {
+        break;
+      }
+
     }
+    return navClassName;
+  }
+
+  render() {
 
     return (
       <Col>
@@ -61,7 +80,7 @@ export class HeaderAlt extends React.Component {
             />
             }
 
-            <div className={portraitNavMenuClass}>
+            <div className={this.getPotraitMenuClassName()}>
               <div className="location-dropdown-icon">
                 <LocationMenu
                   dispatch={this.props.dispatch}
