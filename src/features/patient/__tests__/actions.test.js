@@ -22,11 +22,6 @@ describe('patient actions', () => {
     }
   ];
 
-  const actionCreators = [
-    () => null,
-    () => null
-  ];
-
   it('should create set patient store action', () => {
     const expectedAction = {
       type: PATIENT_TYPES.SET_PATIENT_STORE,
@@ -89,19 +84,5 @@ describe('patient actions', () => {
     expect(patientActions.clearSelectedPatient()).toEqual(expectedAction);
   });
 
-  it('should create register set selected patient action creators', () => {
-    const expectedAction = {
-      type: PATIENT_TYPES.REGISTER_SELECT_PATIENT_ACTION_CREATORS,
-      actionCreators: actionCreators
-    };
-    expect(patientActions.registerSelectPatientActionCreators(actionCreators)).toEqual(expectedAction);
-  });
-
-  it('should create refresh selected patient action creator', () => {
-    const expectedAction = {
-      type: PATIENT_TYPES.REFRESH_SELECTED_PATIENT
-    };
-    expect(patientActions.refreshSelectedPatient()).toEqual(expectedAction);
-  });
 
 });

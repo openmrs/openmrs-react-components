@@ -49,19 +49,6 @@ const updateActiveVisitsInStore = (visits) => ( {
   type: PATIENT_TYPES.UPDATE_ACTIVE_VISITS_IN_STORE
 } );
 
-// actions to be triggered when a patient is selected
-// (for instance, you may want to trigger fetching additional patient info when patient is marked as selected)
-const registerSelectPatientActionCreators = (actionCreators) => ( {
-  actionCreators: actionCreators,
-  type: PATIENT_TYPES.REGISTER_SELECT_PATIENT_ACTION_CREATORS
-});
-
-
-// calls any action creators registered as "select patient action creators"
-const refreshSelectedPatient = () => ({
-  type: PATIENT_TYPES.REFRESH_SELECTED_PATIENT
-});
-
 export default {
   setPatientStore,
   clearPatientStore,
@@ -71,7 +58,5 @@ export default {
   updatePatientInStore,
   updatePatientsInStore,
   setSelectedPatient,
-  clearSelectedPatient,
-  registerSelectPatientActionCreators,
-  refreshSelectedPatient
+  clearSelectedPatient
 };

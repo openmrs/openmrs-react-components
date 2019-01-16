@@ -46,10 +46,6 @@ export const selectors = {
     return getSelectedPatient(state.openmrs.patients);
   },
 
-  getSelectPatientActionCreators: (state) => {
-    return getSelectPatientActionCreators(state.openmrs.patients);
-  },
-
   isPatientStoreUpdating: (state) => {
     return isUpdating(state.openmrs.patients);
   },

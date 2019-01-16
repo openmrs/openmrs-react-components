@@ -1,4 +1,4 @@
-import { patientsReducer, getPatients, getSelectedPatient, isUpdating, getSelectPatientActionCreators } from '../reducers';
+import { patientsReducer, getPatients, getSelectedPatient, isUpdating } from '../reducers';
 import PATIENT_TYPES from '../types';
 
 describe('patient set reducer', () => {
@@ -39,8 +39,7 @@ describe('patient set reducer', () => {
     expect(patientsReducer(undefined, {})).toEqual( {
       set: {},
       selected: null,
-      isUpdating: false,
-      selectPatientActionCreators: null
+      isUpdating: false
     });
   });
 
@@ -48,8 +47,7 @@ describe('patient set reducer', () => {
     const patients = patientsReducer({
       set: {},
       selected: null,
-      isUpdating: true,
-      selectPatientActionCreators: null
+      isUpdating: true
     }, {
       type: PATIENT_TYPES.SET_PATIENT_STORE,
       patients: [samplePatient, anotherSamplePatient]
@@ -59,15 +57,13 @@ describe('patient set reducer', () => {
     expect(patients.set['efgh-5678']).toEqual(anotherSamplePatient);
     expect(patients.selected).toBeNull();
     expect(patients.isUpdating).toBe(false);
-    expect(patients.selectPatientActionCreators).toBeNull();
   });
 
   it('should handle empty patient list', () => {
     const patients = patientsReducer({
       set: {},
       selected: null,
-      isUpdating: true,
-      selectPatientActionCreators: null
+      isUpdating: true
     }, {
       type: PATIENT_TYPES.SET_PATIENT_STORE,
       patients: []
@@ -76,8 +72,7 @@ describe('patient set reducer', () => {
     expect(patients).toEqual( {
       set: {},
       selected: null,
-      isUpdating: false,
-      selectPatientActionCreators: null
+      isUpdating: false
     });
   });
 
@@ -85,8 +80,7 @@ describe('patient set reducer', () => {
     const patients = patientsReducer({
       set: {},
       selected: null,
-      isUpdating: true,
-      selectPatientActionCreators: null
+      isUpdating: true
     }, {
       type: PATIENT_TYPES.SET_PATIENT_STORE
     });
@@ -94,8 +88,7 @@ describe('patient set reducer', () => {
     expect(patients).toEqual( {
       set: {},
       selected: null,
-      isUpdating: false,
-      selectPatientActionCreators: null
+      isUpdating: false
     });
   });
 
@@ -108,8 +101,7 @@ describe('patient set reducer', () => {
           'efgh-5678': { "uuid": "efgh-5678" },
         },
         isUpdating: false,
-        selected: 'abcd-efgh',
-        selectPatientActionCreators: null
+        selected: 'abcd-efgh'
       }, {
         type: PATIENT_TYPES.CLEAR_PATIENT_STORE
       });
@@ -117,8 +109,7 @@ describe('patient set reducer', () => {
     expect(patients).toEqual( {
       set: {},
       selected: null,
-      isUpdating: false,
-      selectPatientActionCreators: null
+      isUpdating: false
     });
   });
 
@@ -130,8 +121,7 @@ describe('patient set reducer', () => {
           'efgh-5678': { "uuid": "efgh-5678" },
         },
         isUpdating: false,
-        selected: 'abcd-efgh',
-        selectPatientActionCreators: null
+        selected: 'abcd-efgh'
       }, {
         type: PATIENT_TYPES.UPDATE_ACTIVE_VISITS_IN_STORE,
         visits: [sampleVisit, anotherSampleVisit]
@@ -141,7 +131,6 @@ describe('patient set reducer', () => {
     expect(patients.set['efgh-5678']['visit']).toEqual(anotherSampleVisit);
     expect(patients.selected).toBe('abcd-efgh');
     expect(patients.isUpdating).toBe(false);
-    expect(patients.selectPatientActionCreators).toBeNull();
   });
 
   it('should handle empty visits list', () => {
@@ -152,8 +141,7 @@ describe('patient set reducer', () => {
           'efgh-5678': { "uuid": "efgh-5678" },
         },
         isUpdating: true,
-        selected: 'abcd-efgh',
-        selectPatientActionCreators: null
+        selected: 'abcd-efgh'
       }, {
         type: PATIENT_TYPES.UPDATE_ACTIVE_VISITS_IN_STORE,
         visits: []
@@ -163,7 +151,6 @@ describe('patient set reducer', () => {
     expect(patients.set['efgh-5678']['visit']).toBeUndefined();
     expect(patients.selected).toBe('abcd-efgh');
     expect(patients.isUpdating).toBe(false);
-    expect(patients.selectPatientActionCreators).toBeNull();
   });
 
   it('should handle undefined visits list', () => {
@@ -174,8 +161,7 @@ describe('patient set reducer', () => {
           'efgh-5678': { "uuid": "efgh-5678" },
         },
         isUpdating: true,
-        selected: 'abcd-efgh',
-        selectPatientActionCreators: null
+        selected: 'abcd-efgh'
       }, {
         type: PATIENT_TYPES.UPDATE_ACTIVE_VISITS_IN_STORE,
       });
@@ -184,7 +170,6 @@ describe('patient set reducer', () => {
     expect(patients.set['efgh-5678']['visit']).toBeUndefined();
     expect(patients.selected).toBe('abcd-efgh');
     expect(patients.isUpdating).toBe(false);
-    expect(patients.selectPatientActionCreators).toBeNull();
   });
 
   // we are no longer supporting this use case
@@ -232,8 +217,7 @@ describe('patient set reducer', () => {
           }
         },
       selected: null,
-      isUpdating: false,
-      selectedPatientActionCreators: false
+      isUpdating: false
     };
 
     const updated = patientsReducer(initial, {
@@ -259,8 +243,7 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: true,
-      selectedPatientActionCreators: false
+      isUpdating: true
     };
 
     const expected = {
@@ -272,8 +255,7 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: false,
-      selectedPatientActionCreators: false
+      isUpdating: false
     };
 
     const updated = patientsReducer(initial, {
@@ -308,8 +290,7 @@ describe('patient set reducer', () => {
         "abcd-1234": existingPatient
       },
       selected: null,
-      isUpdating: true,
-      selectedPatientActionCreators: false
+      isUpdating: true
     };
 
     const expected = {
@@ -318,8 +299,7 @@ describe('patient set reducer', () => {
         "efgh-5678": newPatient
       },
       selected: null,
-      isUpdating: false,
-      selectedPatientActionCreators: false
+      isUpdating: false
     };
 
 
@@ -346,8 +326,7 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: true,
-      selectedPatientActionCreators: false
+      isUpdating: true
     };
 
     const expected = {
@@ -362,8 +341,7 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: false,
-      selectedPatientActionCreators: false
+      isUpdating: false
     };
 
     const updated = patientsReducer(initial, {
@@ -396,8 +374,7 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: true,
-      selectedPatientActionCreators: false
+      isUpdating: true
     };
 
     const expected = {
@@ -414,8 +391,7 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: false,
-      selectedPatientActionCreators: false
+      isUpdating: false
     };
 
     const updated = patientsReducer(initial, {
@@ -444,8 +420,7 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: true,
-      selectedPatientActionCreators: false
+      isUpdating: true
     };
 
     const expected = {
@@ -462,8 +437,7 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: false,
-      selectedPatientActionCreators: false
+      isUpdating: false
     };
 
     const updated = patientsReducer(initial, {
@@ -497,8 +471,7 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: true,
-      selectedPatientActionCreators: false
+      isUpdating: true
     };
 
     const expected = {
@@ -515,8 +488,7 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: false,
-      selectedPatientActionCreators: false
+      isUpdating: false
     };
 
     const updated = patientsReducer(initial, {
@@ -550,8 +522,7 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: true,
-      selectedPatientActionCreators: false
+      isUpdating: true
     };
 
     const expected = {
@@ -568,8 +539,7 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: false,
-      selectedPatientActionCreators: false
+      isUpdating: false
     };
 
     const updated = patientsReducer(initial, {
@@ -602,8 +572,7 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: true,
-      selectedPatientActionCreators: false
+      isUpdating: true
     };
 
     const expected = {
@@ -618,8 +587,7 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: false,
-      selectedPatientActionCreators: false
+      isUpdating: false
     };
 
     const updated = patientsReducer(initial, {
@@ -649,8 +617,7 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: false,
-      selectedPatientActionCreators: false
+      isUpdating: false
     };
 
     const expected = {
@@ -662,8 +629,7 @@ describe('patient set reducer', () => {
         }
       },
       selected: "abc-1234",
-      isUpdating: false,
-      selectedPatientActionCreators: false
+      isUpdating: false
     };
 
     const patient = {};
@@ -687,8 +653,7 @@ describe('patient set reducer', () => {
         }
       },
       selected: "abc-1234",
-      isUpdating: true,
-      selectedPatientActionCreators: false
+      isUpdating: true
     };
 
     const expected = {
@@ -700,8 +665,7 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: true,
-      selectedPatientActionCreators: false
+      isUpdating: true
     };
 
     expect(patientsReducer(initial, {
@@ -721,8 +685,7 @@ describe('patient set reducer', () => {
         }
       },
       selected: "abc-1234",
-      isUpdating: false,
-      selectedPatientActionCreators: false
+      isUpdating: false
     };
 
     const expected = {
@@ -734,8 +697,7 @@ describe('patient set reducer', () => {
         }
       },
       selected: "abc-1234",
-      isUpdating: true,
-      selectedPatientActionCreators: false
+      isUpdating: true
     };
 
     expect(patientsReducer(initial, {
@@ -755,8 +717,7 @@ describe('patient set reducer', () => {
         }
       },
       selected: "abcd-1234",
-      isUpdating: true,
-      selectedPatientActionCreators: false
+      isUpdating: true
     };
 
     const expected = {
@@ -782,8 +743,7 @@ describe('patient set reducer', () => {
         }
       },
       selected: "abcd-1234",
-      isUpdating: true,
-      selectedPatientActionCreators: false
+      isUpdating: true
     };
 
     const expected = {
@@ -807,8 +767,7 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: true,
-      selectedPatientActionCreators: false
+      isUpdating: true
     };
 
     expect(getSelectedPatient(store)).toEqual(null);
@@ -826,49 +785,11 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: true,
-      selectedPatientActionCreators: false
+      isUpdating: true
     };
 
     expect(isUpdating(store)).toEqual(true);
 
   });
-
-  it('should register selected patient action creators', () => {
-    const updated = patientsReducer({
-      set: {},
-      selected: null,
-      isUpdating: false,
-      selectPatientActionCreators: null
-    }, {
-      type: PATIENT_TYPES.REGISTER_SELECT_PATIENT_ACTION_CREATORS,
-      actionCreators: [
-        () => "test1",
-        () => "test2"
-      ]
-    });
-
-    expect(updated.selectPatientActionCreators[0]()).toBe("test1");
-    expect(updated.selectPatientActionCreators[1]()).toBe("test2");
-
-  });
-
-  it ('get select patient actoins create should return selected patient actions creators', () => {
-
-    const store = {
-      set: {},
-      selected: null,
-      isUpdating: true,
-      selectPatientActionCreators: [
-        () => "test1",
-        () => "test2"
-      ]
-    };
-
-    expect(getSelectPatientActionCreators(store)[0]()).toBe("test1");
-    expect(getSelectPatientActionCreators(store)[1]()).toBe("test2");
-
-  });
-
 
 });
