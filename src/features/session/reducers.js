@@ -1,7 +1,5 @@
 import SESSION_TYPES from "./types";
 
-const initialState = {};
-
 export default (state = {}, action) => {
   switch (action.type) {
     case SESSION_TYPES.FETCH_SUCCEEDED:
@@ -33,4 +31,9 @@ export default (state = {}, action) => {
     default:
       return state;
   }
+};
+
+
+export const getSessionLocation = (state) => {
+  return state.sessionLocation;
 };

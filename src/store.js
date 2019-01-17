@@ -8,10 +8,11 @@ import { errorsReducers } from './features/errors';
 import { formReducers } from './features/form';
 import { constantsReducers } from './features/constants';
 import { systemReducers } from './features/system';
-import { conceptReducer} from "./features/concept/reducers";
-import { getPatients, getSelectedPatient, isUpdating, getSelectPatientActionCreators } from './features/patient';
+import { conceptReducer } from "./features/concept/reducers";
+import { getPatients, getSelectedPatient, isUpdating } from './features/patient';
 import { getConcept, getConcepts } from './features/concept';
 import { locationsReducer, getLocations } from './features/location';
+import { getSessionLocation } from "./features/session";
 import { patientIdentifierTypesReducer, getPatientIdentifierTypes, getPatientIdentifierType } from './features/patientIdentifierTypes';
 
 export const reducers = combineReducers({
@@ -69,5 +70,9 @@ export const selectors = {
   getLocations: (state) => {
     return getLocations(state.openmrs.metadata.locations);
   },
+
+  getSessionLocation: (state) => {
+    return getSessionLocation(state.openmrs.session);
+  }
 
 };
