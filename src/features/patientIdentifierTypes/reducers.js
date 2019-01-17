@@ -3,16 +3,17 @@ import PATIENT_IDENTIFIER_TYPES_TYPES from './types';
 export const patientIdentifierTypesReducer = (state = {}, action) => {
 
   switch (action.type) {
-
+    
     case PATIENT_IDENTIFIER_TYPES_TYPES.FETCH_SUCCEEDED:
       return action.patientIdentifierTypes;
-
-    case PATIENT_IDENTIFIER_TYPES_TYPES.FAILED:
+    
+    case PATIENT_IDENTIFIER_TYPES_TYPES.FETCH_FAILED:
       return {
         error: {
           message: "Unable to load patientIdentifierTypes"
         }
       };
+      
     default: return state;
   }
 
