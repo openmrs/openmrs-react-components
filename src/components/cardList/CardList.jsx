@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import matchSorter from 'match-sorter';
 import * as R from "ramda";
+import { debounce } from 'lodash';
 import { Label, Glyphicon, FormControl } from 'react-bootstrap';
 import { applyFilters } from "../../util/filterUtil";
 import Loader from '../widgets/Loader';
@@ -83,7 +84,12 @@ class CardList extends React.Component {
 
   handleSearchChange(e) {
     if (e.hasOwnProperty('target')) {
-      this.setState({ searchValue: e.target.value });
+      const value = e.target.value;
+      this.setState({ searchValue: value });
+      if (this.props.handleSearchSubmit && value.length > 2) {
+        const handleSearch = debounce(() => this.props.handleSearchSubmit(value), 1000);
+        handleSearch();
+      }
     } else {
       this.setState({ additionalSearchValue: e });
     }
@@ -95,8 +101,7 @@ class CardList extends React.Component {
 
   render() {
     // TODO "getPatientIdentifiers" should be generalizible in some way
-    const { rowData, loading, card, AdditionalSearchFilters, getPatientIdentifiers, noDataMessage, handleSearchChange, searchType,
-      handleSearchSubmit } = this.props;
+    const { rowData, loading, card, AdditionalSearchFilters, getPatientIdentifiers, noDataMessage, handleSearchChange, searchType } = this.props;
 
     const filteredRowData = this.applyFiltersToList(rowData);
     return (
@@ -126,8 +131,6 @@ class CardList extends React.Component {
                 glyph="remove-sign" 
                 onClick={this.handleSearchClear}
               />
-              <button className="search-button" 
-                onClick={() => handleSearchSubmit && handleSearchSubmit(this.state.searchValue) }>search</button>
             </span>
           </div>
         </div>}
@@ -152,6 +155,7 @@ CardList.propTypes = {
   fetchListActionCreator: PropTypes.func,
   filters: PropTypes.array,
   getPatientIdentifiers: PropTypes.func,
+  handleSearchSubmit: PropTypes.func,
   loading: PropTypes.bool,
   noDataMessage: PropTypes.string,
   onMountOtherActionCreators: PropTypes.array,
