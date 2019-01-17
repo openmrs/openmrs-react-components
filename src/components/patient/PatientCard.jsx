@@ -20,8 +20,8 @@ const PatientCard = (patient, index, onRowSelected, getPatientIdentifiers) => (
       { ( typeof patient.alert !== 'undefined' ) &&
                       ( patient.alert !== null ) &&         
       <span className="patient-alert">
-        { Object.keys(patient.alert).map((alert) => (
-          <span key={alert}>{alert}</span>
+        { patient.alert.map((alert) => (
+          <span key={alert.name}>{alert.name}</span>
         ))}
       </span>
       }
