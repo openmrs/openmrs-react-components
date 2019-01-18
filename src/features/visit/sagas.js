@@ -60,6 +60,7 @@ function* patientActiveVisit(action) {
 
     let response = yield call(visitApi.getPatientActiveVisit, {
       patientUuid: action.patientUuid,
+      location: action.location,
       representation: action.representation ? action.representation : "custom:" + DEFAULT_VISIT_REP
     });
     yield put(patientActions.updateActiveVisitsInStore(response.results[0] ? [response.results[0]] : null));
