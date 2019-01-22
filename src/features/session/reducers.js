@@ -1,4 +1,4 @@
-import SESSION_TYPES from "./types";
+import SESSION_TYPES, { SET_CURRENT_LOCATION_PREFIX_SUCCEEDED } from "./types";
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -7,6 +7,9 @@ export default (state = {}, action) => {
         ...action.session,
         ...action.authorization
       };
+
+    case SET_CURRENT_LOCATION_PREFIX_SUCCEEDED:
+      return { ...state, currentLocationPrefix: action.currentLocationPrefix };
 
     case SESSION_TYPES.FETCH_FAILED:
       return {

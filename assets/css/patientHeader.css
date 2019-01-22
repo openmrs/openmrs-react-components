@@ -6,7 +6,6 @@
   display: flex;
   justify-content: space-between;
   position: relative;
-  overflow: auto;
   background: #F9F9F9;
   z-index: 0;
   border-bottom: 2px solid #EEE;
@@ -24,6 +23,14 @@
   display: inline-block;
   position: relative;
   vertical-align: top;
+  min-width: 260px;
+}
+
+.patient-id {
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  min-width: 70px;
 }
 
 .demographics h2 span {
@@ -36,7 +43,6 @@
 }
 
 .identifiers {
-  max-width: 520px;
   text-align: center;
   margin-top: 25px;
   display: flex;
@@ -62,7 +68,7 @@
   white-space: nowrap;
 }
 
-.identifiers span {
+.identifiers-number > span {
   background: #666666;
   color: white;
   letter-spacing: 1px;
@@ -75,7 +81,16 @@
   border-radius: 5px;
 }
 
-@media screen and (max-width: 604px) {
+.identifier-toggle-anchor {
+  color: #337ab7;
+  font-size: 14px;
+}
+
+.identifier-toggle-anchor:hover {
+  color: #337ab7;
+}
+
+@media screen and (max-width: 704px) {
   .identifiers-number {
     flex-wrap: wrap;
     width: min-content;

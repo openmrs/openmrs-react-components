@@ -27,3 +27,7 @@ export const getPatientIdentifierTypes = (state) => {
 export const getPatientIdentifierType = (state, patientIdentifierTypeUuid) => {
   return state.find(patientIdentifierTypes => patientIdentifierTypes.uuid === patientIdentifierTypeUuid);
 };
+
+export const getPatientIdentifierTypeByName = (state, patientIdentifierTypeName) => {
+  return state.find(patientIdentifierTypes => patientIdentifierTypes.display === patientIdentifierTypeName);
+};

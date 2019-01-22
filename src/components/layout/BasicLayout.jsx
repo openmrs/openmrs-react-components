@@ -34,6 +34,7 @@ class BasicLayout extends React.Component {
             {this.props.patient && 
             <PatientHeader
               identifierTypesToDisplay={this.props.identifierTypesToDisplay}
+              identifiersToDisplay={[]}
               patient={this.props.patient}
               showBackButton={this.props.path === '/screening' ? true : false}
               backLink={this.props.location}
@@ -49,6 +50,7 @@ class BasicLayout extends React.Component {
 
 BasicLayout.propTypes = {
   identifierTypesToDisplay: PropTypes.array,
+  identifiersToDisplay: PropTypes.array,
   navMenuPages: PropTypes.object,
   patient: PropTypes.object,
   patientHeaderShowBackButton: PropTypes.bool,
