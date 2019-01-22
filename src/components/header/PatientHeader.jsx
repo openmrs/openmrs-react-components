@@ -1,21 +1,49 @@
 import React, { PureComponent } from 'react';
+import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import dateFns from 'date-fns';
 import { Glyphicon } from 'react-bootstrap';
 import { withRouter } from "react-router";
+import { selectors } from '../../store';
 import { DATE_FORMAT } from "../../constants";
 import patientUtil from '../../domain/patient/patientUtil';
 import '../../../assets/css/patientHeader.css';
 
 export class PatientHeader extends PureComponent {
-
   constructor(props) {
     super(props);
     // converts from REST rep but *only if necessary*; handles already-converted Patient object as well
     this.state = {
-      patient: patientUtil.createFromRestRep(this.props.patient)
+      patient: patientUtil.createFromRestRep(this.props.patient),
+      patientIdentifiers: [],
+      additionalPatientIdentifiers: [],
+      shouldDisplayAdditionalPatientIdentifier: false
     };
+
+    this.togglePatientIdentifierDisplay = this.togglePatientIdentifierDisplay.bind(this);
   };
+
+  componentDidMount() {
+    if (this.state.patient) {
+      const { identifiersToDisplay, identifierTypesToDisplay, currentLocationPrefix, cccNumber, hccNumber } = this.props;
+      const { patient } = this.state;
+      let identifiers = [], additionalIdentifiers = [];
+      if (identifierTypesToDisplay) {
+        identifiers = this.props.identifierTypesToDisplay.reduce((acc, identifierType) =>
+          [...acc, ...patientUtil.getIdentifiers(this.state.patient, identifierType)]
+          , []);
+      } else if (identifiersToDisplay) {
+        const getIdentifiersToDisplay = identifiersToDisplay(patient, currentLocationPrefix, cccNumber, hccNumber);  
+        identifiers = getIdentifiersToDisplay.identifiers;
+        additionalIdentifiers = getIdentifiersToDisplay.additionalIdentifiers;
+      } else {
+        identifiers = patientUtil.getIdentifiers(this.state.patient);
+      }
+    
+      this.setState({ patientIdentifiers: identifiers });
+      this.setState({ additionalPatientIdentifiers: additionalIdentifiers });
+    }
+  }
 
   componentWillReceiveProps(nextProps) {
     const { patient } = this.state;
@@ -24,6 +52,10 @@ export class PatientHeader extends PureComponent {
         patient: patientUtil.createFromRestRep(this.props.patient),
       });
     }
+  }
+
+  togglePatientIdentifierDisplay() {
+    this.setState({ shouldDisplayAdditionalPatientIdentifier: !this.state.shouldDisplayAdditionalPatientIdentifier });
   }
 
   renderDemographics() {
@@ -60,22 +92,24 @@ export class PatientHeader extends PureComponent {
 
   // TODO allow limit by preferred?
   renderPatientIdentifier() {
+    const { shouldDisplayAdditionalPatientIdentifier, additionalPatientIdentifiers, patientIdentifiers } = this.state;
     return (
       <div className="identifiers">
         <em>Patient ID</em>
-        {!this.props.identifierTypesToDisplay ? (
-          <div className="identifiers-number">
-            { patientUtil.getIdentifiers(this.state.patient)
-              .map(identifier => <span key={identifier}>{identifier}</span>)}
-          </div>
-        ) : (
-          <div className="identifiers-number">
-            {this.props.identifierTypesToDisplay.reduce((acc, identifierType) =>
-              [...acc, ...patientUtil.getIdentifiers(this.state.patient, identifierType)]
-              , [])
-              .map(identifier => <span key={identifier}>{identifier}</span>)}
-          </div>
-        )}
+        <div className="identifiers-number">
+          { patientIdentifiers.map(identifier => <span key={identifier}>{identifier}</span>)}
+          { shouldDisplayAdditionalPatientIdentifier && additionalPatientIdentifiers.map(identifier => <span key={identifier}>{identifier}</span>)}
+          <a
+            className="identifier-toggle-anchor" 
+            onClick={this.togglePatientIdentifierDisplay}
+          >
+            Show {shouldDisplayAdditionalPatientIdentifier ? 'less' : 'more'}&nbsp;
+            <Glyphicon
+              className="back-button-icon"
+              glyph={shouldDisplayAdditionalPatientIdentifier ? 'triangle-top' : 'triangle-bottom'}
+            />
+          </a>
+        </div>
         <br />
       </div>
     );
@@ -108,8 +142,19 @@ export class PatientHeader extends PureComponent {
 
 PatientHeader.propTypes = {
   identifierTypesToDisplay: PropTypes.array,
+  identifiersToDisplay: PropTypes.func,
   patient: PropTypes.shape({}),
   showBackButton: PropTypes.bool,
 };
 
-export default withRouter(PatientHeader);
+const mapStateToProps = (state) => {
+  return {
+    cccNumber: selectors.getPatientIdentifierTypeByName(state, 'Chronic Care Number'),
+    hccNumber: selectors.getPatientIdentifierTypeByName(state, 'HCC Number'),
+    sessionLocation: state.openmrs.session.sessionLocation,
+    identifierTypes: state.openmrs.metadata.patientIdentifierTypes,
+    currentLocationPrefix: state.openmrs.session.currentLocationPrefix
+  };
+};
+
+export default withRouter(connect(mapStateToProps)(PatientHeader));

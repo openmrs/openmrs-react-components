@@ -105,6 +105,14 @@ const patientUtil = {
       .map((i) => i.identifier) : [];
   },
 
+  getIdentifiersAndPreferred: (patient, identifierType) => {
+    return patient.identifiers ? patient.identifiers
+      .filter((i) => identifierType ? i.identifierType.uuid === identifierType.uuid : true)
+      .map((i) => {
+        return { identifier: i.identifier, preferred: i.preferred };
+      }) : [];
+  },
+
   // just gets the first identifier marked as preferred
   getPreferredIdentifier: (patient) => {
     const identifier = patient.identifiers
