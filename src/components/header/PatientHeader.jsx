@@ -91,7 +91,7 @@ export class PatientHeader extends PureComponent {
     }
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps) {
     const { patient } = this.state;
     if (nextProps.patient.uuid !== patient.uuid) {
       this.setState({
