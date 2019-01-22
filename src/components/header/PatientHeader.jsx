@@ -25,63 +25,17 @@ export class PatientHeader extends PureComponent {
 
   componentDidMount() {
     if (this.state.patient) {
-      const { identifiersToDisplay, identifierTypesToDisplay, currentLocationPrefix } = this.props;
+      const { identifiersToDisplay, identifierTypesToDisplay, currentLocationPrefix, cccNumber, hccNumber } = this.props;
+      const { patient } = this.state;
       let identifiers = [], additionalIdentifiers = [];
       if (identifierTypesToDisplay) {
         identifiers = this.props.identifierTypesToDisplay.reduce((acc, identifierType) =>
           [...acc, ...patientUtil.getIdentifiers(this.state.patient, identifierType)]
           , []);
       } else if (identifiersToDisplay) {
-        const baseIdentifiers = patientUtil.getIdentifiers(this.state.patient);
-        const hasCCCIdentifier = patientUtil.getIdentifiersAndPreferred(this.state.patient, this.props.cccNumber);
-        const hasHCCIdentifier = patientUtil.getIdentifiersAndPreferred(this.state.patient, this.props.hccNumber);
-
-        // Check if it had CCC identifier, if only 1 use as default
-        if (hasCCCIdentifier.length === 1) {
-          identifiers.push(hasCCCIdentifier[0].identifier);
-        } else if (hasCCCIdentifier.length > 1) {
-        // If more than 1 CCC identifier, use current location identifier
-          const getCccCurrentLocation = hasCCCIdentifier.find(identifier => identifier.identifier.match(currentLocationPrefix));
-          if (getCccCurrentLocation && currentLocationPrefix) {
-            identifiers.push(getCccCurrentLocation[0].identifier);
-          } else {
-          // If more than 1 CCC identifier and no currentLocation use preferred
-            const getCccPreferred = hasCCCIdentifier.find(identifier => identifier.preferred === true);
-            if (getCccPreferred) {
-              identifiers.push(getCccPreferred[0].identifier);
-            } else {
-            // if NO preferred CCC identifier, use first one
-              identifiers.push(hasCCCIdentifier[0].identifier);
-            }
-          }
-        }
-
-        if (hasHCCIdentifier.length === 1) {
-          identifiers.push(hasHCCIdentifier[0].identifier);
-        } else if (hasHCCIdentifier.length > 1) {
-          const getHccCurrentLocation = hasCCCIdentifier.find(identifier => identifier.identifier.match(currentLocationPrefix));
-          if (getHccCurrentLocation && currentLocationPrefix) {
-            identifiers.push(getHccCurrentLocation[0].identifier);
-          } else {
-            const getHccPreferred = hasHCCIdentifier.find(identifier => identifier.preferred === true);
-            if (getHccPreferred) {
-              identifiers.push(getHccPreferred[0].identifier);
-            } else {
-              identifiers.push(hasHCCIdentifier[0].identifier);
-            }
-          }
-        }
-      
-        const patientIdentifiersLength = identifiers.length;
-        let uniqueIdentifiers = [...new Set(identifiers.concat(baseIdentifiers))];
-        uniqueIdentifiers.splice(0, patientIdentifiersLength);
-
-        if (identifiers.length === 0) {
-          identifiers.push(uniqueIdentifiers[0]);
-          uniqueIdentifiers.splice(0, 1);
-        }
-        additionalIdentifiers = uniqueIdentifiers;
-
+        const getIdentifiersToDisplay = identifiersToDisplay(patient, currentLocationPrefix, cccNumber, hccNumber);  
+        identifiers = getIdentifiersToDisplay.identifiers;
+        additionalIdentifiers = getIdentifiersToDisplay.additionalIdentifiers;
       } else {
         identifiers = patientUtil.getIdentifiers(this.state.patient);
       }
@@ -187,8 +141,8 @@ export class PatientHeader extends PureComponent {
 }
 
 PatientHeader.propTypes = {
-  identifierToDisplay: PropTypes.func,
   identifierTypesToDisplay: PropTypes.array,
+  identifiersToDisplay: PropTypes.func,
   patient: PropTypes.shape({}),
   showBackButton: PropTypes.bool,
 };
