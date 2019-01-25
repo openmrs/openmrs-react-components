@@ -56,13 +56,11 @@ class ObsValue extends React.PureComponent{
       critical: undefined,
     };
 
-    if (hiNormal || lowNormal) {
-      validation.abnormal = validations.abnormalMinValue(lowNormal)(obsValue) || validations.abnormalMaxValue(hiNormal)(obsValue);
-    }
+    validation.abnormal = (lowNormal && validations.abnormalMinValue(lowNormal)(obsValue))
+      || (hiNormal && validations.abnormalMaxValue(hiNormal)(obsValue));
 
-    if (hiCritical || lowCritical) {
-      validation.critical = validations.criticalMaxValue(hiCritical)(obsValue) || validations.criticalMinValue(lowCritical)(obsValue);
-    }
+    validation.critical = (hiCritical && validations.criticalMaxValue(hiCritical)(obsValue))
+      || (lowCritical && validations.criticalMinValue(lowCritical)(obsValue));
 
     const validationValue = validation.critical ? 'critical' : (validation.abnormal ? 'abnormal' : '');
 
