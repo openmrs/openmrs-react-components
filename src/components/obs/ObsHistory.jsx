@@ -94,7 +94,7 @@ class ObsHistory extends React.PureComponent {
       <div>
         {this.state.obs.map((obsByDateAndEncounterAndGroup) => {
           return (
-            <div key={obsByDateAndEncounterAndGroup[0][0][0].id}>
+            <div key={obsByDateAndEncounterAndGroup[0][0][0].uuid}>
               {this.props.showDates && (<h5>
                 <u>
                   {formatDate(this.getDateFromObs(obsByDateAndEncounterAndGroup[0][0][0]))}
@@ -103,7 +103,7 @@ class ObsHistory extends React.PureComponent {
               <table>
                 {obsByDateAndEncounterAndGroup.map((obsByEncounterAndGroup)=> {
                   return (
-                    <tbody key={obsByEncounterAndGroup[0][0].id}>
+                    <tbody key={obsByEncounterAndGroup[0][0].uuid}>
                       {obsByEncounterAndGroup.map((obsByGroup) =>
                         obsByGroup.map((obs) => {
 
@@ -113,7 +113,7 @@ class ObsHistory extends React.PureComponent {
                           return (
                             <ObsValue
                               concept={concept}
-                              key={obs.id}
+                              key={obs.uuid}
                               labels={this.props.labels}
                               obs={obs}
                               reverseLabelAndValue={this.props.reverseLabelAndValue}
