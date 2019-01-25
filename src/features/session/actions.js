@@ -1,4 +1,4 @@
-import SESSION_TYPES, { SET_CURRENT_LOCATION_PREFIX_SUCCEEDED } from "./types";
+import SESSION_TYPES from "./types";
 
 const fetchSession = () => ( {
   type: SESSION_TYPES.FETCH_REQUESTED
@@ -18,11 +18,6 @@ const fetchSessionFailed = (message) => ( {
 const setSessionLocation = (sessionLocation) => ( {
   type: SESSION_TYPES.SET_REQUESTED,
   sessionLocation
-} );
-
-const setSessionCurrentLocationPrefix = (currentLocationPrefix) => ( {
-  type: SET_CURRENT_LOCATION_PREFIX_SUCCEEDED,
-  currentLocationPrefix
 } );
 
 const setSessionSucceeded = (session, authorization) => ( {
@@ -49,5 +44,4 @@ export default {
   setSessionFailed,
   setSessionLocation,
   setAuthorizationFailed,
-  setSessionCurrentLocationPrefix
 };

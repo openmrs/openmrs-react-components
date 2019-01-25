@@ -84,6 +84,7 @@
 .identifier-toggle-anchor {
   color: #337ab7;
   font-size: 14px;
+  margin-top: 5px;
 }
 
 .identifier-toggle-anchor:hover {
