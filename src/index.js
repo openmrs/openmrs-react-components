@@ -80,12 +80,12 @@ import reportingRest from './rest/reportingRest';
 import conceptRest from './rest/conceptRest';
 import { reducers, selectors } from "./store";
 import { library as fontAwesomeLibrary } from '@fortawesome/fontawesome-svg-core';
-import { faCaretDown, faCalendarAlt, faCheck, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faTimes, faExclamationTriangle, faCalendarAlt, faCheck, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 import withLocalisation, { setLocaleMessages } from './components/localization/withLocalisation';
 import { mountWithIntl, shallowWithIntl } from './components/localization/test/helpers/intl-test';
 
-fontAwesomeLibrary.add(faCaretDown, faCalendarAlt, faCheck, faArrowRight);
+fontAwesomeLibrary.add(faCaretDown, faTimes, faExclamationTriangle, faCalendarAlt, faCheck, faArrowRight);
 
 
 const sagas = function* () {

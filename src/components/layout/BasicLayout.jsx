@@ -11,6 +11,7 @@ import '../../../assets/css/basicLayout.css';
 
 class BasicLayout extends React.Component {
   render() {
+    const { PatientAlert } = this.props;
     return (
       <div
         className="ag-theme-material"
@@ -39,6 +40,13 @@ class BasicLayout extends React.Component {
               showBackButton={this.props.path === '/screening' ? true : false}
               backLink={this.props.location}
             />
+            }
+          </Row>
+          <Row>
+            {this.props.patient && 
+              <span>
+                <PatientAlert />
+              </span>
             }
           </Row>
           <AuthenticatedRoute {...this.props} />
