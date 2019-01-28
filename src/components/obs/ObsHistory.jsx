@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as R from "ramda";
 import { chain } from 'underscore';
-import { getDayOfYear, parse  } from 'date-fns';
+import { startOfDay, parse  } from 'date-fns';
 import ObsValue from '../obs/ObsValue';
 import obsRest from '../../rest/obsRest';
 import { selectors } from "../../store";
@@ -81,7 +81,7 @@ class ObsHistory extends React.PureComponent {
       .values()
       .groupBy((obsByGroup) => obsByGroup[0].encounter ? obsByGroup[0].encounter.uuid : obsByGroup[0].uuid)  //group by encounter, if present
       .values()
-      .groupBy((obsByEncounterAndGroup) => getDayOfYear(this.getDateFromObs(obsByEncounterAndGroup[0][0])))  // group by encounter date or obs date
+      .groupBy((obsByEncounterAndGroup) => startOfDay(this.getDateFromObs(obsByEncounterAndGroup[0][0])))  // group by encounter date or obs date
       .values()
       // TODO can we do better than just sort by day?
       .sortBy((obsByDateAndEncounterAndGroup) => -parse(this.getDateFromObs(obsByDateAndEncounterAndGroup[0][0][0])))
