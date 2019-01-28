@@ -25,7 +25,7 @@ export class PatientHeader extends PureComponent {
 
   componentDidMount() {
     if (this.state.patient) {
-      const { identifiersToDisplay, identifierTypesToDisplay, locations, currentLocation, cccNumber, hccNumber } = this.props;
+      const { identifiersToDisplay, identifierTypesToDisplay, locations, currentLocation } = this.props;
       const { patient } = this.state;
       let identifiers = [], additionalIdentifiers = [];
       if (identifierTypesToDisplay) {
@@ -33,7 +33,7 @@ export class PatientHeader extends PureComponent {
           [...acc, ...patientUtil.getIdentifiers(this.state.patient, identifierType)]
           , []);
       } else if (identifiersToDisplay) {
-        const getIdentifiersToDisplay = identifiersToDisplay(patient, locations, currentLocation, cccNumber, hccNumber);  
+        const getIdentifiersToDisplay = identifiersToDisplay(patient, locations, currentLocation);  
         identifiers = getIdentifiersToDisplay.identifiers;
         additionalIdentifiers = getIdentifiersToDisplay.additionalIdentifiers;
       } else {
@@ -149,8 +149,6 @@ PatientHeader.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    cccNumber: selectors.getPatientIdentifierTypeByName(state, 'Chronic Care Number'),
-    hccNumber: selectors.getPatientIdentifierTypeByName(state, 'HCC Number'),
     sessionLocation: state.openmrs.session.sessionLocation,
     identifierTypes: state.openmrs.metadata.patientIdentifierTypes,
     locations: state.openmrs.metadata.locations,
