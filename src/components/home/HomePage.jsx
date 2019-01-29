@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
+import { Row } from 'react-bootstrap';
 import { patientActions } from '../../features/patient';
 import { LOCATION_TYPES } from '../../constants';
 import '../../../assets/css/background.css';
@@ -13,10 +14,12 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <div
-        className="background"
-        style={{backgroundImage: this.props.homeImage? 'url(' + this.props.homeImage + ')' : ''}}
-      />
+      <Row>
+        <div
+          className="background"
+          style={{backgroundImage: this.props.homeImage? 'url(' + this.props.homeImage + ')' : ''}}
+        />
+      </Row>
     );
   }
 }
