@@ -163,14 +163,14 @@ const mapStateToProps = (state, props) => {
     : []
   );
 
-  concepts += getUuid(props.concept);
+  concepts.push(getUuid(props.concept));
 
   let fullPath = (props.obsGroupContext ?
     props.obsGroupContext.path.split("^")
     : []
   );
 
-  fullPath +=  props.path;
+  fullPath.push(props.path);
 
   const name = formUtil.obsFieldName(fullPath, concepts);
   const concept = selectors.getConcept(state, getUuid(props.concept));
