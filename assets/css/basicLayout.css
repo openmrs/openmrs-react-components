@@ -52,3 +52,11 @@ html, body {
 .summary-form {
     margin-right: 25%;
 }
+
+.header-panel.scroll-disabled {
+    background: #fff;
+    padding-left: 15px;
+    padding-right: 15px;
+    position: fixed;
+    z-index: 2000;
+}
