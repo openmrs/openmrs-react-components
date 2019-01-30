@@ -39,20 +39,22 @@
 
 .patient-header .demographics .gender-age {
   font-size: 0.6em;
+  vertical-align: inherit;
   margin-top: 10px;
 }
 
 .identifiers {
   text-align: center;
-  margin-top: 25px;
-  display: flex;
+  margin-top: 13px;
+  display: flex !important;
   margin-left: auto;
 }
 
 .identifiers em {
   margin-right: 15px;
   margin-top: 6px;
-  font-size: 1.2em;
+  font-size: 1.2em; 
+  border-bottom: none !important;
   white-space: nowrap;
 }
 
