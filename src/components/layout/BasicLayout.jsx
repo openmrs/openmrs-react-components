@@ -21,8 +21,8 @@ class BasicLayout extends React.Component {
           closeOnToastrClick
           timeOut={1000}
         />
-        <Grid fluid>
-          <div style={{ position: 'fixed', zIndex: 2000, padding: '0px', background: '#fff'}}>
+        <div >
+          <div className="header-panel scroll-disabled">
             {SystemAlert &&
               (
                 <Row>
@@ -62,10 +62,10 @@ class BasicLayout extends React.Component {
               )
             }
           </div>
-          <div style={{ padding: '15px', overflowY: 'scroll'}}>
+          <div style={{ padding: '7px', overflowY: 'scroll'}}>
             <AuthenticatedRoute {...this.props} />
           </div>
-        </Grid>
+        </div>
       </div>
     );
   }
