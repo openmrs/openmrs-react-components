@@ -93,13 +93,14 @@ export class PatientHeader extends PureComponent {
   // TODO allow limit by preferred?
   renderPatientIdentifier() {
     const { shouldDisplayAdditionalPatientIdentifier, additionalPatientIdentifiers, patientIdentifiers } = this.state;
+    const { identifiersToDisplay } = this.props;
     return (
       <div className="identifiers">
         <em>Patient ID</em>
         <div className="identifiers-number">
           { patientIdentifiers.map(identifier => <span key={identifier}>{identifier}</span>)}
           { shouldDisplayAdditionalPatientIdentifier && additionalPatientIdentifiers.map(identifier => <span key={identifier}>{identifier}</span>)}
-          <a
+          { identifiersToDisplay && <a
             className="identifier-toggle-anchor" 
             onClick={this.togglePatientIdentifierDisplay}
           >
@@ -108,7 +109,7 @@ export class PatientHeader extends PureComponent {
               className="back-button-icon"
               glyph={shouldDisplayAdditionalPatientIdentifier ? 'triangle-top' : 'triangle-bottom'}
             />
-          </a>
+          </a>}
         </div>
         <br />
       </div>
