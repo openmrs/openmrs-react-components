@@ -127,3 +127,7 @@
   border: 1px solid black;
   margin-left: 20px
 }
+
+.cardlist-search-container {
+  padding-top: 150px; 
+}

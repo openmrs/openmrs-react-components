@@ -18,6 +18,9 @@ a.list-group-item::before {
 }
 
 .task-list {
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-top: 300px; 
   position: absolute;
   left: 0px;
   width: 100vw;

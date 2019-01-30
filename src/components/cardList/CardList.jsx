@@ -105,7 +105,7 @@ class CardList extends React.Component {
 
     const filteredRowData = this.applyFiltersToList(rowData);
     return (
-      <div>
+      <div className="cardlist-search-container">
         <div className="refresh-button-container">
           <h3><Label>{this.props.title}</Label></h3>
           <Glyphicon className="refresh-button" glyph="refresh" onClick={() => this.handleFetchData()} />
