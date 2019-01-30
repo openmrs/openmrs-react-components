@@ -11,7 +11,7 @@ import '../../../assets/css/basicLayout.css';
 
 class BasicLayout extends React.Component {
   render() {
-    const { PatientAlert } = this.props;
+    const { PatientAlert, SystemAlert } = this.props;
     return (
       <div
         className="ag-theme-material"
@@ -22,34 +22,49 @@ class BasicLayout extends React.Component {
           timeOut={1000}
         />
         <Grid fluid>
-          <Row className="header-alt-row">
-            <HeaderAlt
-              className="HeaderAlt"
-              logo={this.props.logo}
-              smallWidthLogo={this.props.smallWidthLogo}
-              navMenuPages={this.props.navMenuPages}
-              userMenuPages={this.props.userMenuPages}
-            />
-          </Row>
-          <Row>
-            {this.props.patient && 
-            <PatientHeader
-              identifierTypesToDisplay={this.props.identifierTypesToDisplay}
-              identifiersToDisplay={this.props.identifiersToDisplay}
-              patient={this.props.patient}
-              showBackButton={this.props.path === '/screening' ? true : false}
-              backLink={this.props.location}
-            />
+          <div style={{ position: 'fixed', zIndex: 2000, padding: '0px', background: '#fff'}}>
+            {SystemAlert &&
+              (
+                <Row>
+                  <SystemAlert />
+                </Row>
+              )
             }
-          </Row>
-          <Row>
-            {this.props.patient && 
-              <span>
-                <PatientAlert />
-              </span>
+            <Row className="header-alt-row">
+              <HeaderAlt
+                className="HeaderAlt"
+                logo={this.props.logo}
+                smallWidthLogo={this.props.smallWidthLogo}
+                navMenuPages={this.props.navMenuPages}
+                userMenuPages={this.props.userMenuPages}
+              />
+            </Row>
+            <Row>
+              {this.props.patient && 
+              <PatientHeader
+                identifierTypesToDisplay={this.props.identifierTypesToDisplay}
+                identifiersToDisplay={this.props.identifiersToDisplay}
+                patient={this.props.patient}
+                showBackButton={this.props.path === '/screening' ? true : false}
+                backLink={this.props.location}
+              />
+              }
+            </Row>
+            {PatientAlert &&
+              (
+              <Row>
+                {this.props.patient && 
+                  <span>
+                    <PatientAlert />
+                  </span>
+                }
+              </Row>
+              )
             }
-          </Row>
-          <AuthenticatedRoute {...this.props} />
+          </div>
+          <div style={{ padding: '15px', overflowY: 'scroll'}}>
+            <AuthenticatedRoute {...this.props} />
+          </div>
         </Grid>
       </div>
     );
