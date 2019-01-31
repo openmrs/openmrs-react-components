@@ -25,6 +25,7 @@ const util = {
 
   // note that this should handle both arrays for path and concepts, as well as strings
   // if strings, it assumes that the join("^") has already been performed
+  // TODO make this accept either concept objects or concept uuids array (now required uuids)
   obsFieldName: (path, concepts) => {
     return `obs|path=${Array.isArray(path) ? path.join("^") : path}|conceptPath=${Array.isArray(concepts) ? concepts.join("^") : concepts}`;
   },
