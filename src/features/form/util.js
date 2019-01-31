@@ -23,11 +23,19 @@ const util = {
     return form === testForm && util.areEqual(path, testPath);
   },
 
-  // note that this should handle both arrays for path and concepts, as well as strings
-  // if strings, it assumes that the join("^") has already been performed
-  // TODO make this accept either concept objects or concept uuids array (now required uuids)
+  // note that this should handle concepts of various types:
+  // concepts == string => pass straight through (assume already concatenated with ^)
+  // concepts == Array(string) => join elements using "^"
+  // concepts == Array(object) => map each object to o.uuid and then join using "^"
   obsFieldName: (path, concepts) => {
-    return `obs|path=${Array.isArray(path) ? path.join("^") : path}|conceptPath=${Array.isArray(concepts) ? concepts.join("^") : concepts}`;
+
+    const conceptPath = Array.isArray(concepts) ?
+      (concepts.length > 0 && concepts[0].uuid ?
+        concepts.map(c => c.uuid).join("^") :
+        concepts.join("^")) :
+      concepts;
+
+    return `obs|path=${Array.isArray(path) ? path.join("^") : path}|conceptPath=${conceptPath}`;
   },
 
   parseObsFieldName: (fieldName) => {

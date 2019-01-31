@@ -18,6 +18,12 @@ describe('form util', () => {
 
   });
 
+  it('should create field name with concepts passed in as objects', () => {
+    const fieldName = formUtil.obsFieldName(["some_path_element", "another_path_element"],
+      [{ uuid: "some_concept_path_element" }, { uuid: "another_concept_path_element"} ]);
+    expect(fieldName).toEqual("obs|path=some_path_element^another_path_element|conceptPath=some_concept_path_element^another_concept_path_element");
+  });
+
   it('should create field name when passed string instead of array', () => {
 
     const fieldName = formUtil.obsFieldName("some_path_element^another_path_element", "some_concept_path_element^another_concept_path_element");
