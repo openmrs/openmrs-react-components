@@ -14,10 +14,30 @@ const api = {
   },
 
   fetchObsByPatient: (patient, concepts, answers, groupingConcepts, limit) => {
-    return axiosInstance.get(`obs/?patient=${patient}&concepts=${concepts.constructor === String ? concepts : concepts.join(",")}
-      ${answers !== null ? (answers.constructor === String ? `&answers=${answers}` : (answers.length > 0 ? `&answers=${answers.join(",")}` : '')) : ''}
-      ${groupingConcepts !==  null ? (groupingConcepts.constructor === String ? `&groupingConcepts=${groupingConcepts}` : (groupingConcepts.length > 0 ? `&groupingConcepts=${groupingConcepts.join(",")}` : '')) : ''}
-      &v=custom:${DEFAULT_OBS_REP}`+ (limit ? "&limit=" + limit : ''))
+
+    let getRequest = `obs/?patient=${patient}`;
+
+    if (concepts != null) {
+      getRequest += `&concepts=${concepts.constructor === String ? concepts : concepts.join(",")}`;
+    }
+
+    // TODO this clause needs to be tested
+    if (answers != null) {
+      getRequest +=`&answers=${answers.constructor === String ? answers : (answers.length > 0 ? answers.join(",") : '')}`;
+    }
+
+    if (groupingConcepts != null) {
+      getRequest += `&groupingConcepts=${groupingConcepts.constructor === String ? groupingConcepts : (groupingConcepts.length > 0 ? groupingConcepts.join(",") : '')}`;
+    }
+
+    // TODO clause this needs to be tested
+    if (limit != null) {
+      getRequest += `&limit=${limit}`;
+    }
+
+    getRequest += `&v=custom:${DEFAULT_OBS_REP}`;
+
+    return axiosInstance.get(getRequest)
       .then((response) => {
         if (response.status !== 200) {
           throw response;

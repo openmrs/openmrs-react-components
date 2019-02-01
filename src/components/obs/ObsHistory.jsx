@@ -55,8 +55,10 @@ class ObsHistory extends React.PureComponent {
     }
     else {
       obsRest.fetchObsByPatient(
-        this.props.patient.uuid, this.props.concepts.map((concept) => concept.uuid), this.props.answers.map((answer) => answer.uuid),
-        this.props.groupingConcepts.map((groupingConcept) => groupingConcept.uuid)
+        this.props.patient.uuid,
+        this.props.concepts ? this.props.concepts.map((concept) => concept.uuid) : null,
+        this.props.answers ? this.props.answers.map((answer) => answer.uuid) : null,
+        this.props.groupingConcepts ? this.props.groupingConcepts.map((groupingConcept) => groupingConcept.uuid) : null
       ).then(data => {
         this.setState({
           obs: this.sortAndGroupResults(data.results)
@@ -137,9 +139,6 @@ class ObsHistory extends React.PureComponent {
 }
 
 ObsHistory.defaultProps = {
-  answers: [],
-  concepts: [],
-  groupingConcepts: [],
   reverseLabelAndValue: false,    // for displaying obs where the question is really answer
   showDates: true
 };
