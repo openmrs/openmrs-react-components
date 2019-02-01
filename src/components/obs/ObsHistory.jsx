@@ -17,6 +17,7 @@ import { formatDate } from "../../util/dateUtil";
 
 // TODO perhaps support Encounter or Visit here?
 // TODO perhaps decouple the display from the REST call that fetches the obs?
+// TODO have something who actually knows Bootstrap, CSS, etc redo layout!
 
 class ObsHistory extends React.PureComponent {
 
@@ -109,7 +110,7 @@ class ObsHistory extends React.PureComponent {
                       {obsByEncounterAndGroup.map((obsByGroup) =>
                         obsByGroup.map((obs) => {
 
-                          // to support user to override the absolute, abnormal, and critical ranges defined on the concept
+                          // to support overriding the absolute, abnormal, and critical ranges defined on the concept
                           const concept = this.props.concepts.find(concept => concept.uuid === obs.concept.uuid) || obs.concept;
 
                           return (
