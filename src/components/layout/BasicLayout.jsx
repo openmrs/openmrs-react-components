@@ -24,7 +24,7 @@ class BasicLayout extends React.Component {
     });
   }
   render() {
-    const { PatientAlert, SystemAlert } = this.props;
+    const { PatientAlert, SystemAlert, fullViewHeight } = this.props;
     const { showAlert } = this.state;
     return (
       <div
@@ -76,7 +76,7 @@ class BasicLayout extends React.Component {
               )
             }
           </div>
-          <div className="authenticated-route-container">
+          <div className={fullViewHeight ? "authenticated-route-container full" : "authenticated-route-container"}>
             <AuthenticatedRoute {...this.props} />
           </div>
         </div>
