@@ -50,13 +50,17 @@ html, body {
 }
 
 .summary-form {
-    margin-right: 25%;
+  margin-right: 25%;
 }
 
 .header-panel.scroll-disabled {
-    background: #fff;
-    padding-left: 15px;
-    padding-right: 15px;
-    position: fixed;
-    z-index: 2000;
+  background: #fff;
+  padding-left: 15px;
+  padding-right: 15px;
+  z-index: 2000;
+}
+
+.authenticated-route-container {
+  overflow: scroll;
+  height: calc(100vh - 300px);
 }

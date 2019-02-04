@@ -17,12 +17,12 @@ a.list-group-item::before {
   font-size: 20px;
 }
 
-.task-list {
+/* .task-list {
   padding-top: 300px; 
   position: absolute;
   left: 0px;
   width: 100vw;
-}
+} */
 
 .list-group-item {
   padding: 0px !important;
@@ -32,31 +32,3 @@ a.list-group-item::before {
   border-bottom: 1px solid gray !important;
 }
 
-.task-list {
-  padding-top: 40%;
-}
-
-@media only screen and (min-width: 501px) and (max-width: 559px) {
-  .task-list {
-    padding-top: 280px;
-  }
-}
-
-@media only screen and (min-width: 560px) and (max-width: 689px) {
-  .task-list {
-    padding-top: 290px;
-  }
-}
-
-@media only screen and (min-width: 690px) and (max-width: 700px) {
-  .task-list {
-    padding-top: 270px;
-  }
-}
-
-
-@media only screen and (min-width: 800px) {
-  .task-list {
-    padding-top: 256px;
-  }
-}
