@@ -46,14 +46,17 @@ class Obs extends React.PureComponent {
   }
 
   render() {
+    const { required } = this.props;
     if (this.props.datatype === 'date') {
+      const defaultValidations = this.props.validate || this.state.getValidationAbsoluteRange;
+      const validations = required ? defaultValidations.concat(formValidations.isRequired) : defaultValidations;
       return (
         <Field
           component={CustomDatePicker}
           displayValue={this.props.value}
           mode={this.props.formContext.mode}
           name={this.props.name}
-          validate={this.props.validate || this.state.getValidationAbsoluteRange}
+          validate={validations}
         />
       );
     } else if (this.props.widget === 'checkbox') {
@@ -108,6 +111,10 @@ class Obs extends React.PureComponent {
         );
       }
     } else {
+      const defaultValidations = this.props.validate || this.state.getValidationAbsoluteRange;
+      const defaultWarnings = this.props.warn || this.state.getValidationAbnormalRange;
+      const validations = required ? defaultValidations.concat[formValidations.isRequired] : defaultValidations;
+      const warnings = required ? defaultWarnings.concat(formValidations.isRequired) : defaultWarnings;
       return (
         <div>
           <Field
@@ -117,8 +124,8 @@ class Obs extends React.PureComponent {
             name={this.props.name}
             placeholder={this.props.placeholder}
             type={this.props.datatype}
-            validate={this.props.validate|| this.state.getValidationAbsoluteRange}
-            warn={this.props.warn || this.state.getValidationAbnormalRange}
+            validate={validations}
+            warn={warnings}
           />
         </div>
       );
@@ -133,7 +140,8 @@ Obs.propTypes = {
   conceptAnswers: PropTypes.array,
   conceptUuid: PropTypes.string.isRequired,
   datatype: PropTypes.string.isRequired,
-  placeholder: PropTypes.string,	
+  placeholder: PropTypes.string,
+  required: PropTypes.bool,
   validate: PropTypes.oneOfType([	
     PropTypes.array,	
     PropTypes.func]),	
@@ -147,7 +155,7 @@ Obs.propTypes = {
 };
 
 Obs.defaultProps = {	
-  datatype: 'number'
+  datatype: 'number',
 };
 
 // utility method to allow us to accept a string uuid or an object for a concept
