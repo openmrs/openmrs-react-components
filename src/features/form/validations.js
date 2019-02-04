@@ -15,6 +15,8 @@ const criticalMaxValue = max => value =>
 
 const criticalMinValue = min => value => (value && value < min ? `Critical value` : undefined);
 
+const isRequired = value => value ? undefined : 'Required';
+
 const dateToInt = dateStr => new Date(dateStr).getTime();
 
 const maxDateValue = maxDate => value =>
@@ -65,5 +67,6 @@ export default {
   criticalMaxValue,
   maxDateValue,
   generateAbsoluteRangeValidators,
-  generateAbnormalAndCriticalWarningFunctions
+  generateAbnormalAndCriticalWarningFunctions,
+  isRequired
 };
