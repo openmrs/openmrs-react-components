@@ -10,8 +10,22 @@ import { selectors } from '../../store';
 import '../../../assets/css/basicLayout.css';
 
 class BasicLayout extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      showAlert: true
+    };
+    this.onAlertDisplay = this.onAlertDisplay.bind(this);
+  }
+
+  onAlertDisplay(alert) {
+    this.setState({
+      showAlert: false
+    });
+  }
   render() {
     const { PatientAlert, SystemAlert } = this.props;
+    const { showAlert } = this.state;
     return (
       <div
         className="ag-theme-material"
@@ -50,19 +64,19 @@ class BasicLayout extends React.Component {
               />
               }
             </Row>
-            {PatientAlert &&
+            {showAlert &&
               (
-              <Row>
-                {this.props.patient && 
-                  <span>
-                    <PatientAlert />
-                  </span>
-                }
-              </Row>
+                <Row>
+                  {PatientAlert &&
+                    <span>
+                      <PatientAlert handleAlertDisplay={this.onAlertDisplay} />
+                    </span>
+                  }
+                </Row>
               )
             }
           </div>
-          <div style={{ padding: '7px', overflowY: 'scroll'}}>
+          <div className="authenticated-route-container">
             <AuthenticatedRoute {...this.props} />
           </div>
         </div>
