@@ -93,6 +93,12 @@
   color: #337ab7;
 }
 
+@media screen and (max-width: 1040px) {
+  .patient-header {
+    margin: 0 !important;
+  }
+}
+
 @media screen and (max-width: 704px) {
   .identifiers-number {
     flex-wrap: wrap;
