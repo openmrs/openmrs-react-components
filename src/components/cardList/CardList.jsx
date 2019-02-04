@@ -14,12 +14,14 @@ class CardList extends React.Component {
 
     this.state = {
       searchValue: '',
-      additionalSearchValue: ''
+      additionalSearchValue: '',
+      activeSearchType: ''
     };
 
     this.onRowSelected = this.onRowSelected.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleSearchClear = this.handleSearchClear.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -82,16 +84,33 @@ class CardList extends React.Component {
     }
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    let searchQuery = null;
+    const { searchValue, additionalSearchValue, activeSearchType } = this.state;
+    if (activeSearchType === 'patient-name' || additionalSearchValue === "") {
+      searchQuery = searchValue;
+    }
+    if (activeSearchType === 'patient-identifier' || searchValue === "") {
+      searchQuery = additionalSearchValue;
+    }
+    const handleSearch = debounce(() => this.props.handleSearchSubmit(searchQuery), 1000);
+    handleSearch();
+  }
+
   handleSearchChange(e) {
     if (e.hasOwnProperty('target')) {
       const value = e.target.value;
-      this.setState({ searchValue: value });
-      if (this.props.handleSearchSubmit && value.length > 2) {
-        const handleSearch = debounce(() => this.props.handleSearchSubmit(value), 1000);
-        handleSearch();
+      const activeSearchType = e.target.name;
+      this.setState({ searchValue: value, activeSearchType });
+      if (this.props.searchType !== 'server') {
+        if (this.props.handleSearchSubmit && value.length > 2) {
+          const handleSearch = debounce(() => this.props.handleSearchSubmit(value), 1000);
+          handleSearch();
+        }
       }
     } else {
-      this.setState({ additionalSearchValue: e });
+      this.setState({ additionalSearchValue: e, activeSearchType: 'patient-identifier' });
     }
   }
   
@@ -102,17 +121,33 @@ class CardList extends React.Component {
   render() {
     // TODO "getPatientIdentifiers" should be generalizible in some way
     const { rowData, loading, card, AdditionalSearchFilters, getPatientIdentifiers, noDataMessage, handleSearchChange, searchType } = this.props;
+    const isServerSearch = searchType === 'server';
+    const filtersClassName = isServerSearch ? "server-search": '';
 
     const filteredRowData = this.applyFiltersToList(rowData);
     return (
       <div className="cardlist-search-container">
         <div className="refresh-button-container">
           <h3><Label>{this.props.title}</Label></h3>
-          <Glyphicon className="refresh-button" glyph="refresh" onClick={() => this.handleFetchData()} />
+          <Glyphicon
+            className="refresh-button"
+            glyph="refresh"
+            onClick={() => this.handleFetchData()}
+          />
         </div>
-        {AdditionalSearchFilters && <AdditionalSearchFilters
-          handleSearchChange={handleSearchChange ? handleSearchChange : this.handleSearchChange}
-          searchType={searchType ? searchType : ''} />}
+        <div className={filtersClassName}>
+          {AdditionalSearchFilters && <AdditionalSearchFilters
+            handleSearchChange={this.handleSearchChange}
+            searchType={searchType ? searchType : ''}
+          />}
+          {isServerSearch &&
+          <button
+            className=""
+            onClick={this.handleSubmit}
+          >search</button>
+          }
+        </div>
+
         {<div className="">
           <div className="name-filter-container">
             <span className="name-filter">
@@ -122,6 +157,7 @@ class CardList extends React.Component {
               />
               <FormControl
                 onChange={this.handleSearchChange}
+                name="patient-name"
                 placeholder="search by name"
                 type="text"
                 value={this.state.searchValue}
