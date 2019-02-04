@@ -79,7 +79,7 @@ class ObsHistory extends React.PureComponent {
   sortAndGroupResults(results) {
     const set = chain(results)
     // TODO if this.props.concepts, then filter by this, so we can control which obs to display?
-      .sortBy((obs) => this.props.concepts.findIndex(concept => concept.uuid === obs.concept.uuid))  // sort based on order of concepts in props list; this may be inefficient to do before grouping?
+      .sortBy((obs) => this.props.concepts ? this.props.concepts.findIndex(concept => concept.uuid === obs.concept.uuid) : null)  // sort based on order of concepts in props list; this may be inefficient to do before grouping?
       .groupBy((obs) => obs.obsGroup ? obs.obsGroup.uuid : obs.uuid)   // group by obs group, if present
       .values()
       .groupBy((obsByGroup) => obsByGroup[0].encounter ? obsByGroup[0].encounter.uuid : obsByGroup[0].uuid)  //group by encounter, if present
@@ -111,7 +111,7 @@ class ObsHistory extends React.PureComponent {
                         obsByGroup.map((obs) => {
 
                           // to support overriding the absolute, abnormal, and critical ranges defined on the concept
-                          const concept = this.props.concepts.find(concept => concept.uuid === obs.concept.uuid) || obs.concept;
+                          const concept = this.props.concepts && this.props.concepts.find(concept => concept.uuid === obs.concept.uuid);
 
                           return (
                             <ObsValue
@@ -139,11 +139,7 @@ class ObsHistory extends React.PureComponent {
   }
 }
 
-// we provide answers, concepts and groupingConcepts default values of empty arrays so we don't have to make all above methods null-safe (is this bad practice?)
 ObsHistory.defaultProps = {
-  answers: [],
-  concepts: [],
-  groupingConcepts: [],
   reverseLabelAndValue: false,    // for displaying obs where the question is really answer
   showDates: true
 };
