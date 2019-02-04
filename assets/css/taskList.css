@@ -17,13 +17,6 @@ a.list-group-item::before {
   font-size: 20px;
 }
 
-/* .task-list {
-  padding-top: 300px; 
-  position: absolute;
-  left: 0px;
-  width: 100vw;
-} */
-
 .list-group-item {
   padding: 0px !important;
 }
