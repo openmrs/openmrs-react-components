@@ -139,7 +139,11 @@ class ObsHistory extends React.PureComponent {
   }
 }
 
+// we provide answers, concepts and groupingConcepts default values of empty arrays so we don't have to make all above methods null-safe (is this bad practice?)
 ObsHistory.defaultProps = {
+  answers: [],
+  concepts: [],
+  groupingConcepts: [],
   reverseLabelAndValue: false,    // for displaying obs where the question is really answer
   showDates: true
 };
