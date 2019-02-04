@@ -128,10 +128,6 @@
   margin-left: 20px
 }
 
-.cardlist-search-container {
-  padding-top: 150px; 
-}
-
 .server-search {
   display: flex;
   flex-direction: row;
