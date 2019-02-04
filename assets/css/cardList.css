@@ -131,3 +131,17 @@
 .cardlist-search-container {
   padding-top: 150px; 
 }
+
+.server-search {
+  display: flex;
+  flex-direction: row;
+}
+
+.server-search > button {
+  position: relative;
+  top: 42px;
+  border: 1px solid black;
+  margin-left: 20px;
+  font-size: 20px;
+  height: 29px;
+}
