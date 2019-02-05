@@ -8,6 +8,7 @@ import ObsValue from '../obs/ObsValue';
 import obsRest from '../../rest/obsRest';
 import { selectors } from "../../store";
 import { formatDate } from "../../util/dateUtil";
+import Loader from "../widgets/Loader";
 
 // TODO document better!
 
@@ -25,7 +26,8 @@ class ObsHistory extends React.PureComponent {
     super(props);
 
     this.state = {
-      obs: []
+      obs: [],
+      loading: true
     };
   }
 
@@ -51,7 +53,8 @@ class ObsHistory extends React.PureComponent {
 
     if (this.props.obs) {
       this.setState({
-        obs: this.sortAndGroupResults(this.props.obs)
+        obs: this.sortAndGroupResults(this.props.obs),
+        loading: this.props.loading   // if the ObsHistory passes in it's own obs, can pass in a "loading" as well
       });
     }
     else {
@@ -62,7 +65,8 @@ class ObsHistory extends React.PureComponent {
         this.props.groupingConcepts ? this.props.groupingConcepts.map((groupingConcept) => groupingConcept.uuid) : null
       ).then(data => {
         this.setState({
-          obs: this.sortAndGroupResults(data.results)
+          obs: this.sortAndGroupResults(data.results),
+          loading: false
         });
       });
     }
@@ -93,49 +97,59 @@ class ObsHistory extends React.PureComponent {
   }
 
   render() {
-    return (
-      <div>
-        {this.state.obs.map((obsByDateAndEncounterAndGroup) => {
-          return (
-            <div key={obsByDateAndEncounterAndGroup[0][0][0].uuid}>
-              {this.props.showDates && (<h5>
-                <u>
-                  {formatDate(this.getDateFromObs(obsByDateAndEncounterAndGroup[0][0][0]))}
-                </u>
-              </h5>)}
-              <table>
-                {obsByDateAndEncounterAndGroup.map((obsByEncounterAndGroup)=> {
-                  return (
-                    <tbody key={obsByEncounterAndGroup[0][0].uuid}>
-                      {obsByEncounterAndGroup.map((obsByGroup) =>
-                        obsByGroup.map((obs) => {
 
-                          // to support overriding the absolute, abnormal, and critical ranges defined on the concept
-                          const concept = this.props.concepts && this.props.concepts.find(concept => concept.uuid === obs.concept.uuid);
+    if (this.state.loading) {
+      return (
+        <div>
+          <Loader />
+        </div>
+      );
+    }
+    else {
+      return (
+        <div>
+          {this.state.obs.map((obsByDateAndEncounterAndGroup) => {
+            return (
+              <div key={obsByDateAndEncounterAndGroup[0][0][0].uuid}>
+                {this.props.showDates && (<h5>
+                  <u>
+                    {formatDate(this.getDateFromObs(obsByDateAndEncounterAndGroup[0][0][0]))}
+                  </u>
+                </h5>)}
+                <table>
+                  {obsByDateAndEncounterAndGroup.map((obsByEncounterAndGroup) => {
+                    return (
+                      <tbody key={obsByEncounterAndGroup[0][0].uuid}>
+                        {obsByEncounterAndGroup.map((obsByGroup) =>
+                          obsByGroup.map((obs) => {
 
-                          return (
-                            <ObsValue
-                              concept={concept}
-                              key={obs.uuid}
-                              labels={this.props.labels}
-                              obs={obs}
-                              reverseLabelAndValue={this.props.reverseLabelAndValue}
-                            />
-                          );
-                        })
-                      )}
-                      <tr>
-                        <td colSpan={4} />
-                      </tr>
-                    </tbody>
-                  );
-                })}
-              </table>
-            </div>
-          );
-        })}
-      </div>
-    );
+                            // to support overriding the absolute, abnormal, and critical ranges defined on the concept
+                            const concept = this.props.concepts && this.props.concepts.find(concept => concept.uuid === obs.concept.uuid);
+
+                            return (
+                              <ObsValue
+                                concept={concept}
+                                key={obs.uuid}
+                                labels={this.props.labels}
+                                obs={obs}
+                                reverseLabelAndValue={this.props.reverseLabelAndValue}
+                              />
+                            );
+                          })
+                        )}
+                        <tr>
+                          <td colSpan={4}/>
+                        </tr>
+                      </tbody>
+                    );
+                  })}
+                </table>
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
   }
 }
 
@@ -149,6 +163,7 @@ ObsHistory.propTypes = {
   concepts: PropTypes.array,
   groupingConcepts: PropTypes.array,
   labels: PropTypes.object,
+  loading: PropTypes.bool,
   obs: PropTypes.array,
   patient: PropTypes.object.isRequired,
   reverseLabelAndValue: PropTypes.bool.isRequired,
