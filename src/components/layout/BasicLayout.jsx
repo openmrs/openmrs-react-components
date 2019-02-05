@@ -10,22 +10,9 @@ import { selectors } from '../../store';
 import '../../../assets/css/basicLayout.css';
 
 class BasicLayout extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      showAlert: true
-    };
-    this.onAlertDisplay = this.onAlertDisplay.bind(this);
-  }
 
-  onAlertDisplay(alert) {
-    this.setState({
-      showAlert: false
-    });
-  }
   render() {
     const { PatientAlert, SystemAlert, fullViewHeight } = this.props;
-    const { showAlert } = this.state;
     return (
       <div
         className="ag-theme-material"
@@ -64,17 +51,13 @@ class BasicLayout extends React.Component {
               />
               }
             </Row>
-            {showAlert &&
-              (
-                <Row>
-                  {PatientAlert &&
-                    <span>
-                      <PatientAlert handleAlertDisplay={this.onAlertDisplay} />
-                    </span>
-                  }
-                </Row>
-              )
-            }
+            <Row>
+              {PatientAlert &&
+                <span>
+                  <PatientAlert handleAlertDisplay={this.onAlertDisplay} />
+                </span>
+              }
+            </Row>
           </div>
           <div className={fullViewHeight ? "authenticated-route-container full" : "authenticated-route-container"}>
             <AuthenticatedRoute {...this.props} />
