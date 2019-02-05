@@ -12,7 +12,13 @@ import '../../../assets/css/basicLayout.css';
 class BasicLayout extends React.Component {
 
   render() {
-    const { PatientAlert, SystemAlert, fullViewHeight } = this.props;
+    const { PatientAlert, SystemAlert, fullViewHeight, noScroll } = this.props;
+    let scrollClassname = null;
+    scrollClassname = noScroll
+      ? "authenticated-route-container no-scroll"
+      : fullViewHeight
+        ? "authenticated-route-container full"
+        : "authenticated-route-container";
     return (
       <div
         className="ag-theme-material"
@@ -59,7 +65,7 @@ class BasicLayout extends React.Component {
               }
             </Row>
           </div>
-          <div className={fullViewHeight ? "authenticated-route-container full" : "authenticated-route-container"}>
+          <div className={scrollClassname}>
             <AuthenticatedRoute {...this.props} />
           </div>
         </div>

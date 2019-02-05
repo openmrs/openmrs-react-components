@@ -113,8 +113,9 @@ class Obs extends React.PureComponent {
     } else {
       const defaultValidations = this.props.validate || this.state.getValidationAbsoluteRange;
       const defaultWarnings = this.props.warn || this.state.getValidationAbnormalRange;
-      const validations = required ? defaultValidations.concat[formValidations.isRequired] : defaultValidations;
+      const validations = required ? defaultValidations.concat(formValidations.isRequired) : defaultValidations;
       const warnings = required ? defaultWarnings.concat(formValidations.isRequired) : defaultWarnings;
+      
       return (
         <div>
           <Field
