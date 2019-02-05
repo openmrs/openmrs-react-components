@@ -66,5 +66,9 @@ html, body {
 }
 
 .authenticated-route-container.full{
-    height: 100vh !important;
+    height: 90vh !important;
+}
+
+.authenticated-route-container.no-scroll{
+    overflow: hidden;
 }
