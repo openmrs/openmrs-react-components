@@ -52,8 +52,8 @@ class BasicLayout extends React.Component {
                 identifierTypesToDisplay={this.props.identifierTypesToDisplay}
                 identifiersToDisplay={this.props.identifiersToDisplay}
                 patient={this.props.patient}
-                showBackButton={this.props.path === '/screening' ? true : false}
-                backLink={this.props.location}
+                showBackButton={this.props.path === this.props.patientHeaderBacklink ? true : false}
+                backLink={this.props.backLink}
               />
               }
             </Row>
@@ -87,7 +87,6 @@ BasicLayout.propTypes = {
 const mapStateToProps = (state) => {
   return {
     patient: selectors.getSelectedPatientFromStore(state),
-    location: state.screening.LAST_SCREENING_QUEUE
   };
 };
 

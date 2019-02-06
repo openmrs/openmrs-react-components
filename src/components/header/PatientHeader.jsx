@@ -90,7 +90,6 @@ export class PatientHeader extends PureComponent {
     );
   }
 
-  // TODO allow limit by preferred?
   renderPatientIdentifier() {
     const { shouldDisplayAdditionalPatientIdentifier, additionalPatientIdentifiers, patientIdentifiers } = this.state;
     const { identifiersToDisplay } = this.props;
@@ -100,7 +99,7 @@ export class PatientHeader extends PureComponent {
         <div className="identifiers-number">
           { patientIdentifiers.map(identifier => <span key={identifier}>{identifier}</span>)}
           { shouldDisplayAdditionalPatientIdentifier && additionalPatientIdentifiers.map(identifier => <span key={identifier}>{identifier}</span>)}
-          { identifiersToDisplay && <a
+          { additionalPatientIdentifiers.length > 0 && <a
             className="identifier-toggle-anchor" 
             onClick={this.togglePatientIdentifierDisplay}
           >
