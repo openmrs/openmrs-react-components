@@ -111,34 +111,21 @@ class EncounterForm extends React.PureComponent {
 EncounterForm.propTypes = {
   defaultValues: PropTypes.array,
   encounter: PropTypes.object,
-  encounterRole: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string]),
-  encounterType: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string]).isRequired,
+  encounterRole: PropTypes.object,
+  encounterType: PropTypes.object,
   formId: PropTypes.string.isRequired,
   formInstanceId: PropTypes.string.isRequired,
   formSubmittedActionCreator: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.func]),
   handleSubmit: PropTypes.func.isRequired,
-  location: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string]),
+  location: PropTypes.object,
   mode: PropTypes.string.isRequired,
-  patient: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string]).isRequired,
-  provider: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string]),
-  visit: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string]),
-  visitType: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string])
+  orderForObs: PropTypes.object,
+  patient: PropTypes.object.isRequired,
+  provider: PropTypes.object,
+  visit: PropTypes.object,
+  visitType: PropTypes.object
 };
 
 EncounterForm.defaultProps = {
@@ -164,6 +151,7 @@ const mapStateToProps = (state, props) => {
         encounterType: props.encounterType,
         location: props.location ? props.location :
           sessionLocation ? sessionLocation : null,
+        orderForObs: props.orderForObs,
         provider: props.provider ? props.provider :
           currentProvider ? currentProvider : null,
         visit: props.visit,

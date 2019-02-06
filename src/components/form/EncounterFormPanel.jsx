@@ -145,6 +145,7 @@ class EncounterFormPanel extends React.PureComponent {
               formSubmittedActionCreator={this.formSubmittedActionCreators}
               location={this.props.location}
               mode={this.getForm().state === FORM_STATES.EDITING ? 'edit' : 'view'}
+              orderForObs={this.props.orderForObs}
               patient={this.props.patient}
               provider={this.props.provider}
               visit={this.props.patient ? this.props.patient.visit : null}
@@ -187,24 +188,17 @@ EncounterFormPanel.propTypes = {
   backLink: PropTypes.string,
   defaultValues: PropTypes.array,
   encounter: PropTypes.object,
-  encounterRole: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string]),
-  encounterType: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string]).isRequired,
+  encounterRole: PropTypes.object,
+  encounterType: PropTypes.object.isRequired,
   formContent: PropTypes.object.isRequired,
   formId: PropTypes.string.isRequired,
   formInstanceId: PropTypes.string,
   formSubmittedActionCreators: PropTypes.array,
   hideActionButtons: PropTypes.bool,
-  location: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string]),
+  location: PropTypes.object,
+  orderForObs: PropTypes.object,
   patient: PropTypes.object.isRequired,
-  provider: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string]),
+  provider: PropTypes.object,
   title: PropTypes.string,
   toastMessage: PropTypes.string,
   visit: PropTypes.object,

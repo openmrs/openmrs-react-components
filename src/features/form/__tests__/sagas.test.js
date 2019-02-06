@@ -58,6 +58,10 @@ describe('form sagas', () => {
       uuid: "some_encounter_role_uuid"
     };
 
+    const order = {
+      uuid: "some_order_uuid"
+    };
+
     const expectedEncounterPost = {
       "encounterDatetime": date,
       "location": "some_location_uuid",
@@ -70,10 +74,12 @@ describe('form sagas', () => {
       "obs": [
         { "comment": "form-id^first-obs",
           "concept": "first-obs-uuid",
+          "order": "some_order_uuid",
           "value": 100
         },
         { "comment": "form-id^second-obs",
           "concept": "second-obs-uuid",
+          "order": "some_order_uuid",
           "value": 200
         }
       ],
@@ -89,6 +95,7 @@ describe('form sagas', () => {
       encounterRole: encounterRole,
       encounterType: encounterType,
       location: location,
+      orderForObs: order,
       provider: provider,
       visit: visit,
       formSubmittedActionCreator:

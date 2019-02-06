@@ -26,20 +26,20 @@ function findExistingObsUuid(formId, path, flattenedObs) {
 
 }
 
-function addObs(allObs, value, formId, existingObsFlattened) {
+function addObs(allObs, value, formId, orderUuid, existingObsFlattened) {
 
   const { path, concepts } = formUtil.parseObsFieldName(value[0]);
   let val = value[1];
 
   // create the obs
-  const obs = createObs(val, path, concepts[concepts.length - 1], formId, existingObsFlattened);
+  const obs = createObs(val, path, concepts[concepts.length - 1], formId, orderUuid, existingObsFlattened);
 
   // figure out where to add it in the tree
-  addObsHelper(allObs, 0, obs, path, concepts, formId, existingObsFlattened);
+  addObsHelper(allObs, 0, obs, path, concepts, formId, orderUuid, existingObsFlattened);
 }
 
 // add the obs to the obs tree, creating any intermediate obs groups as necessary
-function addObsHelper(obsAtLevel, currentLevel, obs, path, concepts, formId, existingObsFlattened) {
+function addObsHelper(obsAtLevel, currentLevel, obs, path, concepts, formId, orderUuid, existingObsFlattened) {
 
   // if at the lowest level, just add
   if (currentLevel + 1 == path.length) {
@@ -51,17 +51,17 @@ function addObsHelper(obsAtLevel, currentLevel, obs, path, concepts, formId, exi
 
     // if the obsGrouping concept doesn't exist, create it
     if (!obsGroup) {
-      obsGroup = createObs(null, path.slice(0, currentLevel + 1), concepts[currentLevel], formId, existingObsFlattened);
+      obsGroup = createObs(null, path.slice(0, currentLevel + 1), concepts[currentLevel], formId, orderUuid,existingObsFlattened);
       obsGroup.groupMembers = [];
       obsAtLevel.push(obsGroup);
     }
 
     // go to the next level
-    addObsHelper(obsGroup.groupMembers, currentLevel + 1, obs, path, concepts, formId, existingObsFlattened);
+    addObsHelper(obsGroup.groupMembers, currentLevel + 1, obs, path, concepts, formId, orderUuid, existingObsFlattened);
   }
 }
 
-function createObs(val, path, concept, formId, existingObsFlattened) {
+function createObs(val, path, concept, formId, orderUuid, existingObsFlattened) {
 
   let existingObsUuid = findExistingObsUuid(formId, path, existingObsFlattened);
 
@@ -77,6 +77,10 @@ function createObs(val, path, concept, formId, existingObsFlattened) {
 
   if (existingObsUuid) {
     obs.uuid = existingObsUuid;
+  }
+
+  if (orderUuid) {
+    obs.order = orderUuid;
   }
 
   return obs;
@@ -142,7 +146,7 @@ function* submit(action) {
     obsFromForm
       .filter(value => value[1])  // filter out any ones with no value
       .forEach((value) => {
-        addObs(allObs, value, action.formId, existingFlattenedObs);
+        addObs(allObs, value, action.formId, action.orderForObs ? action.orderForObs.uuid : null, existingFlattenedObs);
       });
 
     encounter.obs = allObs;
