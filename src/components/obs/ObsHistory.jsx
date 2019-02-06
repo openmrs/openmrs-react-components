@@ -54,7 +54,7 @@ class ObsHistory extends React.PureComponent {
     if (this.props.obs) {
       this.setState({
         obs: this.sortAndGroupResults(this.props.obs),
-        loading: this.props.loading   // if the ObsHistory passes in it's own obs, can pass in a "loading" as well
+        loading: this.props.loading   // if the consumer passes in it's own obs, can pass in a "loading" as well
       });
     }
     else {
