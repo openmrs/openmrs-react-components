@@ -70,5 +70,5 @@ html, body {
 }
 
 .authenticated-route-container.no-scroll{
-    overflow: hidden;
+    overflow: unset;
 }
