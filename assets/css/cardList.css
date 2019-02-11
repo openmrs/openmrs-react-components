@@ -3,6 +3,10 @@
   height: calc(100vh - 300px);
 }
 
+.cardlist-search-container {
+  padding: 0 10px;
+}
+
 .card-list {
   display: flex;
   justify-content: space-between;
