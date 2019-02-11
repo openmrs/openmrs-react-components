@@ -54,7 +54,7 @@ class CustomDatePicker extends PureComponent {
         });
         input.onChange(format(startOfDay(parse(input.value))));
       } else {
-        input.onChange(format(startOfDay(new Date())))
+        input.onChange(format(startOfDay(parse(input.value))));
       }
     }
   }

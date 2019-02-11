@@ -63,6 +63,7 @@ html, body {
 .authenticated-route-container {
   overflow: scroll;
   height: calc(100vh - 300px);
+  margin-left: 15px;
 }
 
 .authenticated-route-container.full{
