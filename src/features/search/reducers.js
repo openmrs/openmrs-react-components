@@ -1,6 +1,6 @@
 import PATIENT_SEARCH_TYPES from "./types";
 
-const initialState = {
+export const initialState = {
   query: '',
   searchType: ''
 };
