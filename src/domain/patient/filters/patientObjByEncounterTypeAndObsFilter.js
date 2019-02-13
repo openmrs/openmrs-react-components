@@ -19,11 +19,14 @@ const byEncounterTypeAndObsFilter = (encounterTypeUuid, concepts, filterType = '
       if (enc !== undefined) {
         if (enc.obs) {
           for (let observation of enc.obs) {
+            // first check if top level obs.concept.uuid matches the concept UUIDs passed in
+            obsFound = concepts.some(concept => concept === observation.concept.uuid);
             if (obsFound) {
               break;
             }
             if(observation.groupMembers) {
               for (let groupMember of observation.groupMembers){
+                // look for Concept UUIDs with the obs.groupMembers
                 obsFound = concepts.some(concept => concept == groupMember.concept.uuid);
                 if (obsFound) {
                   break;
