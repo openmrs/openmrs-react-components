@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import validations from "../../features/form/validations";
 import { selectors } from "../../store";
 import { conceptActions } from "../../features/concept";
+import { formatDate } from '../../util/dateUtil';
+import { isDatatype } from "../../features/concept/util";
 
 class ObsValue extends React.PureComponent{
 
@@ -26,14 +28,26 @@ class ObsValue extends React.PureComponent{
 
   getObsValue(obs) {
     if (obs.value) {
-      if (!this.props.labels || !obs.value.uuid || !this.props.labels[obs.value.uuid]) {
-        return obs.value.display ? obs.value.display : obs.value;
+
+      // TODO add more datatype support
+      if (isDatatype(this.props.concept, 'date')) {
+        return formatDate(obs.value);
+      }
+      // TODO update this to support pulling the display name from the concept!
+      else if (isDatatype(this.props.concept, 'coded')) {
+        if (!this.props.labels || !obs.value.uuid || !this.props.labels[obs.value.uuid]) {
+          return obs.value.display ? obs.value.display : obs.value;
+        }
+        else {
+          return this.props.labels[obs.value.uuid];
+        }
       }
       else {
-        return this.props.labels[obs.value.uuid];
+        return obs.value;
       }
+
     }
-    return null;
+    return "";
   };
 
   render() {
