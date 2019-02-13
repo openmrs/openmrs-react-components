@@ -1,10 +1,11 @@
 import PATIENT_SEARCH_TYPES from "./types";
 
-const patientSearch = (query, parseResults, representation) => ( {
+const patientSearch = (query, parseResults, representation, activeSearchType) => ( {
   type: PATIENT_SEARCH_TYPES.REQUESTED,
   query: query,
   parseResults: parseResults,
-  representation: representation
+  representation: representation,
+  activeSearchType
 } );
 
 const patientSearchSucceeded = (results) => ( {
@@ -21,9 +22,16 @@ const clearPatientSearch = () => ( {
   type: PATIENT_SEARCH_TYPES.CLEAR_SEARCH
 });
 
+const saveActiveSearchQuery = (query, searchType) => ({
+  type: PATIENT_SEARCH_TYPES.SAVE_ACTIVE_SEARCH,
+  query,
+  searchType
+});
+
 export default {
   patientSearch,
   patientSearchSucceeded,
   patientSearchFailed,
-  clearPatientSearch
+  clearPatientSearch,
+  saveActiveSearchQuery
 };

@@ -11,7 +11,9 @@ function* patientSearch(action) {
       query: action.query,
       representation: action.representation
     });
-
+    if (action.activeSearchType) {
+      yield put(patientSearchActions.saveActiveSearchQuery(action.query, action.activeSearchType));
+    }
     yield put(patientSearchActions.patientSearchSucceeded(action.parseResults ? action.parseResults(response.results) : response.results));
   }
   catch (e) {

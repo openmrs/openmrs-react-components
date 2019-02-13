@@ -6,6 +6,7 @@ import { patientActions } from "../../features/patient/index";
 import { DEFAULT_PATIENT_REP } from "../../domain/patient/constants";
 import patientUtil from '../../domain/patient/patientUtil';
 import CardList from "../cardList/CardList";
+import { selectors } from "../../store";
 import PatientCard from '../patient/PatientCard';
 
 
@@ -19,23 +20,28 @@ class PatientSearch extends React.Component {
   };
 
   handleSubmit(value) {
+    let activeSearchType = this.props.cacheSearchResults ? value.activeSearchType : null;
     this.props.dispatch(patientSearchActions.patientSearch(
-      value,
+      value.searchQuery,
       this.props.parseResults, // the can override with a callback function to parse the results returned by the REST API
-      this.props.representation));
+      this.props.representation,
+      activeSearchType
+    ));
   };
 
   render() {
-    const onMountOtherActionCreators = this.props.onMountOtherActionCreators ? this.props.onMountOtherActionCreators :
-      [
-        () => this.props.dispatch(patientSearchActions.clearPatientSearch()),
-        () => this.props.dispatch(patientActions.clearSelectedPatient()),
-      ];
+    const isSearchActive = this.props.cacheSearchResults && this.props.patient;
+    let actionCreators = isSearchActive ? [] : [
+      () => this.props.dispatch(patientSearchActions.clearPatientSearch()),
+      () => this.props.dispatch(patientActions.clearSelectedPatient()),
+    ];
+    const onMountOtherActionCreators = this.props.onMountOtherActionCreators ? this.props.onMountOtherActionCreators : actionCreators;
 
     return (
       <div>
-        <CardList 
+        <CardList
           AdditionalSearchFilters={this.props.AdditionalFilters}
+          activeSearchType={this.props.activeSearchType}
           card={PatientCard}
           delayInterval={0}
           dispatch={this.props.dispatch}
@@ -49,6 +55,7 @@ class PatientSearch extends React.Component {
           rowSelectedActionCreators={[patientActions.setSelectedPatient, patientActions.updatePatientInStore, ...this.props.rowSelectedActionCreators]}
           searchFilterFields={null}
           searchType="server"
+          searchValue={this.props.searchValue}
           title={this.props.title}
         />
       </div>
@@ -58,17 +65,21 @@ class PatientSearch extends React.Component {
 
 PatientSearch.propTypes = {
   AdditionalFilters: PropTypes.func,
+  activeSearchType: PropTypes.string,
+  cacheSearchResults: PropTypes.bool,
   getPatientIdentifiers: PropTypes.func,
   isUpdating: PropTypes.bool,
   parseResults: PropTypes.func.isRequired,
   representation: PropTypes.string.isRequired,
   rowData: PropTypes.array,
   rowSelectedActionCreators: PropTypes.array.isRequired,
+  searchValue: PropTypes.string,
   title: PropTypes.string,
 };
 
 PatientSearch.defaultProps = {
   loading: false,
+  cacheSearchResults: false,
   parseResults:(results) => {
     // convert results to the patient domain object
     return results.map((result) => {
@@ -82,7 +93,10 @@ PatientSearch.defaultProps = {
 const mapStateToProps = (state) => {
   return {
     rowData: state.openmrs.patientSearch.results ? state.openmrs.patientSearch.results : [],
-    isUpdating: state.openmrs.patientSearch.isUpdating
+    isUpdating: state.openmrs.patientSearch.isUpdating,
+    patient: selectors.getSelectedPatientFromStore(state),
+    searchValue: state.openmrs.patientSearch.query ? state.openmrs.patientSearch.query : '',
+    activeSearchType: state.openmrs.patientSearch.searchType ? state.openmrs.patientSearch.searchType : '',
   };
 };
 
