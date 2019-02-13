@@ -1,6 +1,9 @@
 import PATIENT_SEARCH_TYPES from "./types";
 
-const initialState = {};
+const initialState = {
+  query: '',
+  searchType: ''
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -27,6 +30,13 @@ export default (state = initialState, action) => {
       return {
         isUpdating: false
       };
+    case PATIENT_SEARCH_TYPES.SAVE_ACTIVE_SEARCH: {
+      return {
+        ...state,
+        query: action.query,
+        searchType: action.searchType
+      };
+    }
 
     default:
       return state;

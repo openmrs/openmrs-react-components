@@ -11,10 +11,11 @@ import '../../../assets/css/cardList.css';
 class CardList extends React.Component {
   constructor(props) {
     super(props);
+    
 
     this.state = {
-      searchValue: '',
-      additionalSearchValue: '',
+      searchValue: props.activeSearchType === 'patient-name' ? props.searchValue : "",
+      additionalSearchValue: props.activeSearchType === 'patient-identifier' ? props.searchValue : "",
       activeSearchType: ''
     };
 
@@ -94,7 +95,7 @@ class CardList extends React.Component {
     if (activeSearchType === 'patient-identifier' || searchValue === "") {
       searchQuery = additionalSearchValue;
     }
-    const handleSearch = debounce(() => this.props.handleSearchSubmit(searchQuery), 1000);
+    const handleSearch = debounce(() => this.props.handleSearchSubmit({ activeSearchType, searchQuery }), 1000);
     handleSearch();
   }
 
@@ -120,7 +121,15 @@ class CardList extends React.Component {
 
   render() {
     // TODO "getPatientIdentifiers" should be generalizible in some way
-    const { rowData, loading, card, AdditionalSearchFilters, getPatientIdentifiers, noDataMessage, handleSearchChange, searchType } = this.props;
+    const {
+      rowData,
+      loading,
+      card,
+      AdditionalSearchFilters,
+      getPatientIdentifiers,
+      noDataMessage,
+      searchType,
+    } = this.props;
     const isServerSearch = searchType === 'server';
     const filtersClassName = isServerSearch ? "server-search": '';
 
@@ -138,6 +147,7 @@ class CardList extends React.Component {
         <div className={filtersClassName}>
           {AdditionalSearchFilters && <AdditionalSearchFilters
             handleSearchChange={this.handleSearchChange}
+            value={this.state.additionalSearchValue}
             searchType={searchType ? searchType : ''}
           />}
           {isServerSearch &&
