@@ -1,10 +1,10 @@
-import reducers from '../reducers';
+import reducers, { initialState } from '../reducers';
 import PATIENT_SEARCH_TYPES from '../types';
 
 describe('patient search reducers', () => {
 
   it('should return the initial state', () => {
-    expect(reducers(undefined, {})).toEqual({});
+    expect(reducers(initialState, {})).toEqual(initialState);
   });
 
   it('should return patient search results', () => {
@@ -18,10 +18,11 @@ describe('patient search reducers', () => {
       }
     ];
 
-    expect(reducers(undefined, {
+    expect(reducers(initialState, {
       type: PATIENT_SEARCH_TYPES.SUCCEEDED,
       results: results
     })).toEqual({
+      ...initialState,
       results: results,
       isUpdating: false
     });
