@@ -15,10 +15,8 @@ const byEncounterTypeAndObsFilter = (encounterTypeUuid, concepts, filterType = '
     }
     else {
       let obsFound = false;
-
       let enc = patient.visit.encounters.find(encounter => encounter.encounterType.uuid === encounterTypeUuid);
       if (enc !== undefined) {
-        console.log("we found the encounter type: " + enc.encounterType.name);
         if (enc.obs) {
           for (let observation of enc.obs) {
             if (obsFound) {
