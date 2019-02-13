@@ -22,14 +22,14 @@ class CustomDatePicker extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      selectedDate: parse(props.defaultDate) || startOfDay(new Date()),
+      selectedDate: props.defaultDate,
       field: props.field,
     };
     this.handleChange = this.handleChange.bind(this);
   }
-
+  
   componentDidMount() {
-    const { input } = this.props;
+    const { input, defaultDate } = this.props;
     if (typeof input !== 'undefined') {
       const { onChange } = input;
       if (input.value) {
@@ -37,7 +37,11 @@ class CustomDatePicker extends PureComponent {
           selectedDate: parse(input.value)
         })
       } else {
-        onChange(format(startOfDay(new Date())));
+        if (typeof defaultDate === 'undefined') {
+          onChange(undefined);
+        } else {
+          onChange(format(startOfDay(new Date())));
+        }
       }
     }
   }
@@ -140,7 +144,6 @@ class CustomDatePicker extends PureComponent {
 CustomDatePicker.defaultProps = {
   labelClassName: '',
   label: '',
-  defaultDate: new Date(),
   field: '',
   formControlStyle: {
     marginRight: '5px',
