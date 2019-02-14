@@ -52,7 +52,7 @@ const generateAbnormalAndCriticalWarningFunctions = concept => {
     lowNormalRange = lowNormal ? abnormalMinValue(lowNormal) : undefined;
     hiCriticalRange = hiCritical ? criticalMaxValue(hiCritical) : undefined;
     lowCriticalRange = lowCritical ? criticalMinValue(lowCritical) : undefined;
-    return [hiNormalRange, lowNormalRange, hiCriticalRange, lowCriticalRange].filter(Boolean);
+    return [hiCriticalRange, hiNormalRange, lowCriticalRange, lowNormalRange].filter(Boolean);
   } else {
     return [];
   }
