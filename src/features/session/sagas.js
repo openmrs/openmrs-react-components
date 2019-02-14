@@ -42,7 +42,7 @@ function* setAuthorization(action) {
 
 function* sessionSagas() {
   yield takeLatest(SESSION_TYPES.FETCH_REQUESTED, fetchCurrentSession);
-  yield takeLatest(SESSION_TYPES.SET_REQUESTED, setSession);
+  yield takeLatest(SESSION_TYPES.SET_SESSION_LOCATION_REQUESTED, setSession);
   yield takeLatest(REHYDRATE, setAuthorization);
 }
 

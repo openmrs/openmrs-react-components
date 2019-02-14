@@ -1,4 +1,4 @@
-import { locationsReducer } from "../reducers";
+import { locationsReducer, getLocation } from "../reducers";
 import FETCH_LOCATIONS_TYPES from '../types';
 
 describe('locationsReducer Reducer', () => {
@@ -27,5 +27,16 @@ describe('locationsReducer Reducer', () => {
     });
     expect(locations[0]).toEqual(mockLocation);
     expect(locations[1]).toEqual(anotherMockLocation);
+  });
+
+
+  it('should fetch locaton by uuid', () => {
+    const state = [
+      { uuid: 'location-uuid-1', display: "Location 1" },
+      { uuid: 'location-uuid-2', display: "Location 2" }
+    ];
+
+    expect(getLocation(state, 'location-uuid-2').display).toEqual("Location 2");
+
   });
 });

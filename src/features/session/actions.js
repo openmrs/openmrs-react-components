@@ -15,11 +15,6 @@ const fetchSessionFailed = (message) => ( {
   message: message
 } );
 
-const setSessionLocation = (sessionLocation) => ( {
-  type: SESSION_TYPES.SET_REQUESTED,
-  sessionLocation
-} );
-
 const setSessionSucceeded = (session, authorization) => ( {
   type: SESSION_TYPES.SET_SUCCEEDED,
   session,
@@ -34,6 +29,11 @@ const setSessionFailed = (message) => ( {
 const setAuthorizationFailed = (message) => ( {
   type: SESSION_TYPES.SET_AUTHORIZATION_FAILED,
   message: message
+} );
+
+const setSessionLocation = (sessionLocation) => ( {
+  type: SESSION_TYPES.SET_SESSION_LOCATION_REQUESTED,
+  sessionLocation
 } );
 
 export default {

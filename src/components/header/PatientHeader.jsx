@@ -25,7 +25,7 @@ export class PatientHeader extends PureComponent {
 
   componentDidMount() {
     if (this.state.patient) {
-      const { identifiersToDisplay, identifierTypesToDisplay, locations, currentLocation } = this.props;
+      const { identifiersToDisplay, identifierTypesToDisplay, locations, sessionLocation } = this.props;
       const { patient } = this.state;
       let identifiers = [], additionalIdentifiers = [];
       if (identifierTypesToDisplay) {
@@ -33,7 +33,7 @@ export class PatientHeader extends PureComponent {
           [...acc, ...patientUtil.getIdentifiers(this.state.patient, identifierType)]
           , []);
       } else if (identifiersToDisplay) {
-        const getIdentifiersToDisplay = identifiersToDisplay(patient, locations, currentLocation);  
+        const getIdentifiersToDisplay = identifiersToDisplay(patient, locations, sessionLocation);
         identifiers = getIdentifiersToDisplay.identifiers;
         additionalIdentifiers = getIdentifiersToDisplay.additionalIdentifiers;
       } else {
@@ -124,7 +124,7 @@ export class PatientHeader extends PureComponent {
           <div className="patient-header ">
             {this.props.showBackButton && <span 
               className="back-button" 
-              onClick={() => this.props.history.push(this.props.backLink || '/')}
+s={() => this.props.history.push(this.props.backLink || '/')}
             >
               <Glyphicon
                 className="back-button-icon"
@@ -149,10 +149,9 @@ PatientHeader.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    sessionLocation: state.openmrs.session.sessionLocation,
+    sessionLocation: selectors.getSessionLocation(state),
     identifierTypes: state.openmrs.metadata.patientIdentifierTypes,
     locations: state.openmrs.metadata.locations,
-    currentLocation: state.openmrs.session.sessionLocation
   };
 };
 

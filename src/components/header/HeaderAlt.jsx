@@ -113,7 +113,7 @@ export class HeaderAlt extends React.Component {
                         id="navItemIcon"
                         size="lg"
                       />
-                      <span className="current-user-dropdown">{this.props.user.person ? this.props.user.display : 'user'}</span>
+                      <span className="current-user-dropdown">{this.props.user.display}</span>
                     </span>
                   }
                 />
@@ -184,7 +184,7 @@ export class HeaderAlt extends React.Component {
                             id="navItemIcon"
                             size="lg"
                           />
-                          {this.props.user.person ? this.props.user.person.display : 'user'}
+                          {this.props.user.display}
                         </span>
                       }
                   
@@ -203,7 +203,7 @@ export class HeaderAlt extends React.Component {
                             id="navItemIcon"
                             size="lg"
                           />
-                          <span className="current-user-dropdown">{this.props.user.person ? this.props.user.person.display : 'user'}</span>
+                          <span className="current-user-dropdown">{this.props.user.display}</span>
                         </span>
                       }
                     />

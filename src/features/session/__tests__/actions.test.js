@@ -12,7 +12,7 @@ describe('session actions', () => {
     expect(sessionActions.fetchSession()).toEqual(expectedAction);
   });
 
-  it('should create session succeededaction', () => {
+  it('should create session succeeded action', () => {
     const expectedAction = {
       type: SESSION_TYPES.FETCH_SUCCEEDED
     };
@@ -29,7 +29,7 @@ describe('session actions', () => {
 
   it('should create session set action', () => {
     const expectedAction = {
-      type: SESSION_TYPES.SET_REQUESTED,
+      type: SESSION_TYPES.SET_SESSION_LOCATION_REQUESTED,
       sessionLocation: "Amani_hospital", 
     };
     expect(sessionActions.setSessionLocation("Amani_hospital")).toEqual(expectedAction);

@@ -11,7 +11,7 @@ import { systemReducers } from './features/system';
 import { conceptReducer } from "./features/concept/reducers";
 import { getPatients, getSelectedPatient, isUpdating } from './features/patient';
 import { getConcept, getConcepts } from './features/concept';
-import { locationsReducer, getLocations } from './features/location';
+import { locationsReducer, getLocations, getLocation } from './features/location';
 import { getSessionLocation } from "./features/session";
 import { patientIdentifierTypesReducer, getPatientIdentifierTypes, getPatientIdentifierType, getPatientIdentifierTypeByName } from './features/patientIdentifierTypes';
 
@@ -76,7 +76,9 @@ export const selectors = {
   },
 
   getSessionLocation: (state) => {
-    return getSessionLocation(state.openmrs.session);
+    const sessionLocation = getSessionLocation(state.openmrs.session);
+    return sessionLocation && getLocation(state.openmrs.metadata.locations, sessionLocation.uuid)
+      ? getLocation(state.openmrs.metadata.locations, sessionLocation.uuid) : sessionLocation;
   }
 
 };
