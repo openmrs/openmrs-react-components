@@ -580,7 +580,7 @@ const patient =
     uuid: 'A1',
     gender: 'M',
     age: 24,
-    birthdate: '1994-01-01T00:00:00.000-0500',
+    birthdate: '1994-01-01',
     name: {
       givenName: 'givenName',
       middleName: 'middleName',

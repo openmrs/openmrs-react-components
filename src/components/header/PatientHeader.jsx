@@ -82,7 +82,7 @@ export class PatientHeader extends PureComponent {
           <span className="gender-age">
             <span className="gender">{this.state.patient.gender === 'M' ? "Male" : "Female"}&nbsp;</span>
             <span className="age">
-              {this.state.patient.age} year(s) { this.state.patient.birthdate ? ('(' + dateFns.format(new Date(this.state.patient.birthdate), DATE_FORMAT) + ')') : ''}
+              {this.state.patient.age} year(s) { this.state.patient.birthdate ? ('(' + dateFns.format(this.state.patient.birthdate, DATE_FORMAT) + ')') : ''}
             </span>
           </span>
         </h2>

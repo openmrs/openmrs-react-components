@@ -5,6 +5,7 @@
 import * as R from 'ramda';
 import  { cloneDeep } from 'lodash';
 import { ATTRIBUTE_TYPES } from './constants';
+import {trimTimeComponentFromISOString} from "../../util/dateUtil";
 
 /*
 
@@ -171,7 +172,7 @@ const patientUtil = {
     patient.uuid = restRep.uuid;
     patient.gender = R.path(['person', 'gender'], restRep);
     patient.age = R.path(['person', 'age'], restRep);
-    patient.birthdate = R.path(['person', 'birthdate'], restRep);
+    patient.birthdate = trimTimeComponentFromISOString(R.path(['person', 'birthdate'], restRep));
 
     // Name: first try "preferredName", then try "personName"
 

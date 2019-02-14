@@ -701,7 +701,7 @@ describe('Domain Object: Patient', () => {
     expect(patient.uuid).toBe("cda61f89-c342-4caf-88c3-d0f829a7b43a");
     expect(patient.gender).toBe("M");
     expect(patient.age).toBe(24);
-    expect(patient.birthdate).toBe("1994-01-01T00:00:00.000-0500");
+    expect(patient.birthdate).toBe("1994-01-01");
     expect(patientUtil.getGivenName(patient)).toBe("Neil");
     expect(patientUtil.getFamilyName(patient)).toBe("Young");
     expect(patientUtil.getMiddleName(patient)).toBeNull();
@@ -736,7 +736,7 @@ describe('Domain Object: Patient', () => {
     expect(patient.uuid).toBe("a46864ac-4cee-4e3a-a920-7b5799f1dc9a");
     expect(patient.gender).toBe("M");
     expect(patient.age).toBe(22);
-    expect(patient.birthdate).toBe("1996-01-01T00:00:00.000-0500");
+    expect(patient.birthdate).toBe("1996-01-01");
     expect(patientUtil.getGivenName(patient)).toBe("Bob");
     expect(patientUtil.getFamilyName(patient)).toBe("Dylan");
     expect(patientUtil.getMiddleName(patient)).toBeNull();
@@ -765,7 +765,7 @@ describe('Domain Object: Patient', () => {
     expect(patient2.uuid).toBe("cda61f89-c342-4caf-88c3-d0f829a7b43a");
     expect(patient2.gender).toBe("M");
     expect(patient2.age).toBe(24);
-    expect(patient2.birthdate).toBe("1994-01-01T00:00:00.000-0500");
+    expect(patient2.birthdate).toBe("1994-01-01");
     expect(patientUtil.getGivenName(patient2)).toBe("Neil");
     expect(patientUtil.getFamilyName(patient2)).toBe("Young");
     expect(patientUtil.getMiddleName(patient2)).toBeNull();
