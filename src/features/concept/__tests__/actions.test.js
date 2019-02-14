@@ -22,7 +22,7 @@ describe('concept actions', () => {
   it('should create a fetch concepts action', () => {
     const expectedAction = {
       type: CONCEPT_TYPES.FETCH_REQUESTED,
-      conceptUuids: conceptUuids
+      concepts: conceptUuids
     };
 
     expect(conceptActions.fetchConcepts(conceptUuids)).toEqual(expectedAction);
