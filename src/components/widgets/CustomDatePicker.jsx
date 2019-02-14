@@ -80,10 +80,8 @@ class CustomDatePicker extends PureComponent {
 
   render() {
     const { ...otherProps } = this.props;
-    const { input } = otherProps;
+    const { input, usePortalMode } = otherProps;
     let error;
-    let defaultDate;
-
 
     const hasInput = typeof input !== 'undefined';
     if (hasInput) {
@@ -126,6 +124,7 @@ class CustomDatePicker extends PureComponent {
         onChange={this.handleChange}
         selected={selectedDate}
         excludeDates={[hasInput]}
+        withPortal={usePortalMode}
       />
     );
 

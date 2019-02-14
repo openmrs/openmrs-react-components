@@ -28,3 +28,10 @@
   border-left-color: #ccc;
   right: 1em;
 }
+
+.react-datepicker__portal {
+  position: absolute;
+}
+.react-datepicker__portal .react-datepicker{
+  top: -20%;
+}
