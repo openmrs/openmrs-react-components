@@ -3,10 +3,15 @@ import CONCEPT_TYPES from "./types";
 /**
  * Usage:
  *
- * Calling "fetchConcepts" with an array of 1 or more concept uuids will fetch those concepts and place them in the metadata cache
+ * "fetchConcepts" can be called with an array of 1 or more concepts OR conceptUuids; it will fetch those concepts and
+ * place them in the concept metadata cache
  *
  * At this point, the concepts should be available via getConcept or getConcepts selector provided by the store
  * Note that the saga that handles fetchConcepts is "smart" enough to not refetch a concept if it is already in the store
+ *
+ * Note that if you pass in an array of concepts and there are other properties on those concepts beyond uuids,
+ * those properties will take precedent over existing properties on the concepts... this way your app can provide
+ * custom names, hi/low validation amounts, etc, to the concepts
  *
  *
  * Sample usage (see ObsValue.jsx for more details):
@@ -36,9 +41,9 @@ import CONCEPT_TYPES from "./types";
 
 // TODO add a "clear cache" actions and reducers
 
-const fetchConcepts = (conceptUuids) => ( {
+const fetchConcepts = (concepts) => ( {
   type: CONCEPT_TYPES.FETCH_REQUESTED,
-  conceptUuids: conceptUuids
+  concepts: concepts
 } );
 
 const fetchConceptsSucceeded = (concepts) => ( {

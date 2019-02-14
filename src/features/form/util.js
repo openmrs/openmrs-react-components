@@ -30,9 +30,7 @@ const util = {
   obsFieldName: (path, concepts) => {
 
     const conceptPath = Array.isArray(concepts) ?
-      (concepts.length > 0 && concepts[0].uuid ?
-        concepts.map(c => c.uuid).join("^") :
-        concepts.join("^")) :
+      concepts.map(c => c.uuid ? c.uuid : c).join("^") :
       concepts;
 
     return `obs|path=${Array.isArray(path) ? path.join("^") : path}|conceptPath=${conceptPath}`;

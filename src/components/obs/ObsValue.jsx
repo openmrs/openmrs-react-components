@@ -13,7 +13,7 @@ class ObsValue extends React.PureComponent{
   componentDidMount() {
     // we need to test on "props.concept._openmrsClass" instead of just "props.concept" because we allow user to pass their own concept prop to supply custom validation values
     if (!this.props.concept._openmrsClass) {
-      this.props.dispatch(conceptActions.fetchConcepts([this.props.obs.concept.uuid]));
+      this.props.dispatch(conceptActions.fetchConcepts([this.props.concept.uuid ? this.props.concept : this.props.obs.concept]));
     }
   }
 
@@ -33,14 +33,20 @@ class ObsValue extends React.PureComponent{
       if (isDatatype(this.props.concept, 'date')) {
         return formatDate(obs.value);
       }
-      // TODO update this to support pulling the display name from the concept!
       else if (isDatatype(this.props.concept, 'coded')) {
-        if (!this.props.labels || !obs.value.uuid || !this.props.labels[obs.value.uuid]) {
-          return obs.value.display ? obs.value.display : obs.value;
-        }
-        else {
+        // first see if we have a custom label
+        if (this.props.labels && obs.value.uuid && this.props.labels[obs.value.uuid]) {
           return this.props.labels[obs.value.uuid];
         }
+        // next see if we can find this concept in the store
+        else if (this.props.concepts && obs.value.uuid && this.props.concepts[obs.value.uuid]) {
+          return this.props.concepts[obs.value.uuid].display;
+        }
+        // if all else fails, display the display value of the obs
+        else {
+          return obs.value.display ? obs.value.display : obs.value;
+        }
+
       }
       else {
         return obs.value;
@@ -116,7 +122,8 @@ ObsValue.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   const concept = selectors.getConcept(state, ownProps.obs.concept.uuid);
   return {
-    concept: { ...concept, ...ownProps.concept }   // this allows user to override the absolute, abnormal, and critical ranges defined on the concept
+    concept: { ...concept, ...ownProps.concept },  // this allows user to override the absolute, abnormal, and critical ranges defined on the concept
+    concepts: selectors.getConcepts(state)  // we map this in so we can look up answer names... is this too much?
   };
 };
 
