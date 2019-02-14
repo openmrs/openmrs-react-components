@@ -188,7 +188,7 @@ const mapStateToProps = (state, props) => {
     name: name,
     value: props.formContext ? props.formContext.selector(state, name) : null,
     concept: { ...concept, ...props.concept },      // this allows fetching by uuid, and allows user to override the absolute, abnormal, and critical ranges defined on the concept
-    conceptUuid: getUuid(props.concept)  // TODO better way to handle this
+    conceptUuid: getUuid(props.concept)  // TODO better way to handle this... I'm running into some sort of infinite loop if I don't break it up like this
   };
 };
 
