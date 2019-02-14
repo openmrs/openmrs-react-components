@@ -46,8 +46,6 @@ const generateAbnormalAndCriticalWarningFunctions = concept => {
     lowNormal,
   } = concept;
   let hiNormalRange, lowNormalRange, hiCriticalRange, lowCriticalRange;
-  console.log('hiCritical',hiCritical);
-  console.log('hiNormal',hiNormal);
   
   if (hiNormal || hiCritical || lowCritical || lowNormal) {
     hiNormalRange = hiNormal ? abnormalMaxValue(hiNormal) : undefined;
