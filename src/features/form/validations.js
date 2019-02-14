@@ -46,13 +46,15 @@ const generateAbnormalAndCriticalWarningFunctions = concept => {
     lowNormal,
   } = concept;
   let hiNormalRange, lowNormalRange, hiCriticalRange, lowCriticalRange;
+  console.log('hiCritical',hiCritical);
+  console.log('hiNormal',hiNormal);
   
   if (hiNormal || hiCritical || lowCritical || lowNormal) {
     hiNormalRange = hiNormal ? abnormalMaxValue(hiNormal) : undefined;
     lowNormalRange = lowNormal ? abnormalMinValue(lowNormal) : undefined;
     hiCriticalRange = hiCritical ? criticalMaxValue(hiCritical) : undefined;
     lowCriticalRange = lowCritical ? criticalMinValue(lowCritical) : undefined;
-    return [hiNormalRange, lowNormalRange, hiCriticalRange, lowCriticalRange].filter(Boolean);
+    return [hiCriticalRange, hiNormalRange, lowCriticalRange, lowNormalRange].filter(Boolean);
   } else {
     return [];
   }
