@@ -100,6 +100,7 @@ class CustomDatePicker extends PureComponent {
         <FormControl
           onClick={onClick}
           placeholder=""
+          readonly={usePortalMode}
           style={this.props.formControlStyle}
           type="text"
           value={value}
