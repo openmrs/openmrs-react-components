@@ -6,7 +6,6 @@ import { patientActions } from "../../features/patient/index";
 import { DEFAULT_PATIENT_REP } from "../../domain/patient/constants";
 import patientUtil from '../../domain/patient/patientUtil';
 import CardList from "../cardList/CardList";
-import { selectors } from "../../store";
 import PatientCard from '../patient/PatientCard';
 
 
@@ -30,12 +29,15 @@ class PatientSearch extends React.Component {
   };
 
   render() {
-    const isSearchActive = this.props.cacheSearchResults && this.props.patient;
-    let actionCreators = isSearchActive ? [] : [
-      () => this.props.dispatch(patientSearchActions.clearPatientSearch()),
-      () => this.props.dispatch(patientActions.clearSelectedPatient()),
-    ];
-    const onMountOtherActionCreators = this.props.onMountOtherActionCreators ? this.props.onMountOtherActionCreators : actionCreators;
+
+    const actionCreators = this.props.cacheSearchResults ?
+      [
+        () => this.props.dispatch(patientActions.clearSelectedPatient())
+      ] :
+      [
+        () => this.props.dispatch(patientSearchActions.clearPatientSearch()),
+        () => this.props.dispatch(patientActions.clearSelectedPatient())
+      ];
 
     return (
       <div>
@@ -50,7 +52,7 @@ class PatientSearch extends React.Component {
           handleSearchSubmit={this.handleSubmit}
           loading={this.props.isUpdating}
           noDataMessage="No patients to display"
-          onMountOtherActionCreators={onMountOtherActionCreators}
+          onMountOtherActionCreators={[ ...actionCreators, ...this.props.onMountOtherActionCreators]}
           rowData={this.props.rowData}
           rowSelectedActionCreators={[patientActions.setSelectedPatient, patientActions.updatePatientInStore, ...this.props.rowSelectedActionCreators]}
           searchFilterFields={null}
@@ -69,6 +71,7 @@ PatientSearch.propTypes = {
   cacheSearchResults: PropTypes.bool,
   getPatientIdentifiers: PropTypes.func,
   isUpdating: PropTypes.bool,
+  onMountOtherActionCreators: PropTypes.array.isRequired,
   parseResults: PropTypes.func.isRequired,
   representation: PropTypes.string.isRequired,
   rowData: PropTypes.array,
@@ -80,6 +83,7 @@ PatientSearch.propTypes = {
 PatientSearch.defaultProps = {
   loading: false,
   cacheSearchResults: false,
+  onMountOtherActionCreators: [],
   parseResults:(results) => {
     // convert results to the patient domain object
     return results.map((result) => {
@@ -94,7 +98,6 @@ const mapStateToProps = (state) => {
   return {
     rowData: state.openmrs.patientSearch.results ? state.openmrs.patientSearch.results : [],
     isUpdating: state.openmrs.patientSearch.isUpdating,
-    patient: selectors.getSelectedPatientFromStore(state),
     searchValue: state.openmrs.patientSearch.query ? state.openmrs.patientSearch.query : '',
     activeSearchType: state.openmrs.patientSearch.searchType ? state.openmrs.patientSearch.searchType : '',
   };
