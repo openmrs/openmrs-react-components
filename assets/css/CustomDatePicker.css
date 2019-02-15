@@ -1,16 +1,16 @@
 .react-datepicker {
-    font-size: 1em;
+    font-size: 2em;
   }
 .react-datepicker__header {
   padding-top: 0.8em;
 }
 .react-datepicker__month {
-  margin: 0.4em 1em;
+  margin: 0.6em 1.2em;
 }
 .react-datepicker__day-name, .react-datepicker__day {
   width: 1.9em;
   line-height: 1.9em;
-  margin: 0.166em;
+  margin: 0.5em
 }
 .react-datepicker__current-month {
   font-size: 1em;

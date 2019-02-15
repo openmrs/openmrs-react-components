@@ -98,6 +98,7 @@ class CustomDatePicker extends PureComponent {
           }
         </span>
         <FormControl
+          onClick={onClick}
           placeholder=""
           style={this.props.formControlStyle}
           type="text"
