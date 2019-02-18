@@ -35,7 +35,7 @@ exports[`Component: CustomDatePicker renders properly 1`] = `
               }
             }
             type="text"
-            value="296 Oct 2018"
+            value="23 Oct 2018"
           />
         </span>
       </span>
