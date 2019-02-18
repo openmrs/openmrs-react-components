@@ -123,6 +123,7 @@ class CustomDatePicker extends PureComponent {
     const edit = (
       <DatePicker
         customInput={<DateDisplayComponent />}
+        dateFormat={DATE_FORMAT}
         onChange={this.handleChange}
         selected={selectedDate}
         excludeDates={[hasInput]}
@@ -148,7 +149,7 @@ CustomDatePicker.defaultProps = {
   field: '',
   formControlStyle: {
     marginRight: '5px',
-    width: '100px'
+    width: '110px'
   },
 };
 
