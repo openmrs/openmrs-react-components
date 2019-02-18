@@ -41,11 +41,11 @@ export class HeaderAlt extends React.Component {
         navClassName = "navbar-menu portrait mid";
         break;
       }
-      case (locationLength > 21 && locationLength < 25): {
+      case (locationLength > 20 && locationLength < 25): {
         navClassName = "navbar-menu portrait semi";
         break;
       }
-      case (locationLength > 25): {
+      case (locationLength > 24): {
         navClassName = "navbar-menu portrait long";
         break;
       }
