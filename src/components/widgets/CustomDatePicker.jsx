@@ -123,7 +123,7 @@ class CustomDatePicker extends PureComponent {
     const edit = (
       <DatePicker
         customInput={<DateDisplayComponent />}
-        dateFormat={DATE_FORMAT}
+        dateFormat="dd MMM YYYY"
         onChange={this.handleChange}
         selected={selectedDate}
         excludeDates={[hasInput]}
