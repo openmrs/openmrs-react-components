@@ -25,15 +25,17 @@ exports[`Component: CustomDatePicker renders properly 1`] = `
           <input
             className="form-control"
             id={undefined}
+            onClick={[Function]}
             placeholder=""
+            readOnly={undefined}
             style={
               Object {
                 "marginRight": "5px",
-                "width": "100px",
+                "width": "110px",
               }
             }
             type="text"
-            value="10/23/2018"
+            value="296 Oct 2018"
           />
         </span>
       </span>
