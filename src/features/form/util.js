@@ -73,9 +73,9 @@ const util = {
     }
 
     return obs.reduce((acc, obs) => {
-      const { groupMembers, ...obsWithoutGroupMembers } = obs;
-      obsWithoutGroupMembers.conceptPath = [...path, obs.concept.uuid].join('^');
-      return [...util.flattenObs(groupMembers, acc, [...path, obs.concept.uuid]), obsWithoutGroupMembers];
+      const { groupMembers, ...obsWithGroupMembersRemoved } = obs;
+      obsWithGroupMembersRemoved.conceptPath = [...path, obs.concept.uuid].join('^');
+      return [...util.flattenObs(groupMembers, acc, [...path, obs.concept.uuid]), obsWithGroupMembersRemoved];
     }, acc);
 
   }

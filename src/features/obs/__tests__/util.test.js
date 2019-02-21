@@ -89,5 +89,75 @@ describe('obs util', () => {
   });
 
 
+  it('should flatten grouped obs excluding grouping concepts', () => {
+
+    const obs =   [
+      {
+        "concept": {
+          "uuid": "grouping_uuid"
+        },
+        "groupMembers":  [
+          {
+            "concept": {
+              "uuid": "first-obs-uuid"
+            },
+            "value": 100
+          },
+          {
+            "concept": {
+              "uuid": "second-obs-uuid"
+            },
+            "value": 200
+          }
+        ]
+      },
+      {
+
+        "concept": {
+          "uuid": "second_grouping_uuid"
+        },
+        "groupMembers":  [
+          {
+            "concept": {
+              "uuid": "first-obs-uuid"
+            },
+            "groupMembers": [
+              {
+                "concept": {
+                  "uuid": "second-obs-uuid"
+                },
+                "value": 400
+              }
+            ]
+          }
+        ]
+      }
+    ];
+
+    const expectedFlattened = [
+      {
+        "concept": {
+          "uuid": "first-obs-uuid"
+        },
+        "value": 100
+      },
+      {
+        "concept": {
+          "uuid": "second-obs-uuid"
+        },
+        "value": 200
+      },
+      {
+        "concept": {
+          "uuid": "second-obs-uuid"
+        },
+        "value": 400
+      }
+    ];
+
+    expect(util.flattenObs(obs, true)).toEqual(expectedFlattened);
+
+  });
+
 
 });
