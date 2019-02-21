@@ -1,4 +1,4 @@
-
+import generalUtil from '../../util/generalUtil';
 
 const util = {
 
@@ -20,7 +20,7 @@ const util = {
 
   hasMatchingFormAndPath: (obs, testForm, testPath) => {
     const { form, path } = util.getFormAndPathFromObs(obs);
-    return form === testForm && util.areEqual(path, testPath);
+    return form === testForm && generalUtil.areEqualArrays(path, testPath);
   },
 
   // note that this should handle concepts of various types:
@@ -78,36 +78,7 @@ const util = {
       return [...util.flattenObs(groupMembers, acc, [...path, obs.concept.uuid]), obsWithoutGroupMembers];
     }, acc);
 
-  },
-
-  // TODO this could be used in more than forms, potentially moved somewhere else?
-  // converts an array of key-value pairs to a single object with those properties
-  arrayToObjectReducer: (acc, item) => {
-    var key = Object.keys(item)[0];
-    acc[key] = item[key];
-    return acc;
-  },
-
-  // TODO this could be used in more than forms, potentially moved somewhere else?
-  areEqual(array1, array2) {
-    let equal =false;
-    let json1 = null;
-    let json2 = null;
-    if ( array1 === null && array2 === null) {
-      equal = true;
-    }
-    if (array1 !== null ) {
-      json1 = JSON.stringify(array1);
-    }
-    if (array2 !== null ) {
-      json2 = JSON.stringify(array2);
-    }
-    if (json1 === json2) {
-      equal = true;
-    }
-    return equal;
   }
-
 
 };
 

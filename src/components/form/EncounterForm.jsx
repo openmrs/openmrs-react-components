@@ -8,6 +8,7 @@ import FormContext from './FormContext';
 import { formActions } from '../../features/form';
 import { DATA_TYPES } from '../../domain/concept/constants';
 import formUtil from '../../features/form/util';
+import util from '../../util/generalUtil';
 
 // TODO extract out utility methods for a making a obs template
 // TODO think about anything we need to do to handle
@@ -25,7 +26,7 @@ class EncounterForm extends React.PureComponent {
   componentDidUpdate(prevProps) {
     // if we've loaded an encounter or any default values, re-initialize
     if ((!prevProps.encounter && this.props.encounter)
-      || ( !formUtil.areEqual(this.props.defaultValues, prevProps.defaultValues)) ) {
+      || ( !util.areEqualArrays(this.props.defaultValues, prevProps.defaultValues)) ) {
       this.initialize();
     }
 
@@ -64,7 +65,7 @@ class EncounterForm extends React.PureComponent {
         .map((v) => ({
           [formUtil.obsFieldName(v.path, v.conceptPath ? v.conceptPath : v.concept)]: v.value
         }))
-        .reduce(formUtil.arrayToObjectReducer, {});
+        .reduce(util.arrayToObjectReducer, {});
     }
 
     this.initialData = Object.assign(defaultValues, existingValues); // merge the two objects, prioritizing existing values if there are overlaps

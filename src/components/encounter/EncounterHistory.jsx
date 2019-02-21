@@ -50,13 +50,13 @@ class EncounterHistory extends React.Component {
 
     const history = this.state.encounters.map((encounter, i) => {
       return (
-        <div key={encounter.id}>
+        <div key={encounter.uuid}>
           <h5><u>{ formatDate(encounter.encounterDatetime) }</u></h5>
           <table>
             <tbody>
               {encounter.obs.map((o) =>
                 <ObsValue
-                  key={o.id}
+                  key={o.uuid}
                   labels={this.props.labels}
                   obs={o}
                 />)}
