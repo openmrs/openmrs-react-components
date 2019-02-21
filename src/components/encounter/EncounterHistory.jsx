@@ -6,11 +6,14 @@ import * as R from "ramda";
 import { selectors } from "../../store";
 import { formatDate } from "../../util/dateUtil";
 import ObsValue from '../obs/ObsValue';
+import obsUtil from '../../features/obs/util';
 import '../../../assets/css/widgets.css';
 
 
 // TODO should this be changed to use redux? should we extract the REST calls into actions/reducers/etc
 // TODO add limit or date range restrictions?
+// TODO group by obs group?
+// TODO allow specifying concepts in order to control display order?
 class EncounterHistory extends React.Component {
 
   constructor(props) {
@@ -54,12 +57,13 @@ class EncounterHistory extends React.Component {
           <h5><u>{ formatDate(encounter.encounterDatetime) }</u></h5>
           <table>
             <tbody>
-              {encounter.obs.map((o) =>
-                <ObsValue
-                  key={o.uuid}
-                  labels={this.props.labels}
-                  obs={o}
-                />)}
+              {obsUtil.flattenObs(encounter.obs, true)
+                .map((o) =>
+                  <ObsValue
+                    key={o.uuid}
+                    labels={this.props.labels}
+                    obs={o}
+                  />)}
             </tbody>
           </table>
         </div>
