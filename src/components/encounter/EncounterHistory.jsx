@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
+import { chain } from 'underscore';
 import encounterRest from '../../rest/encounterRest';
 import * as R from "ramda";
 import { selectors } from "../../store";
@@ -57,13 +58,24 @@ class EncounterHistory extends React.Component {
           <h5><u>{ formatDate(encounter.encounterDatetime) }</u></h5>
           <table>
             <tbody>
-              {obsUtil.flattenObs(encounter.obs, true)
-                .map((o) =>
-                  <ObsValue
-                    key={o.uuid}
-                    labels={this.props.labels}
-                    obs={o}
-                  />)}
+              {chain(obsUtil.flattenObs(encounter.obs, true))
+                .sortBy((obs) => this.props.concepts ? this.props.concepts.findIndex(concept => concept.uuid === obs.concept.uuid) : null)  // sort based on order of concepts in props list; this may be inefficient to do before grouping?
+                .value()
+                .map((obs) =>
+                {
+                  // to support overriding the absolute, abnormal, and critical ranges defined on the concept
+                  const concept = this.props.concepts && this.props.concepts.find(concept => concept.uuid === obs.concept.uuid);
+
+                  return (
+                    <ObsValue
+                      concept={concept}
+                      key={obs.uuid}
+                      labels={this.props.labels}
+                      obs={obs}
+                    />
+                  );
+                })
+              }
             </tbody>
           </table>
         </div>
