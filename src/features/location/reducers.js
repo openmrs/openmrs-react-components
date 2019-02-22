@@ -1,8 +1,6 @@
 import FETCH_LOCATIONS_TYPES from "./types";
 
-const initialState = {
-  locations: []
-};
+const initialState = [];
 
 export const locationsReducer = (state = initialState, action) => {
   switch (action.type) {
