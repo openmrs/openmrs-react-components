@@ -49,7 +49,7 @@ class ObsValue extends React.PureComponent{
 
       }
       else {
-        return obs.value;
+        return obs.value.display ? obs.value.display : obs.value;
       }
 
     }
