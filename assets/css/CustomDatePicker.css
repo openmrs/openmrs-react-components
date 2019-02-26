@@ -16,17 +16,26 @@
   font-size: 1em;
 }
 .react-datepicker__navigation {
-  top: 1em;
+  height: 50px;
+  width: 50px;
   line-height: 1.7em;
-  border: 0.45em solid transparent;
+  border: 0.9em solid transparent !important;
+}
+
+.react-datepicker__portal .react-datepicker__navigation--next {
+  border-left-color: #ccc !important;
+}
+
+.react-datepicker__portal .react-datepicker__navigation--previous {
+  border-right-color: #ccc !important;
 }
 .react-datepicker__navigation--previous {
   border-right-color: #ccc;
-  left: 1em;
+  left: -0.2em;
 }
 .react-datepicker__navigation--next {
   border-left-color: #ccc;
-  right: 1em;
+  right: -0.2em;
 }
 
 .react-datepicker__portal {
@@ -52,5 +61,10 @@
   line-height: 1.9em;
   margin: 0.5em
 }
+
+/* button.react-datepicker__navigation {
+  border: 0.81rem solid transparent !important;
+  border-left-color: #ccc !important;
+} */
 
 
