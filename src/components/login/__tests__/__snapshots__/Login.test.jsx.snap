@@ -451,6 +451,7 @@ exports[`Component: Login renders properly 1`] = `
                                 <FormControl
                                   bsClass="form-control"
                                   componentClass="input"
+                                  id="username"
                                   name="username"
                                   onBlur={[Function]}
                                   onChange={[Function]}
@@ -463,6 +464,7 @@ exports[`Component: Login renders properly 1`] = `
                                 >
                                   <input
                                     className="form-control"
+                                    id="username"
                                     name="username"
                                     onBlur={[Function]}
                                     onChange={[Function]}
@@ -756,6 +758,7 @@ exports[`Component: Login renders properly 1`] = `
                                 <FormControl
                                   bsClass="form-control"
                                   componentClass="input"
+                                  id="password"
                                   name="password"
                                   onBlur={[Function]}
                                   onChange={[Function]}
@@ -768,6 +771,7 @@ exports[`Component: Login renders properly 1`] = `
                                 >
                                   <input
                                     className="form-control"
+                                    id="password"
                                     name="password"
                                     onBlur={[Function]}
                                     onChange={[Function]}
@@ -1060,6 +1064,7 @@ exports[`Component: Login renders properly 1`] = `
                               <div>
                                 <select
                                   className="locationSelector"
+                                  id="location"
                                   name="location"
                                   onBlur={[Function]}
                                   onChange={[Function]}

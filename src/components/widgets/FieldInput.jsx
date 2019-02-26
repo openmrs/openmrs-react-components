@@ -9,6 +9,7 @@ const FieldInput = ({
   placeholder,
   displayValue,
   type,
+  id,
   meta: { error, warning }
 }) => {
 
@@ -17,6 +18,7 @@ const FieldInput = ({
       {...input}
       placeholder={placeholder}
       type={type}
+      id={id}
     />
   );
 
@@ -60,6 +62,7 @@ FieldInput.propTypes = {
   meta: PropTypes.object,
   placeholder: PropTypes.string,
   type: PropTypes.string,
+  id: PropTypes.string,
 };
 
 export default FieldInput;

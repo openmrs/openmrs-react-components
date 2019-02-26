@@ -11,7 +11,7 @@ exports[`Component: LoginForm should render correctly 1`] = `
     <div>
       <input
         className="form-control"
-        id={undefined}
+        id="username"
         name="username"
         onBlur={[Function]}
         onChange={[Function]}
@@ -44,7 +44,7 @@ exports[`Component: LoginForm should render correctly 1`] = `
     <div>
       <input
         className="form-control"
-        id={undefined}
+        id="password"
         name="password"
         onBlur={[Function]}
         onChange={[Function]}
@@ -78,6 +78,7 @@ exports[`Component: LoginForm should render correctly 1`] = `
       <select
         className="locationSelector"
         disabled={undefined}
+        id="location"
         name="location"
         onBlur={[Function]}
         onChange={[Function]}

@@ -12,9 +12,9 @@ let LoginForm = props => {
   const { handleSubmit, pristine, reset, submitting, locations, isFormComplete } = props;
 
 
-  const Select = ({ input, options, disabled, placeholder }) => (
+  const Select = ({ input, id, options, disabled, placeholder }) => (
     <div>
-      <select {...input} disabled={disabled} className="locationSelector">
+      <select {...input} id={id} disabled={disabled} className="locationSelector">
         <option key={0} value={''}>{placeholder}</option>
         { options.map(option =>
           <option key={option.uuid} value={option.uuid}>
