@@ -3,9 +3,7 @@ import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import '../../../assets/css/widgets.css';
 import formUtil from '../../features/form/util';
 
-const formatId = (display) => {
-  return display.toLowerCase().replace(/\s/g,'_');
-};
+const formatId = (display) => display && display.toLowerCase().replace(/\s/g,'_');
 
 const buttonStyle = {
   whiteSpace: "normal"

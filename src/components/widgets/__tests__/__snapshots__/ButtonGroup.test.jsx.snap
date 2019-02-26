@@ -9,6 +9,7 @@ exports[`Component: ButtonGroup renders properly 1`] = `
     <label
       className="btn btn-default"
       disabled={false}
+      id="mock_display"
       style={
         Object {
           "whiteSpace": "normal",
