@@ -20,7 +20,8 @@ describe('Component: ButtonGroup', () => {
       },
       options: [{
         name: 'mockName',
-        uuid: '1234'
+        uuid: '1234',
+        display: 'Mock Display',
       }]
     };
     mountedComponent = undefined;
