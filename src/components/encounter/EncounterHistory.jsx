@@ -9,6 +9,7 @@ import { formatDate } from "../../util/dateUtil";
 import ObsValue from '../obs/ObsValue';
 import obsUtil from '../../features/obs/util';
 import '../../../assets/css/widgets.css';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 
 // TODO should this be changed to use redux? should we extract the REST calls into actions/reducers/etc
@@ -25,18 +26,6 @@ class EncounterHistory extends React.Component {
     };
   }
 
-  updateEncounters() {
-    encounterRest.fetchEncountersByPatient(
-      this.props.patient.uuid, this.props.encounterType.uuid
-    ).then(data => {
-      this.setState({
-        encounters: data.results.sort(function (a, b) {
-          return +new Date(b.encounterDatetime) - +new Date(a.encounterDatetime);
-        })
-      });
-    });
-  }
-
   componentDidMount() {
     this.updateEncounters();
   }
@@ -50,12 +39,52 @@ class EncounterHistory extends React.Component {
     }
   }
 
+
+  updateEncounters() {
+    encounterRest.fetchEncountersByPatient(
+      this.props.patient.uuid, this.props.encounterType.uuid
+    ).then(data => {
+      this.setState({
+        encounters: data.results.sort(function (a, b) {
+          return +new Date(b.encounterDatetime) - +new Date(a.encounterDatetime);
+        })
+      });
+    });
+  }
+
+  onEditClick(encounterUuid) {
+    if (this.props.onEditActionCreators) {
+      this.props.onEditActionCreators.forEach((f) => this.props.dispatch(f(encounterUuid)));
+    }
+
+    // generally should be using action creators, but this provides a way to also accept "old school" callbacks
+    if (this.props.onEditCallbacks) {
+      this.props.onEditCallbacks.forEach( (f) => f(encounterUuid));
+    }
+  }
+
   render() {
 
     const history = this.state.encounters.map((encounter, i) => {
       return (
         <div key={encounter.uuid}>
-          <h5><u>{ formatDate(encounter.encounterDatetime) }</u></h5>
+          <h5>
+            { this.props.editable ?
+              (<a onClick={() => this.onEditClick(encounter.uuid)}>
+                <u>
+                { formatDate(encounter.encounterDatetime) }
+                </u>
+                &nbsp;
+                <FontAwesomeIcon
+                  icon="pencil-alt"
+                />
+              </a>)
+              :
+              (<u>
+                { formatDate(encounter.encounterDatetime) }
+              </u>)
+            }
+          </h5>
           <table>
             <tbody>
               {chain(obsUtil.flattenObs(encounter.obs, true))
@@ -91,14 +120,23 @@ class EncounterHistory extends React.Component {
 }
 
 EncounterHistory.propTypes = {
+  editable: PropTypes.bool.isRequired,
   encounterType: PropTypes.object.isRequired,
+  onEditActionCreators: PropTypes.array,
+  onEditCallbacks: PropTypes.array,
   labels: PropTypes.object,
   patient: PropTypes.object.isRequired
 };
 
+EncounterHistory.defaultProps = {
+  editable: false,
+  onEditActionCreators: [],
+  onEditCallbacks: []
+};
+
 const mapStateToProps = (state) => {
   return {
-    patient: selectors.getSelectedPatientFromStore(state),
+    patient: selectors.getSelectedPatient(state),
     isPatientStoreUpdating: selectors.isPatientStoreUpdating(state)
   };
 };
