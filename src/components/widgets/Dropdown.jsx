@@ -47,6 +47,7 @@ class Dropdown extends PureComponent {
       <span className={otherProps.className}>
         <span className={otherProps.labelClassName}>{otherProps.label}</span>
         <select
+          onKeyPress={this.props.onKeyPress}
           disabled={otherProps.disabled || false}
           onChange={this.handleChange}
           style={otherProps.dropDownStyle || dropDownStyle}

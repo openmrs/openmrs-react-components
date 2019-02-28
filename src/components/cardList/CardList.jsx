@@ -147,6 +147,11 @@ class CardList extends React.Component {
         <div className={filtersClassName}>
           {AdditionalSearchFilters && <AdditionalSearchFilters
             handleSearchChange={this.handleSearchChange}
+            onKeyPress={(e) => {
+              if (isServerSearch && e.key === 'Enter') {
+                this.handleSubmit(e);
+              }
+            }}
             value={this.state.additionalSearchValue}
             searchType={searchType ? searchType : ''}
           />}
@@ -166,7 +171,9 @@ class CardList extends React.Component {
                 glyph="search"
               />
               <FormControl
+                autoComplete="off"
                 onChange={this.handleSearchChange}
+                onKeyPress={this.props.onKeyPress}
                 name="patient-name"
                 placeholder="search by name"
                 type="text"
