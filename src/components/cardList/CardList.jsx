@@ -23,6 +23,7 @@ class CardList extends React.Component {
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleSearchClear = this.handleSearchClear.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   componentDidMount() {
@@ -119,6 +120,13 @@ class CardList extends React.Component {
     this.setState({ searchValue: '' });
   }
 
+  handleKeyPress(e) {
+    const isServerSearch = this.props.searchType === 'server';
+    if (isServerSearch && e.key === 'Enter') {
+      this.handleSubmit(e);
+    }
+  }
+
   render() {
     // TODO "getPatientIdentifiers" should be generalizible in some way
     const {
@@ -147,6 +155,7 @@ class CardList extends React.Component {
         <div className={filtersClassName}>
           {AdditionalSearchFilters && <AdditionalSearchFilters
             handleSearchChange={this.handleSearchChange}
+            onKeyPress={this.handleKeyPress}
             value={this.state.additionalSearchValue}
             searchType={searchType ? searchType : ''}
           />}
@@ -166,8 +175,10 @@ class CardList extends React.Component {
                 glyph="search"
               />
               <FormControl
-                onChange={this.handleSearchChange}
+                autoComplete="off"
                 name="patient-name"
+                onChange={this.handleSearchChange}
+                onKeyPress={this.handleKeyPress}
                 placeholder="search by name"
                 type="text"
                 value={this.state.searchValue}
