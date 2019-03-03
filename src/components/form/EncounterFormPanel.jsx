@@ -12,6 +12,7 @@ import Submit from './Submit';
 import Cancel from './Cancel';
 import EncounterForm from './EncounterForm';
 import Loader from './../widgets/Loader';
+import {format, isSameDay, parse} from "date-fns";
 
 /**
  * Provides a basic wrapper around an Encounter Form with a title, toast success message, and afterSubmitLink
@@ -66,7 +67,8 @@ class EncounterFormPanel extends React.PureComponent {
 
     this.floatRight = {
       float: 'right'
-    }
+    };
+
   }
 
   componentDidMount() {
@@ -124,13 +126,27 @@ class EncounterFormPanel extends React.PureComponent {
     return (
       <div style={this.divContainer}>
         <Grid style={this.divContainer}>
-        {this.props.title &&
-          <Row style={this.rowStyles}>
-            <Col sm={20} md={20} style={this.littlePaddingLeft}>
-              <span><h2>{this.props.title}</h2></span>
-            </Col>
-          </Row>
+          {this.props.title &&
+            <Row style={this.rowStyles}>
+              <Col style={this.littlePaddingLeft}>
+                <span><h2>{this.props.title}</h2></span>
+              </Col>
+            </Row>
           }
+
+          {this.props.showDate &&
+            <Row>
+              <Col sm={2} smOffset={5}>
+                <span>
+                  <h2>
+                    {this.getForm() && this.getForm().encounter && this.getForm().encounter.encounterDatetime
+                    && (isSameDay(parse(this.getForm().encounter.encounterDatetime), new Date()) ? 'Today' : format(parse(this.getForm().encounter.encounterDatetime), 'DD MMM YYYY'))}
+                  </h2>
+                </span>
+              </Col>
+            </Row>
+          }
+
         </Grid>
 
         {this.getForm() && (this.getForm().state === FORM_STATES.EDITING || this.getForm().state === FORM_STATES.VIEWING) ?
@@ -199,10 +215,15 @@ EncounterFormPanel.propTypes = {
   orderForObs: PropTypes.object,
   patient: PropTypes.object.isRequired,
   provider: PropTypes.object,
+  showDate: PropTypes.bool.isRequired,
   title: PropTypes.string,
   toastMessage: PropTypes.string,
   visit: PropTypes.object,
   visitType: PropTypes.object
+};
+
+EncounterFormPanel.defaultProps = {
+  showDate: false
 };
 
 const mapStateToProps = (state, props) => {
