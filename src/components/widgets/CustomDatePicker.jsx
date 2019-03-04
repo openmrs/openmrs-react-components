@@ -52,12 +52,12 @@ class CustomDatePicker extends PureComponent {
       field,
     });
     if (typeof input !== 'undefined') {
-      if (input.value !== this.props.input.value) {
+      if (input.value !== this.props.input.value && input.value !== 'Invalid Date') {
         this.setState({
           selectedDate: parse(input.value)
         });
         input.onChange(format(startOfDay(parse(input.value))));
-      } else {
+      } else if(input.value !== 'Invalid Date') {
         input.onChange(format(startOfDay(parse(input.value))));
       }
     }
