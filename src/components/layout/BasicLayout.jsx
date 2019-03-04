@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReduxToastr from 'react-redux-toastr';
-import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 import AuthenticatedRoute from '../routes/AuthenticatedRoute';
 import HeaderAlt from '../header/HeaderAlt';
 import PatientHeader from '../header/PatientHeader';
