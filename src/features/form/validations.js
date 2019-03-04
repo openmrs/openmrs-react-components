@@ -19,8 +19,12 @@ const isRequired = value => value ? undefined : 'Required';
 
 const dateToInt = dateStr => new Date(dateStr).getTime();
 
-const maxDateValue = maxDate => value =>
-  value && (dateToInt(value)) > dateToInt(maxDate) ? `Date should be earlier or equal to today's date` : undefined;
+const maxDateValue = maxDate => value => {
+  if (!value || typeof dateToInt(value) !== 'number') {
+    return undefined;
+  }
+  return value && (dateToInt(value)) > dateToInt(maxDate) ? `Date should be earlier or equal to today's date` : undefined;
+}
 
 const generateAbsoluteRangeValidators = concept => {
   const {

@@ -26,6 +26,8 @@
 .field-error {
     color: red;
     font-weight: bold;
+    font-size: 12px;
+    margin-top: -2px;
 }
 
 .field-warning {

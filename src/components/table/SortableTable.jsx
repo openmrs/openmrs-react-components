@@ -132,7 +132,6 @@ SortableTable.propTypes = {
   noDataMessage: PropTypes.string,
   noDataText: PropTypes.string,
   ofText: PropTypes.string,
-  onRowClick: PropTypes.func.isRequired,
   pageText: PropTypes.string,
   previousText: PropTypes.string,
   rowsText: PropTypes.string,
