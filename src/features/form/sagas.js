@@ -133,7 +133,7 @@ function* submit(action) {
       existingFlattenedObs = formUtil.flattenObs(action.encounter.obs);
     }
 
-    if (action.values['encounter-datetime']) {
+    if (typeof action.values !== 'undefined' && action.values && action.values['encounter-datetime']) {
       encounter.encounterDatetime = format(action.values['encounter-datetime']);
     }
 
