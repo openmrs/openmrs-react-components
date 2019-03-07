@@ -7,6 +7,8 @@ import conceptRest from "../../rest/conceptRest";
 
 function* fetchConcepts(action) {
 
+  // TODO add support for not requesting a concept if there's a pending fetch?
+
   // handle either full concepts object or uuids
   const conceptUuids = action.concepts.map(c => c.uuid ? c.uuid : c);
 
