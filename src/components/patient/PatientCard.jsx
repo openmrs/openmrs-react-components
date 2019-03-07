@@ -21,7 +21,7 @@ const PatientCard = (patient, index, onRowSelected, getPatientIdentifiers) => (
                       ( patient.alert !== null ) &&         
       <span className="patient-alert">
         { patient.alert.map((alert) => (
-          <span key={alert.name}>{alert.name}</span>
+          <span key={alert.name}>{alert.alert}</span>
         ))}
       </span>
       }
