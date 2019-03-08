@@ -16,6 +16,8 @@ import Loader from "../widgets/Loader";
 // 1) if there is an "obs" prop, use the obs in the prop
 // 2) otherwise, make a REST call to fetch the obs based on concept prop
 
+// groups obs by enconuter
+
 // TODO perhaps support Encounter or Visit here?
 // TODO perhaps decouple the display from the REST call that fetches the obs?
 // TODO have something who actually knows Bootstrap, CSS, etc redo layout!
@@ -108,45 +110,46 @@ class ObsHistory extends React.PureComponent {
     else {
       return (
         <div>
-          {this.state.obs.map((obsByDateAndEncounterAndGroup) => {
-            return (
-              <div key={obsByDateAndEncounterAndGroup[0][0][0].uuid}>
-                {this.props.showDates && (<h5>
-                  <u>
-                    {formatDate(this.getDateFromObs(obsByDateAndEncounterAndGroup[0][0][0]))}
-                  </u>
-                </h5>)}
-                <table>
-                  {obsByDateAndEncounterAndGroup.map((obsByEncounterAndGroup) => {
-                    return (
-                      <tbody key={obsByEncounterAndGroup[0][0].uuid}>
-                        {obsByEncounterAndGroup.map((obsByGroup) =>
-                          obsByGroup.map((obs) => {
+          {this.state.obs.map((obsByDateAndEncounterAndGroup) =>
+            obsByDateAndEncounterAndGroup.map((obsByEncounterAndGroup) => {
 
-                            // to support overriding the absolute, abnormal, and critical ranges defined on the concept
-                            const concept = this.props.concepts && this.props.concepts.find(concept => concept.uuid === obs.concept.uuid);
+              return (
+                <div key={obsByEncounterAndGroup[0][0].uuid}>
+                  {this.props.showDates && (
+                    <h5>
+                      <u>
+                        {formatDate(this.getDateFromObs(obsByEncounterAndGroup[0][0]))}
+                      </u>
+                    </h5>)}
+                  <table>
+                    <tbody>
+                      {obsByEncounterAndGroup.map((obsByGroup) =>
+                        obsByGroup.map((obs) => {
 
-                            return (
-                              <ObsValue
-                                concept={concept}
-                                key={obs.uuid}
-                                labels={this.props.labels}
-                                obs={obs}
-                                reverseLabelAndValue={this.props.reverseLabelAndValue}
-                              />
-                            );
-                          })
-                        )}
-                        <tr>
-                          <td colSpan={4}/>
-                        </tr>
-                      </tbody>
-                    );
-                  })}
-                </table>
-              </div>
-            );
-          })}
+                          // to support overriding the absolute, abnormal, and critical ranges defined on the concept
+                          const concept = this.props.concepts && this.props.concepts.find(concept => concept.uuid === obs.concept.uuid);
+
+                          return (
+                            <ObsValue
+                              concept={concept}
+                              key={obs.uuid}
+                              labels={this.props.labels}
+                              obs={obs}
+                              reverseLabelAndValue={this.props.reverseLabelAndValue}
+                            />
+                          );
+                        })
+                      )}
+                      <tr>
+                        <td colSpan={4} />
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              );
+
+            })
+          )}
         </div>
       );
     }
