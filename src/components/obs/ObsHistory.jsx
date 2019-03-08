@@ -9,18 +9,16 @@ import obsRest from '../../rest/obsRest';
 import { selectors } from "../../store";
 import { formatDate } from "../../util/dateUtil";
 import Loader from "../widgets/Loader";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 // TODO document better!
 
 // this component gets the obs to display by one of two means:
 // 1) if there is an "obs" prop, use the obs in the prop
 // 2) otherwise, make a REST call to fetch the obs based on concept prop
+// obs are grouped by date, encounter, and obs group; if showDates=true then for each encounter the encounter date is shown
 
-// groups obs by enconuter
-
-// TODO perhaps support Encounter or Visit here?
 // TODO perhaps decouple the display from the REST call that fetches the obs?
-// TODO have something who actually knows Bootstrap, CSS, etc redo layout!
 
 class ObsHistory extends React.PureComponent {
 
@@ -75,6 +73,21 @@ class ObsHistory extends React.PureComponent {
 
   }
 
+  isEditableEncounter(encounter) {
+    return encounter && encounter.encounterType && this.props.editableEncounterTypes.map(e => e.uuid).includes(encounter.encounterType.uuid);
+  }
+
+  onEditEncounterClick(encounterUuid) {
+    if (this.props.onEditEncounterActionCreators) {
+      this.props.onEditEncounterActionCreators.forEach((f) => this.props.dispatch(f(encounterUuid)));
+    }
+
+    // generally should be using action creators, but this provides a way to also accept "old school" callbacks
+    if (this.props.onEditEncounterCallbacks) {
+      this.props.onEditEncounterCallbacks.forEach( (f) => f(encounterUuid));
+    }
+  }
+
   getDateFromObs(obs) {
     // prefer encounterDatetime if present
     return obs.encounter ? obs.encounter.encounterDatetime : obs.obsDatetime;
@@ -117,9 +130,21 @@ class ObsHistory extends React.PureComponent {
                 <div key={obsByEncounterAndGroup[0][0].uuid}>
                   {this.props.showDates && (
                     <h5>
-                      <u>
-                        {formatDate(this.getDateFromObs(obsByEncounterAndGroup[0][0]))}
-                      </u>
+                      { this.isEditableEncounter(obsByEncounterAndGroup[0][0].encounter) ?
+                        (<a onClick={() => this.onEditEncounterClick(obsByEncounterAndGroup[0][0].encounter.uuid)}>
+                          <u>
+                            {formatDate(this.getDateFromObs(obsByEncounterAndGroup[0][0]))}
+                          </u>
+                          &nbsp;
+                          <FontAwesomeIcon
+                            icon="pencil-alt"
+                          />
+                        </a>)
+                        :
+                        (<u>
+                          { formatDate(this.getDateFromObs(obsByEncounterAndGroup[0][0])) }
+                        </u>)
+                      }
                     </h5>)}
                   <table>
                     <tbody>
@@ -156,21 +181,25 @@ class ObsHistory extends React.PureComponent {
   }
 }
 
-ObsHistory.defaultProps = {
-  reverseLabelAndValue: false,    // for displaying obs where the question is really answer
-  showDates: true
-};
-
 ObsHistory.propTypes = {
   answers: PropTypes.array,
   concepts: PropTypes.array,
+  editableEncounterTypes: PropTypes.array,
   groupingConcepts: PropTypes.array,
   labels: PropTypes.object,
   loading: PropTypes.bool,
   obs: PropTypes.array,
+  onEditEncounterActionCreators: PropTypes.array,
+  onEditEncounterCallbacks: PropTypes.array,
   patient: PropTypes.object.isRequired,
   reverseLabelAndValue: PropTypes.bool.isRequired,
   showDates: PropTypes.bool.isRequired
+};
+
+ObsHistory.defaultProps = {
+  editableEncounterTypes: [],
+  reverseLabelAndValue: false,    // for displaying obs where the question is really answer
+  showDates: true
 };
 
 const mapStateToProps = (state) => {
