@@ -79,6 +79,10 @@
     margin: 0 auto;
 }
 
+#ic3_appointment {
+    width: 1.3%;
+}
+
 .time-zone-offset-alert,
 .time-difference-alert,
 .service-worker-updated-alert,
