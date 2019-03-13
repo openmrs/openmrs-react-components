@@ -16,7 +16,8 @@ class CardList extends React.Component {
     this.state = {
       searchValue: props.activeSearchType === 'patient-name' ? props.searchValue : "",
       additionalSearchValue: props.activeSearchType === 'patient-identifier' ? props.searchValue : "",
-      activeSearchType: ''
+      activeSearchType: '',
+      customMatchSorterConfigs: {}
     };
 
     this.onRowSelected = this.onRowSelected.bind(this);
@@ -55,14 +56,17 @@ class CardList extends React.Component {
 
   applyFiltersToList(list) {
     const { sortFields, searchFilterFields, additionalSearchFilterFields } = this.props;
+    const {
+      searchValue, additionalSearchValue, customMatchSorterConfigs
+    } = this.state;
     let filters = this.props.filters ? [...this.props.filters] : [];
     list = applyFilters(list, filters, 'and');
 
     if (searchFilterFields) {
-      list = matchSorter(list, this.state.searchValue, { keys: searchFilterFields });
+      list = matchSorter(list, searchValue, { keys: searchFilterFields });
     }
     if (additionalSearchFilterFields) {
-      list = matchSorter(list, this.state.additionalSearchValue, { keys: additionalSearchFilterFields, threshold: matchSorter.rankings.EQUAL });
+      list = matchSorter(list, additionalSearchValue, { keys: additionalSearchFilterFields, ...customMatchSorterConfigs });
     }
 
     if (sortFields) {
@@ -100,7 +104,7 @@ class CardList extends React.Component {
     handleSearch();
   }
 
-  handleSearchChange(e) {
+  handleSearchChange(e, customMatchSorterConfigs) {
     if (e.hasOwnProperty('target')) {
       const value = e.target.value;
       const activeSearchType = e.target.name;
@@ -113,6 +117,10 @@ class CardList extends React.Component {
       }
     } else {
       this.setState({ additionalSearchValue: e, activeSearchType: 'patient-identifier' });
+    }
+
+    if (typeof customMatchSorterConfigs !== 'undefined') {
+      this.setState({ customMatchSorterConfigs });
     }
   }
   
