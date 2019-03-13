@@ -62,7 +62,7 @@ class CardList extends React.Component {
       list = matchSorter(list, this.state.searchValue, { keys: searchFilterFields });
     }
     if (additionalSearchFilterFields) {
-      list = matchSorter(list, this.state.additionalSearchValue, { keys: additionalSearchFilterFields });
+      list = matchSorter(list, this.state.additionalSearchValue, { keys: additionalSearchFilterFields, threshold: matchSorter.rankings.EQUAL });
     }
 
     if (sortFields) {
