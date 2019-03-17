@@ -33,7 +33,7 @@ See example store at samples/redux-store.js
 
 For an example of how to inject a Redux store, see samples/App.jsx
 
-For a documentation of how to use the components check out the [readme](https://github.com/openmrs/openmrs-react-components/tree/OEUI_183/src/components#patientheader) for components
+For a documentation of how to use the components check out the [readme](https://github.com/openmrs/openmrs-react-components/tree/master/src/components) for components
 
 ## Bootstrap
 
