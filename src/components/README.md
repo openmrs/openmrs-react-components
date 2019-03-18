@@ -13,7 +13,7 @@
 
 
 ```
-import { PatientHeader } from '@openmrs-react-component';
+import { PatientHeader } from '@openmrs/react-component';
 
 function header = (props) => {
     return (
