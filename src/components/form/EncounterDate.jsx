@@ -12,6 +12,7 @@ const EncounterDate = (props) => {
   return (
     <Field
       displayValue={props.value}
+      id={props.id}
       mode={props.formContext.mode}
       name="encounter-datetime"
       component={CustomDatePicker}
