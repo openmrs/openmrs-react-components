@@ -21,6 +21,7 @@ export class PatientHeader extends PureComponent {
     };
 
     this.togglePatientIdentifierDisplay = this.togglePatientIdentifierDisplay.bind(this);
+    this.handlePatientLink = this.handlePatientLink.bind(this);
   };
 
   componentDidMount() {
@@ -58,10 +59,16 @@ export class PatientHeader extends PureComponent {
     this.setState({ shouldDisplayAdditionalPatientIdentifier: !this.state.shouldDisplayAdditionalPatientIdentifier });
   }
 
+  handlePatientLink() {
+    if (this.props.patientLink) {
+      this.props.history.push(this.props.patientLink);
+    }
+  }
+
   renderDemographics() {
 
     return (
-      <div className="demographics">
+      <div className="demographics" onClick={this.handlePatientLink}>
         <h2 className="name">
           <span>
             <span className="PersonName-givenName">{patientUtil.getGivenName(this.state.patient)},&nbsp;&nbsp;</span>
@@ -92,10 +99,9 @@ export class PatientHeader extends PureComponent {
 
   renderPatientIdentifier() {
     const { shouldDisplayAdditionalPatientIdentifier, additionalPatientIdentifiers, patientIdentifiers } = this.state;
-    const { identifiersToDisplay } = this.props;
     return (
       <div className="identifiers">
-        <em>Patient ID</em>
+        <em onClick={this.handlePatientLink}>Patient ID</em>
         <div className="identifiers-number">
           { patientIdentifiers.map(identifier => <span key={identifier}>{identifier}</span>)}
           { shouldDisplayAdditionalPatientIdentifier && additionalPatientIdentifiers.map(identifier => <span key={identifier}>{identifier}</span>)}
@@ -130,8 +136,8 @@ export class PatientHeader extends PureComponent {
                 className="back-button-icon"
                 glyph="menu-left"
               /></span>}
-            {this.state.patient && this.renderDemographics()}
-            {this.state.patient && this.renderPatientIdentifier()}
+              {this.state.patient && this.renderDemographics()}
+              {this.state.patient && this.renderPatientIdentifier()}
           </div>
         </div>
       );
