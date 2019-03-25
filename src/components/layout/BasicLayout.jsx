@@ -54,6 +54,7 @@ class BasicLayout extends React.Component {
                 patient={this.props.patient}
                 showBackButton={this.props.path === this.props.patientHeaderBacklink ? true : false}
                 backLink={this.props.backLink}
+                patientLink={this.props.patientLink}
               />
               }
             </Row>
