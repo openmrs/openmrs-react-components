@@ -57,8 +57,6 @@ class CustomDatePicker extends PureComponent {
           selectedDate: parse(input.value)
         });
         input.onChange(format(startOfDay(parse(input.value))));
-      } else if(input.value !== 'Invalid Date') {
-        input.onChange(format(startOfDay(parse(input.value))));
       }
     }
   }
@@ -131,8 +129,10 @@ class CustomDatePicker extends PureComponent {
       />
     );
 
+    const displayValue = otherProps.displayValue === undefined ? ' ' : format(parse(otherProps.displayValue), DATE_FORMAT);
+
     const view = (
-      <span className="datepicker-view">{format(parse(otherProps.displayValue), DATE_FORMAT)}</span>
+      <span className="datepicker-view"> {displayValue}</span>
     )
 
     return (
