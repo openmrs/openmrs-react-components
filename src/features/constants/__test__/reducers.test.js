@@ -10,6 +10,7 @@ describe('CONSTANTS reducers', () => {
     labResultsDidNotPerformQuestion: '',
     labResultsDidNotPerformReasonQuestion: '',
     labResultsDidNotPerformReasonAnswer: {},
+    labResultsEncounterRole: '',
     labResultsTestOrderNumberConcept: '',
     labResultsTestLocationQuestion: '',
     labResultsTestOrderType: '',
