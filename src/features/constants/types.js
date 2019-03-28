@@ -2,8 +2,11 @@ import types from 'redux-types';
 
 import { BASIC_TYPES } from "../../types";
 
+// TODO: this all needs to be refactored, see: https://tickets.pih-emr.org/browse/UHM-3796
+
 export default {
   LAB_RESULTS_ENCOUNTER_TYPE: types('lab_results_encounter_type', BASIC_TYPES),
+  LAB_RESULTS_ENCOUNTER_ROLE: types('lab_results_encounter_role', BASIC_TYPES),
   LAB_RESULTS_DATE_CONCEPT: types('lab_results_date_concept', BASIC_TYPES),
   LAB_RESULTS_DID_NOT_PERFORM_QUESTION: types('lab_results_did_not_perform_question', BASIC_TYPES),
   LAB_RESULTS_DID_NOT_PERFORM_REASON_ANSWER: types('lab_results_did_not_perform_reason_answer', BASIC_TYPES),

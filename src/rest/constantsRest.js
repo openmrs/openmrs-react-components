@@ -1,6 +1,8 @@
 
 import { axiosInstance } from '../config';
 
+// TODO: this all needs to be refactored, see: https://tickets.pih-emr.org/browse/UHM-3796
+
 const api = {
 
   fetchLabResultsTestOrderType: () => {
@@ -12,6 +14,13 @@ const api = {
 
   fetchLabResultsEncounterType: () => {
     return axiosInstance.get(`systemsetting?v=custom:(value)&q=labworkflowowa.labResultsEncounterType`)
+      .then((response) => {
+        return response.data;
+      });
+  },
+
+  fetchLabResultsEncounterRole: () => {
+    return axiosInstance.get(`systemsetting?v=custom:(value)&q=labworkflowowa.labResultsEncounterRole`)
       .then((response) => {
         return response.data;
       });

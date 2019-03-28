@@ -1,5 +1,7 @@
 import CONSTANTS_TYPES from "./types";
 
+// TODO: this all needs to be refactored, see: https://tickets.pih-emr.org/browse/UHM-3796
+
 const fetchLabResultsEncounterType = () => ( {
   type: CONSTANTS_TYPES.LAB_RESULTS_ENCOUNTER_TYPE.REQUESTED,
 } );
@@ -11,6 +13,22 @@ const fetchLabResultsEncounterTypeSucceeded = (payload) => ( {
 
 const fetchLabResultsEncounterTypeFailed = (message) => ( {
   type: CONSTANTS_TYPES.LAB_RESULTS_ENCOUNTER_TYPE.FAILED,
+  error: {
+    message: message
+  }
+} );
+
+const fetchLabResultsEncounterRole = () => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_ENCOUNTER_ROLE.REQUESTED,
+} );
+
+const fetchLabResultsEncounterRoleSucceeded = (payload) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_ENCOUNTER_ROLE.SUCCEEDED,
+  payload
+} );
+
+const fetchLabResultsEncounterRoleFailed = (message) => ( {
+  type: CONSTANTS_TYPES.LAB_RESULTS_ENCOUNTER_ROLE.FAILED,
   error: {
     message: message
   }
@@ -214,6 +232,9 @@ export default {
   fetchLabResultsEncounterType,
   fetchLabResultsEncounterTypeSucceeded,
   fetchLabResultsEncounterTypeFailed,
+  fetchLabResultsEncounterRole,
+  fetchLabResultsEncounterRoleSucceeded,
+  fetchLabResultsEncounterRoleFailed,
   fetchLabResultsDateConcept,
   fetchLabResultsDateConceptSucceeded,
   fetchLabResultsDateConceptFailed,

@@ -3,6 +3,8 @@ import constantsRest from '../../rest/constantsRest';
 import CONSTANTS_TYPES from './types';
 import constantsActions from './actions';
 
+// TODO: this all needs to be refactored, see: https://tickets.pih-emr.org/browse/UHM-3796
+
 function* dateAndTimeFormat() {
   try {
     
@@ -86,6 +88,21 @@ function* labResultsEncounterType() {
     yield put(constantsActions.fetchLabResultsEncounterTypeFailed(e.message));
   }
 }
+
+function* labResultsEncounterRole() {
+  try {
+
+    let response = yield call(constantsRest.fetchLabResultsEncounterRole);
+    if (response.results.length > 0 ) {
+      yield put(constantsActions.fetchLabResultsEncounterRoleSucceeded(response));
+    }
+
+  }
+  catch (e) {
+    yield put(constantsActions.fetchLabResultsEncounterRoleFailed(e.message));
+  }
+}
+
 
 function* labResultsTestOrderType() {
   try {
@@ -190,6 +207,7 @@ function* constantsSagas() {
   yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_QUESTION.REQUESTED, labResultsDidNotPerformQuestion);
   yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_ANSWER.REQUESTED, labResultsDidNotPerformAnswer);
   yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_ENCOUNTER_TYPE.REQUESTED, labResultsEncounterType);
+  yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_ENCOUNTER_ROLE.REQUESTED, labResultsEncounterRole);
   yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_TEST_ORDER_NUMBER_CONCEPT.REQUESTED, LabResultsTestOrderNumberConcept);
   yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_DATE_CONCEPT.REQUESTED, LabResultsDateConcept);
   yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_TEST_LOCATION_QUESTION.REQUESTED, LabResultsTestLocationQuestion);
