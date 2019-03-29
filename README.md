@@ -79,6 +79,7 @@ const LocalizedBreadCrumb = withLocalisation(myComponent);
 
 # Publishing a new version
 
+Set the version number you want to release in the pom, and then run:
 npm run pack
 npm publish --access public
 

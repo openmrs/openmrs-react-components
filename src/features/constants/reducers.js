@@ -1,7 +1,10 @@
 import CONSTANTS_TYPES from "./types";
 
+// TODO: this all needs to be refactored, see: https://tickets.pih-emr.org/browse/UHM-3796
+
 const initialState = {
   labResultsEncounterType: '',
+  labResultsEncounterRole: '',
   labResultsDateConcept: '',
   labResultsDidNotPerformAnswer: '',
   labResultsDidNotPerformQuestion: '',
@@ -27,6 +30,18 @@ export default (state = initialState, action) => {
       return {
         error: {
           message: "Unable to load lab result encounter type"
+        }
+      };
+
+    case CONSTANTS_TYPES.LAB_RESULTS_ENCOUNTER_ROLE.SUCCEEDED:
+      return Object.assign({}, state, {
+        labResultsEncounterRole: action.payload.results[0].value
+      });
+
+    case CONSTANTS_TYPES.LAB_RESULTS_ENCOUNTER_ROLE.FETCH_FAILED:
+      return {
+        error: {
+          message: "Unable to load lab result encounter role"
         }
       };
 
