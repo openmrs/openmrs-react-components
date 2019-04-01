@@ -155,3 +155,7 @@
         transform: translateX(0);
      }
 }
+
+.glyphicon-ok {
+    margin-left: 5px;
+}
