@@ -39,7 +39,6 @@ class CheckBox extends PureComponent {
             {...input}
             checked={checkedStatus}
             onChange={(e) => this.handleToggle(e, checkBoxValue)}
-            title={title}
           />
         </span>
       </span>
@@ -64,11 +63,17 @@ CheckBox.defaultProps = {
 
 CheckBox.propTypes = {
   checkBoxTitle: PropTypes.string,
-  checkBoxValue: PropTypes.object.isRequired,
+  checkBoxValue: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ]).isRequired,
   displayValue: PropTypes.object,
   input: PropTypes.object,
   mode: PropTypes.string,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
 };
 
 export default CheckBox;

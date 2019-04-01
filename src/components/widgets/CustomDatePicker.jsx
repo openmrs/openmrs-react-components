@@ -18,6 +18,44 @@ const styles = {
   }
 };
 
+
+class DateDisplay extends PureComponent {
+  render(){
+    const { onClick, value, usePortalMode, formControlStyle, hasInput, error, label, labelClassName } = this.props;
+    return (
+      <span>
+      <span style={styles.datePickerContainerStyle}>
+        <span className={labelClassName}>
+          {
+            label
+          }
+        </span>
+        <FormControl
+          onChange={() => {}}
+          onClick={onClick}
+          placeholder=""
+          readOnly={usePortalMode}
+          style={formControlStyle}
+          type="text"
+          value={value}
+        />
+        <FontAwesomeIcon
+          icon="calendar-alt"
+          onClick={onClick}
+          size="2x"
+        />
+      </span>
+      {hasInput &&
+        ((error &&
+          <span className="field-error">
+            {error}
+          </span>))
+      }
+      </span>
+    );
+  }
+}
+
 class CustomDatePicker extends PureComponent {
   constructor(props) {
     super(props);
@@ -79,51 +117,33 @@ class CustomDatePicker extends PureComponent {
   render() {
     const { ...otherProps } = this.props;
     const { input, usePortalMode } = otherProps;
+    const { selectedDate } = this.state;
     let error;
+    let selected = new Date(selectedDate);
 
     const hasInput = typeof input !== 'undefined';
     if (hasInput) {
       const { meta } = otherProps;
       error = meta.error;
+      selected = selectedDate;
     }
-    const { selectedDate } = this.state;
-    const DateDisplayComponent = ({ onClick, value }) => (
-      <span>
-      <span style={styles.datePickerContainerStyle}>
-        <span className={otherProps.labelClassName}>
-          {
-            otherProps.label
-          }
-        </span>
-        <FormControl
-          onClick={onClick}
-          placeholder=""
-          readOnly={usePortalMode}
-          style={this.props.formControlStyle}
-          type="text"
-          value={value}
-        />
-        <FontAwesomeIcon
-           icon="calendar-alt"
-           onClick={onClick}
-           size="2x"
-        />
-      </span>
-      {hasInput &&
-        ((error &&
-          <span className="field-error">
-            {error}
-          </span>))
-      }
-      </span>
-    );
+    
 
     const edit = (
       <DatePicker
-        customInput={<DateDisplayComponent />}
+        customInput={
+        <DateDisplay
+          hasInput={hasInput}
+          usePortalMode={usePortalMode}
+          formControlStyle={this.props.formControlStyle}
+          error
+          label={otherProps.label}
+          labelClassName={otherProps.labelClassName}
+        />
+      }
         dateFormat="dd MMM YYYY"
         onChange={this.handleChange}
-        selected={selectedDate}
+        selected={selected}
         excludeDates={[hasInput]}
         withPortal={usePortalMode}
       />
@@ -154,11 +174,17 @@ CustomDatePicker.defaultProps = {
 };
 
 CustomDatePicker.propTypes = {
-  defaultDate: PropTypes.object,
+  defaultDate: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ]),
   formControlStyle: PropTypes.object,
   field: PropTypes.string,
   handleDateChange: PropTypes.func,
-  label: PropTypes.string,
+  label: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ]),
   labelClassName: PropTypes.string,
 };
 
