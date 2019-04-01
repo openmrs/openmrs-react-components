@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Checkbox } from 'react-bootstrap';
+import { Checkbox, Glyphicon } from 'react-bootstrap';
+import '../../../assets/css/widgets.css';
 
 class CheckBox extends PureComponent {
   constructor(props) {
@@ -23,7 +24,7 @@ class CheckBox extends PureComponent {
   render() {
 
     const { title, input, checkBoxValue, mode, displayValue } = this.props;
-    const viewModeValue = displayValue ? 'X' : '';
+    const viewModeValue = displayValue ? <Glyphicon glyph="ok" /> : '';
 
     let checkedStatus = false;
     if (typeof input !== "undefined") {
