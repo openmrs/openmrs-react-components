@@ -108,10 +108,13 @@ Dropdown.propTypes = {
   field: PropTypes.string,
   handleSelect: PropTypes.func,
   input: PropTypes.object,
-  label: PropTypes.string,
+  label: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ]),
   labelClassName: PropTypes.string,
-  placeholder: PropTypes.string,
   list: PropTypes.array.isRequired,
+  placeholder: PropTypes.string,
 };
 
 export default Dropdown;
