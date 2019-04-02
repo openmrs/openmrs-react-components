@@ -13,6 +13,8 @@ import { getPatients, getSelectedPatient, isUpdating } from './features/patient'
 import { getConcept, getConcepts } from './features/concept';
 import { locationsReducer, getLocations, getLocation } from './features/location';
 import { getSessionLocation } from "./features/session";
+import { globalPropertyReducer } from './features/globalproperty/reducers';
+import { getGlobalProperty, getGlobalProperties } from "./features/globalproperty";
 import { patientIdentifierTypesReducer, getPatientIdentifierTypes, getPatientIdentifierType, getPatientIdentifierTypeByName } from './features/patientIdentifierTypes';
 
 export const reducers = combineReducers({
@@ -27,8 +29,9 @@ export const reducers = combineReducers({
   CONSTANTS: constantsReducers,
   metadata: combineReducers({
     concepts: conceptReducer,
+    globalProperties: globalPropertyReducer,
     locations: locationsReducer,
-    patientIdentifierTypes: patientIdentifierTypesReducer
+    patientIdentifierTypes: patientIdentifierTypesReducer,
   })
 });
 
@@ -79,6 +82,14 @@ export const selectors = {
     const sessionLocation = getSessionLocation(state.openmrs.session);
     return sessionLocation && getLocation(state.openmrs.metadata.locations, sessionLocation.uuid)
       ? getLocation(state.openmrs.metadata.locations, sessionLocation.uuid) : sessionLocation;
-  }
+  },
+
+  getGlobalProperty: (state, globalProperty) => {
+    return getGlobalProperty(state.openmrs.metadata.globalProperties, globalProperty);
+  },
+
+  getGlobalProperties: (state) => {
+    return getGlobalProperties(state.openmrs.metadata.globalProperties);
+  },
 
 };

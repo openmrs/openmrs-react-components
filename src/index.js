@@ -60,6 +60,7 @@ import { GRID_TYPES, gridActions } from './features/grid';
 import { patientActions, PATIENT_TYPES } from "./features/patient";
 import { locationActions, locationSagas } from "./features/location";
 import { conceptSagas, conceptActions } from "./features/concept";
+import { globalPropertySagas, globalPropertyActions } from "./features/globalproperty";
 import { patientIdentifierTypesActions, patientIdentifierTypesSagas } from "./features/patientIdentifierTypes";
 import { systemActions } from "./features/system";
 import {
@@ -101,7 +102,8 @@ const sagas = function* () {
     constantsSagas(),
     conceptSagas(),
     locationSagas(),
-    patientIdentifierTypesSagas()
+    patientIdentifierTypesSagas(),
+    globalPropertySagas()
   ]);
 };
 
@@ -183,6 +185,7 @@ module.exports = {
   selectors,
   loginActions,
   sessionActions,
+  globalPropertyActions,
   SESSION_TYPES,
   headerActions,
   constantsActions,

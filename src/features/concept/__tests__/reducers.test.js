@@ -1,7 +1,7 @@
 import { conceptReducer } from "../reducers";
 import CONCEPT_TYPES from '../types';
 
-describe('patient set reducer', () => {
+describe('concept reducer test', () => {
 
   // TODO really should test that _openmrsClass gets set instead of just adding it here
   const concept = {
