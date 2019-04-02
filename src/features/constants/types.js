@@ -18,5 +18,7 @@ export default {
   LAB_RESULTS_TEST_LOCATION_QUESTION: types('lab_results_test_location_question', BASIC_TYPES),
   LAB_RESULTS_ESTIMATED_COLLECTION_DATE_QUESTION: types('lab_results_estimated_collection_date_question', BASIC_TYPES),
   LAB_RESULTS_TEST_ORDER_TYPE: types('lab_results_test_order_type', BASIC_TYPES),
-  DATE: types('date', BASIC_TYPES)
+  DATE: types('date', BASIC_TYPES),
+  TEST_ORDER_ENCOUNTER_ROLE: types('test_order_encounter_role', BASIC_TYPES),
+  TEST_ORDER_ENCOUNTER_TYPE: types('test_order_encounter_type', BASIC_TYPES)
 };
