@@ -1,5 +1,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import constantsRest from '../../rest/constantsRest';
+import encounterRoleRest from '../../rest/encounterRoleRest';
+import encounterTypeRest from '../../rest/encounterTypeRest';
 import CONSTANTS_TYPES from './types';
 import constantsActions from './actions';
 
@@ -200,6 +202,38 @@ function* LabResultsEstimatedCollectedDateAnswer() {
   }
 }
 
+function* fetchTestOrderEncounterRole() {
+  try {
+    let response = yield call(constantsRest.fetchOrdersEncounterRole);
+    if (response.results.length > 0) {
+      const { value } = response.results[0];
+      const encounterRoleResponse = yield call(encounterRoleRest.getEncounterRole, value);
+      if (encounterRoleResponse.results.length) {
+        const result = encounterRoleResponse.results[0].uuid;
+        yield put(constantsActions.fetchTestOrderEncounterRoleSucceeded(result));
+      } 
+    }
+  } catch  (e) {
+    yield put(constantsActions.fetchTestOrderEncounterRoleFailed(e.message));
+  }
+}
+
+function* fetchTestOrderEncounterType() {
+  try {
+    let response = yield call(constantsRest.fetchOrdersEncounterType);
+    if (response.results.length > 0) {
+      const { value } = response.results[0];
+      const encounterTypeResponse = yield call(encounterTypeRest.getEncounterType, value);
+      if (encounterTypeResponse.results.length) {
+        const result = encounterTypeResponse.results[0].uuid;
+        yield put(constantsActions.fetchTestOrderEncounterTypeSucceeded(result));
+      } 
+    }
+  } catch  (e) {
+    yield put(constantsActions.fetchTestOrderEncounterTypeFailed(e.message));
+  }
+}
+
 function* constantsSagas() {
   yield takeLatest(CONSTANTS_TYPES.DATE.REQUESTED, dateAndTimeFormat);
   yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_DID_NOT_PERFORM_REASON_QUESTION.REQUESTED, labResultsDidNotPerformReasonQuestion);
@@ -215,6 +249,8 @@ function* constantsSagas() {
   yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_QUESTION.REQUESTED, LabResultsEstimatedCollectedDateQuestion);
   yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_ESTIMATED_COLLECTION_DATE_ANSWER.REQUESTED, LabResultsEstimatedCollectedDateAnswer);
   yield takeLatest(CONSTANTS_TYPES.LAB_RESULTS_TEST_ORDER_TYPE.REQUESTED, labResultsTestOrderType);
+  yield takeLatest(CONSTANTS_TYPES.TEST_ORDER_ENCOUNTER_ROLE.REQUESTED, fetchTestOrderEncounterRole);
+  yield takeLatest(CONSTANTS_TYPES.TEST_ORDER_ENCOUNTER_TYPE.REQUESTED, fetchTestOrderEncounterType);
 }
 
 export default constantsSagas;
