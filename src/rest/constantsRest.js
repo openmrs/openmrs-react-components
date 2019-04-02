@@ -103,6 +103,20 @@ const api = {
       });
   },
 
+  fetchOrdersEncounterRole: () => {
+    return axiosInstance.get(`systemsetting?v=custom:(value)&q=orderentryowa.encounterRole`)
+      .then((response) => {
+        return response.data;
+      });
+  },
+
+  fetchOrdersEncounterType: () => {
+    return axiosInstance.get(`systemsetting?v=custom:(value)&q=orderentryowa.encounterType`)
+      .then((response) => {
+        return response.data;
+      });
+  },
+
 };
 
 export default api;
