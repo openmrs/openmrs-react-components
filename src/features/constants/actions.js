@@ -34,6 +34,38 @@ const fetchLabResultsEncounterRoleFailed = (message) => ( {
   }
 } );
 
+const fetchTestOrderEncounterRole = () => ( {
+  type: CONSTANTS_TYPES.TEST_ORDER_ENCOUNTER_ROLE.REQUESTED,
+});
+
+const fetchTestOrderEncounterRoleSucceeded = (payload) => ( {
+  type: CONSTANTS_TYPES.TEST_ORDER_ENCOUNTER_ROLE.SUCCEEDED,
+  payload
+});
+
+const fetchTestOrderEncounterRoleFailed = (message) => ( {
+  type: CONSTANTS_TYPES.TEST_ORDER_ENCOUNTER_ROLE.FAILED,
+  error: {
+    message: message
+  }
+});
+
+const fetchTestOrderEncounterType = () => ( {
+  type: CONSTANTS_TYPES.TEST_ORDER_ENCOUNTER_TYPE.REQUESTED,
+});
+
+const fetchTestOrderEncounterTypeSucceeded = (payload) => ( {
+  type: CONSTANTS_TYPES.TEST_ORDER_ENCOUNTER_TYPE.SUCCEEDED,
+  payload
+});
+
+const fetchTestOrderEncounterTypeFailed = (message) => ( {
+  type: CONSTANTS_TYPES.TEST_ORDER_ENCOUNTER_TYPE.FAILED,
+  error: {
+    message: message
+  }
+});
+
 const fetchLabResultsDateConcept = () => ( {
   type: CONSTANTS_TYPES.LAB_RESULTS_DATE_CONCEPT.REQUESTED,
 } );
@@ -271,4 +303,10 @@ export default {
   getDateAndTimeFormat,
   getDateAndTimeFormatSucceeded,
   getDateAndTimeFormatFailed,
+  fetchTestOrderEncounterRole,
+  fetchTestOrderEncounterRoleSucceeded,
+  fetchTestOrderEncounterRoleFailed,
+  fetchTestOrderEncounterType,
+  fetchTestOrderEncounterTypeSucceeded,
+  fetchTestOrderEncounterTypeFailed,
 };
