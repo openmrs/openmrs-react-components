@@ -17,6 +17,8 @@ const initialState = {
   labResultsEstimatedCollectionDateQuestion: '',
   labResultsEstimatedCollectionDateAnswer: '',
   dateAndTimeFormat: '',
+  testOrderEncounterRole: '',
+  testOrderEncounterType: ''
 };
 
 export default (state = initialState, action) => {
@@ -42,6 +44,30 @@ export default (state = initialState, action) => {
       return {
         error: {
           message: "Unable to load lab result encounter role"
+        }
+      };
+
+    case CONSTANTS_TYPES.TEST_ORDER_ENCOUNTER_ROLE.SUCCEEDED:
+      return Object.assign({}, state, {
+        testOrderEncounterRole: action.payload
+      });
+
+    case CONSTANTS_TYPES.TEST_ORDER_ENCOUNTER_ROLE.FAILED:
+      return {
+        error: {
+          message: "Unable to load test order encounter role"
+        }
+      };
+
+    case CONSTANTS_TYPES.TEST_ORDER_ENCOUNTER_TYPE.SUCCEEDED:
+      return Object.assign({}, state, {
+        testOrderEncounterType: action.payload
+      });
+
+    case CONSTANTS_TYPES.TEST_ORDER_ENCOUNTER_TYPE.FAILED:
+      return {
+        error: {
+          message: "Unable to load test order encounter type"
         }
       };
 
