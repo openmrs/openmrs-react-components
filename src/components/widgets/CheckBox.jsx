@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Checkbox } from 'react-bootstrap';
+import { Checkbox, Glyphicon } from 'react-bootstrap';
+import '../../../assets/css/widgets.css';
 
 class CheckBox extends PureComponent {
   constructor(props) {
@@ -23,7 +24,7 @@ class CheckBox extends PureComponent {
   render() {
 
     const { title, input, checkBoxValue, mode, displayValue } = this.props;
-    const viewModeValue = displayValue ? 'X' : '';
+    const viewModeValue = displayValue ? <Glyphicon glyph="ok" /> : '';
 
     let checkedStatus = false;
     if (typeof input !== "undefined") {
@@ -38,7 +39,6 @@ class CheckBox extends PureComponent {
             {...input}
             checked={checkedStatus}
             onChange={(e) => this.handleToggle(e, checkBoxValue)}
-            title={title}
           />
         </span>
       </span>
@@ -63,11 +63,17 @@ CheckBox.defaultProps = {
 
 CheckBox.propTypes = {
   checkBoxTitle: PropTypes.string,
-  checkBoxValue: PropTypes.object.isRequired,
+  checkBoxValue: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ]).isRequired,
   displayValue: PropTypes.object,
   input: PropTypes.object,
   mode: PropTypes.string,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
 };
 
 export default CheckBox;

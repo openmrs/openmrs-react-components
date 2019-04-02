@@ -68,6 +68,8 @@ import {
   patientSearchActions,
   patientSearchSagas
 } from "./features/search/";
+import FormContext from './components/form/FormContext';
+
 import { axiosInstance } from "./config";
 import encounterRest from './rest/encounterRest';
 import orderRest from './rest/orderRest';
@@ -108,6 +110,7 @@ const sagas = function* () {
 };
 
 module.exports = {
+  FormContext,
   patientUtil,
   formUtil,
   visitRestRepToPatientObjConverter,
