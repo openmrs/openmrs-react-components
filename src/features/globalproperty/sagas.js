@@ -11,14 +11,14 @@ function* fetchGlobalProperty(action) {
   // TODO add support for not requesting a global property if there's a pending fetch?
 
   // do nothing if no global property specified
-  if (action.globalProperty === null) {
+  if (action.globalProperty == null) {  // specifically using == instead of === to match both null and undefined
     return;
   }
 
   // don't do anything if global property is already in store
   // TODO should this issue some sort of action?
   const existing = yield select(selectors.getGlobalProperty, action.globalProperty);
-  if (existing !== null) {
+  if (existing != null) {    // specifically using != instead of !== to match both null and undefined
     return;
   }
 
