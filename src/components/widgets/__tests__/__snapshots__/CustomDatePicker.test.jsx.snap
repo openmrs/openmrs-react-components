@@ -25,6 +25,7 @@ exports[`Component: CustomDatePicker renders properly 1`] = `
           <input
             className="form-control"
             id={undefined}
+            onChange={[Function]}
             onClick={[Function]}
             placeholder=""
             readOnly={undefined}
