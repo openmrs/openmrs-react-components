@@ -5,7 +5,7 @@ import patientObjByEncounterTypeFilter from './domain/patient/filters/patientObj
 import patientObjByEncounterTypeAndObsFilter from './domain/patient/filters/patientObjByEncounterTypeAndObsFilter';
 import patientObjByVisitLocationFilter from './domain/patient/filters/patientObjByVisitLocationFilter';
 import encountersByEncounterTypeFilter from './domain/encounter/filters/encountersByEncounterTypeFilter';
-import Accordion from './components/accordion/Accordian';
+import Accordion from './components/accordion/Accordion';
 import Header from './components/header/Header';
 import HeaderAlt from './components/header/HeaderAlt';
 import LocationMenu from './components/header/LocationMenu';
