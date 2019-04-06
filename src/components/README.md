@@ -52,3 +52,5 @@ function TabbedComponent = (props) => {
     );
 }
 ```
+
+![Tabs Demo Screenshot](https://s2.gifyu.com/images/tabbedcomponent.gif)
