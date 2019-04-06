@@ -1,7 +1,9 @@
+# Components
 - [PatientHeader](https://github.com/openmrs/openmrs-react-components/tree/OEUI_183/src/components#patientheader)
+- Tabs
 
 
-# PatientHeader
+## PatientHeader
 
 ### Props
 
@@ -21,6 +23,32 @@ function header = (props) => {
           patientUtil={props.patientUtil}
           note={props.note}
         />
+    );
+}
+```
+
+## PatientHeader
+
+### Basic Usage
+
+For Every Tabbed Content create a div inside the Tabs component with a label and children.
+
+```
+import { Tabs } from '@openmrs/react-component';
+
+function TabbedComponent = (props) => {
+    return (
+      <div>
+        <h1>Tabs Demo</h1>
+        <Tabs>
+          <div label="PatientIn">
+            Welcome, Dear <em>Patient</em>!
+          </div>
+          <div label="PatientOut">
+            Sad to see you <em>Go</em>!
+          </div>
+        </Tabs>
+      </div>
     );
 }
 ```
