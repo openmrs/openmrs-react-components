@@ -14,6 +14,7 @@ import CardList from './components/cardList/CardList';
 import PatientHeader from './components/header/PatientHeader';
 import PatientCard from './components/patient/PatientCard';
 import ToolTip from './components/tooltip/ToolTip';
+import Tabs from './components/tabs/Tabs';
 import LoadingView from './components/loading/LoadingView';
 import Login from './components/login/Login';
 import LoginPage from './components/login/LoginPage';
@@ -126,6 +127,7 @@ module.exports = {
   List,
   CardList,
   ToolTip,
+  Tabs,
   PatientHeader,
   PatientCard,
   Login,

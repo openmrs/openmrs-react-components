@@ -1,0 +1,32 @@
+.tab-list {
+  border-bottom: 1px solid #ccc;
+  padding-left: 0;
+}
+
+.tab-list-item {
+  display: inline-block;
+  list-style: none;
+  margin: 2px;
+  margin-bottom: -2px;
+  padding: 0.5rem 0.75rem;
+
+  border: solid #ccc;
+  border-width: 1px 1px 0px 1px;
+
+  background: #F1F1F1;
+  color: #A9A9A9;
+
+  font-size: 1em;
+}
+
+.tab-list-active {
+  background-color: white;
+  border: solid #ccc;
+  border-width: 4px 1px 0px 1px;
+  
+  border-top-color: #363463;
+  color: #363463;
+
+  font-size: 1.2em;
+  font-weight: bold;
+}
