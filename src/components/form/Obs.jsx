@@ -86,6 +86,8 @@ class Obs extends React.PureComponent {
       );
     } else if (typeof this.props.conceptAnswers !== 'undefined') {
       if (this.props.widget === 'dropdown') {
+        const defaultValidations = this.props.validate || [];
+        const validations = required ? defaultValidations.concat(formValidations.isRequired) : defaultValidations;
         return (
           <Field
             component={Dropdown}
@@ -98,6 +100,7 @@ class Obs extends React.PureComponent {
             name={this.props.name}
             placeholder={this.props.placeholder}
             title={this.props.dropDownTitle}
+            validate={validations}
           />
         );
       } else {
