@@ -47,9 +47,13 @@ class Obs extends React.PureComponent {
 
   render() {
     const { required } = this.props;
+    
+    const defaultValidations = this.props.validate || this.state.getValidationAbsoluteRange;
+    const defaultWarnings = this.props.warn || this.state.getValidationAbnormalRange;
+    const validations = required ? defaultValidations.concat(formValidations.isRequired) : defaultValidations;
+    const warnings = required ? defaultWarnings.concat(formValidations.isRequired) : defaultWarnings;
+
     if (this.props.datatype === 'date') {
-      const defaultValidations = this.props.validate || this.state.getValidationAbsoluteRange;
-      const validations = required ? defaultValidations.concat(formValidations.isRequired) : defaultValidations;
       return (
         <Field
           component={CustomDatePicker}
@@ -115,10 +119,6 @@ class Obs extends React.PureComponent {
         );
       }
     } else {
-      const defaultValidations = this.props.validate || this.state.getValidationAbsoluteRange;
-      const defaultWarnings = this.props.warn || this.state.getValidationAbnormalRange;
-      const validations = required ? defaultValidations.concat(formValidations.isRequired) : defaultValidations;
-      const warnings = required ? defaultWarnings.concat(formValidations.isRequired) : defaultWarnings;
       
       return (
         <div>

@@ -6,7 +6,6 @@ import { patientsReducer } from './features/patient';
 import { patientSearchReducers } from './features/search';
 import { errorsReducers } from './features/errors';
 import { formReducers } from './features/form';
-import { constantsReducers } from './features/constants';
 import { systemReducers } from './features/system';
 import { conceptReducer } from "./features/concept/reducers";
 import { getPatients, getSelectedPatient, isUpdating } from './features/patient';
@@ -26,7 +25,6 @@ export const reducers = combineReducers({
   patientSearch: patientSearchReducers,
   errors: errorsReducers,
   form: formReducers,
-  CONSTANTS: constantsReducers,
   metadata: combineReducers({
     concepts: conceptReducer,
     globalProperties: globalPropertyReducer,

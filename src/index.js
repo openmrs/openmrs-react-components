@@ -21,7 +21,6 @@ import Head from './components/header/Head';
 import Header from './components/header/Header';
 import HeaderAlt from './components/header/HeaderAlt';
 import HomePage from './components/home/HomePage';
-import LabsSummary from './components/widgets/LabsSummary';
 import LineChart from './components/widgets/LineChart';
 import List from './components/list/List';
 import Loader from './components/widgets/Loader';
@@ -50,30 +49,44 @@ import TaskList from './components/task/TaskList';
 import ToolTip from './components/tooltip/ToolTip';
 import visitRestRepToPatientObjConverter from './domain/patient/converters/visitRestRepToPatientObjConverter';
 
-import { conceptSagas, conceptActions } from "./features/concept";
-import { constantsSagas, constantsActions } from './features/constants';
-import { errorsActions } from './features/errors';
-import { globalPropertySagas, globalPropertyActions } from "./features/globalproperty";
-import { GRID_TYPES, gridActions } from './features/grid';
-import { headerSagas, headerActions } from './features/header';
-import { locationActions, locationSagas } from "./features/location";
-import { LOGIN_TYPES, loginSagas, loginActions } from './features/login';
-import { openmrsFormSagas, formActions, formValidations, formUtil, FORM_STATES } from './features/form';
-import { patientActions, PATIENT_TYPES } from "./features/patient";
-import { patientIdentifierTypesActions, patientIdentifierTypesSagas } from "./features/patientIdentifierTypes";
-import { SESSION_TYPES, sessionSagas, sessionActions } from './features/session/';
-import { systemActions } from "./features/system";
+import {
+  SESSION_TYPES,
+  sessionSagas,
+  sessionActions
+} from './features/session/';
 import { systemWatcherSaga } from './features/system';
+import { LOGIN_TYPES, loginSagas, loginActions } from './features/login';
+import {
+  openmrsFormSagas,
+  formActions,
+  formValidations,
+  formUtil,
+  FORM_STATES
+} from './features/form';
+import { headerSagas, headerActions } from './features/header';
+import { errorsActions } from './features/errors';
 import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
-
+import { GRID_TYPES, gridActions } from './features/grid';
+import { patientActions, PATIENT_TYPES } from './features/patient';
+import { locationActions, locationSagas } from './features/location';
+import { conceptSagas, conceptActions } from './features/concept';
+import {
+  globalPropertySagas,
+  globalPropertyActions
+} from './features/globalproperty';
+import {
+  patientIdentifierTypesActions,
+  patientIdentifierTypesSagas
+} from './features/patientIdentifierTypes';
+import { systemActions } from './features/system';
 import {
   PATIENT_SEARCH_TYPES,
   patientSearchActions,
   patientSearchSagas
-} from "./features/search/";
+} from './features/search/';
 import FormContext from './components/form/FormContext';
 
-import { axiosInstance } from "./config";
+import { axiosInstance } from './config';
 import encounterRest from './rest/encounterRest';
 import orderRest from './rest/orderRest';
 import obsRest from './rest/obsRest';
@@ -82,20 +95,39 @@ import loginRest from './rest/loginRest';
 import sessionRest from './rest/sessionRest';
 import locationRest from './rest/locationRest';
 import visitRest from './rest/visitRest';
-import constantsRest from './rest/constantsRest';
 import reportingRest from './rest/reportingRest';
 import conceptRest from './rest/conceptRest';
-import { reducers, selectors } from "./store";
+import { reducers, selectors } from './store';
 import { library as fontAwesomeLibrary } from '@fortawesome/fontawesome-svg-core';
-import { faCaretDown, faTimes, faExclamationTriangle, faCalendarAlt, faCheck, faArrowRight, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCaretDown,
+  faTimes,
+  faExclamationTriangle,
+  faCalendarAlt,
+  faCheck,
+  faArrowRight,
+  faPencilAlt
+} from '@fortawesome/free-solid-svg-icons';
 
-import withLocalisation, { setLocaleMessages } from './components/localization/withLocalisation';
-import { mountWithIntl, shallowWithIntl } from './components/localization/test/helpers/intl-test';
+import withLocalisation, {
+  setLocaleMessages
+} from './components/localization/withLocalisation';
+import {
+  mountWithIntl,
+  shallowWithIntl
+} from './components/localization/test/helpers/intl-test';
 
-fontAwesomeLibrary.add(faCaretDown, faTimes, faExclamationTriangle, faCalendarAlt, faCheck, faArrowRight, faPencilAlt);
+fontAwesomeLibrary.add(
+  faCaretDown,
+  faTimes,
+  faExclamationTriangle,
+  faCalendarAlt,
+  faCheck,
+  faArrowRight,
+  faPencilAlt
+);
 
-
-const sagas = function* () {
+const sagas = function*() {
   yield all([
     loginSagas(),
     sessionSagas(),
@@ -104,7 +136,6 @@ const sagas = function* () {
     visitSagas(),
     headerSagas(),
     openmrsFormSagas(),
-    constantsSagas(),
     conceptSagas(),
     locationSagas(),
     patientIdentifierTypesSagas(),
@@ -194,16 +225,13 @@ module.exports = {
   globalPropertyActions,
   SESSION_TYPES,
   headerActions,
-  constantsActions,
-  constantsRest,
   withLocalisation,
   setLocaleMessages,
   mountWithIntl,
   shallowWithIntl,
   Loader,
   Head,
-  LabsSummary,
   LineChart,
   ProgramEnrollment,
-  SystemAlert,
+  SystemAlert
 };
