@@ -17,8 +17,7 @@ const PatientCard = (patient, index, onRowSelected, getPatientIdentifiers) => (
         <span className="age">{patient.age && patient.age} yrs old</span>
         <span className="dob">({patient.birthdate && format(patient.birthdate, DATE_FORMAT)})</span>
       </span>
-      { ( typeof patient.alert !== 'undefined' ) &&
-                      ( patient.alert !== null ) &&         
+      { patient.alert &&         
       <span className="patient-alert">
         { patient.alert.map((alert) => (
           <span key={alert.name}>{alert.alert}</span>
