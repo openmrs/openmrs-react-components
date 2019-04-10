@@ -26,7 +26,6 @@ class EncounterFormPanel extends React.PureComponent {
     this.enterEditMode = this.enterEditMode.bind(this);
     this.exitEditMode = this.exitEditMode.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
-    this.handleBack = this.handleBack.bind(this);
 
     if (this.props.formInstanceId) {
       this.formInstanceId = this.props.formInstanceId;
@@ -93,28 +92,23 @@ class EncounterFormPanel extends React.PureComponent {
     this.props.dispatch(formActions.destroyForm(this.formInstanceId));
   }
 
+  handleCancel() {
+    if (this.getForm().state === FORM_STATES.EDITING) {
+      // if no existing encounter (ie "Enter" mode) redirect to any back link
+      if (!this.props.encounter && this.props.backLink) {
+        this.props.backLink();
+      } else {
+        this.exitEditMode();
+      }
+    }
+  }
+
   enterEditMode() {
     this.props.dispatch(formActions.setFormState(this.formInstanceId, FORM_STATES.EDITING));
   }
 
   exitEditMode() {
     this.props.dispatch(formActions.setFormState(this.formInstanceId, FORM_STATES.VIEWING));
-  }
-
-  handleCancel() {
-    if (this.getForm().state === FORM_STATES.EDITING) {
-      this.exitEditMode();
-      // if no existing encounter (ie "Enter" mode) redirect to any back link
-      if (!this.props.encounter && this.props.backLink) {
-        this.props.dispatch(push(this.props.backLink));
-      }
-    }
-  }
-
-  handleBack() {
-    if (this.props.backLink) {
-      this.props.dispatch(push(this.props.backLink));
-    }
   }
 
   getForm() {
@@ -174,10 +168,7 @@ class EncounterFormPanel extends React.PureComponent {
                   <Row>
                     <Col xs={6}>
                       {this.getForm().state === FORM_STATES.EDITING ?
-                        (<Cancel onClick={this.handleCancel}/>)
-                        : this.props.backLink ?
-                          (<Button onClick={this.handleBack}>Back</Button>)
-                          : (null)
+                        <Cancel onClick={this.handleCancel}/> : <Button onClick={this.props.backLink}>Back</Button>
                       }
                     </Col>
                     <Col xs={6}>
@@ -201,7 +192,7 @@ class EncounterFormPanel extends React.PureComponent {
 
 EncounterFormPanel.propTypes = {
   afterSubmitLink: PropTypes.string,
-  backLink: PropTypes.string,
+  backLink: PropTypes.any,
   defaultValues: PropTypes.array,
   encounter: PropTypes.object,
   encounterRole: PropTypes.object,
