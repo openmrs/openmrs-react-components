@@ -19,6 +19,8 @@ class TaskListGroup extends React.PureComponent {
     this.state = {
       expanded: typeof(props.taskGroup.expanded) !== 'undefined' ? props.taskGroup.expanded : true
     };
+
+    this.toggleExpanded = this.toggleExpanded.bind(this);
   };
 
   toggleExpanded(e) {
@@ -35,7 +37,7 @@ class TaskListGroup extends React.PureComponent {
       return (
         <ListGroupItem
           header={this.props.taskGroup.title}
-          onClick={this.toggleExpanded.bind(this)}
+          onClick={this.toggleExpanded}
           key={this.props.taskGroup.key}
           style={this.taskListGroupStyle}
         >
