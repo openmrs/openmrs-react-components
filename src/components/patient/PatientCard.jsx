@@ -1,5 +1,6 @@
 import React from 'react';
 import { format } from 'date-fns';
+import { uniqBy, prop } from "ramda";
 import {DATE_FORMAT} from "../../constants";
 
 const PatientCard = (patient, index, onRowSelected, getPatientIdentifiers) => (
@@ -17,12 +18,13 @@ const PatientCard = (patient, index, onRowSelected, getPatientIdentifiers) => (
         <span className="age">{patient.age && patient.age} yrs old</span>
         <span className="dob">({patient.birthdate && format(patient.birthdate, DATE_FORMAT)})</span>
       </span>
-      { patient.alert &&         
-      <span className="patient-alert">
-        { patient.alert.map((alert) => (
-          <span key={alert.name}>{alert.alert}</span>
-        ))}
-      </span>
+      {patient.alert &&         
+        <span className="patient-alert">
+          {/* This removes duplicate patient alerts */}
+          {uniqBy(prop('alert'))(patient.alert).map((alert) => (
+            <span key={alert.name}>{alert.alert}</span>
+          ))}
+        </span>
       }
     </div>
     <div className="right-items">

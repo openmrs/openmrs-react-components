@@ -5,7 +5,7 @@ import patientObjByEncounterTypeFilter from './domain/patient/filters/patientObj
 import patientObjByEncounterTypeAndObsFilter from './domain/patient/filters/patientObjByEncounterTypeAndObsFilter';
 import patientObjByVisitLocationFilter from './domain/patient/filters/patientObjByVisitLocationFilter';
 import encountersByEncounterTypeFilter from './domain/encounter/filters/encountersByEncounterTypeFilter';
-import Accordion from './components/accordion/Accordian';
+import Accordion from './components/accordion/Accordion';
 import Header from './components/header/Header';
 import HeaderAlt from './components/header/HeaderAlt';
 import LocationMenu from './components/header/LocationMenu';
@@ -31,7 +31,6 @@ import Dropdown from './components/widgets/Dropdown';
 import LineChart from './components/widgets/LineChart';
 import SortableTable from './components/table/SortableTable';
 import CustomDatePicker from './components/widgets/CustomDatePicker';
-import LabsSummary from './components/widgets/LabsSummary';
 import Obs from './components/form/Obs';
 import ObsGroup from './components/form/ObsGroup';
 import EncounterDate from './components/form/EncounterDate';
@@ -54,7 +53,6 @@ import { LOGIN_TYPES, loginSagas, loginActions } from './features/login';
 import { openmrsFormSagas, formActions, formValidations, formUtil, FORM_STATES } from './features/form';
 import { headerSagas, headerActions } from './features/header';
 import { errorsActions } from './features/errors';
-import { constantsSagas, constantsActions } from './features/constants';
 import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
 import { GRID_TYPES, gridActions } from './features/grid';
 import { patientActions, PATIENT_TYPES } from "./features/patient";
@@ -79,7 +77,6 @@ import loginRest from './rest/loginRest';
 import sessionRest from './rest/sessionRest';
 import locationRest from './rest/locationRest';
 import visitRest from './rest/visitRest';
-import constantsRest from './rest/constantsRest';
 import reportingRest from './rest/reportingRest';
 import conceptRest from './rest/conceptRest';
 import { reducers, selectors } from "./store";
@@ -101,7 +98,6 @@ const sagas = function* () {
     visitSagas(),
     headerSagas(),
     openmrsFormSagas(),
-    constantsSagas(),
     conceptSagas(),
     locationSagas(),
     patientIdentifierTypesSagas(),
@@ -191,15 +187,12 @@ module.exports = {
   globalPropertyActions,
   SESSION_TYPES,
   headerActions,
-  constantsActions,
-  constantsRest,
   withLocalisation,
   setLocaleMessages,
   mountWithIntl,
   shallowWithIntl,
   Loader,
   Head,
-  LabsSummary,
   LineChart,
   ProgramEnrollment,
   SystemAlert,

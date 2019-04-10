@@ -120,12 +120,30 @@ class CustomDatePicker extends PureComponent {
     const { selectedDate } = this.state;
     let error;
     let selected = new Date(selectedDate);
+    let validations = "";
 
     const hasInput = typeof input !== 'undefined';
     if (hasInput) {
       const { meta } = otherProps;
       error = meta.error;
       selected = selectedDate;
+    }
+
+    if (typeof otherProps.meta !== "undefined") {
+      const {
+        error,
+      } = otherProps.meta;
+      
+      validations =  (
+        <div className="div-error">
+          <span
+            className='field-error'
+            style={{ visibility: error ? 'visible' : 'hidden' }}
+          >
+            {error ? error : '_'}
+          </span>
+        </div>
+      );
     }
     
 
@@ -158,6 +176,7 @@ class CustomDatePicker extends PureComponent {
     return (
       <div>
         {!otherProps.mode || otherProps.mode === 'edit' ? edit : view}
+        {!otherProps.mode || otherProps.mode === 'edit' ? validations : ' '}
       </div>
     );
   }
