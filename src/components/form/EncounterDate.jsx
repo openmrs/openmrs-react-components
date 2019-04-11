@@ -11,11 +11,12 @@ const maxDateRange = validators.maxDateValue(endOfDay(new Date()));
 const EncounterDate = (props) => {
   return (
     <Field
+      component={CustomDatePicker}
+      defaultDate={props.defaultDate}
       displayValue={props.value}
       id={props.id}
       mode={props.formContext.mode}
       name="encounter-datetime"
-      component={CustomDatePicker}
       validate={[maxDateRange]}
     />
   );
