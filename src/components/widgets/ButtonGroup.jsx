@@ -17,13 +17,20 @@ const ButtonGroup = ({
 }) => {
 
   const edit = (
-    <ToggleButtonGroup type="radio" justified={true} {...input}>
+    <ToggleButtonGroup type="checkbox" justified={true} {...input} onChange={() => {}}>
       {options.map((option) => {
         const displayId = formatId(option.display);
         return (
           <ToggleButton
             id={displayId}
             key={option.uuid}
+            onChange={event => {
+              if (input.value === option.uuid) {
+                input.onChange('');
+              } else {
+                input.onChange(option.uuid);
+              }
+            }}
             style={buttonStyle}
             value={option.uuid}
           >
@@ -34,7 +41,7 @@ const ButtonGroup = ({
       )}
     </ToggleButtonGroup>
   );
-
+  
   const view = (
     <span
       className="button-group-view"
@@ -43,7 +50,7 @@ const ButtonGroup = ({
       {formUtil.conceptAnswerDisplay(displayValue, options)}
     </span>
   );
-
+  
   return (
     <div>
       {!mode || mode === 'edit' ? edit : view}
