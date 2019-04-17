@@ -27,7 +27,7 @@ function header = (props) => {
 }
 ```
 
-## PatientHeader
+## Tabs
 
 ### Basic Usage
 
