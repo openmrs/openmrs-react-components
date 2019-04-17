@@ -49,9 +49,12 @@ export class PatientHeader extends PureComponent {
   componentWillReceiveProps(nextProps) {
     const { patient } = this.state;
     if (nextProps.patient.uuid !== patient.uuid) {
+      const updatedPatient = patientUtil.createFromRestRep(this.props.patient);
       this.setState({
-        patient: patientUtil.createFromRestRep(this.props.patient),
+        patient: updatedPatient,
+        patientIdentifiers: patientUtil.getIdentifiers(updatedPatient)
       });
+      console.log('patientUtil.createFromRestRep(this.props.patient)', patientUtil.createFromRestRep(this.props.patient))
     }
   }
 
