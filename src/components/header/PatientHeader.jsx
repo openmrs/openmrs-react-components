@@ -54,7 +54,6 @@ export class PatientHeader extends PureComponent {
         patient: updatedPatient,
         patientIdentifiers: patientUtil.getIdentifiers(updatedPatient)
       });
-      console.log('patientUtil.createFromRestRep(this.props.patient)', patientUtil.createFromRestRep(this.props.patient))
     }
   }
 
