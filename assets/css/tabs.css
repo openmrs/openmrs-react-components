@@ -9,6 +9,7 @@
   margin: 2px;
   margin-bottom: -2px;
   padding: 0.5rem 0.75rem;
+  cursor: pointer;
 
   border: solid #ccc;
   border-width: 1px 1px 0px 1px;
@@ -17,6 +18,7 @@
   color: #A9A9A9;
 
   font-size: 1em;
+  
 }
 
 .tab-list-active {
