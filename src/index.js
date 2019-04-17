@@ -42,6 +42,7 @@ import Section from './components/form/Section';
 import SortableTable from './components/table/SortableTable';
 import Submit from './components/form/Submit';
 import SystemAlert from './components/system/SystemAlert';
+import Tabs from './components/tabs/Tabs';
 import TaskList from './components/task/TaskList';
 import ToolTip from './components/tooltip/ToolTip';
 import withLocalisation, { setLocaleMessages } from './components/localization/withLocalisation';
@@ -168,6 +169,7 @@ module.exports = {
   SortableTable,
   Submit,
   SystemAlert,
+  Tabs,
   TaskList,
   ToolTip,
   withLocalisation,
