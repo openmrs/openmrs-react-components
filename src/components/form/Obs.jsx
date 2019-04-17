@@ -114,6 +114,9 @@ class Obs extends React.PureComponent {
             displayValue={this.props.value}
             mode={this.props.formContext.mode}
             name={this.props.name}
+            onBlur={e => {
+              e.preventDefault();
+            }}
             options={this.props.conceptAnswers}
           />
         );
