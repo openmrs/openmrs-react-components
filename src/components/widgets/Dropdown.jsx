@@ -39,8 +39,27 @@ class Dropdown extends PureComponent {
   render() {
     const { ...otherProps } = this.props;
     let dropDownValue = undefined;
+    let validations = "";
+
     if (typeof otherProps.input !== "undefined") {
       dropDownValue = otherProps.input.value;
+    }
+
+    if (typeof otherProps.meta !== "undefined") {
+      const {
+        error,
+      } = otherProps.meta;
+      
+      validations =  (
+        <div className="div-error">
+          <span
+            className='field-error'
+            style={{ visibility: error ? 'visible' : 'hidden' }}
+          >
+            {error ? error : '_'}
+          </span>
+        </div>
+      );
     }
     
     const edit = (
@@ -77,6 +96,7 @@ class Dropdown extends PureComponent {
       </span>
     );
 
+
     const view = (
       <span
         className="dropdown-view"
@@ -89,6 +109,7 @@ class Dropdown extends PureComponent {
     return (
       <div>
         {!otherProps.mode || otherProps.mode === 'edit' ? edit : view}
+        {!otherProps.mode || otherProps.mode === 'edit' ? validations : ' '}
       </div>
     );
   }

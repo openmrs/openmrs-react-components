@@ -17,6 +17,11 @@ class DataGrid extends React.Component {
     };
     this.onRowSelected = this.onRowSelected.bind(this);
     this.filterGrid = this.filterGrid.bind(this);
+    this.onGridReady = this.onGridReady.bind(this);
+    this.onSelectionChanged = this.onSelectionChanged.bind(this);
+    this.onDataRowChanged = this.onDataRowChanged.bind(this);
+    this.onFilterChanged = this.onFilterChanged.bind(this);
+    this.onGridSizeChanged = this.onGridSizeChanged.bind(this);
   }
 
   onGridReady(params) {
@@ -136,13 +141,13 @@ class DataGrid extends React.Component {
             enableSorting
             id="omrsGrid"
             style="width: 100%; height: 100%;"
-            onGridReady={this.onGridReady.bind(this)}
-            onSelectionChanged={this.onSelectionChanged.bind(this)}
+            onGridReady={this.onGridReady}
+            onSelectionChanged={this.onSelectionChanged}
             rowClassRules="rowClassRules"
             rowData={this.props.rowData}
-            onRowDataChanged={this.onDataRowChanged.bind(this)}
-            onFilterChanged={this.onFilterChanged.bind(this)}
-            onGridSizeChanged={this.onGridSizeChanged.bind(this)}
+            onRowDataChanged={this.onDataRowChanged}
+            onFilterChanged={this.onFilterChanged}
+            onGridSizeChanged={this.onGridSizeChanged}
             rowSelection={this.state.rowSelection}
           />
 
