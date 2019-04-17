@@ -1,14 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Tab from './Tab';
-
 import '../../../assets/css/tabs.css';
 
-class Tabs extends Component {
-  static propTypes = {
-    children: PropTypes.instanceOf(Array).isRequired,
-  }
-
+class Tabs extends React.Component {
   constructor(props) {
     super(props);
 
@@ -58,5 +53,10 @@ class Tabs extends Component {
     );
   }
 }
+
+
+Tabs.propTypes = {
+  children: PropTypes.instanceOf(Array).isRequired,
+};
 
 export default Tabs;
