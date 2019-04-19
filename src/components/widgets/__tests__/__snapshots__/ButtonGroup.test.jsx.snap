@@ -23,7 +23,7 @@ exports[`Component: ButtonGroup renders properly 1`] = `
         disabled={false}
         name="mockname"
         onChange={[Function]}
-        type="radio"
+        type="checkbox"
         value="1234"
       />
       mockName
