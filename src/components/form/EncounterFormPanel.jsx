@@ -5,8 +5,6 @@ import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { actions as toastrActions } from 'react-redux-toastr';
 import uuidv4 from 'uuid/v4';
-import { getFormValues } from 'redux-form';
-
 import { selectors } from '../../store';
 import { formActions } from '../../features/form';
 import { FORM_STATES } from '../../features/form/constants';
@@ -98,7 +96,7 @@ class EncounterFormPanel extends React.PureComponent {
   handleCancel() {
     if (this.getForm().state === FORM_STATES.EDITING) {
       // if no existing encounter (ie "Enter" mode) redirect to any back link
-      if (!this.props.hasEncounter && this.props.backLink) {
+      if (!this.getForm().encounter && this.props.backLink) {
         if (typeof this.props.backLink === 'string') {
           this.props.dispatch(push(this.props.backLink));
         } else if (typeof this.props.backLink === 'function') {
@@ -130,7 +128,6 @@ class EncounterFormPanel extends React.PureComponent {
   }
 
   render() {
-
     return (
       <div style={this.divContainer}>
         <Grid style={this.divContainer}>
@@ -232,10 +229,7 @@ EncounterFormPanel.defaultProps = {
 };
 
 const mapStateToProps = (state, props) => {
-  const formValue = getFormValues(props.formInstanceId)(state);
   return {
-    // Check if form has encounter
-    hasEncounter: !!(formValue && formValue['encounter-datetime']),
     // if a patient is passed in, use that one, otherwise look in the store
     patient: props.patient ? props.patient : selectors.getSelectedPatientFromStore(state),
     forms: state.openmrs.form
