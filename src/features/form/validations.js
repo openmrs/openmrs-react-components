@@ -24,7 +24,14 @@ const maxDateValue = maxDate => value => {
     return undefined;
   }
   return value && (dateToInt(value)) > dateToInt(maxDate) ? `Date should be earlier or equal to today's date` : undefined;
-}
+};
+
+const minDateValue = (minDate, reference = "today's") => value => {
+  if (!value || typeof dateToInt(value) !== 'number') {
+    return undefined;
+  }
+  return value && (dateToInt(value)) < dateToInt(minDate) ? `Date should be later or equal to ${reference} date` : undefined;
+};
 
 const generateAbsoluteRangeValidators = concept => {
   const {
@@ -70,6 +77,7 @@ export default {
   criticalMinValue,
   criticalMaxValue,
   maxDateValue,
+  minDateValue,
   generateAbsoluteRangeValidators,
   generateAbnormalAndCriticalWarningFunctions,
   isRequired
