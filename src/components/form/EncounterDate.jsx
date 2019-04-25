@@ -9,6 +9,7 @@ import validators from '../../features/form/validations';
 const maxDateRange = validators.maxDateValue(endOfDay(new Date()));
 
 const EncounterDate = (props) => {
+  const { valiidations } = props;
   return (
     <Field
       component={CustomDatePicker}
@@ -17,7 +18,7 @@ const EncounterDate = (props) => {
       id={props.id}
       mode={props.formContext.mode}
       name="encounter-datetime"
-      validate={[maxDateRange]}
+      validate={[ maxDateRange, ...valiidations ]}
     />
   );
 };

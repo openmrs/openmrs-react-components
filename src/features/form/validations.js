@@ -1,4 +1,6 @@
 
+import { format } from "date-fns";
+
 const minValue = min => value => 
   value && value < min ? `Must be at least ${min}` : undefined;
 
@@ -30,7 +32,7 @@ const minDateValue = (minDate, reference = "today's") => value => {
   if (!value || typeof dateToInt(value) !== 'number') {
     return undefined;
   }
-  return value && (dateToInt(value)) < dateToInt(minDate) ? `Date should be later or equal to ${reference} date` : undefined;
+  return value && (dateToInt(format(value, "YYYY-MM-DD")) < dateToInt(format(minDate, "YYYY-MM-DD"))) ? `Date should be later or equal to ${reference} date` : undefined;
 };
 
 const generateAbsoluteRangeValidators = concept => {
