@@ -21,11 +21,11 @@ const isRequired = value => value ? undefined : 'Required';
 
 const dateToInt = dateStr => new Date(dateStr).getTime();
 
-const maxDateValue = maxDate => value => {
+const maxDateValue = (maxDate, reference = "today's") => value => {
   if (!value || typeof dateToInt(value) !== 'number') {
     return undefined;
   }
-  return value && (dateToInt(value)) > dateToInt(maxDate) ? `Date should be earlier or equal to today's date` : undefined;
+  return value && (dateToInt(format(value, "YYYY-MM-DD"))) > (dateToInt(format(maxDate, "YYYY-MM-DD"))) ? `Date should be earlier or equal to ${reference} date` : undefined;
 };
 
 const minDateValue = (minDate, reference = "today's") => value => {
