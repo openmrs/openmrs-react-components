@@ -7,5 +7,5 @@ export const DEFAULT_ENCOUNTER_REP = '(id,uuid,encounterDatetime,location:(id,uu
   'obs:(id,uuid,value:(id,uuid,display,name:(uuid,name)),concept:(uuid,display,name,datatype,units),comment,display,' +
   'groupMembers:(id,uuid,value:(id,uuid,display,name:(uuid,name)),concept:(uuid,display,name,datatype,units),comment,display,' +
   'groupMembers:(id,uuid,value:(id,uuid,display,name:(uuid,name)),concept:(uuid,display,name,datatype,units),comment,display,groupMembers)))';
-export const DEFAULT_ENCOUNTER_POST_REP = '(id,uuid,encounterDatetime,location:(id,uuid,name),encounterType:(id,uuid,name),obs:(id,uuid,value:(id,uuid),concept:(uuid),comment,groupMembers:(id,uuid,value:(id,uuid),concept:(uuid),comment,groupMembers:(id,uuid,value:(id,uuid),concept:(uuid),comment,groupMembers)))';
+export const DEFAULT_ENCOUNTER_POST_REP = '(id,uuid,encounterDatetime)';
 export const DEFAULT_ORDER_REP = '(id,uuid,concept,orderNumber,dateActivated,urgency,display,patient,orderType,action,dateStopped,autoExpireDate)';
