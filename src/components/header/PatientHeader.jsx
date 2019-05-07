@@ -7,6 +7,7 @@ import { withRouter } from "react-router";
 import { selectors } from '../../store';
 import { DATE_FORMAT } from "../../constants";
 import patientUtil from '../../domain/patient/patientUtil';
+import { formatAge } from '../../features/patient/utils';
 import '../../../assets/css/patientHeader.css';
 
 export class PatientHeader extends PureComponent {
@@ -68,7 +69,7 @@ export class PatientHeader extends PureComponent {
   }
 
   renderDemographics() {
-
+    const { ageInYears, ageInMonths } = formatAge(this.state.patient.birthdate);
     return (
       <div className="demographics" onClick={this.handlePatientLink}>
         <h2 className="name">
@@ -89,9 +90,10 @@ export class PatientHeader extends PureComponent {
 
           &nbsp;
           <span className="gender-age">
-            <span className="gender">{this.state.patient.gender === 'M' ? "Male" : "Female"}&nbsp;</span>
+            <span className="gender">{this.state.patient.gender === 'M' ? "Male" : "Female"}</span>
             <span className="age">
-              {this.state.patient.age} year(s) { this.state.patient.birthdate ? ('(' + dateFns.format(this.state.patient.birthdate, DATE_FORMAT) + ')') : ''}
+              {ageInYears} {ageInMonths}
+              { this.state.patient.birthdate && (' (' + dateFns.format(this.state.patient.birthdate, DATE_FORMAT) + ')') }
             </span>
           </span>
         </h2>
