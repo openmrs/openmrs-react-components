@@ -114,7 +114,7 @@ class ObsHistory extends React.PureComponent {
           obs,
           encounter: obs[0].encounter
         };
-      });;
+      });
     return set;
   }
 
