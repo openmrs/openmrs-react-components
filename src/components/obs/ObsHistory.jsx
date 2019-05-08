@@ -2,14 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as R from "ramda";
-import { chain } from 'underscore';
+import { chain, flatten } from 'underscore';
 import { startOfDay, parse  } from 'date-fns';
 import ObsValue from '../obs/ObsValue';
 import obsRest from '../../rest/obsRest';
 import { selectors } from "../../store";
 import { formatDate } from "../../util/dateUtil";
 import Loader from "../widgets/Loader";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // TODO document better!
 
@@ -108,7 +108,15 @@ class ObsHistory extends React.PureComponent {
       // TODO can we do better than just sort by day?
       .sortBy((obsByDateAndEncounterAndGroup) => -parse(this.getDateFromObs(obsByDateAndEncounterAndGroup[0][0][0])))
       .value();
-    return set;
+
+    const setAsObjects = set[0] ? set[0].map((obsByDateAndEncounterAndGroup) => {
+      const obs = flatten(obsByDateAndEncounterAndGroup);
+      return {
+        obs,
+        encounter: obs[0].encounter
+      };
+    }) : set;
+    return setAsObjects;
   }
 
   render() {
@@ -123,57 +131,67 @@ class ObsHistory extends React.PureComponent {
     else {
       return (
         <div>
-          {this.state.obs.map((obsByDateAndEncounterAndGroup) =>
-            obsByDateAndEncounterAndGroup.map((obsByEncounterAndGroup) => {
+          {this.state.obs.map((obsByDateAndEncounterAndGroup) => {
+            const summaryItemStyle = {
+              padding: '5px'
+            };
+            const encounter = obsByDateAndEncounterAndGroup.encounter;
+            const headerDisplay = (encounter && encounter.encounterType && encounter.encounterType.name) 
+              ? encounter.encounterType.name : this.props.headerLabel;
+            return (
+              <div
+                key={obsByDateAndEncounterAndGroup.encounter.uuid}
+                style={summaryItemStyle}
+              >
+                <h4>{headerDisplay} Information</h4>
+                {obsByDateAndEncounterAndGroup.obs.map((obsByEncounterAndGroup) => {
 
-              return (
-                <div key={obsByEncounterAndGroup[0][0].uuid}>
-                  {this.props.showDates && (
-                    <h5>
-                      { this.isEditableEncounter(obsByEncounterAndGroup[0][0].encounter) ?
-                        (<a onClick={() => this.onEditEncounterClick(obsByEncounterAndGroup[0][0].encounter.uuid)}>
-                          <u>
-                            {formatDate(this.getDateFromObs(obsByEncounterAndGroup[0][0]))}
-                          </u>
+                  // to support overriding the absolute, abnormal, and critical ranges defined on the concept
+                  const concept = this.props.concepts && this.props.concepts.find(concept => concept.uuid === obsByEncounterAndGroup.concept.uuid);
+
+                  return (
+                    <div key={obsByEncounterAndGroup.uuid}>
+                      {this.props.showDates && (
+                        <h5>
+                          { this.isEditableEncounter(obsByEncounterAndGroup.encounter) ?
+                            (<a onClick={() => this.onEditEncounterClick(obsByEncounterAndGroup.encounter.uuid)}>
+                              <u>
+                                {formatDate(this.getDateFromObs(obsByEncounterAndGroup))}
+                              </u>
                           &nbsp;
-                          <FontAwesomeIcon
-                            icon="pencil-alt"
+                              <FontAwesomeIcon
+                                icon="pencil-alt"
+                              />
+                            </a>)
+                            :
+                            (<u>
+                              { formatDate(this.getDateFromObs(obsByEncounterAndGroup)) }
+                            </u>)
+                          }
+                        </h5>)}
+                      <table>
+                        <tbody>
+                          <ObsValue
+                            concept={concept}
+                            key={obsByEncounterAndGroup.uuid}
+                            labels={this.props.labels}
+                            obs={obsByEncounterAndGroup}
+                            reverseLabelAndValue={this.props.reverseLabelAndValue}
                           />
-                        </a>)
-                        :
-                        (<u>
-                          { formatDate(this.getDateFromObs(obsByEncounterAndGroup[0][0])) }
-                        </u>)
-                      }
-                    </h5>)}
-                  <table>
-                    <tbody>
-                      {obsByEncounterAndGroup.map((obsByGroup) =>
-                        obsByGroup.map((obs) => {
+                       
+                          <tr>
+                            <td colSpan={4} />
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  );
 
-                          // to support overriding the absolute, abnormal, and critical ranges defined on the concept
-                          const concept = this.props.concepts && this.props.concepts.find(concept => concept.uuid === obs.concept.uuid);
-
-                          return (
-                            <ObsValue
-                              concept={concept}
-                              key={obs.uuid}
-                              labels={this.props.labels}
-                              obs={obs}
-                              reverseLabelAndValue={this.props.reverseLabelAndValue}
-                            />
-                          );
-                        })
-                      )}
-                      <tr>
-                        <td colSpan={4} />
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              );
-
-            })
+                })
+                }
+              </div>
+            );
+          }
           )}
         </div>
       );
@@ -186,6 +204,7 @@ ObsHistory.propTypes = {
   concepts: PropTypes.array,
   editableEncounterTypes: PropTypes.array,
   groupingConcepts: PropTypes.array,
+  headerLabel: PropTypes.string,
   labels: PropTypes.object,
   loading: PropTypes.bool,
   obs: PropTypes.array,
@@ -198,6 +217,7 @@ ObsHistory.propTypes = {
 
 ObsHistory.defaultProps = {
   editableEncounterTypes: [],
+  headerLabel: "Screening",
   reverseLabelAndValue: false,    // for displaying obs where the question is really answer
   showDates: true
 };
