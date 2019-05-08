@@ -135,12 +135,15 @@ class ObsHistory extends React.PureComponent {
             const summaryItemStyle = {
               padding: '5px'
             };
+            const encounter = obsByDateAndEncounterAndGroup.encounter;
+            const headerDisplay = (encounter && encounter.encounterType && encounter.encounterType.name) 
+              ? encounter.encounterType.name : this.props.headerLabel;
             return (
               <div
                 key={obsByDateAndEncounterAndGroup.encounter.uuid}
                 style={summaryItemStyle}
               >
-                <h4>{obsByDateAndEncounterAndGroup.encounter.encounterType.name} Information</h4>
+                <h4>{headerDisplay} Information</h4>
                 {obsByDateAndEncounterAndGroup.obs.map((obsByEncounterAndGroup) => {
 
                   // to support overriding the absolute, abnormal, and critical ranges defined on the concept
@@ -201,6 +204,7 @@ ObsHistory.propTypes = {
   concepts: PropTypes.array,
   editableEncounterTypes: PropTypes.array,
   groupingConcepts: PropTypes.array,
+  headerLabel: PropTypes.string,
   labels: PropTypes.object,
   loading: PropTypes.bool,
   obs: PropTypes.array,
@@ -213,6 +217,7 @@ ObsHistory.propTypes = {
 
 ObsHistory.defaultProps = {
   editableEncounterTypes: [],
+  headerLabel: "Screening",
   reverseLabelAndValue: false,    // for displaying obs where the question is really answer
   showDates: true
 };
