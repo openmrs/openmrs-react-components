@@ -107,15 +107,16 @@ class ObsHistory extends React.PureComponent {
       .values()
       // TODO can we do better than just sort by day?
       .sortBy((obsByDateAndEncounterAndGroup) => -parse(this.getDateFromObs(obsByDateAndEncounterAndGroup[0][0][0])))
-      .value()[0]
-      .map((obsByDateAndEncounterAndGroup) => {
-        const obs = flatten(obsByDateAndEncounterAndGroup);
-        return {
-          obs,
-          encounter: obs[0].encounter
-        };
-      });
-    return set;
+      .value();
+
+    const setAsObjects = set[0] ? set[0].map((obsByDateAndEncounterAndGroup) => {
+      const obs = flatten(obsByDateAndEncounterAndGroup);
+      return {
+        obs,
+        encounter: obs[0].encounter
+      };
+    }) : set;
+    return setAsObjects;
   }
 
   render() {
