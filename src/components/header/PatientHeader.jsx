@@ -69,7 +69,7 @@ export class PatientHeader extends PureComponent {
   }
 
   renderDemographics() {
-    const { ageInYears, ageInMonths } = formatAge(this.state.patient.birthdate);
+    const { age } = formatAge(this.state.patient.birthdate);
     return (
       <div className="demographics" onClick={this.handlePatientLink}>
         <h2 className="name">
@@ -92,7 +92,7 @@ export class PatientHeader extends PureComponent {
           <span className="gender-age">
             <span className="gender">{this.state.patient.gender === 'M' ? "Male" : "Female"}</span>
             <span className="age">
-              {ageInYears} {ageInMonths}
+              {age}
               { this.state.patient.birthdate && (' (' + dateFns.format(this.state.patient.birthdate, DATE_FORMAT) + ')') }
             </span>
           </span>

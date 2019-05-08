@@ -16,7 +16,7 @@ const PatientCard = (patient, index, onRowSelected, getPatientIdentifiers) => (
       </span>
       <span className="gender-age">
         <span className="gender">{patient.gender && patient.gender === 'M' ? "Male" : "Female"}</span>
-        <span className="age">{formatAge(patient.birthdate).ageInYears} {formatAge(patient.birthdate).ageInMonths}</span>
+        <span className="age">{formatAge(patient.birthdate).age}</span>
         <span className="dob">({patient.birthdate && format(patient.birthdate, DATE_FORMAT)})</span>
       </span>
       {patient.alert &&         
