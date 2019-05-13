@@ -185,7 +185,7 @@ function* submit(action) {
         yield call(obsRest.deleteObs, obsToDelete[i]);
       }
     }
-    // we should refetch the encounter to get the all the required fields
+    // we should refetch the encounter to because create and update only return minimal representations
     updatedEncounter = yield call(encounterRest.getEncounter, updatedEncounter.uuid);
 
     yield put(formActions.formBackingEncounterLoaded(action.formInstanceId, updatedEncounter));
