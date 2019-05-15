@@ -24,8 +24,9 @@ class EncounterForm extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    // if we've loaded an encounter or any default values, re-initialize
+    // if we've loaded a backing encounter, removed backing encounter, or changed default default values, re-initialize
     if ((!prevProps.encounter && this.props.encounter)
+      || (prevProps.encounter && !this.props.encounter)
       || ( !util.areEqualArrays(this.props.defaultValues, prevProps.defaultValues)) ) {
       this.initialize();
     }
