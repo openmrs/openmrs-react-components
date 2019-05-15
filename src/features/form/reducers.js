@@ -37,6 +37,7 @@ export default (state = {}, action) => {
 
     // clear out the existing encounter
     case FORM_TYPES.LOAD_FORM_BACKING_ENCOUNTER:
+    case FORM_TYPES.CLEAR_FORM_BACKING_ENCOUNTER:
 
       return {
         ...state,
