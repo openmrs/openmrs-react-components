@@ -111,6 +111,12 @@ class ObsHistory extends React.PureComponent {
     return set;
   }
 
+  formatObsDate(obs) {
+    return hasTimeComponent(this.getDateFromObs(obs)) ?
+      formatDatetime(this.getDateFromObs(obs))
+      : formatDate(this.getDateFromObs(obs));
+  }
+
   render() {
 
     if (this.state.loading) {
@@ -134,9 +140,7 @@ class ObsHistory extends React.PureComponent {
                         (<a onClick={() => this.onEditEncounterClick(obsByEncounterAndGroup[0][0].encounter.uuid)}>
                           <u>
                             {
-                              hasTimeComponent(this.getDateFromObs(obsByEncounterAndGroup[0][0])) ?
-                                formatDatetime(this.getDateFromObs(obsByEncounterAndGroup[0][0]))
-                                : formatDate(this.getDateFromObs(obsByEncounterAndGroup[0][0]))
+                              this.formatObsDate(obsByEncounterAndGroup[0][0])
                             }
                           </u>
                           &nbsp;
@@ -147,9 +151,7 @@ class ObsHistory extends React.PureComponent {
                         :
                         (<u>
                           {
-                            hasTimeComponent(this.getDateFromObs(obsByEncounterAndGroup[0][0])) ?
-                              formatDatetime(this.getDateFromObs(obsByEncounterAndGroup[0][0]))
-                              : formatDate(this.getDateFromObs(obsByEncounterAndGroup[0][0]))
+                            this.formatObsDate(obsByEncounterAndGroup[0][0])
                           }
                         </u>)
                       }
