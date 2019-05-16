@@ -64,8 +64,6 @@ class SortableTable extends PureComponent {
     const { ...otherProps } = this.props;
     const defaultClassName = otherProps.defaultClassName || "-striped -highlight";
 
-    // console.log('state', this.state);
-
     // All available props: https://github.com/tannerlinsley/react-table#props
     return (
       <div>
