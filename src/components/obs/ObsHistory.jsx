@@ -7,7 +7,7 @@ import { startOfDay, parse  } from 'date-fns';
 import ObsValue from '../obs/ObsValue';
 import obsRest from '../../rest/obsRest';
 import { selectors } from "../../store";
-import { formatDate } from "../../util/dateUtil";
+import { formatDatetime, formatDate, hasTimeComponent } from "../../util/dateUtil";
 import Loader from "../widgets/Loader";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
@@ -133,7 +133,11 @@ class ObsHistory extends React.PureComponent {
                       { this.isEditableEncounter(obsByEncounterAndGroup[0][0].encounter) ?
                         (<a onClick={() => this.onEditEncounterClick(obsByEncounterAndGroup[0][0].encounter.uuid)}>
                           <u>
-                            {formatDate(this.getDateFromObs(obsByEncounterAndGroup[0][0]))}
+                            {
+                              hasTimeComponent(this.getDateFromObs(obsByEncounterAndGroup[0][0])) ?
+                                formatDatetime(this.getDateFromObs(obsByEncounterAndGroup[0][0]))
+                                : formatDate(this.getDateFromObs(obsByEncounterAndGroup[0][0]))
+                            }
                           </u>
                           &nbsp;
                           <FontAwesomeIcon
@@ -142,7 +146,11 @@ class ObsHistory extends React.PureComponent {
                         </a>)
                         :
                         (<u>
-                          { formatDate(this.getDateFromObs(obsByEncounterAndGroup[0][0])) }
+                          {
+                            hasTimeComponent(this.getDateFromObs(obsByEncounterAndGroup[0][0])) ?
+                              formatDatetime(this.getDateFromObs(obsByEncounterAndGroup[0][0]))
+                              : formatDate(this.getDateFromObs(obsByEncounterAndGroup[0][0]))
+                          }
                         </u>)
                       }
                     </h5>)}
