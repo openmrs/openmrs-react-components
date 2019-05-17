@@ -134,6 +134,7 @@ class EncounterHistory extends React.Component {
 }
 
 EncounterHistory.propTypes = {
+  concepts: PropTypes.array,
   editable: PropTypes.bool.isRequired,
   encounterType: PropTypes.object.isRequired,
   maxEncounters: PropTypes.number,
