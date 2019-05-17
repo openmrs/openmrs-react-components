@@ -112,6 +112,7 @@ class Obs extends React.PureComponent {
           <Field
             component={ButtonGroup}
             displayValue={this.props.value}
+            justified={this.props.justified}
             mode={this.props.formContext.mode}
             name={this.props.name}
             onBlur={e => {
@@ -148,6 +149,7 @@ Obs.propTypes = {
   conceptAnswers: PropTypes.array,
   conceptUuid: PropTypes.string.isRequired,
   datatype: PropTypes.string.isRequired,
+  justified: PropTypes.bool,
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   validate: PropTypes.oneOfType([	
