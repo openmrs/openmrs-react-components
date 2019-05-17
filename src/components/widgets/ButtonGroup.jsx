@@ -13,11 +13,16 @@ const ButtonGroup = ({
   displayValue,
   input,
   mode,
-  options
+  options,
+  justified
 }) => {
 
+  if (typeof justified === 'undefined' || justified === null) {
+    justified = true;
+  }
+
   const edit = (
-    <ToggleButtonGroup type="checkbox" justified={true} {...input} onChange={() => {}}>
+    <ToggleButtonGroup type="checkbox" justified={justified} {...input} onChange={() => {}}>
       {options.map((option) => {
         const displayId = formatId(option.display);
         return (
