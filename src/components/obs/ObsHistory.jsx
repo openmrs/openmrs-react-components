@@ -119,14 +119,7 @@ class ObsHistory extends React.PureComponent {
 
   render() {
 
-    if (this.state.loading) {
-      return (
-        <div>
-          <Loader />
-        </div>
-      );
-    }
-    else {
+    if (!this.state.loading) {
       return (
         <div>
           {this.state.obs.map((obsByDateAndEncounterAndGroup) =>
@@ -188,6 +181,11 @@ class ObsHistory extends React.PureComponent {
         </div>
       );
     }
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   }
 }
 
