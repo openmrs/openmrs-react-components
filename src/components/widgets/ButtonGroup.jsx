@@ -47,12 +47,13 @@ const ButtonGroup = ({
     </ToggleButtonGroup>
   );
   
+  const display = formUtil.conceptAnswerDisplay(displayValue, options);
   const view = (
     <span
-      className="button-group-view"
+      className={display ? "button-group-view" : ''}
       style={{}}
     >
-      {formUtil.conceptAnswerDisplay(displayValue, options)}
+      {display}
     </span>
   );
   
