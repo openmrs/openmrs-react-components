@@ -12,12 +12,12 @@ import { sessionActions } from "../session";
 function* login(action) {
   try {
 
+    // kind of strange/confusing here that the authorization var equals the whole 'authorization' key-pair, and not just the authorization code
     var authorization = { 'authorization' : "Basic " + btoa(action.username + ':' + action.password) };
     let response = yield call(loginRest.login, authorization);
 
     if (response.authenticated === true) {
-      let sessionLocation = { location: action.location };
-      let sessionResponse = yield call(sessionRest.setCurrentSessionLocation, { location: sessionLocation });
+      let sessionResponse = yield call(sessionRest.setCurrentSessionLocation, { location: action.location });
       yield put(sessionActions.fetchSessionSucceeded(sessionResponse, authorization));
       yield put(loginActions.loginSucceeded());
     }

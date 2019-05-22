@@ -11,7 +11,7 @@ import { conceptReducer } from "./features/concept/reducers";
 import { getPatients, getSelectedPatient, isUpdating } from './features/patient';
 import { getConcept, getConcepts } from './features/concept';
 import { locationsReducer, getLocations, getLocation } from './features/location';
-import { getSessionLocation } from "./features/session";
+import { getSessionLocation, getCurrentProvider, getUser } from "./features/session";
 import { globalPropertyReducer } from './features/globalproperty/reducers';
 import { getGlobalProperty, getGlobalProperties } from "./features/globalproperty";
 import { patientIdentifierTypesReducer, getPatientIdentifierTypes, getPatientIdentifierType, getPatientIdentifierTypeByName } from './features/patientIdentifierTypes';
@@ -76,10 +76,22 @@ export const selectors = {
     return getLocations(state.openmrs.metadata.locations);
   },
 
+  getSession: (state) => {
+    return state.openmrs.session;
+  },
+
   getSessionLocation: (state) => {
     const sessionLocation = getSessionLocation(state.openmrs.session);
     return sessionLocation && getLocation(state.openmrs.metadata.locations, sessionLocation.uuid)
       ? getLocation(state.openmrs.metadata.locations, sessionLocation.uuid) : sessionLocation;
+  },
+
+  getCurrentProvider: (state) => {
+    return getCurrentProvider(state.openmrs.session);
+  },
+
+  getUser: (state) => {
+    return getUser(state.openmrs.session);
   },
 
   getGlobalProperty: (state, globalProperty) => {

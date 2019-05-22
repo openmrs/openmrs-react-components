@@ -37,3 +37,11 @@ export default (state = {}, action) => {
 export const getSessionLocation = (state) => {
   return state.sessionLocation;
 };
+
+export const getCurrentProvider = (state) => {
+  return state.currentProvider;
+};
+
+export const getUser = (state) => {
+  return state.user;
+};
