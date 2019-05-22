@@ -97,6 +97,7 @@ class SortableTable extends PureComponent {
           nextText={otherProps.nextText}
           noDataText={<span className="sortableTable-noDataText">{this.props.noDataMessage}</span>}
           ofText={otherProps.ofText}
+          page={otherProps.page}
           pageSizeOptions={[10, 20, 25, 50, 100]}
           pageText={otherProps.pageText}
           previousText={otherProps.previousText}
