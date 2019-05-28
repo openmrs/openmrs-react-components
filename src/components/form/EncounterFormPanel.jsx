@@ -182,12 +182,12 @@ class EncounterFormPanel extends React.PureComponent {
                         <Cancel onClick={this.handleCancel} /> : <Button onClick={this.handleBack}>Back</Button>
                       }
                     </Col>
-                    <Col xs={6}>
+                    {!this.props.hideSubmitActionButtons &&  <Col xs={6}>
                       {this.getForm().state === FORM_STATES.EDITING ?
                         (<Submit style={this.floatRight} onClick={this.exitEditMode}/>) :
-                        (<Button style={this.floatRight} onClick={this.enterEditMode}>Edit</Button>)
-                      }
+                        (<Button style={this.floatRight} onClick={this.enterEditMode}>Edit</Button>)}
                     </Col>
+                    }
                   </Row>
                 </Grid>)
               }
@@ -213,6 +213,7 @@ EncounterFormPanel.propTypes = {
   formInstanceId: PropTypes.string,
   formSubmittedActionCreators: PropTypes.array,
   hideActionButtons: PropTypes.bool,
+  hideSubmitActionButtons: PropTypes.bool,
   location: PropTypes.object,
   orderForObs: PropTypes.object,
   patient: PropTypes.object.isRequired,
