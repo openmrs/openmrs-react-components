@@ -111,6 +111,7 @@ class Obs extends React.PureComponent {
         return (
           <Field
             component={ButtonGroup}
+            disabled={this.props.disabled}
             displayValue={this.props.value}
             justified={this.props.justified}
             mode={this.props.formContext.mode}
