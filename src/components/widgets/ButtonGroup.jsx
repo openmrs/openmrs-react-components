@@ -14,7 +14,8 @@ const ButtonGroup = ({
   input,
   mode,
   options,
-  justified
+  justified,
+  disabled
 }) => {
 
   if (typeof justified === 'undefined' || justified === null) {
@@ -27,6 +28,7 @@ const ButtonGroup = ({
         const displayId = formatId(option.display);
         return (
           <ToggleButton
+            disabled={disabled}
             id={displayId}
             key={option.uuid}
             onChange={event => {
