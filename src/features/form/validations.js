@@ -25,7 +25,11 @@ const maxDateValue = (maxDate, reference = "today's") => value => {
   if (!value || typeof dateToInt(value) !== 'number') {
     return undefined;
   }
-  return value && (dateToInt(format(value, "YYYY-MM-DD"))) > (dateToInt(format(maxDate, "YYYY-MM-DD"))) ? `Date should be earlier or equal to ${reference} date` : undefined;
+  if (value && (dateToInt(format(value, "YYYY-MM-DD"))) > (dateToInt(format(maxDate, "YYYY-MM-DD")))) {
+    return reference === "today's" ? `Date should be earlier or equal to ${reference} date` : reference;
+  } else {
+    return undefined;
+  }
 };
 
 const minDateValue = (minDate, reference = "today's") => value => {
