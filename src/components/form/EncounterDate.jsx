@@ -6,7 +6,7 @@ import CustomDatePicker from '../widgets/CustomDatePicker';
 import withFormContext from './withFormContext';
 import validators from '../../features/form/validations';
 
-const maxDateRange = validators.maxDateValue(endOfDay(new Date()));
+const maxDateRange = validators.maxDateValue(endOfDay(new Date()), "today's");
 
 const EncounterDate = (props) => {
   const { validations } = props;
