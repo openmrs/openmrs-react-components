@@ -21,22 +21,26 @@ const isRequired = value => value ? undefined : 'Required';
 
 const dateToInt = dateStr => new Date(dateStr).getTime();
 
-const maxDateValue = (maxDate, reference = "today's") => value => {
+const maxDateValue = (maxDate, reference, customText) => value => {
   if (!value || typeof dateToInt(value) !== 'number') {
     return undefined;
   }
   if (value && (dateToInt(format(value, "YYYY-MM-DD"))) > (dateToInt(format(maxDate, "YYYY-MM-DD")))) {
-    return reference === "today's" ? `Date should be earlier or equal to ${reference} date` : reference;
+    return reference ? `Date should be earlier or equal to ${reference} date` : customText;
   } else {
     return undefined;
   }
 };
 
-const minDateValue = (minDate, reference = "today's") => value => {
+const minDateValue = (minDate, reference, customText) => value => {
   if (!value || typeof dateToInt(value) !== 'number') {
     return undefined;
   }
-  return value && (dateToInt(format(value, "YYYY-MM-DD")) < dateToInt(format(minDate, "YYYY-MM-DD"))) ? `Date should be later or equal to ${reference} date` : undefined;
+  if (value && (dateToInt(format(value, "YYYY-MM-DD")) < dateToInt(format(minDate, "YYYY-MM-DD")))) {
+    return reference ? `Date should be later or equal to ${reference} date` : customText;
+  } else {
+    return undefined;
+  }
 };
 
 const generateAbsoluteRangeValidators = concept => {
