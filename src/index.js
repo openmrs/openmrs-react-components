@@ -1,4 +1,5 @@
 import Accordion from './components/accordion/Accordion';
+import { ARangePicker, ASwitch, ASlider, ASelect, AOption, AInputNumber } from './components/widgets/AntdWidgets'; 
 import AuthenticatedRoute from './components/routes/AuthenticatedRoute';
 import BasicLayout from './components/layout/BasicLayout';
 import ButtonGroup from './components/widgets/ButtonGroup';
@@ -123,6 +124,13 @@ const sagas = function*() {
 };
 
 module.exports = {
+
+  ARangePicker, 
+  ASwitch, 
+  ASlider,
+  ASelect, 
+  AOption,
+  AInputNumber, 
   Accordion,
   AuthenticatedRoute,
   BasicLayout,
