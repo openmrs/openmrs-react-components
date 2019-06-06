@@ -85,9 +85,11 @@ import loginRest from './rest/loginRest';
 import orderRest from './rest/orderRest';
 import obsRest from './rest/obsRest';
 import patientRest from './rest/patientRest';
+import providerRest from './rest/providerRest';
+import reportingRest from './rest/reportingRest';
 import sessionRest from './rest/sessionRest';
 import visitRest from './rest/visitRest';
-import reportingRest from './rest/reportingRest';
+
 
 import { all } from 'redux-saga/effects';
 
@@ -217,9 +219,10 @@ module.exports = {
   orderRest,
   obsRest,
   patientRest,
+  providerRest,
+  reportingRest,
   sessionRest,
   visitRest,
-  reportingRest,
 
   axiosInstance,
   reducers,

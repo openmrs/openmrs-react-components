@@ -13,17 +13,31 @@ const ButtonGroup = ({
   displayValue,
   input,
   mode,
-  options
+  options,
+  justified,
+  disabled
 }) => {
 
+  if (typeof justified === 'undefined' || justified === null) {
+    justified = true;
+  }
+
   const edit = (
-    <ToggleButtonGroup type="radio" justified={true} {...input}>
+    <ToggleButtonGroup type="checkbox" justified={justified} {...input} onChange={() => {}}>
       {options.map((option) => {
         const displayId = formatId(option.display);
         return (
           <ToggleButton
+            disabled={disabled}
             id={displayId}
             key={option.uuid}
+            onChange={event => {
+              if (input.value === option.uuid) {
+                input.onChange('');
+              } else {
+                input.onChange(option.uuid);
+              }
+            }}
             style={buttonStyle}
             value={option.uuid}
           >
@@ -34,16 +48,17 @@ const ButtonGroup = ({
       )}
     </ToggleButtonGroup>
   );
-
+  
+  const display = formUtil.conceptAnswerDisplay(displayValue, options);
   const view = (
     <span
-      className="button-group-view"
+      className={display ? "button-group-view" : ''}
       style={{}}
     >
-      {formUtil.conceptAnswerDisplay(displayValue, options)}
+      {display}
     </span>
   );
-
+  
   return (
     <div>
       {!mode || mode === 'edit' ? edit : view}

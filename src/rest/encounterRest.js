@@ -1,11 +1,11 @@
 
 import { axiosInstance } from '../config';
-import {DEFAULT_ENCOUNTER_REP} from "../domain/encounter/constants";
+import {DEFAULT_ENCOUNTER_REP, DEFAULT_ENCOUNTER_POST_REP} from "../domain/encounter/constants";
 
 const api = {
 
   createEncounter: (encounter, representation) => {
-    return axiosInstance.post(`encounter/?v=custom:${representation || DEFAULT_ENCOUNTER_REP}`, encounter)
+    return axiosInstance.post(`encounter/?v=custom:${representation || DEFAULT_ENCOUNTER_POST_REP}`, encounter)
       .then((response) => {
         if (response.status != 201) {
           throw response;
@@ -16,7 +16,7 @@ const api = {
   },
 
   updateEncounter: (encounter, representation) => {
-    return axiosInstance.post(`encounter/${encounter.uuid}?v=custom:${representation || DEFAULT_ENCOUNTER_REP}`, encounter)
+    return axiosInstance.post(`encounter/${encounter.uuid}?v=custom:${representation || DEFAULT_ENCOUNTER_POST_REP}`, encounter)
       .then((response) => {
         if (response.status != 200) {
           throw response;

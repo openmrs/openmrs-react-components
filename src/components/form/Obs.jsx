@@ -46,12 +46,12 @@ class Obs extends React.PureComponent {
   }
 
   render() {
-    const { required } = this.props;
+    const { required, value } = this.props;
     
     const defaultValidations = this.props.validate || this.state.getValidationAbsoluteRange;
     const defaultWarnings = this.props.warn || this.state.getValidationAbnormalRange;
     const validations = required ? defaultValidations.concat(formValidations.isRequired) : defaultValidations;
-    const warnings = required ? defaultWarnings.concat(formValidations.isRequired) : defaultWarnings;
+    const warnings = required && !value ? defaultWarnings.concat(formValidations.isRequired) : defaultWarnings;
 
     if (this.props.datatype === 'date') {
       return (
@@ -111,9 +111,14 @@ class Obs extends React.PureComponent {
         return (
           <Field
             component={ButtonGroup}
+            disabled={this.props.disabled}
             displayValue={this.props.value}
+            justified={this.props.justified}
             mode={this.props.formContext.mode}
             name={this.props.name}
+            onBlur={e => {
+              e.preventDefault();
+            }}
             options={this.props.conceptAnswers}
           />
         );
@@ -145,6 +150,7 @@ Obs.propTypes = {
   conceptAnswers: PropTypes.array,
   conceptUuid: PropTypes.string.isRequired,
   datatype: PropTypes.string.isRequired,
+  justified: PropTypes.bool,
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   validate: PropTypes.oneOfType([	

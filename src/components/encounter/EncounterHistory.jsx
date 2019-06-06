@@ -5,7 +5,7 @@ import { chain } from 'underscore';
 import encounterRest from '../../rest/encounterRest';
 import * as R from "ramda";
 import { selectors } from "../../store";
-import { formatDate } from "../../util/dateUtil";
+import { formatDatetime, formatDate, hasTimeComponent } from "../../util/dateUtil";
 import ObsValue from '../obs/ObsValue';
 import obsUtil from '../../features/obs/util';
 import '../../../assets/css/widgets.css';
@@ -44,10 +44,14 @@ class EncounterHistory extends React.Component {
     encounterRest.fetchEncountersByPatient(
       this.props.patient.uuid, this.props.encounterType.uuid
     ).then(data => {
+      var encounters = data.results.sort(function (a, b) {
+        return +new Date(b.encounterDatetime) - +new Date(a.encounterDatetime);
+      });
+      if (this.props.maxEncounters) {
+        encounters = encounters.slice(0, this.props.maxEncounters);
+      }
       this.setState({
-        encounters: data.results.sort(function (a, b) {
-          return +new Date(b.encounterDatetime) - +new Date(a.encounterDatetime);
-        })
+        encounters: encounters
       });
     });
   }
@@ -63,6 +67,12 @@ class EncounterHistory extends React.Component {
     }
   }
 
+  formatEncounterDate(encounter) {
+    return hasTimeComponent(encounter.encounterDatetime) ?
+      formatDatetime(encounter.encounterDatetime)
+      : formatDate(encounter.encounterDatetime);
+  }
+
   render() {
 
     const history = this.state.encounters.map((encounter, i) => {
@@ -72,7 +82,9 @@ class EncounterHistory extends React.Component {
             { this.props.editable ?
               (<a onClick={() => this.onEditClick(encounter.uuid)}>
                 <u>
-                { formatDate(encounter.encounterDatetime) }
+                  {
+                    this.formatEncounterDate(encounter)
+                  }
                 </u>
                 &nbsp;
                 <FontAwesomeIcon
@@ -81,7 +93,9 @@ class EncounterHistory extends React.Component {
               </a>)
               :
               (<u>
-                { formatDate(encounter.encounterDatetime) }
+                {
+                  this.formatEncounterDate(encounter)
+                }
               </u>)
             }
           </h5>
@@ -120,8 +134,10 @@ class EncounterHistory extends React.Component {
 }
 
 EncounterHistory.propTypes = {
+  concepts: PropTypes.array,
   editable: PropTypes.bool.isRequired,
   encounterType: PropTypes.object.isRequired,
+  maxEncounters: PropTypes.number,
   onEditActionCreators: PropTypes.array,
   onEditCallbacks: PropTypes.array,
   labels: PropTypes.object,

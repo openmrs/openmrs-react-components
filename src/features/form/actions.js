@@ -27,9 +27,9 @@ const formSubmitFailed = (formInstanceId) => ( {
   formInstanceId: formInstanceId,
 });
 
-const initializeForm = (formInstanceUuid, formId) => ( {
+const initializeForm = (formInstanceId, formId) => ( {
   type: FORM_TYPES.INITIALIZE_FORM,
-  formInstanceUuid: formInstanceUuid,
+  formInstanceId: formInstanceId,
   formId: formId
 });
 
@@ -42,6 +42,11 @@ const loadFormBackingEncounter = (formInstanceId, encounterUuid) => ( {
   type: FORM_TYPES.LOAD_FORM_BACKING_ENCOUNTER,
   formInstanceId: formInstanceId,
   encounterUuid: encounterUuid
+});
+
+const clearFormBackingEncounter = (formInstanceId) => ( {
+  type: FORM_TYPES.CLEAR_FORM_BACKING_ENCOUNTER,
+  formInstanceId: formInstanceId
 });
 
 const formBackingEncounterLoaded = (formInstanceId, encounter) => ( {
@@ -65,6 +70,7 @@ export default {
   initializeForm,
   destroyForm,
   loadFormBackingEncounter,
+  clearFormBackingEncounter,
   formBackingEncounterLoaded,
   setFormState
 };

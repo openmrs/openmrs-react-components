@@ -39,7 +39,7 @@ class Alert extends Component {
 
     const serverOffset = system.timeZone ? getUTCOffset(serverTime, findTimeZone(`${system.timeZone}`)).offset : 0;
 
-    const hasTimeZoneOffset = serverOffset !== deviceOffset;
+    const hasTimeZoneOffset = system.systemConnection && serverOffset !== deviceOffset;
 
     const timezoneOffset = Math.abs(
       deviceOffset - serverOffset
@@ -51,8 +51,8 @@ class Alert extends Component {
         deviceTime
       ));
 
-    const hasTimeDifference = timeDifference > 5;
-    const hasConnection = system.systemConnection && navigator.onLine;
+    const hasTimeDifference = system.systemConnection && timeDifference > 5;
+    const noConnection = (typeof system.systemConnection !== 'undefined' && !system.systemConnection) || !navigator.onLine;
 
     let alertMessages = [];
 
@@ -70,7 +70,7 @@ class Alert extends Component {
       });
     }
 
-    if (!hasConnection) {
+    if (noConnection) {
       alertMessages = [{
         message: 'APPLICATION DISCONECTED FROM SERVER',
         type: 'connectivity-alert'
@@ -89,7 +89,7 @@ class Alert extends Component {
       });
     }
 
-    const display = (hasTimeDifference || hasTimeZoneOffset || !hasConnection);
+    const display = (hasTimeDifference || hasTimeZoneOffset || noConnection);
 
 
     const displayStyle = display

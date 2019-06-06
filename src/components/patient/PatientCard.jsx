@@ -2,6 +2,7 @@ import React from 'react';
 import { format } from 'date-fns';
 import { uniqBy, prop } from "ramda";
 import {DATE_FORMAT} from "../../constants";
+import { formatAge } from '../../features/patient/utils'
 
 const PatientCard = (patient, index, onRowSelected, getPatientIdentifiers) => (
   <div 
@@ -15,7 +16,7 @@ const PatientCard = (patient, index, onRowSelected, getPatientIdentifiers) => (
       </span>
       <span className="gender-age">
         <span className="gender">{patient.gender && patient.gender === 'M' ? "Male" : "Female"}</span>
-        <span className="age">{patient.age && patient.age} yrs old</span>
+        <span className="age">{formatAge(patient.birthdate).age}</span>
         <span className="dob">({patient.birthdate && format(patient.birthdate, DATE_FORMAT)})</span>
       </span>
       {patient.alert &&         

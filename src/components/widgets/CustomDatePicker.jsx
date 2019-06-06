@@ -90,7 +90,7 @@ class CustomDatePicker extends PureComponent {
       field,
     });
     if (typeof input !== 'undefined') {
-      if (input.value !== this.props.input.value && input.value !== 'Invalid Date') {
+      if (input.value !== this.props.input.value && input.value && input.value !== 'Invalid Date') {
         this.setState({
           selectedDate: parse(input.value)
         });
@@ -159,7 +159,7 @@ class CustomDatePicker extends PureComponent {
           labelClassName={otherProps.labelClassName}
         />
       }
-        dateFormat="dd MMM YYYY"
+        dateFormat="dd MMM yyyy"
         onChange={this.handleChange}
         selected={selected}
         excludeDates={[hasInput]}

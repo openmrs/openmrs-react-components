@@ -96,7 +96,7 @@ class EncounterFormPanel extends React.PureComponent {
   handleCancel() {
     if (this.getForm().state === FORM_STATES.EDITING) {
       // if no existing encounter (ie "Enter" mode) redirect to any back link
-      if (!this.props.encounter && this.props.backLink) {
+      if (!this.getForm().encounter && this.props.backLink) {
         if (typeof this.props.backLink === 'string') {
           this.props.dispatch(push(this.props.backLink));
         } else if (typeof this.props.backLink === 'function') {
@@ -128,7 +128,6 @@ class EncounterFormPanel extends React.PureComponent {
   }
 
   render() {
-
     return (
       <div style={this.divContainer}>
         <Grid style={this.divContainer}>
@@ -183,12 +182,12 @@ class EncounterFormPanel extends React.PureComponent {
                         <Cancel onClick={this.handleCancel} /> : <Button onClick={this.handleBack}>Back</Button>
                       }
                     </Col>
-                    <Col xs={6}>
+                    {!this.props.hideSubmitActionButtons &&  <Col xs={6}>
                       {this.getForm().state === FORM_STATES.EDITING ?
                         (<Submit style={this.floatRight} onClick={this.exitEditMode}/>) :
-                        (<Button style={this.floatRight} onClick={this.enterEditMode}>Edit</Button>)
-                      }
+                        (<Button style={this.floatRight} onClick={this.enterEditMode}>Edit</Button>)}
                     </Col>
+                    }
                   </Row>
                 </Grid>)
               }
@@ -214,6 +213,7 @@ EncounterFormPanel.propTypes = {
   formInstanceId: PropTypes.string,
   formSubmittedActionCreators: PropTypes.array,
   hideActionButtons: PropTypes.bool,
+  hideSubmitActionButtons: PropTypes.bool,
   location: PropTypes.object,
   orderForObs: PropTypes.object,
   patient: PropTypes.object.isRequired,

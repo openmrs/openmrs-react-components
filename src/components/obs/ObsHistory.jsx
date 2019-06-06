@@ -7,7 +7,7 @@ import { startOfDay, parse  } from 'date-fns';
 import ObsValue from '../obs/ObsValue';
 import obsRest from '../../rest/obsRest';
 import { selectors } from "../../store";
-import { formatDate } from "../../util/dateUtil";
+import { formatDatetime, formatDate, hasTimeComponent } from "../../util/dateUtil";
 import Loader from "../widgets/Loader";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
@@ -111,16 +111,15 @@ class ObsHistory extends React.PureComponent {
     return set;
   }
 
+  formatObsDate(obs) {
+    return hasTimeComponent(this.getDateFromObs(obs)) ?
+      formatDatetime(this.getDateFromObs(obs))
+      : formatDate(this.getDateFromObs(obs));
+  }
+
   render() {
 
-    if (this.state.loading) {
-      return (
-        <div>
-          <Loader />
-        </div>
-      );
-    }
-    else {
+    if (!this.state.loading) {
       return (
         <div>
           {this.state.obs.map((obsByDateAndEncounterAndGroup) =>
@@ -133,7 +132,9 @@ class ObsHistory extends React.PureComponent {
                       { this.isEditableEncounter(obsByEncounterAndGroup[0][0].encounter) ?
                         (<a onClick={() => this.onEditEncounterClick(obsByEncounterAndGroup[0][0].encounter.uuid)}>
                           <u>
-                            {formatDate(this.getDateFromObs(obsByEncounterAndGroup[0][0]))}
+                            {
+                              this.formatObsDate(obsByEncounterAndGroup[0][0])
+                            }
                           </u>
                           &nbsp;
                           <FontAwesomeIcon
@@ -142,7 +143,9 @@ class ObsHistory extends React.PureComponent {
                         </a>)
                         :
                         (<u>
-                          { formatDate(this.getDateFromObs(obsByEncounterAndGroup[0][0])) }
+                          {
+                            this.formatObsDate(obsByEncounterAndGroup[0][0])
+                          }
                         </u>)
                       }
                     </h5>)}
@@ -178,6 +181,11 @@ class ObsHistory extends React.PureComponent {
         </div>
       );
     }
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   }
 }
 

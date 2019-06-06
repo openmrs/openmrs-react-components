@@ -5,7 +5,7 @@
 import * as R from 'ramda';
 import  { cloneDeep } from 'lodash';
 import { ATTRIBUTE_TYPES } from './constants';
-import {trimTimeComponentFromISOString} from "../../util/dateUtil";
+import { trimTimeComponentFromISOString } from "../../util/dateUtil";
 
 /*
 
@@ -101,9 +101,14 @@ const patientUtil = {
   },
 
   getIdentifiers: (patient, identifierType) => {
-    return patient.identifiers ? patient.identifiers
-      .filter((i) => identifierType ? i.identifierType.uuid === identifierType.uuid : true)
-      .map((i) => i.identifier) : [];
+    if (identifierType) {
+      return patient.identifiers ? patient.identifiers
+        .filter((i) => identifierType ? i.identifierType.uuid === identifierType.uuid : true)
+        .map((i) => i.identifier) : [];
+    } else {
+      return patient.identifiers ? patient.identifiers
+        .map((i) => i.identifier) : [];
+    }
   },
 
   getIdentifiersAndPreferred: (patient, identifierType) => {

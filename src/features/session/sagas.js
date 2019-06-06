@@ -18,8 +18,7 @@ function* fetchCurrentSession() {
 
 function* setSession(action) {
   try {
-    const sessionLocation = { location: action.sessionLocation };
-    const session = yield call(sessionApi.setCurrentSessionLocation, { location: sessionLocation });
+    const session = yield call(sessionApi.setCurrentSessionLocation, { location: action.sessionLocation });
     const authorization = yield select(state => state.openmrs.session.authorization);
     yield put(sessionActions.setSessionSucceeded(session, { authorization : authorization }));
   }

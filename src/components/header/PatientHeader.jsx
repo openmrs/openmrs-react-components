@@ -7,6 +7,7 @@ import { withRouter } from "react-router";
 import { selectors } from '../../store';
 import { DATE_FORMAT } from "../../constants";
 import patientUtil from '../../domain/patient/patientUtil';
+import { formatAge } from '../../features/patient/utils';
 import '../../../assets/css/patientHeader.css';
 
 export class PatientHeader extends PureComponent {
@@ -49,8 +50,10 @@ export class PatientHeader extends PureComponent {
   componentWillReceiveProps(nextProps) {
     const { patient } = this.state;
     if (nextProps.patient.uuid !== patient.uuid) {
+      const updatedPatient = patientUtil.createFromRestRep(this.props.patient);
       this.setState({
-        patient: patientUtil.createFromRestRep(this.props.patient),
+        patient: updatedPatient,
+        patientIdentifiers: patientUtil.getIdentifiers(updatedPatient)
       });
     }
   }
@@ -66,7 +69,7 @@ export class PatientHeader extends PureComponent {
   }
 
   renderDemographics() {
-
+    const { age } = formatAge(this.state.patient.birthdate);
     return (
       <div className="demographics" onClick={this.handlePatientLink}>
         <h2 className="name">
@@ -87,9 +90,10 @@ export class PatientHeader extends PureComponent {
 
           &nbsp;
           <span className="gender-age">
-            <span className="gender">{this.state.patient.gender === 'M' ? "Male" : "Female"}&nbsp;</span>
+            <span className="gender">{this.state.patient.gender === 'M' ? "Male" : "Female"}</span>
             <span className="age">
-              {this.state.patient.age} year(s) { this.state.patient.birthdate ? ('(' + dateFns.format(this.state.patient.birthdate, DATE_FORMAT) + ')') : ''}
+              {age}
+              { this.state.patient.birthdate && ('(' + dateFns.format(this.state.patient.birthdate, DATE_FORMAT) + ')') }
             </span>
           </span>
         </h2>

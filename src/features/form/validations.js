@@ -1,4 +1,6 @@
 
+import { format } from "date-fns";
+
 const minValue = min => value => 
   value && value < min ? `Must be at least ${min}` : undefined;
 
@@ -19,12 +21,27 @@ const isRequired = value => value ? undefined : 'Required';
 
 const dateToInt = dateStr => new Date(dateStr).getTime();
 
-const maxDateValue = maxDate => value => {
+const maxDateValue = (maxDate, reference, customText) => value => {
   if (!value || typeof dateToInt(value) !== 'number') {
     return undefined;
   }
-  return value && (dateToInt(value)) > dateToInt(maxDate) ? `Date should be earlier or equal to today's date` : undefined;
-}
+  if (value && (dateToInt(format(value, "YYYY-MM-DD"))) > (dateToInt(format(maxDate, "YYYY-MM-DD")))) {
+    return reference ? `Date should be earlier or equal to ${reference} date` : customText;
+  } else {
+    return undefined;
+  }
+};
+
+const minDateValue = (minDate, reference, customText) => value => {
+  if (!value || typeof dateToInt(value) !== 'number') {
+    return undefined;
+  }
+  if (value && (dateToInt(format(value, "YYYY-MM-DD")) < dateToInt(format(minDate, "YYYY-MM-DD")))) {
+    return reference ? `Date should be later or equal to ${reference} date` : customText;
+  } else {
+    return undefined;
+  }
+};
 
 const generateAbsoluteRangeValidators = concept => {
   const {
@@ -70,6 +87,7 @@ export default {
   criticalMinValue,
   criticalMaxValue,
   maxDateValue,
+  minDateValue,
   generateAbsoluteRangeValidators,
   generateAbnormalAndCriticalWarningFunctions,
   isRequired

@@ -184,9 +184,9 @@ function* submit(action) {
       for (let i = 0; i < obsToDelete.length; i++) {
         yield call(obsRest.deleteObs, obsToDelete[i]);
       }
-      // we have to refetch the encounter if we've deleted any obs
-      updatedEncounter = yield call(encounterRest.getEncounter, updatedEncounter.uuid);
     }
+    // we should refetch the encounter to because create and update only return minimal representations
+    updatedEncounter = yield call(encounterRest.getEncounter, updatedEncounter.uuid);
 
     yield put(formActions.formBackingEncounterLoaded(action.formInstanceId, updatedEncounter));
     yield put(formActions.formSubmitSucceeded(action.formInstanceId, action.formSubmittedActionCreator));
