@@ -23,7 +23,7 @@
     "ag-grid-react": "^18.1.0",
     "axios": "^0.18.0",
     "connected-react-router": "^4.3.0",
-    "date-fns": "^1.29.0",
+    "date-fns": "1.29.0",
     "date-fns-timezone": "^0.1.4",
     "i": "^0.3.6",
     "intl": "^1.2.5",
