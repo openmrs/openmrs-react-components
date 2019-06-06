@@ -159,7 +159,7 @@ class CustomDatePicker extends PureComponent {
           labelClassName={otherProps.labelClassName}
         />
       }
-        dateFormat="dd MMM YYYY"
+        dateFormat="dd MMM yyyy"
         onChange={this.handleChange}
         selected={selected}
         excludeDates={[hasInput]}
