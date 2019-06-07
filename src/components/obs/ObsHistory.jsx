@@ -73,10 +73,10 @@ class ObsHistory extends React.PureComponent {
 
   }
 
-  isEditableEncounter(encounter, obs) {
+  isEditableEncounter(encounter, obsList) {
     return encounter &&
       (encounter.encounterType && this.props.editableEncounterTypes.map(e => e.uuid).includes(encounter.encounterType.uuid)) && // encounter type is in list of editable encounter types
-      (!this.props.editableFunc || this.props.editableFunc(encounter, obs));  // and, if a custom editable function is provided, it must return true
+      (!this.props.editableFunc || this.props.editableFunc(encounter, obsList));  // and, if a custom editable function is provided, it must return true
   }
 
   onEditEncounterClick(encounterUuid) {
@@ -127,10 +127,7 @@ class ObsHistory extends React.PureComponent {
   getFirstObsFromObsByEncounterAndGroup(obsByEncounterAndGroup) {
     return obsByEncounterAndGroup[0][0];
   }
-
-  flattenObsByEncounterAndGroup(obsByEncounterAndGroup) {
-    return obsByEncounterAndGroup.flat();
-  }
+  
 
   render() {
 
@@ -147,7 +144,7 @@ class ObsHistory extends React.PureComponent {
                 <div key={firstObs.uuid}>
                   {this.props.showDates && (
                     <h5>
-                      { this.isEditableEncounter(this.getEncounterFromObsByEncounterAndGroup(obsByEncounterAndGroup), this.flattenObsByEncounterAndGroup(obsByEncounterAndGroup)) ?
+                      { this.isEditableEncounter(this.getEncounterFromObsByEncounterAndGroup(obsByEncounterAndGroup), obsByEncounterAndGroup.flat()) ?
                         (<a onClick={() => this.onEditEncounterClick(this.getEncounterFromObsByEncounterAndGroup(obsByEncounterAndGroup).uuid)}>
                           <u>
                             {
