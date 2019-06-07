@@ -121,13 +121,17 @@ class ObsHistory extends React.PureComponent {
 
   getEncounterFromObsByEncounterAndGroup(obsByEncounterAndGroup) {
     // all obs should have the same encounter, so just fetch the encounter from the obs
-    return this.getFirstObsFromObsByEncounterAndGroup(obsByEncounterAndGroup).encounter;
+    const firstObs = this.getFirstObsFromObsByEncounterAndGroup(obsByEncounterAndGroup);
+    return firstObs ? firstObs.encounter : null;
   }
 
   getFirstObsFromObsByEncounterAndGroup(obsByEncounterAndGroup) {
     return obsByEncounterAndGroup[0][0];
   }
-  
+
+  flattenObsByEncounterAndGroup(obsByEncounterAndGroup) {
+    return obsByEncounterAndGroup ? obsByEncounterAndGroup.flat() : [];
+  }
 
   render() {
 
@@ -144,7 +148,7 @@ class ObsHistory extends React.PureComponent {
                 <div key={firstObs.uuid}>
                   {this.props.showDates && (
                     <h5>
-                      { this.isEditableEncounter(this.getEncounterFromObsByEncounterAndGroup(obsByEncounterAndGroup), obsByEncounterAndGroup.flat()) ?
+                      { this.isEditableEncounter(this.getEncounterFromObsByEncounterAndGroup(obsByEncounterAndGroup), this.flattenObsByEncounterAndGroup(obsByEncounterAndGroup)) ?
                         (<a onClick={() => this.onEditEncounterClick(this.getEncounterFromObsByEncounterAndGroup(obsByEncounterAndGroup).uuid)}>
                           <u>
                             {
