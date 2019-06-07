@@ -130,7 +130,7 @@ class ObsHistory extends React.PureComponent {
   }
 
   flattenObsByEncounterAndGroup(obsByEncounterAndGroup) {
-    return obsByEncounterAndGroup ? obsByEncounterAndGroup.flat() : [];
+    return Array.isArray(obsByEncounterAndGroup) ? obsByEncounterAndGroup.flat() : [];
   }
 
   render() {
