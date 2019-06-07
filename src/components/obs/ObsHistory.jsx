@@ -73,10 +73,8 @@ class ObsHistory extends React.PureComponent {
 
   }
 
-  isEditableEncounter(encounter, obsList) {
-    return encounter &&
-      (encounter.encounterType && this.props.editableEncounterTypes.map(e => e.uuid).includes(encounter.encounterType.uuid)) && // encounter type is in list of editable encounter types
-      (!this.props.editableFunc || this.props.editableFunc(encounter, obsList));  // and, if a custom editable function is provided, it must return true
+  isEditableEncounter(encounter) {
+    return encounter && encounter.encounterType && this.props.editableEncounterTypes.map(e => e.uuid).includes(encounter.encounterType.uuid);
   }
 
   onEditEncounterClick(encounterUuid) {
@@ -127,18 +125,15 @@ class ObsHistory extends React.PureComponent {
           {this.state.obs.map((obsByDateAndEncounterAndGroup) =>
             obsByDateAndEncounterAndGroup.map((obsByEncounterAndGroup) => {
 
-              // just pull the first obs out of the group to use later as the key for the div and to display the date (which should be the same across all obs)
-              const firstObs = this.getFirstObsFromObsByEncounterAndGroup(obsByEncounterAndGroup);
-
               return (
-                <div key={firstObs.uuid}>
+                <div key={obsByEncounterAndGroup[0][0].uuid}>
                   {this.props.showDates && (
                     <h5>
                       { this.isEditableEncounter(obsByEncounterAndGroup[0][0].encounter) ?
                         (<a onClick={() => this.onEditEncounterClick(obsByEncounterAndGroup[0][0].encounter.uuid)}>
                           <u>
                             {
-                              this.formatObsDate(firstObs)
+                              this.formatObsDate(obsByEncounterAndGroup[0][0])
                             }
                           </u>
                           &nbsp;
@@ -149,7 +144,7 @@ class ObsHistory extends React.PureComponent {
                         :
                         (<u>
                           {
-                            this.formatObsDate(firstObs)
+                            this.formatObsDate(obsByEncounterAndGroup[0][0])
                           }
                         </u>)
                       }
@@ -198,7 +193,6 @@ ObsHistory.propTypes = {
   answers: PropTypes.array,
   concepts: PropTypes.array,
   editableEncounterTypes: PropTypes.array,
-  editableFunc: PropTypes.func,  // allows one to provide a custom function to determine if a specific encounter should be editable
   groupingConcepts: PropTypes.array,
   labels: PropTypes.object,
   loading: PropTypes.bool,
