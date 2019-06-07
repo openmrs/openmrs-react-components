@@ -5,6 +5,8 @@ const util = {
   // TODO update this next two methods to use form field and namespace instead of comment when running OpenMRS 1.11+
   getFormAndPathFromObs: (obs) => {
 
+    if (!obs.comment) { return {}; }
+
     const [form, ...path] = obs.comment.split("^");
 
     return {
@@ -16,6 +18,11 @@ const util = {
 
   setFormAndPathOnObs: (obs, form, path) => {
     obs.comment = form + "^" + path.join("^");
+  },
+
+  hasFormAndPath: (obs) => {
+    const { form, path } = util.getFormAndPathFromObs(obs);
+    return (typeof form !== 'undefined' && typeof path !== 'undefined' && path.length > 0);
   },
 
   hasMatchingFormAndPath: (obs, testForm, testPath) => {
