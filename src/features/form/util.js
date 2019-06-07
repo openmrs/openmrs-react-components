@@ -3,6 +3,7 @@ import generalUtil from '../../util/generalUtil';
 const util = {
 
   // TODO update this next two methods to use form field and namespace instead of comment when running OpenMRS 1.11+
+  // given an obs, finds the form field and and path for that obs (currently stored in comment, but will be expanded)
   getFormAndPathFromObs: (obs) => {
 
     if (!obs.comment) { return {}; }
