@@ -62,6 +62,7 @@ class Obs extends React.PureComponent {
           name={this.props.name}
           usePortalMode={this.props.usePortalMode}
           minDate={this.props.minDate}
+          maxDate={this.props.maxDate}
           validate={validations}
         />
       );
