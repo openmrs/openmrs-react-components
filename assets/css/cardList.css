@@ -50,10 +50,6 @@
   margin-right: 10px;
 }
 
-.given-name::after {
-  content: ',';
-}
-
 .family-name {
   font-size: 20px;
 }
