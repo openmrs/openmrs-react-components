@@ -5,7 +5,7 @@ import axios from 'axios';
 // see: https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-custom-environment-variables
 // otherwise doesn't set the address and gets the context path by examining the window object
 
-const REQUEST_TIMEOUT = 20000; // 20,000 ms or 20 sec
+const REQUEST_TIMEOUT = 60000; // 60,000 ms or 60 sec
 
 const serverAddress = (typeof process !== 'undefined' && typeof process.env !== 'undefined' &&
   typeof process.env.REACT_APP_SERVER_ADDRESS !== 'undefined' && process.env.REACT_APP_SERVER_ADDRESS !== null) ?
