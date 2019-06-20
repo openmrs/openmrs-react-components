@@ -199,7 +199,7 @@ class CardList extends React.Component {
             </span>
           </div>
           <div>
-            <span className="no-of-patients">{`${filteredRowData.length} Patients`}</span>
+            <span className="no-of-patients">{`${filteredRowData.length} Patient${filteredRowData.length == 1? '' : 's'}`}</span>
           </div>
         </div>
         }
