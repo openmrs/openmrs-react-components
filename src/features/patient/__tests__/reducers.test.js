@@ -39,7 +39,8 @@ describe('patient set reducer', () => {
     expect(patientsReducer(undefined, {})).toEqual( {
       set: {},
       selected: null,
-      isUpdating: false
+      isUpdating: false,
+      isError: false
     });
   });
 
@@ -47,7 +48,8 @@ describe('patient set reducer', () => {
     const patients = patientsReducer({
       set: {},
       selected: null,
-      isUpdating: true
+      isUpdating: true,
+      isError: false
     }, {
       type: PATIENT_TYPES.SET_PATIENT_STORE,
       patients: [samplePatient, anotherSamplePatient]
@@ -57,13 +59,15 @@ describe('patient set reducer', () => {
     expect(patients.set['efgh-5678']).toEqual(anotherSamplePatient);
     expect(patients.selected).toBeNull();
     expect(patients.isUpdating).toBe(false);
+    expect(patients.isError).toBe(false);
   });
 
   it('should handle empty patient list', () => {
     const patients = patientsReducer({
       set: {},
       selected: null,
-      isUpdating: true
+      isUpdating: true,
+      isError: false
     }, {
       type: PATIENT_TYPES.SET_PATIENT_STORE,
       patients: []
@@ -72,7 +76,8 @@ describe('patient set reducer', () => {
     expect(patients).toEqual( {
       set: {},
       selected: null,
-      isUpdating: false
+      isUpdating: false,
+      isError: false
     });
   });
 
@@ -80,7 +85,8 @@ describe('patient set reducer', () => {
     const patients = patientsReducer({
       set: {},
       selected: null,
-      isUpdating: true
+      isUpdating: true,
+      isError: false,
     }, {
       type: PATIENT_TYPES.SET_PATIENT_STORE
     });
@@ -88,7 +94,8 @@ describe('patient set reducer', () => {
     expect(patients).toEqual( {
       set: {},
       selected: null,
-      isUpdating: false
+      isUpdating: false,
+      isError: false
     });
   });
 
@@ -100,8 +107,9 @@ describe('patient set reducer', () => {
           'abcd-1234': { "uuid": "abcd-1234" },
           'efgh-5678': { "uuid": "efgh-5678" },
         },
+        selected: 'abcd-efgh',
         isUpdating: false,
-        selected: 'abcd-efgh'
+        isError: false
       }, {
         type: PATIENT_TYPES.CLEAR_PATIENT_STORE
       });
@@ -109,7 +117,8 @@ describe('patient set reducer', () => {
     expect(patients).toEqual( {
       set: {},
       selected: null,
-      isUpdating: false
+      isUpdating: false,
+      isError: false
     });
   });
 
@@ -120,8 +129,9 @@ describe('patient set reducer', () => {
           'abcd-1234': { "uuid": "abcd-1234" },
           'efgh-5678': { "uuid": "efgh-5678" },
         },
+        selected: 'abcd-efgh',
         isUpdating: false,
-        selected: 'abcd-efgh'
+        isError: false
       }, {
         type: PATIENT_TYPES.UPDATE_ACTIVE_VISITS_IN_STORE,
         visits: [sampleVisit, anotherSampleVisit]
@@ -131,6 +141,7 @@ describe('patient set reducer', () => {
     expect(patients.set['efgh-5678']['visit']).toEqual(anotherSampleVisit);
     expect(patients.selected).toBe('abcd-efgh');
     expect(patients.isUpdating).toBe(false);
+    expect(patients.isError).toBe(false);
   });
 
   it('should handle empty visits list', () => {
@@ -140,8 +151,9 @@ describe('patient set reducer', () => {
           'abcd-1234': { "uuid": "abcd-1234" },
           'efgh-5678': { "uuid": "efgh-5678" },
         },
+        selected: 'abcd-efgh',
         isUpdating: true,
-        selected: 'abcd-efgh'
+        isError: false
       }, {
         type: PATIENT_TYPES.UPDATE_ACTIVE_VISITS_IN_STORE,
         visits: []
@@ -151,6 +163,7 @@ describe('patient set reducer', () => {
     expect(patients.set['efgh-5678']['visit']).toBeUndefined();
     expect(patients.selected).toBe('abcd-efgh');
     expect(patients.isUpdating).toBe(false);
+    expect(patients.isError).toBe(false);
   });
 
   it('should handle undefined visits list', () => {
@@ -160,8 +173,9 @@ describe('patient set reducer', () => {
           'abcd-1234': { "uuid": "abcd-1234" },
           'efgh-5678': { "uuid": "efgh-5678" },
         },
+        selected: 'abcd-efgh',
         isUpdating: true,
-        selected: 'abcd-efgh'
+        isError: false
       }, {
         type: PATIENT_TYPES.UPDATE_ACTIVE_VISITS_IN_STORE,
       });
@@ -170,6 +184,7 @@ describe('patient set reducer', () => {
     expect(patients.set['efgh-5678']['visit']).toBeUndefined();
     expect(patients.selected).toBe('abcd-efgh');
     expect(patients.isUpdating).toBe(false);
+    expect(patients.isError).toBe(false);
   });
 
   // we are no longer supporting this use case
@@ -205,33 +220,6 @@ describe('patient set reducer', () => {
       });
   });*/
 
-  it('add patient should not add patient if patient already in Object map', () => {
-
-    const initial = {
-      set:
-        {
-          'abcd-1234': {
-            _openmrsClass: "Patient",
-            uuid: "abcd-1234",
-            givenName: "Bob"
-          }
-        },
-      selected: null,
-      isUpdating: false
-    };
-
-    const updated = patientsReducer(initial, {
-      type: PATIENT_TYPES.ADD_PATIENT_TO_STORE,
-      patient: {
-        uuid: "abcd-1234",
-        givenName: "Joe"
-      }
-    });
-
-    expect(updated).toEqual(initial);
-
-  });
-
   it('update patient should update patient if patient already in Object map', () => {
 
     const initial = {
@@ -243,7 +231,8 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: true
+      isUpdating: true,
+      isError: false
     };
 
     const expected = {
@@ -255,7 +244,8 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: false
+      isUpdating: false,
+      isError: false
     };
 
     const updated = patientsReducer(initial, {
@@ -290,7 +280,8 @@ describe('patient set reducer', () => {
         "abcd-1234": existingPatient
       },
       selected: null,
-      isUpdating: true
+      isUpdating: true,
+      isError: false,
     };
 
     const expected = {
@@ -299,7 +290,8 @@ describe('patient set reducer', () => {
         "efgh-5678": newPatient
       },
       selected: null,
-      isUpdating: false
+      isUpdating: false,
+      isError: false
     };
 
 
@@ -326,7 +318,8 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: true
+      isUpdating: true,
+      isError: false
     };
 
     const expected = {
@@ -341,7 +334,8 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: false
+      isUpdating: false,
+      isError: false
     };
 
     const updated = patientsReducer(initial, {
@@ -374,7 +368,8 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: true
+      isUpdating: true,
+      isError: false
     };
 
     const expected = {
@@ -391,7 +386,8 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: false
+      isUpdating: false,
+      isError: false
     };
 
     const updated = patientsReducer(initial, {
@@ -420,7 +416,8 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: true
+      isUpdating: true,
+      isError: false
     };
 
     const expected = {
@@ -437,7 +434,8 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: false
+      isUpdating: false,
+      isError: false
     };
 
     const updated = patientsReducer(initial, {
@@ -471,7 +469,8 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: true
+      isUpdating: true,
+      isError: false
     };
 
     const expected = {
@@ -488,7 +487,8 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: false
+      isUpdating: false,
+      isError: false
     };
 
     const updated = patientsReducer(initial, {
@@ -522,7 +522,8 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: true
+      isUpdating: true,
+      isError: false
     };
 
     const expected = {
@@ -539,7 +540,8 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: false
+      isUpdating: false,
+      isError: false
     };
 
     const updated = patientsReducer(initial, {
@@ -572,7 +574,8 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: true
+      isUpdating: true,
+      isError: false
     };
 
     const expected = {
@@ -587,7 +590,8 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: false
+      isUpdating: false,
+      isError: false
     };
 
     const updated = patientsReducer(initial, {
@@ -617,7 +621,8 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: false
+      isUpdating: false,
+      isError: false
     };
 
     const expected = {
@@ -629,7 +634,8 @@ describe('patient set reducer', () => {
         }
       },
       selected: "abc-1234",
-      isUpdating: false
+      isUpdating: false,
+      isError: false
     };
 
     const patient = {};
@@ -653,7 +659,8 @@ describe('patient set reducer', () => {
         }
       },
       selected: "abc-1234",
-      isUpdating: true
+      isUpdating: true,
+      isError: false
     };
 
     const expected = {
@@ -665,7 +672,8 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: true
+      isUpdating: true,
+      isError: false
     };
 
     expect(patientsReducer(initial, {
@@ -685,7 +693,8 @@ describe('patient set reducer', () => {
         }
       },
       selected: "abc-1234",
-      isUpdating: false
+      isUpdating: false,
+      isError: false
     };
 
     const expected = {
@@ -697,7 +706,8 @@ describe('patient set reducer', () => {
         }
       },
       selected: "abc-1234",
-      isUpdating: true
+      isUpdating: true,
+      isError: false
     };
 
     expect(patientsReducer(initial, {
@@ -717,7 +727,8 @@ describe('patient set reducer', () => {
         }
       },
       selected: "abcd-1234",
-      isUpdating: true
+      isUpdating: true,
+      isError: false
     };
 
     const expected = {
@@ -732,6 +743,219 @@ describe('patient set reducer', () => {
 
   });
 
+  it('should set error flag and clear patient store', () => {
+    const patients = patientsReducer(
+      {
+        set: {
+          'abcd-1234': { "uuid": "abcd-1234" },
+          'efgh-5678': { "uuid": "efgh-5678" },
+        },
+        selected: 'abcd-efgh',
+        isUpdating: false,
+        isError: false
+      }, {
+        type: PATIENT_TYPES.SET_PATIENT_STORE_ERROR
+      });
+
+    expect(patients).toEqual( {
+      set: {},
+      selected: null,
+      isUpdating: false,
+      isError: true
+    });
+  });
+
+  it('setting patient store should clear error flag', () => {
+    const patients = patientsReducer({
+      set: {},
+      selected: null,
+      isUpdating: true,
+      isError: true
+    }, {
+      type: PATIENT_TYPES.SET_PATIENT_STORE,
+      patients: [samplePatient, anotherSamplePatient]
+    });
+
+    expect(patients.set['abcd-1234']).toEqual(samplePatient);
+    expect(patients.set['efgh-5678']).toEqual(anotherSamplePatient);
+    expect(patients.selected).toBeNull();
+    expect(patients.isUpdating).toBe(false);
+    expect(patients.isError).toBe(false);
+  });
+
+  it('clear patient store should clear error flag', () => {
+    const patients = patientsReducer(
+      {
+        set: {
+          'abcd-1234': { "uuid": "abcd-1234" },
+          'efgh-5678': { "uuid": "efgh-5678" },
+        },
+        selected: 'abcd-efgh',
+        isUpdating: false,
+        isError: true
+      }, {
+        type: PATIENT_TYPES.CLEAR_PATIENT_STORE
+      });
+
+    expect(patients).toEqual( {
+      set: {},
+      selected: null,
+      isUpdating: false,
+      isError: false
+    });
+  });
+
+  it('set is updating should not clear error flag', () => {
+
+    const initial = {
+      set: {
+        'abcd-1234': {
+          _openmrsClass: "Patient",
+          uuid: "abcd-1234",
+          givenName: "Bob"
+        }
+      },
+      selected: "abc-1234",
+      isUpdating: false,
+      isError: true
+    };
+
+    const expected = {
+      set: {
+        'abcd-1234': {
+          _openmrsClass: "Patient",
+          uuid: "abcd-1234",
+          givenName: "Bob"
+        }
+      },
+      selected: "abc-1234",
+      isUpdating: true,
+      isError: true
+    };
+
+    expect(patientsReducer(initial, {
+      type: PATIENT_TYPES.SET_PATIENT_STORE_UPDATING,
+    })).toEqual(expected);
+
+  });
+
+  it('set is not updating should not clear error flag', () => {
+
+    const initial = {
+      set: {
+        'abcd-1234': {
+          _openmrsClass: "Patient",
+          uuid: "abcd-1234",
+          givenName: "Bob"
+        }
+      },
+      selected: "abc-1234",
+      isUpdating: true,
+      isError: true
+    };
+
+    const expected = {
+      set: {
+        'abcd-1234': {
+          _openmrsClass: "Patient",
+          uuid: "abcd-1234",
+          givenName: "Bob"
+        }
+      },
+      selected: "abc-1234",
+      isUpdating: false,
+      isError: true
+    };
+
+    expect(patientsReducer(initial, {
+      type: PATIENT_TYPES.SET_PATIENT_STORE_NOT_UPDATING,
+    })).toEqual(expected);
+
+  });
+
+  // the only way to clear the error flag is to SET or CLEAR the store;
+  // however, we currently don't *prevent* an update in case of an error, we may want to change this
+  it('update active visits should not clear error flag', () => {
+    const patients = patientsReducer(
+      {
+        set: {
+          'abcd-1234': { "uuid": "abcd-1234" },
+          'efgh-5678': { "uuid": "efgh-5678" },
+        },
+        selected: 'abcd-efgh',
+        isUpdating: false,
+        isError: true
+      }, {
+        type: PATIENT_TYPES.UPDATE_ACTIVE_VISITS_IN_STORE,
+        visits: [sampleVisit, anotherSampleVisit]
+      });
+
+    expect(patients.isError).toBe(true);
+  });
+
+
+  // the only way to clear the error flag is to SET or CLEAR the store;
+  // however, we currently don't *prevent* an update in case of an error, we may want to change this
+  it('update patient should not clear error flag', () => {
+
+    const initial = {
+      set: {
+        'abcd-1234': {
+          _openmrsClass: "Patient",
+          uuid: "abcd-1234",
+          givenName: "Bob"
+        }
+      },
+      selected: null,
+      isUpdating: true,
+      isError: true
+    };
+
+    const updated = patientsReducer(initial, {
+      type: PATIENT_TYPES.UPDATE_PATIENT_IN_STORE,
+      patient: {
+        _openmrsClass: "Patient",
+        uuid: "abcd-1234",
+        givenName: "Joe"
+      }
+    });
+
+    expect(updated.isError).toBe(true);
+
+  });
+
+  // the only way to clear the error flag is to SET or CLEAR the store;
+  // however, we currently don't *prevent* an update in case of an error, we may want to change this
+  it('update patients should not clear error flag', () => {
+
+    const initial = {
+      set: {
+        'abcd-1234': {
+          _openmrsClass: "Patient",
+          uuid: "abcd-1234",
+          givenName: "Bob"
+        },
+        'efgh-5678': {
+          _openmrsClass: "Patient",
+          uuid: "efgh-5678",
+          givenName: "Claire"
+        }
+      },
+      selected: null,
+      isUpdating: true,
+      isError: true
+    };
+
+    const updated = patientsReducer(initial, {
+      type: PATIENT_TYPES.UPDATE_PATIENTS_IN_STORE,
+      patients: [
+      ]
+    });
+
+    expect(updated.isError).toBe(true);
+
+  });
+
   it ('should select selected patient from store', () => {
 
     const store = {
@@ -743,7 +967,8 @@ describe('patient set reducer', () => {
         }
       },
       selected: "abcd-1234",
-      isUpdating: true
+      isUpdating: true,
+      isError: false
     };
 
     const expected = {
@@ -767,7 +992,8 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: true
+      isUpdating: true,
+      isError: false,
     };
 
     expect(getSelectedPatient(store)).toEqual(null);
@@ -785,7 +1011,8 @@ describe('patient set reducer', () => {
         }
       },
       selected: null,
-      isUpdating: true
+      isUpdating: true,
+      isError: false
     };
 
     expect(isUpdating(store)).toEqual(true);
