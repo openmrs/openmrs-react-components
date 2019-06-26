@@ -74,7 +74,7 @@ export class PatientHeader extends PureComponent {
       <div className="demographics" onClick={this.handlePatientLink}>
         <h2 className="name">
           <span>
-            <span className="PersonName-givenName">{patientUtil.getGivenName(this.state.patient)}&nbsp;&nbsp;</span>
+            <span className="PersonName-givenName">{patientUtil.getGivenName(this.state.patient)},&nbsp;&nbsp;</span>
           </span>
 
           {

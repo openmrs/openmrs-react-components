@@ -50,6 +50,10 @@
   margin-right: 10px;
 }
 
+.given-name::after {
+  content: ',';
+}
+
 .family-name {
   font-size: 20px;
 }
@@ -87,15 +91,6 @@
 }
 
 /** FILTERS STYLING */
-.search-by-name-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-}
-
-.no-of-patients {
-  font-size: 20px;
-}
 .name-filter-container {
   padding-top: 10px;
   padding-bottom: 20px;

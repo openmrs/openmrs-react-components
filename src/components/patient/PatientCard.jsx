@@ -19,8 +19,6 @@ const PatientCard = (patient, index, onRowSelected, getPatientIdentifiers) => (
         <span className="age">{formatAge(patient.birthdate).age}</span>
         <span className="dob">({patient.birthdate && format(patient.birthdate, DATE_FORMAT)})</span>
       </span>
-    </div>
-    <div className="middle-items">
       {patient.alert &&         
         <span className="patient-alert">
           {/* This removes duplicate patient alerts */}

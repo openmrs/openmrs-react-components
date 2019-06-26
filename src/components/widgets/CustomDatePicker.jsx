@@ -161,8 +161,6 @@ class CustomDatePicker extends PureComponent {
       }
         dateFormat="dd MMM yyyy"
         onChange={this.handleChange}
-        minDate={this.props.minDate}
-        maxDate={this.props.maxDate}
         selected={selected}
         excludeDates={[hasInput]}
         withPortal={usePortalMode}

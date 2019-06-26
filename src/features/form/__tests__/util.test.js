@@ -193,43 +193,4 @@ describe('form util', () => {
     expect(formUtil.hasMatchingFormAndPath(obs, "form-id", ["different_second_grouping", "first-nested-obs", "double-nested-obs"])).toEqual(false);
   });
 
-  it ('hasFormAndPath should return true if obs has form and path', () => {
-
-    const obs = {
-      comment: "form-id^second_grouping^first-nested-obs^double-nested-obs"
-    };
-
-    expect(formUtil.hasFormAndPath(obs)).toEqual(true);
-
-  });
-
-  it ('hasFormAndPath should return false if does not have form and path', () => {
-
-    const obs = {
-      comment: "just a typical comment"
-    };
-
-    expect(formUtil.hasFormAndPath(obs)).toEqual(false);
-
-  });
-
-  it ('hasFormAndPath should return false if empty comment', () => {
-
-    const obs = {
-      comment: ""
-    };
-
-    expect(formUtil.hasFormAndPath(obs)).toEqual(false);
-
-  });
-
-  it ('hasFormAndPath should return false if no comment', () => {
-
-    const obs = {};
-
-    expect(formUtil.hasFormAndPath(obs)).toEqual(false);
-
-  });
-
-
 });

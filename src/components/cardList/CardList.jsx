@@ -175,7 +175,7 @@ class CardList extends React.Component {
           }
         </div>
 
-        {<div className="search-by-name-container">
+        {<div className="">
           <div className="name-filter-container">
             <span className="name-filter">
               <Glyphicon
@@ -198,11 +198,7 @@ class CardList extends React.Component {
               />
             </span>
           </div>
-          <div>
-            <span className="no-of-patients">{`${filteredRowData.length} Patient${filteredRowData.length == 1? '' : 's'}`}</span>
-          </div>
-        </div>
-        }
+        </div>}
         <div className="card-list-container">
           { loading ? <Loader /> : 
             (filteredRowData.length > 0 ? filteredRowData.map((patientData, index) => 
