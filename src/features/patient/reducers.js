@@ -4,8 +4,9 @@ import PATIENT_TYPES from './types';
 
 export const patientsReducer = (state = {
   set: {},
+  selected: null,
   isUpdating: false,
-  selected: null
+  isError: false
 }, action) => {
 
   switch (action.type) {
@@ -16,6 +17,7 @@ export const patientsReducer = (state = {
         return {
           set: null,
           isUpdating: false,
+          isError: false,
           selected: state.selected
         };
       }
@@ -30,6 +32,7 @@ export const patientsReducer = (state = {
         return {
           set: set,
           isUpdating: false,
+          isError: false,
           selected: state.selected
         };
       }
@@ -39,6 +42,7 @@ export const patientsReducer = (state = {
       return {
         set: {},
         isUpdating: false,
+        isError: false,
         selected: null
       };
 
@@ -60,7 +64,8 @@ export const patientsReducer = (state = {
           }
         },
         selected: state.selected,
-        isUpdating: false
+        isUpdating: false,
+        isError: state.isError
       };
 
     case PATIENT_TYPES.UPDATE_PATIENTS_IN_STORE:
@@ -69,6 +74,7 @@ export const patientsReducer = (state = {
         return {
           set: state.set,
           isUpdating: false,
+          isError: state.isError,
           selected: state.selected
         };
       }
@@ -98,6 +104,7 @@ export const patientsReducer = (state = {
             ...set
           },
           isUpdating: false,
+          isError: false,
           selected: state.selected
         };
       }
@@ -119,35 +126,48 @@ export const patientsReducer = (state = {
       return {
         set: currentPatientsWithUpdatedVisits,
         selected: state.selected,
-        isUpdating: false
+        isUpdating: false,
+        isError: state.isError
       };
 
     case PATIENT_TYPES.SET_SELECTED_PATIENT:
       return {
         set: state.set,
         selected: action.patient ? action.patient.uuid : null,
-        isUpdating: state.isUpdating
+        isUpdating: state.isUpdating,
+        isError: state.isError
       };
 
     case PATIENT_TYPES.CLEAR_SELECTED_PATIENT:
       return {
         set: state.set,
         selected: null,
-        isUpdating: state.isUpdating
+        isUpdating: state.isUpdating,
+        isError: state.isError
       };
 
     case PATIENT_TYPES.SET_PATIENT_STORE_UPDATING:
       return {
         set: state.set,
         selected: state.selected,
-        isUpdating: true
+        isUpdating: true,
+        isError: state.isError
       };
 
     case PATIENT_TYPES.SET_PATIENT_STORE_NOT_UPDATING:
       return {
         set: state.set,
         selected: state.selected,
-        isUpdating: false
+        isUpdating: false,
+        isError: state.isError
+      };
+
+    case PATIENT_TYPES.SET_PATIENT_STORE_ERROR:
+      return {
+        set: {},
+        selected: null,
+        isUpdating: false,
+        isError: true
       };
 
     default: return state;
@@ -160,6 +180,10 @@ export const getPatients = (state) => {
 
 export const isUpdating = (state) => {
   return state.isUpdating;
+};
+
+export const isError = (state) => {
+  return state.isError;
 };
 
 export const getSelectedPatient = (state) => {

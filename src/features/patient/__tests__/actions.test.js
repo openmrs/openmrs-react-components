@@ -84,5 +84,11 @@ describe('patient actions', () => {
     expect(patientActions.clearSelectedPatient()).toEqual(expectedAction);
   });
 
+  it('should create set patient store error action', () => {
+    const expectedAction = {
+      type: PATIENT_TYPES.SET_PATIENT_STORE_ERROR
+    };
+    expect(patientActions.setPatientStoreError()).toEqual(expectedAction);
+  });
 
 });
