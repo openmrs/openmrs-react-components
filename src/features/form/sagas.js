@@ -190,7 +190,10 @@ function* submit(action) {
 
     yield put(formActions.formBackingEncounterLoaded(action.formInstanceId, updatedEncounter));
     yield put(formActions.formSubmitSucceeded(action.formInstanceId, action.formSubmittedActionCreator));
-    yield put(formActions.setFormState(action.formInstanceId, FORM_STATES.VIEWING));
+
+    if (!action.manuallyExitSubmitMode) {
+      yield put(formActions.setFormState(action.formInstanceId, FORM_STATES.VIEWING));
+    }
   }
   catch (e) {
     yield put(formActions.formSubmitFailed(action.formInstanceId));

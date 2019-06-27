@@ -4,6 +4,7 @@ import formActions from '../actions';
 import openmrsFormSagas from '../sagas';
 import encounterRest from '../../../rest/encounterRest';
 import obsRest from '../../../rest/obsRest';
+import {FORM_STATES} from "../constants";
 
 jest.mock('../../../rest/encounterRest');
 jest.mock('../../../rest/obsRest');
@@ -108,6 +109,7 @@ describe('form sagas', () => {
     expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitFailed(formInstanceId));
     expect(formSubmittedActionCreator.mock.calls.length).toBe(1);
     expect(sagaTester.getCalledActions()).toContainEqual(formSubmittedActionCreator());
+    expect(sagaTester.getCalledActions()).toContainEqual(formActions.setFormState(formInstanceId, FORM_STATES.VIEWING))
   });
 
   it('should issue failure if invalid submit', () => {
@@ -521,6 +523,90 @@ describe('form sagas', () => {
     expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitFailed(formInstanceId));
     expect(formSubmittedActionCreator.mock.calls.length).toBe(1);
     expect(sagaTester.getCalledActions()).toContainEqual(formSubmittedActionCreator());
+  });
+
+  it('should not set form state back to VIEW if manuallyExitSubmitMode prop set to true', () => {
+
+    const formInstanceId = "form-instance-id";
+    const date = format(new Date());
+
+    const values =  {
+      'encounter-datetime': date,
+      'obs|path=first-obs|conceptPath=first-obs-uuid': 100 ,
+      'obs|path=second-obs|conceptPath=second-obs-uuid': 200
+    };
+
+    const patient = {
+      uuid: "some_patient_uuid"
+    };
+
+    const encounterType = {
+      uuid: "some_encounter_type_uuid"
+    };
+
+    const location = {
+      uuid: "some_location_uuid"
+    };
+
+    const visit = {
+      uuid: "some_visit_uuid"
+    };
+
+    const provider = {
+      uuid: "some_provider_uuid"
+    };
+
+    const encounterRole = {
+      uuid: "some_encounter_role_uuid"
+    };
+
+    const order = {
+      uuid: "some_order_uuid"
+    };
+
+    const expectedEncounterPost = {
+      "encounterDatetime": date,
+      "location": "some_location_uuid",
+      "encounterProviders": [
+        { "provider": "some_provider_uuid",
+          "encounterRole": "some_encounter_role_uuid"
+        }
+      ],
+      "encounterType": "some_encounter_type_uuid",
+      "obs": [
+        { "comment": "form-id^first-obs",
+          "concept": "first-obs-uuid",
+          "order": "some_order_uuid",
+          "value": 100
+        },
+        { "comment": "form-id^second-obs",
+          "concept": "second-obs-uuid",
+          "order": "some_order_uuid",
+          "value": 200
+        }
+      ],
+      "patient": "some_patient_uuid",
+      "visit": "some_visit_uuid"
+    };
+
+    sagaTester.dispatch(formActions.formSubmitted( {
+      manuallyExitSubmitMode: true,
+      values: values,
+      formId: "form-id",
+      formInstanceId: formInstanceId,
+      patient: patient,
+      encounterRole: encounterRole,
+      encounterType: encounterType,
+      location: location,
+      orderForObs: order,
+      provider: provider,
+      visit: visit,
+      formSubmittedActionCreator:
+      formSubmittedActionCreator
+    } ));
+
+
+    expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.setFormState(formInstanceId, FORM_STATES.VIEWING))
   });
 
 
