@@ -17,21 +17,21 @@ const api = {
 
     let getRequest = `obs/?patient=${patient}`;
 
-    if (concepts != null) {
+    if (concepts) {
       getRequest += `&concepts=${concepts.constructor === String ? concepts : concepts.join(",")}`;
     }
 
     // TODO this clause needs to be tested
-    if (answers != null) {
+    if (answers) {
       getRequest +=`&answers=${answers.constructor === String ? answers : (answers.length > 0 ? answers.join(",") : '')}`;
     }
 
-    if (groupingConcepts != null) {
+    if (groupingConcepts) {
       getRequest += `&groupingConcepts=${groupingConcepts.constructor === String ? groupingConcepts : (groupingConcepts.length > 0 ? groupingConcepts.join(",") : '')}`;
     }
 
     // TODO clause this needs to be tested
-    if (limit != null) {
+    if (limit) {
       getRequest += `&limit=${limit}`;
     }
 
