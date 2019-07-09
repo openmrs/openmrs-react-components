@@ -122,6 +122,9 @@ EncounterForm.propTypes = {
     PropTypes.func]),
   handleSubmit: PropTypes.func.isRequired,
   location: PropTypes.object,
+  manuallyExitSubmitMode: PropTypes.bool,   // defaults to false, if set to true, upon form submittal, submit mode will not exit automatically but becomes
+                                            // the responsibly of the consuming app to set this (usually in some middleware triggered by a form submitted action creator)
+                                            // (use case is when you want to prevent control from being returned to the user until after some external action is complete)
   mode: PropTypes.string.isRequired,
   orderForObs: PropTypes.object,
   patient: PropTypes.object.isRequired,
@@ -131,6 +134,7 @@ EncounterForm.propTypes = {
 };
 
 EncounterForm.defaultProps = {
+  manuallyExitSubmitMode: false,
   mode: 'edit'
 };
 
@@ -153,6 +157,7 @@ const mapStateToProps = (state, props) => {
         encounterType: props.encounterType,
         location: props.location ? props.location :
           sessionLocation ? sessionLocation : null,
+        manuallyExitSubmitMode: props.manuallyExitSubmitMode,
         orderForObs: props.orderForObs,
         provider: props.provider ? props.provider :
           currentProvider ? currentProvider : null,

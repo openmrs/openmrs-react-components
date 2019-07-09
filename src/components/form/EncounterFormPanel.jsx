@@ -165,6 +165,7 @@ class EncounterFormPanel extends React.PureComponent {
               formInstanceId={this.formInstanceId}
               formSubmittedActionCreator={this.formSubmittedActionCreators}
               location={this.props.location}
+              manuallyExitSubmitMode={this.props.manuallyExitSubmitMode}
               mode={this.getForm().state === FORM_STATES.EDITING ? 'edit' : 'view'}
               orderForObs={this.props.orderForObs}
               patient={this.props.patient}
@@ -215,6 +216,7 @@ EncounterFormPanel.propTypes = {
   hideActionButtons: PropTypes.bool,
   hideSubmitActionButtons: PropTypes.bool,
   location: PropTypes.object,
+  manuallyExitSubmitMode: PropTypes.bool,
   orderForObs: PropTypes.object,
   patient: PropTypes.object.isRequired,
   provider: PropTypes.object,
@@ -226,6 +228,7 @@ EncounterFormPanel.propTypes = {
 };
 
 EncounterFormPanel.defaultProps = {
+  manuallyExitSubmitMode: false,
   showDate: false
 };
 
