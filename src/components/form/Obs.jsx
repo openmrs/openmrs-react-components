@@ -36,12 +36,24 @@ class Obs extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    // reset the validation after loading the concept
-    if (!prevProps.concept._openmrsClass && this.props.concept._openmrsClass) {
+    // reset the validation after loading the concept, or if any of the validation ranges have changed
+    if ((!prevProps.concept._openmrsClass && this.props.concept._openmrsClass) || this.validationRangesChanged(prevProps)) {
       this.setState({
         getValidationAbnormalRange: formValidations.generateAbnormalAndCriticalWarningFunctions(this.props.concept),
         getValidationAbsoluteRange: formValidations.generateAbsoluteRangeValidators(this.props.concept)
       });
+    }
+  }
+
+  validationRangesChanged(prevProps) {
+    if (prevProps.concept.hiNormal !== this.props.concept.hiNormal
+      || prevProps.concept.lowNormal !== this.props.concept.lowNormal
+      || prevProps.concept.hiCritical !== this.props.concept.hiCritical
+      || prevProps.concept.lowCritical !== this.props.concept.lowCritical
+      || prevProps.concept.hiAbsolute !== this.props.concept.hiAbsolute
+      || prevProps.concept.lowAbsolute !== this.props.concept.lowAbsolute
+    ) {
+      return true;
     }
   }
 
