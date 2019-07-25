@@ -1,6 +1,5 @@
 import Accordion from './components/accordion/Accordion';
-import { ARangePicker, ASwitch, ASlider, ASelect, AOption, AInputNumber, AInput } from './components/widgets/AntdWidgets'; 
-// import ADynamicFieldSet from './components/widgets/AntdDynamicFieldSet'; 
+import { ARangePicker, ASwitch, ASlider, ASelect, AOption, AInputNumber } from './components/widgets/AntdWidgets'; 
 import AuthenticatedRoute from './components/routes/AuthenticatedRoute';
 import BasicLayout from './components/layout/BasicLayout';
 import ButtonGroup from './components/widgets/ButtonGroup';
@@ -127,14 +126,12 @@ const sagas = function*() {
 };
 
 module.exports = {
-  // ADynamicFieldSet,
   ARangePicker, 
   ASwitch, 
   ASlider,
   ASelect, 
   AOption,
   AInputNumber, 
-  AInput,
   Accordion,
   AuthenticatedRoute,
   BasicLayout,
