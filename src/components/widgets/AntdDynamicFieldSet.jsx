@@ -1,49 +1,57 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import { Field } from "redux-form";
-import { Form, Icon, Button } from 'antd';
-import { AInput } from './AntdWidgets'; 
+import { Form, Icon, Button, Input } from 'antd';
+
 const FormItem = Form.Item;
 
-const ADynamicFieldSet = ({ keys, fields, meta: { error, submitFailed } }) => {
-  let formItems = null;
+export default class DynamicFieldSet extends React.Component {
+  render() {
+    const { fields, meta: { error, submitFailed } } = this.props;
 
-  formItems = fields.map((field, index) => (
-    <div>
-      {keys.map((k, indexk) => (
+    const keys = this.props.keys;
+    // const name = this.props.name;
+    // const values = this.props.values;
+    // const arrayHelpers = this.props.arrayHelpers;
+    let formItems = null;
 
-        <Field
-          component={AInput}
-          key={index}
-          label={`${k.label || k.key}`}
-          name={`${field}.${k.key}`}
-          type="text"
+    formItems = fields.map((field, index) => (
+      <div>
+        {keys.map((k, indexk) => (
+
+          <Field
+            component={Input}
+            key={index}
+            label={`${k.label || k.key}`}
+            name={`${field}.${k.key}`}
+            type="text"
+          />
+        ))}
+        <Icon
+          className="dynamic-delete-button"
+          onClick={() => fields.remove(index)}
+          type="minus-circle-o"
         />
-      ))}
-      <Icon
-        className="dynamic-delete-button"
-        onClick={() => fields.remove(index)}
-        type="minus-circle-o"
-      />
-    </div>
-  ));
+      </div>
+    ));
 
-  return (
-    <div>
-      <FormItem label={this.props.label}>
-        {formItems}
-        <FormItem>
-          <Button
-            onClick={() => fields.push({})}
-            style={{ width: '30%' }}
-          >
-            <Icon type="plus" /> {this.props.buttonText || 'Add Field'}
-          </Button>
+    return (
+      <div>
+        <FormItem label={this.props.label}>
+          {formItems}
+          <FormItem>
+            <Button
+              onClick={() => fields.push({})}
+              style={{ width: '30%' }}
+            >
+              <Icon type="plus" /> {this.props.buttonText || 'Add Field'}
+            </Button>
+          </FormItem>
         </FormItem>
-      </FormItem>
-    </div>
-  );
-};
+      </div>
+    );
+  }
+}
 
 // DynamicFieldSet.propTypes = {
 //   name: PropTypes.string,
@@ -53,5 +61,3 @@ const ADynamicFieldSet = ({ keys, fields, meta: { error, submitFailed } }) => {
 //   buttonText: PropTypes.string,
 //   arrayHelpers: PropTypes.object
 // };
-
-export default ADynamicFieldSet;
