@@ -170,6 +170,7 @@ class EncounterFormPanel extends React.PureComponent {
               orderForObs={this.props.orderForObs}
               patient={this.props.patient}
               provider={this.props.provider}
+              timestampNewEncounterIfCurrentDay={this.props.timestampNewEncounterIfCurrentDay}
               visit={this.props.patient ? this.props.patient.visit : null}
               visitType={this.props.visitType ? this.props.visitType : null}
             >
@@ -221,6 +222,7 @@ EncounterFormPanel.propTypes = {
   patient: PropTypes.object.isRequired,
   provider: PropTypes.object,
   showDate: PropTypes.bool.isRequired,
+  timestampNewEncounterIfCurrentDay: PropTypes.bool,
   title: PropTypes.string,
   toastMessage: PropTypes.string,
   visit: PropTypes.object,
@@ -229,7 +231,8 @@ EncounterFormPanel.propTypes = {
 
 EncounterFormPanel.defaultProps = {
   manuallyExitSubmitMode: false,
-  showDate: false
+  showDate: false,
+  timestampNewEncounterIfCurrentDay: false
 };
 
 const mapStateToProps = (state, props) => {
