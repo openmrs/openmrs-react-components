@@ -129,13 +129,15 @@ EncounterForm.propTypes = {
   orderForObs: PropTypes.object,
   patient: PropTypes.object.isRequired,
   provider: PropTypes.object,
+  timestampNewEncounterIfCurrentDay: PropTypes.bool,  // when creating a new encounter, include current time in encounterdate if encounter date is today;
   visit: PropTypes.object,
   visitType: PropTypes.object
 };
 
 EncounterForm.defaultProps = {
   manuallyExitSubmitMode: false,
-  mode: 'edit'
+  mode: 'edit',
+  timestampNewEncounterIfCurrentDay: false
 };
 
 const mapStateToProps = (state, props) => {
@@ -161,6 +163,7 @@ const mapStateToProps = (state, props) => {
         orderForObs: props.orderForObs,
         provider: props.provider ? props.provider :
           currentProvider ? currentProvider : null,
+        timestampNewEncounterIfCurrentDay: props.timestampNewEncounterIfCurrentDay,
         visit: props.visit,
         visitType: props.visitType,
         formSubmittedActionCreator: props.formSubmittedActionCreator
