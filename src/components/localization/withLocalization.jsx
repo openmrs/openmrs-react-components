@@ -19,9 +19,13 @@ import en from 'react-intl/locale-data/en';
 import fr from 'react-intl/locale-data/fr';
 import es from 'react-intl/locale-data/es';
 
+// "homemade" locale file since locale for Haiti is not currently supported
+import ht from '../../localization/locale-data/ht'
+
 import messagesEN from "../../localization/translations/en.json";
 import messagesFR from "../../localization/translations/fr.json";
 import messagesES from "../../localization/translations/es.json";
+import messagesHT from "../../localization/translations/ht.json";
 
 let defaultLocale = 'en';
 let localeMessages = {};
@@ -44,9 +48,10 @@ export const initializeLocalization = (messages) => {
     en: messagesEN,
     fr: messagesFR,
     es: messagesES,
+    ht: messagesHT
   };
 
-  addLocaleData([...en, ...fr, ...es]);
+  addLocaleData([...en, ...fr, ...es, ...ht]);
 
   if (messages) {
     addLocaleMessages(messages)
@@ -59,6 +64,7 @@ export const initializeLocalization = (messages) => {
     require('intl/locale-data/jsonp/en.js');
     require('intl/locale-data/jsonp/fr.js');
     require('intl/locale-data/jsonp/es.js');
+    // TODO: do we need to import HT here somehow?
   }
 
 };

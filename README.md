@@ -53,28 +53,32 @@ If you are using the create-react-app template, you can install and use the Boot
 https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/[README]().md#adding-bootstrap
 
 ## Localization
-To localization your OWA with the react-intl HOC
+
+To localization your OWA with the react-intl HOC, wrap a component with the withLocalization HOC
 
 ```
-import { setLocaleMessages, withLocalization } from '@openmrs/react-components';
+import { initializeLocalization, withLocalization } from '@openmrs/react-components';
 
-// Your local english translation file
+initializeLocalization()
+
+const LocalizedBreadCrumb = withLocalization(myComponent);
+```
+
+To provide additional message codes, pass them in when initializing localization
+```
+import { initializeLocalization, withLocalization } from '@openmrs/react-components';
+
+// your translation files (JSON object of messages codes-to-translation key-value pairs
 import messagesEN from "./translations/en.json";
-
-// Your local french or any other language translation file
 import messagesFR from "./translations/fr.json";
 
+initializeLocalization({
+    en: messagesEN,
+    fr: messagesFR,
+})
 
- setLocaleMessages({
-  en: messagesEN,
-  fr: messagesFR,
-});
-```
-
-To localize a component wrap it with the localization HOC
-import myComponent from 'pathToYourComponent/myComponent';
-```
 const LocalizedBreadCrumb = withLocalization(myComponent);
+
 ```
 
 # Publishing a new version

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import { FormattedMessage } from 'react-intl';
 import withFormContext from './withFormContext';
 
 const Submit = (props) => {
@@ -12,7 +13,9 @@ const Submit = (props) => {
       style={props.style}
       type="submit"
     >
-      Submit
+      <FormattedMessage
+        id="reactcomponents.submit"
+        defaultMessage="Submit" />
     </Button>
   );
 };

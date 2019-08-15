@@ -153,7 +153,7 @@ describe("withLocalization", () => {
   });
 
 
-  it("should faill back to default locale if code not in current locale", () => {
+  it("should fall back to default locale if code not in current locale", () => {
 
     store = mockStore({
       openmrs: {
@@ -174,8 +174,23 @@ describe("withLocalization", () => {
     expect(localizedComponent().find(IntlProvider).props().locale).toBe('fr');
   });
 
+  it("should correctly localize to Kreyol", () => {
+
+    store = mockStore({
+      openmrs: {
+        session: {
+          locale: 'ht'
+        }
+      }
+    });
+
+    setDefaultLocale('ht');
+
+    expect(localizedComponent().find(IntlProvider).props().messages).toHaveProperty(["reactcomponents.submit"],  "Soumèt");
+    expect(localizedComponent().find(IntlProvider).props().locale).toBe('ht');
+  });
+
   // TODO: formatted message for submit and cancel
-  // TODO: export defaultLocale and initializaton
   // TODO: Haiti
   // TODO fix documentation in README
 });
