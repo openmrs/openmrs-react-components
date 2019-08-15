@@ -56,7 +56,7 @@ https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/
 To localization your OWA with the react-intl HOC
 
 ```
-import { setLocaleMessages, withLocalisation } from '@openmrs/react-components';
+import { setLocaleMessages, withLocalization } from '@openmrs/react-components';
 
 // Your local english translation file
 import messagesEN from "./translations/en.json";
@@ -71,10 +71,10 @@ import messagesFR from "./translations/fr.json";
 });
 ```
 
-To localize a component wrap it with the localisation HOC
+To localize a component wrap it with the localization HOC
 import myComponent from 'pathToYourComponent/myComponent';
 ```
-const LocalizedBreadCrumb = withLocalisation(myComponent);
+const LocalizedBreadCrumb = withLocalization(myComponent);
 ```
 
 # Publishing a new version

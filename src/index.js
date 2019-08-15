@@ -45,7 +45,7 @@ import SystemAlert from './components/system/SystemAlert';
 import Tabs from './components/tabs/Tabs';
 import TaskList from './components/task/TaskList';
 import ToolTip from './components/tooltip/ToolTip';
-import withLocalisation, { setLocaleMessages } from './components/localization/withLocalisation';
+import withLocalization, { setDefaultLocale, addLocaleMessages } from './components/localization/withLocalization';
 
 import patientObjByEncounterTypeAndObsFilter from './domain/patient/filters/patientObjByEncounterTypeAndObsFilter';
 import patientObjByEncounterTypeFilter from './domain/patient/filters/patientObjByEncounterTypeFilter';
@@ -126,6 +126,7 @@ const sagas = function*() {
 
 module.exports = {
   Accordion,
+  addLocaleMessages,
   AuthenticatedRoute,
   BasicLayout,
   ButtonGroup,
@@ -166,7 +167,7 @@ module.exports = {
   patientUtil,
   ProgramEnrollment,
   Section,
-  setLocaleMessages,
+  setDefaultLocale,
   shallowWithIntl,
   SortableTable,
   Submit,
@@ -174,7 +175,7 @@ module.exports = {
   Tabs,
   TaskList,
   ToolTip,
-  withLocalisation,
+  withLocalization,
 
   patientObjByEncounterTypeAndObsFilter,
   patientObjByEncounterTypeFilter,
