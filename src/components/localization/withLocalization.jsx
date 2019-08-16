@@ -78,9 +78,10 @@ const withLocalization = (WrappedComponent) => {
       const localeWithoutRegionCode = locale.toLowerCase().split(/[_-]+/)[0];
       const messages = merge({}, localeMessages[defaultLocale], localeMessages[localeWithoutRegionCode]);
 
+      // the underlying locale-data tables provided by react-intl use "-" as a delimiter instead of "_"
       return (
         <IntlProvider
-          locale={localeWithoutRegionCode}
+          locale={ locale.replace("_","-") }
           messages={messages}
         >
           <WrappedComponent {...this.props} />

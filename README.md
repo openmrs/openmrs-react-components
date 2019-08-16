@@ -81,6 +81,10 @@ const LocalizedBreadCrumb = withLocalization(myComponent);
 
 ```
 
+Note that we only currently support language-based translations, not language and country based translations. For instance we don't support providing custom translations for "en_GB" like en_GB.json.
+
+However, the component can handle parsing locales with a country. Component... ie. if the locale is "en_GB" the en.json translations wil be used, and if the locale is "es_MX" the the es.json translations will be used.  See withLocalization.test.jsx if you want a greater understanding of the supported use cases. 
+
 # Publishing a new version
 
 Set the version number you want to release in the pom, and then run:

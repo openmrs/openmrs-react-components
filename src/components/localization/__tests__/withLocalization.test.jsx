@@ -89,7 +89,7 @@ describe("withLocalization", () => {
     initializeLocalization();
 
     expect(localizedComponent().find(IntlProvider).props().messages).toHaveProperty(["reactcomponents.submit"],  "Guardar");
-    expect(localizedComponent().find(IntlProvider).props().locale).toBe('es');
+    expect(localizedComponent().find(IntlProvider).props().locale).toBe('es-MX');  // the underlying locale-data tables provided by react-intl use "-" as a delimiter instead of "_"
   });
 
 
