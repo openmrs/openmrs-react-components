@@ -174,6 +174,30 @@ describe("withLocalization", () => {
     expect(localizedComponent().find(IntlProvider).props().locale).toBe('fr');
   });
 
+  it("should support default locale with country code", () => {
+
+    store = mockStore({
+      openmrs: {
+        session: {
+          locale: 'fr'
+        }
+      }
+    });
+
+    initializeLocalization({
+      es: {
+        "only_in_default_locale": "some_string"
+      }
+    });
+    setDefaultLocale('es_MX');
+
+    expect(localizedComponent().find(IntlProvider).props().messages).toHaveProperty(["only_in_default_locale"],  "some_string");
+    expect(localizedComponent().find(IntlProvider).props().locale).toBe('fr');
+  });
+
+
+
+
   it("should correctly localize to Kreyol", () => {
 
     store = mockStore({
