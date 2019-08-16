@@ -214,7 +214,4 @@ describe("withLocalization", () => {
     expect(localizedComponent().find(IntlProvider).props().locale).toBe('ht');
   });
 
-  // TODO: formatted message for submit and cancel
-  // TODO: Haiti
-  // TODO fix documentation in README
 });
