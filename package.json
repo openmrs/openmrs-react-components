@@ -101,8 +101,8 @@
     "webpack-blocks": "^1.0.0"
   },
   "scripts": {
-    "build": "babel src -d lib",
-    "build:watch": "babel src -w -d lib",
+    "build": "babel src -d lib --copy-files",
+    "build:watch": "babel src -w -d lib --copy-files",
     "lint": "eslint --ext js --ext jsx src test; exit 0",
     "lint:fix": "eslint --fix --ext js --ext jsx src test; exit 0",
     "pack": "npm run build && npm pack",

@@ -53,29 +53,37 @@ If you are using the create-react-app template, you can install and use the Boot
 https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/[README]().md#adding-bootstrap
 
 ## Localization
-To localization your OWA with the react-intl HOC
+
+To localization your OWA with the react-intl HOC, wrap a component with the withLocalization HOC
 
 ```
-import { setLocaleMessages, withLocalisation } from '@openmrs/react-components';
+import { initializeLocalization, withLocalization } from '@openmrs/react-components';
 
-// Your local english translation file
+initializeLocalization()
+
+const LocalizedBreadCrumb = withLocalization(myComponent);
+```
+
+To provide additional message codes, pass them in when initializing localization
+```
+import { initializeLocalization, withLocalization } from '@openmrs/react-components';
+
+// your translation files (JSON object of messages codes-to-translation key-value pairs
 import messagesEN from "./translations/en.json";
-
-// Your local french or any other language translation file
 import messagesFR from "./translations/fr.json";
 
+initializeLocalization({
+    en: messagesEN,
+    fr: messagesFR,
+})
 
- setLocaleMessages({
-  en: messagesEN,
-  fr: messagesFR,
-});
+const LocalizedBreadCrumb = withLocalization(myComponent);
+
 ```
 
-To localize a component wrap it with the localisation HOC
-import myComponent from 'pathToYourComponent/myComponent';
-```
-const LocalizedBreadCrumb = withLocalisation(myComponent);
-```
+Note that we only currently support language-based translations, not language and country based translations. For instance we don't support providing custom translations for "en_GB" like en_GB.json.
+
+However, the component can handle parsing locales with a country. Component... ie. if the locale is "en_GB" the en.json translations wil be used, and if the locale is "es_MX" the the es.json translations will be used.  See withLocalization.test.jsx if you want a greater understanding of the supported use cases. 
 
 # Publishing a new version
 
