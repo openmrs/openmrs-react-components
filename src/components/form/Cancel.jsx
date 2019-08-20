@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { FormattedMessage } from 'react-intl';
+import LocalizedMessage from '../localization/LocalizedMessage';
 import withFormContext from './withFormContext';
 
 const Cancel = (props) => {
@@ -12,9 +12,10 @@ const Cancel = (props) => {
       onClick={() => props.formContext.reset() && (props.onClick && props.onClick())}
       style={props.style}
     >
-      <FormattedMessage
+      <LocalizedMessage
         id="reactcomponents.cancel"
-        defaultMessage="Cancel" />
+        defaultMessage="Cancel"
+      />
     </Button>
   );
 };

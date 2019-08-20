@@ -19,6 +19,8 @@ import en from 'react-intl/locale-data/en';
 import fr from 'react-intl/locale-data/fr';
 import es from 'react-intl/locale-data/es';
 
+import LocalizationContext from './LocalizationContext'
+
 // "homemade" locale file since locale for Haiti is not currently supported
 import ht from '../../localization/locale-data/ht'
 
@@ -80,13 +82,18 @@ const withLocalization = (WrappedComponent) => {
       const messages = merge({}, localeMessages[defaultLocaleWithoutRegionCode], localeMessages[localeWithoutRegionCode]);
 
       // the underlying locale-data tables provided by react-intl use "-" as a delimiter instead of "_"
+      // the LocalizationContext is currently *only* used to alert consumers if IntlProvider is available
+      // (this allows components with LocalizedMessage to be used even if the parent app hasn't be decorated
+      // with "withLocalization")
       return (
-        <IntlProvider
-          locale={ locale.replace("_","-") }
-          messages={messages}
-        >
-          <WrappedComponent {...this.props} />
-        </IntlProvider>
+        <LocalizationContext.Provider value={ {intlProviderAvailable: true} }>
+          <IntlProvider
+            locale={ locale.replace("_","-") }
+            messages={messages}
+          >
+            <WrappedComponent {...this.props} />
+          </IntlProvider>
+        </LocalizationContext.Provider>
       );
     }
   }

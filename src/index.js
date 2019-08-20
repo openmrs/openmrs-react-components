@@ -24,6 +24,7 @@ import LineChart from './components/widgets/LineChart';
 import List from './components/list/List';
 import Loader from './components/widgets/Loader';
 import LoadingView from './components/loading/LoadingView';
+import LocalizedMessage from './components/localization/LocalizedMessage';
 import LocationMenu from './components/header/LocationMenu';
 import Login from './components/login/Login';
 import LoginPage from './components/login/LoginPage';
@@ -153,6 +154,7 @@ module.exports = {
   List,
   Loader,
   LoadingView,
+  LocalizedMessage,
   LocationMenu,
   Login,
   LoginPage,
