@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import LocalizedMessage from '../localization/LocalizedMessage';
 import withFormContext from './withFormContext';
 
 const Submit = (props) => {
@@ -12,7 +13,9 @@ const Submit = (props) => {
       style={props.style}
       type="submit"
     >
-      Submit
+      <LocalizedMessage
+        id="reactcomponents.submit"
+        defaultMessage="Submit" />
     </Button>
   );
 };

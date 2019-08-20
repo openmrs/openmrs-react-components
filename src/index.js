@@ -24,6 +24,7 @@ import LineChart from './components/widgets/LineChart';
 import List from './components/list/List';
 import Loader from './components/widgets/Loader';
 import LoadingView from './components/loading/LoadingView';
+import LocalizedMessage from './components/localization/LocalizedMessage';
 import LocationMenu from './components/header/LocationMenu';
 import Login from './components/login/Login';
 import LoginPage from './components/login/LoginPage';
@@ -45,7 +46,7 @@ import SystemAlert from './components/system/SystemAlert';
 import Tabs from './components/tabs/Tabs';
 import TaskList from './components/task/TaskList';
 import ToolTip from './components/tooltip/ToolTip';
-import withLocalisation, { setLocaleMessages } from './components/localization/withLocalisation';
+import withLocalization, { initializeLocalization, setDefaultLocale, addLocaleMessages } from './components/localization/withLocalization';
 
 import patientObjByEncounterTypeAndObsFilter from './domain/patient/filters/patientObjByEncounterTypeAndObsFilter';
 import patientObjByEncounterTypeFilter from './domain/patient/filters/patientObjByEncounterTypeFilter';
@@ -126,6 +127,7 @@ const sagas = function*() {
 
 module.exports = {
   Accordion,
+  addLocaleMessages,
   AuthenticatedRoute,
   BasicLayout,
   ButtonGroup,
@@ -147,10 +149,12 @@ module.exports = {
   Header,
   HeaderAlt,
   HomePage,
+  initializeLocalization,
   LineChart,
   List,
   Loader,
   LoadingView,
+  LocalizedMessage,
   LocationMenu,
   Login,
   LoginPage,
@@ -166,7 +170,7 @@ module.exports = {
   patientUtil,
   ProgramEnrollment,
   Section,
-  setLocaleMessages,
+  setDefaultLocale,
   shallowWithIntl,
   SortableTable,
   Submit,
@@ -174,7 +178,7 @@ module.exports = {
   Tabs,
   TaskList,
   ToolTip,
-  withLocalisation,
+  withLocalization,
 
   patientObjByEncounterTypeAndObsFilter,
   patientObjByEncounterTypeFilter,
