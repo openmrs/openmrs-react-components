@@ -1,6 +1,8 @@
 import Accordion from './components/accordion/Accordion';
-import { ARangePicker, ASwitch, ASlider, ASelect, AOption, AInputNumber, AInput } from './components/widgets/AntdWidgets'; 
-import ADynamicFieldSet from './components/widgets/AntdDynamicFieldSet'; 
+import { RangePicker, Switch, Slider, Select, Option, InputNumber, Input } from './components/widgets/AntdWidgets'; 
+import DynamicFieldSet from './components/widgets/AntdDynamicFieldSet'; 
+import Autocomplete from './components/widgets/AntdAutocomplete'; 
+import Upload from './components/widgets/AntdUpload'; 
 import AuthenticatedRoute from './components/routes/AuthenticatedRoute';
 import BasicLayout from './components/layout/BasicLayout';
 import ButtonGroup from './components/widgets/ButtonGroup';
@@ -127,14 +129,16 @@ const sagas = function*() {
 };
 
 module.exports = {
-  AInput,
-  ARangePicker, 
-  ASwitch, 
-  ASlider,
-  ASelect, 
-  AOption,
-  AInputNumber,
-  ADynamicFieldSet,
+  Input,
+  RangePicker, 
+  Switch, 
+  Slider,
+  Select, 
+  Option,
+  InputNumber,
+  DynamicFieldSet,
+  Autocomplete,
+  Upload,
   Accordion,
   AuthenticatedRoute,
   BasicLayout,

@@ -1,5 +1,7 @@
 import React from "react";
-import { Form, Input, Radio, Select, Checkbox, DatePicker, Switch, Slider, InputNumber } from "antd";
+import PropTypes from 'prop-types';
+
+import { Form,  DatePicker, Select as ASelect, Option as AOption, Switch as ASwitch, Slider as ASlider, InputNumber as AInputNumber } from "antd";
 
 const FormItem = Form.Item;
 
@@ -22,19 +24,21 @@ const makeField = Component => ({ input, meta, children, hasFeedback, label, ...
 };
 
 
-const RadioGroup = Radio.Group;
-const { TextArea } = Input;
-const { RangePicker } = DatePicker;
-const { Option } = Select;
 
+const ARangePicker = DatePicker.RangePicker;
 
-export const AInput = makeField(Input);
-export const ARadioGroup = makeField(RadioGroup);
-export const ASelect = makeField(Select);
-export const AOption = Option;
-export const ACheckbox = makeField(Checkbox);
-export const ATextarea = makeField(TextArea);
-export const ARangePicker = makeField(RangePicker);
-export const ASwitch = makeField(Switch);
-export const ASlider = makeField(Slider);
-export const AInputNumber = makeField(InputNumber);
+export const Select = makeField(ASelect);
+export const Option = makeField(AOption);
+
+export const RangePicker = makeField(ARangePicker);
+export const Switch = makeField(ASwitch);
+export const Slider = makeField(ASlider);
+export const InputNumber = makeField(AInputNumber);
+
+makeField.propTypes = {
+  children: PropTypes.object,
+  hasFeedback: PropTypes.bool,
+  input: PropTypes.string,
+  label: PropTypes.string,
+
+};
