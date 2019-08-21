@@ -5,6 +5,9 @@ import { Form,  DatePicker, Select as ASelect, Option as AOption, Switch as ASwi
 
 const FormItem = Form.Item;
 
+
+// Convert the Components from Antd into Form Items
+
 const makeField = Component => ({ input, meta, children, hasFeedback, label, ...rest }) => {
   const hasError = meta.touched && meta.invalid;
   return (
