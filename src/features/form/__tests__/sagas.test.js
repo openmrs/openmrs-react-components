@@ -1,9 +1,10 @@
 import SagaTester from 'redux-saga-tester';
-import { format, startOfDay } from 'date-fns';
+import { format, startOfDay, subDays, parse, differenceInSeconds } from 'date-fns';
 import formActions from '../actions';
 import openmrsFormSagas from '../sagas';
 import encounterRest from '../../../rest/encounterRest';
 import obsRest from '../../../rest/obsRest';
+import { FORM_STATES } from "../constants";
 
 jest.mock('../../../rest/encounterRest');
 jest.mock('../../../rest/obsRest');
@@ -26,7 +27,7 @@ describe('form sagas', () => {
   it('should create an encounter and issue formSubmittedActionCreator', () => {
 
     const formInstanceId = "form-instance-id";
-    const date = format(new Date());
+    const date = format(startOfDay(new Date()));
 
     const values =  {
       'encounter-datetime': date,
@@ -108,6 +109,7 @@ describe('form sagas', () => {
     expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitFailed(formInstanceId));
     expect(formSubmittedActionCreator.mock.calls.length).toBe(1);
     expect(sagaTester.getCalledActions()).toContainEqual(formSubmittedActionCreator());
+    expect(sagaTester.getCalledActions()).toContainEqual(formActions.setFormState(formInstanceId, FORM_STATES.VIEWING))
   });
 
   it('should issue failure if invalid submit', () => {
@@ -523,13 +525,100 @@ describe('form sagas', () => {
     expect(sagaTester.getCalledActions()).toContainEqual(formSubmittedActionCreator());
   });
 
-
-  // TODO we aren't actually doing this, doesn't work because we prepopulate post with values
-/*  it('should submit delete obs call for any obs not in post', () => {
+  it('should not set form state back to VIEW if manuallyExitSubmitMode prop set to true', () => {
 
     const formInstanceId = "form-instance-id";
+    const date = format(new Date());
 
-    const values =  { 'obs|path=first-obs|conceptPath=first-obs-uuid': 100 }  ;
+    const values =  {
+      'encounter-datetime': date,
+      'obs|path=first-obs|conceptPath=first-obs-uuid': 100 ,
+      'obs|path=second-obs|conceptPath=second-obs-uuid': 200
+    };
+
+    const patient = {
+      uuid: "some_patient_uuid"
+    };
+
+    const encounterType = {
+      uuid: "some_encounter_type_uuid"
+    };
+
+    const location = {
+      uuid: "some_location_uuid"
+    };
+
+    const visit = {
+      uuid: "some_visit_uuid"
+    };
+
+    const provider = {
+      uuid: "some_provider_uuid"
+    };
+
+    const encounterRole = {
+      uuid: "some_encounter_role_uuid"
+    };
+
+    const order = {
+      uuid: "some_order_uuid"
+    };
+
+    const expectedEncounterPost = {
+      "encounterDatetime": date,
+      "location": "some_location_uuid",
+      "encounterProviders": [
+        { "provider": "some_provider_uuid",
+          "encounterRole": "some_encounter_role_uuid"
+        }
+      ],
+      "encounterType": "some_encounter_type_uuid",
+      "obs": [
+        { "comment": "form-id^first-obs",
+          "concept": "first-obs-uuid",
+          "order": "some_order_uuid",
+          "value": 100
+        },
+        { "comment": "form-id^second-obs",
+          "concept": "second-obs-uuid",
+          "order": "some_order_uuid",
+          "value": 200
+        }
+      ],
+      "patient": "some_patient_uuid",
+      "visit": "some_visit_uuid"
+    };
+
+    sagaTester.dispatch(formActions.formSubmitted( {
+      manuallyExitSubmitMode: true,
+      values: values,
+      formId: "form-id",
+      formInstanceId: formInstanceId,
+      patient: patient,
+      encounterRole: encounterRole,
+      encounterType: encounterType,
+      location: location,
+      orderForObs: order,
+      provider: provider,
+      visit: visit,
+      formSubmittedActionCreator:
+      formSubmittedActionCreator
+    } ));
+
+
+    expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.setFormState(formInstanceId, FORM_STATES.VIEWING))
+  });
+
+
+  it('should not update encounter datetime if date component does not change', () => {
+
+    const formInstanceId = "form-instance-id";
+    const today = format(new Date());
+    const startOfToday = format(startOfDay(new Date()));
+
+    const values =  {
+      'encounter-datetime': startOfToday
+    };
 
     const patient = {
       uuid: "some_patient_uuid"
@@ -545,25 +634,12 @@ describe('form sagas', () => {
 
     const encounter = {
       "uuid": "existing_encounter_uuid",
-      "obs": [
-        {
-          "uuid": "existing_obs_uuid",
-          "concept": {
-            "uuid": "existing-obs-concept-uuid"
-          },
-          "comment": "form-id^second-obs"
-        }
-      ]
+      "encounterDatetime": today
     };
 
     const expectedEncounterPost = {
       "uuid": "existing_encounter_uuid",
-      "obs": [
-        { "comment": "form-id^first-obs",
-          "concept": "first-obs-uuid",
-          "value": 100
-        }
-      ],
+      "encounterDatetime": today
     };
 
     sagaTester.dispatch(formActions.formSubmitted( {
@@ -579,15 +655,126 @@ describe('form sagas', () => {
     } ));
     expect(encounterRest.updateEncounter).toHaveBeenCalledTimes(1);
     expect(encounterRest.updateEncounter.mock.calls[0][0]).toMatchObject(expectedEncounterPost);
-    expect(obsRest.deleteObs).toHaveBeenCalledTimes(1);
-    expect(obsRest.deleteObs.mock.calls[0][0].uuid).toBe("existing_obs_uuid");
+  });
 
-    expect(sagaTester.getCalledActions()).toContainEqual(formActions.formSubmitSucceeded(formInstanceId, formSubmittedActionCreator));
-    expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitFailed(formInstanceId));
-    expect(formSubmittedActionCreator.mock.calls.length).toBe(1);
-    expect(sagaTester.getCalledActions()).toContainEqual(formSubmittedActionCreator());
-  });*/
+  it('should update encounter datetime if date component changes', () => {
+
+    const formInstanceId = "form-instance-id";
+    const today = format(new Date());
+    const startOfYesterday = format(startOfDay(subDays(new Date(),1)));
+
+    const values =  {
+      'encounter-datetime': startOfYesterday
+    };
+
+    const patient = {
+      uuid: "some_patient_uuid"
+    };
+
+    const encounterType = {
+      uuid: "some_encounter_type_uuid"
+    };
+
+    const visit = {
+      uuid: "some_visit_uuid"
+    };
+
+    const encounter = {
+      "uuid": "existing_encounter_uuid",
+      "encounterDatetime": today
+    };
+
+    const expectedEncounterPost = {
+      "uuid": "existing_encounter_uuid",
+      "encounterDatetime": startOfYesterday
+    };
+
+    sagaTester.dispatch(formActions.formSubmitted( {
+      values: values,
+      formId: "form-id",
+      formInstanceId: formInstanceId,
+      patient: patient,
+      encounter: encounter,
+      encounterType: encounterType,
+      visit: visit,
+      formSubmittedActionCreator:
+      formSubmittedActionCreator
+    } ));
+    expect(encounterRest.updateEncounter).toHaveBeenCalledTimes(1);
+    expect(encounterRest.updateEncounter.mock.calls[0][0]).toMatchObject(expectedEncounterPost);
+  });
 
 
+  it('should timestamp new encounter if timestampNewEncounterIfCurrentDay is set true and is current day', () => {
+
+    const formInstanceId = "form-instance-id";
+    const today = format(startOfDay(new Date()));
+    const now = new Date();
+
+    const values =  {
+      'encounter-datetime': today,
+    };
+
+    const patient = {
+      uuid: "some_patient_uuid"
+    };
+
+    const encounterType = {
+      uuid: "some_encounter_type_uuid"
+    };
+
+    sagaTester.dispatch(formActions.formSubmitted( {
+      values: values,
+      formId: "form-id",
+      formInstanceId: formInstanceId,
+      patient: patient,
+      encounterType: encounterType,
+      location: location,
+      formSubmittedActionCreator:
+      formSubmittedActionCreator,
+      timestampNewEncounterIfCurrentDay: true
+    } ));
+    expect(encounterRest.createEncounter).toHaveBeenCalledTimes(1);
+    let submittedDatetime = parse(encounterRest.createEncounter.mock.calls[0][0].encounterDatetime);
+    expect(Math.abs(differenceInSeconds(submittedDatetime, now))).toBeLessThanOrEqual(1);
+  });
+
+  it('should not timestamp new encounter if timestampNewEncounterIfCurrentDay is set true but not current day', () => {
+
+    const formInstanceId = "form-instance-id";
+    const yesterday = format(startOfDay(subDays(new Date(),1)));
+
+    const values =  {
+      'encounter-datetime': yesterday,
+    };
+
+    const patient = {
+      uuid: "some_patient_uuid"
+    };
+
+    const encounterType = {
+      uuid: "some_encounter_type_uuid"
+    };
+
+    const expectedEncounterPost = {
+      "encounterDatetime": yesterday,
+      "encounterType": "some_encounter_type_uuid",
+      "patient": "some_patient_uuid"
+    };
+
+    sagaTester.dispatch(formActions.formSubmitted( {
+      values: values,
+      formId: "form-id",
+      formInstanceId: formInstanceId,
+      patient: patient,
+      encounterType: encounterType,
+      location: location,
+      formSubmittedActionCreator:
+      formSubmittedActionCreator,
+      timestampNewEncounterIfCurrentDay: true
+    } ));
+    expect(encounterRest.createEncounter).toHaveBeenCalledTimes(1);
+    expect(encounterRest.createEncounter.mock.calls[0][0]).toMatchObject(expectedEncounterPost);
+  });
 
 });

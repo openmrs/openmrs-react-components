@@ -1,5 +1,5 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { format } from 'date-fns';
+import { format, parse, isSameDay, isToday } from 'date-fns';
 import FORM_TYPES from './types';
 import formActions from './actions';
 import formUtil from './util';
@@ -86,6 +86,27 @@ function createObs(val, path, concept, formId, orderUuid, existingObsFlattened) 
   return obs;
 }
 
+// if new encounter: timestamp with current datetime if timestampNewEncounter flag set, other use encounter date from form
+// if existing encounter: maintain time component of existing encounter datetime if date has not changed
+// see: https://issues.openmrs.org/browse/RAUI-34
+function determineEncounterDatetime(submittedEncounterDatetime, existingEncounter, timestampNewEncounterIfCurrentDay) {
+  if (!existingEncounter) {
+    if (isToday(submittedEncounterDatetime) && timestampNewEncounterIfCurrentDay) {
+      return format(new Date());
+    }
+    else {
+      return format(submittedEncounterDatetime);
+    }
+  }
+  else {
+    if (isSameDay(existingEncounter.encounterDatetime, submittedEncounterDatetime)) {
+      return format(existingEncounter.encounterDatetime);
+    }
+    else {
+      return format(submittedEncounterDatetime);
+    }
+  }
+}
 
 function* submit(action) {
 
@@ -96,11 +117,12 @@ function* submit(action) {
     let encounter = {};
     let updatedEncounter = {};
     let existingFlattenedObs = [];
+    let existingEncounter = action.encounter;
 
     yield put(formActions.setFormState(action.formInstanceId, FORM_STATES.SUBMITTING));
 
-    // if this is *not* a new encounter we need to add patient, encounterType and visit so it can be created
-    if (!action.encounter) {
+    // if this is *not* a existing encounter we need to add patient, encounterType and visit so it can be created
+    if (!existingEncounter) {
       encounter = {
         // TODO: handle encounter date if submitted
         patient: action.patient.uuid,
@@ -126,15 +148,17 @@ function* submit(action) {
     // otherwise, include the existing encounter uuid
     else {
       encounter = {
-        uuid: action.encounter.uuid
+        uuid: existingEncounter.uuid
       };
 
       // flatten the existing obs to one level (for reference)
-      existingFlattenedObs = formUtil.flattenObs(action.encounter.obs);
+      existingFlattenedObs = formUtil.flattenObs(existingEncounter.obs);
     }
 
+    // handle setting or updating the date
     if (typeof action.values !== 'undefined' && action.values && action.values['encounter-datetime']) {
-      encounter.encounterDatetime = format(action.values['encounter-datetime']);
+      encounter.encounterDatetime =
+        determineEncounterDatetime(parse(action.values['encounter-datetime']), existingEncounter, action.timestampNewEncounterIfCurrentDay);
     }
 
     // create an array of the obs we received from the form
@@ -164,7 +188,7 @@ function* submit(action) {
       // we do not need to specifically set the encounter visit since the EmrApiVisitAssignmentHandler does it automatically based on the encounter and visit location
       //encounter.visit = newVisit.uuid;
     }
-    if (!action.encounter) {
+    if (!existingEncounter) {
       // create encounter
       updatedEncounter = yield call(encounterRest.createEncounter, encounter);
     } else {
@@ -190,7 +214,10 @@ function* submit(action) {
 
     yield put(formActions.formBackingEncounterLoaded(action.formInstanceId, updatedEncounter));
     yield put(formActions.formSubmitSucceeded(action.formInstanceId, action.formSubmittedActionCreator));
-    yield put(formActions.setFormState(action.formInstanceId, FORM_STATES.VIEWING));
+
+    if (!action.manuallyExitSubmitMode) {
+      yield put(formActions.setFormState(action.formInstanceId, FORM_STATES.VIEWING));
+    }
   }
   catch (e) {
     yield put(formActions.formSubmitFailed(action.formInstanceId));

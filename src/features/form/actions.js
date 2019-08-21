@@ -8,6 +8,7 @@ import FORM_TYPES from './types';
  *  encounter: existing encounter to back form (optional)
  *  encounterType: encounterType,
  *  visit: visit,
+ *  manuallyExitSubmitMode: manuallyExitSubmitMode,
  *  formSubmittedActionCreator: formSubmittedActionCreator
  */
 const formSubmitted = (data) => ( {

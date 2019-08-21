@@ -140,6 +140,8 @@ class CardList extends React.Component {
     const {
       rowData,
       loading,
+      error,
+      errorMessage,
       card,
       AdditionalSearchFilters,
       getPatientIdentifiers,
@@ -198,12 +200,19 @@ class CardList extends React.Component {
               />
             </span>
           </div>
-        </div>}
+          <div>
+            { !loading && !error &&
+            (<span className="no-of-patients">{`${filteredRowData.length} Patient${filteredRowData.length === 1? '' : 's'}`}</span>)}
+          </div>
+        </div>
+        }
         <div className="card-list-container">
-          { loading ? <Loader /> : 
-            (filteredRowData.length > 0 ? filteredRowData.map((patientData, index) => 
-              card(patientData, index, this.onRowSelected, getPatientIdentifiers)
-            ) : <h2 className="text-center">{noDataMessage || 'No Data to display'}</h2>)
+          { loading ? <Loader /> :
+            (error ? <h2 className="text-center">{errorMessage}</h2> :
+              (filteredRowData.length > 0 ? filteredRowData.map((patientData, index) =>
+                card(patientData, index, this.onRowSelected, getPatientIdentifiers)
+              ) : <h2 className="text-center">{noDataMessage || 'No Data to display'}</h2>)
+            )
           }
         </div>
       </div>
@@ -217,6 +226,8 @@ CardList.propTypes = {
   additionalSearchFilterFields: PropTypes.array,
   card: PropTypes.func.isRequired,
   delayInterval: PropTypes.number.isRequired,
+  error: PropTypes.bool,
+  errorMessage: PropTypes.string,
   fetchListActionCreator: PropTypes.func,
   filters: PropTypes.array,
   getPatientIdentifiers: PropTypes.func,
@@ -234,6 +245,7 @@ CardList.propTypes = {
 
 CardList.defaultProps = {
   delayInterval: 60000,
+  errorMessage: 'Error',
   title: 'List',
   filters: [],
   sortFields: []

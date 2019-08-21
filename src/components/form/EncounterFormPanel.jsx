@@ -165,10 +165,12 @@ class EncounterFormPanel extends React.PureComponent {
               formInstanceId={this.formInstanceId}
               formSubmittedActionCreator={this.formSubmittedActionCreators}
               location={this.props.location}
+              manuallyExitSubmitMode={this.props.manuallyExitSubmitMode}
               mode={this.getForm().state === FORM_STATES.EDITING ? 'edit' : 'view'}
               orderForObs={this.props.orderForObs}
               patient={this.props.patient}
               provider={this.props.provider}
+              timestampNewEncounterIfCurrentDay={this.props.timestampNewEncounterIfCurrentDay}
               visit={this.props.patient ? this.props.patient.visit : null}
               visitType={this.props.visitType ? this.props.visitType : null}
             >
@@ -215,10 +217,12 @@ EncounterFormPanel.propTypes = {
   hideActionButtons: PropTypes.bool,
   hideSubmitActionButtons: PropTypes.bool,
   location: PropTypes.object,
+  manuallyExitSubmitMode: PropTypes.bool,
   orderForObs: PropTypes.object,
   patient: PropTypes.object.isRequired,
   provider: PropTypes.object,
   showDate: PropTypes.bool.isRequired,
+  timestampNewEncounterIfCurrentDay: PropTypes.bool,
   title: PropTypes.string,
   toastMessage: PropTypes.string,
   visit: PropTypes.object,
@@ -226,7 +230,9 @@ EncounterFormPanel.propTypes = {
 };
 
 EncounterFormPanel.defaultProps = {
-  showDate: false
+  manuallyExitSubmitMode: false,
+  showDate: false,
+  timestampNewEncounterIfCurrentDay: false
 };
 
 const mapStateToProps = (state, props) => {

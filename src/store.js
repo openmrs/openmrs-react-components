@@ -8,7 +8,7 @@ import { errorsReducers } from './features/errors';
 import { formReducers } from './features/form';
 import { systemReducers } from './features/system';
 import { conceptReducer } from "./features/concept/reducers";
-import { getPatients, getSelectedPatient, isUpdating } from './features/patient';
+import { getPatients, getSelectedPatient, isUpdating, isError } from './features/patient';
 import { getConcept, getConcepts } from './features/concept';
 import { locationsReducer, getLocations, getLocation } from './features/location';
 import { getSessionLocation, getCurrentProvider, getUser } from "./features/session";
@@ -50,6 +50,10 @@ export const selectors = {
 
   isPatientStoreUpdating: (state) => {
     return isUpdating(state.openmrs.patients);
+  },
+
+  isPatientStoreInErrorState: (state) => {
+    return isError(state.openmrs.patients)
   },
 
   getConcept: (state, conceptUuid) => {
