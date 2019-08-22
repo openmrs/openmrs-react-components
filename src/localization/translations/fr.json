@@ -1,4 +1,12 @@
 {
     "reactcomponents.submit": "Soumettre",
-    "reactcomponents.cancel": "Terminer"
+    "reactcomponents.cancel": "Terminer",
+    "reactcomponents.select.from.list": "Sélectionner dans la liste",
+    "reactcomponents.value.abnormal": "Valeur anormale",
+    "reactcomponents.value.mustBeAtLeast": "Doit être au moins",
+    "reactcomponents.value.mustBeLessThan": "Doit être inférieur à",
+    "reactcomponents.value.critical": "Valeur critique",
+    "reactcomponents.value.required": "Champs obligatoires",
+    "reactcomponents.value.date.shouldBeEarlier": "La date doit être antérieure ou égale",
+    "reactcomponents.value.date.shouldBeLater": "La date devrait être postérieure ou égale"
 }

@@ -1,4 +1,12 @@
 {
   "reactcomponents.submit": "Soumèt",
-  "reactcomponents.cancel": "Anile"
+  "reactcomponents.cancel": "Anile",
+  "reactcomponents.select.from.list": "Chwazi nan lis la",
+  "reactcomponents.value.abnormal": "Pa valè nòmal",
+  "reactcomponents.value.mustBeAtLeast": "Dwe omwen",
+  "reactcomponents.value.mustBeLessThan": "Dwe gen mwens pase",
+  "reactcomponents.value.critical": "Valè kritik",
+  "reactcomponents.value.required": "Obligatwa",
+  "reactcomponents.value.date.shouldBeEarlier": "Dat yo ta dwe pi bonè oswa egal",
+  "reactcomponents.value.date.shouldBeLater": "Dat yo ta dwe pita oswa egal"
 }

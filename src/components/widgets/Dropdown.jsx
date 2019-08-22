@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import formUtil from "../../features/form/util";
+import LocalizedMessage from "../localization/LocalizedMessage";
 import '../../../assets/css/widgets.css';
 
 const dropDownStyle = {
@@ -120,7 +121,9 @@ Dropdown.defaultProps = {
   defaultValue: null,
   label: "",
   labelClassName: "",
-  placeholder:"Select from the list"
+  placeholder: <LocalizedMessage
+    id="reactcomponents.select.from.list"
+    defaultMessage="Select from the list" />
 };
 
 Dropdown.propTypes = {
