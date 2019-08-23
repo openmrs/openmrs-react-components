@@ -1,4 +1,10 @@
 
+export const DEFAULT_DATATYPE_REP = '(uuid,display,name)';
+
+export const DEFAULT_CONCEPT_CLASS_REP = '(uuid,display,name)';
+
+export const DEFAULT_CONCEPT_REP = `(uuid,display,name,conceptClass:${DEFAULT_CONCEPT_CLASS_REP},datatype:${DEFAULT_DATATYPE_REP},units)`;
+
 export const DATA_TYPES = {
   'numeric': {
     uuid: '8d4a4488-c2cc-11de-8d13-0010c6dffd0f'
