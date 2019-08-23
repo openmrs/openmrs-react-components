@@ -1,23 +1,37 @@
-
 import { format } from "date-fns";
+import LocalizedMessage from "../../components/localization/LocalizedMessage";
 
 const minValue = min => value => 
-  value && value < min ? `Must be at least ${min}` : undefined;
+  value && value < min ? ( <span><LocalizedMessage
+    id="reactcomponents.value.mustBeAtLeast"
+    defaultMessage="Must be at least" />&nbsp;{min}</span> ) : undefined;
 
 const maxValue = max => value =>
-  value && value > max ? `Must be less than ${max + 1}` : undefined ;
+  value && value > max ? ( <span><LocalizedMessage
+    id="reactcomponents.value.mustBeLessThan"
+    defaultMessage="Must be less than" />&nbsp;{max + 1}</span> ) : undefined ;
 
 const abnormalMaxValue = max => value =>
-  value && value > max ? `Abnormal value` : undefined ;
+  value && value > max ? <LocalizedMessage
+    id="reactcomponents.value.abnormal"
+    defaultMessage="Abnormal value" /> : undefined ;
 
-const abnormalMinValue = min => value => (value && value < min ? `Abnormal value` : undefined);
+const abnormalMinValue = min => value => (value && value < min ? <LocalizedMessage
+    id="reactcomponents.value.abnormal"
+    defaultMessage="Abnormal value" /> : undefined);
 
 const criticalMaxValue = max => value =>
-  value && value > max ? `Critical value` : undefined ;
+  value && value > max ? <LocalizedMessage
+    id="reactcomponents.value.critical"
+    defaultMessage="Critical value" /> : undefined ;
 
-const criticalMinValue = min => value => (value && value < min ? `Critical value` : undefined);
+const criticalMinValue = min => value => (value && value < min ? (<LocalizedMessage
+  id="reactcomponents.value.critical"
+  defaultMessage="Critical value" />) : undefined);
 
-const isRequired = value => value ? undefined : 'Required';
+const isRequired = value => value ? undefined : <LocalizedMessage
+  id="reactcomponents.value.required"
+  defaultMessage="Required" />;
 
 const dateToInt = dateStr => new Date(dateStr).getTime();
 
