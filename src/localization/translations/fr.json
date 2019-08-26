@@ -1,6 +1,8 @@
 {
     "reactcomponents.submit": "Soumettre",
     "reactcomponents.cancel": "Terminer",
+    "reactcomponents.date": "Date",
+    "reactcomponents.status": "Statut",
     "reactcomponents.select.from.list": "Sélectionner dans la liste",
     "reactcomponents.value.abnormal": "Valeur anormale",
     "reactcomponents.value.mustBeAtLeast": "Doit être au moins",
