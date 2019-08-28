@@ -28,6 +28,7 @@ import messagesEN from "../../localization/translations/en.json";
 import messagesFR from "../../localization/translations/fr.json";
 import messagesES from "../../localization/translations/es.json";
 import messagesHT from "../../localization/translations/ht.json";
+import {sessionActions} from "../../features/session";
 
 let defaultLocale = 'en';
 let localeMessages = {};
@@ -72,7 +73,12 @@ export const initializeLocalization = (messages) => {
 };
 
 const withLocalization = (WrappedComponent) => {
-  class HOC extends React.PureComponent {
+  class Localization extends React.PureComponent {
+
+    componentDidMount() {
+      this.props.dispatch(sessionActions.fetchSession());
+    }
+
     render() {
 
       const locale = this.props.locale ? this.props.locale : defaultLocale;
@@ -98,11 +104,11 @@ const withLocalization = (WrappedComponent) => {
     }
   }
 
-  HOC.propTypes = {
+  Localization.propTypes = {
     locale: PropTypes.string,
   };
 
-  return HOC;
+  return Localization;
 };
 
 const mapStateToProps = (state) => {
