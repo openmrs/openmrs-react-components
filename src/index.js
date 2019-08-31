@@ -48,6 +48,13 @@ import TaskList from './components/task/TaskList';
 import ToolTip from './components/tooltip/ToolTip';
 import withLocalization, { initializeLocalization, setDefaultLocale, addLocaleMessages } from './components/localization/withLocalization';
 
+// New Components
+import { RangePicker, Switch, Slider, Select, Option, InputNumber, Input } from './components/widgets/AntdWidgets'; 
+import DynamicFieldSet from './components/widgets/AntdDynamicFieldSet'; 
+import Autocomplete from './components/widgets/AntdAutocomplete'; 
+import Upload from './components/widgets/AntdUpload'; 
+
+
 import patientObjByEncounterTypeAndObsFilter from './domain/patient/filters/patientObjByEncounterTypeAndObsFilter';
 import patientObjByEncounterTypeFilter from './domain/patient/filters/patientObjByEncounterTypeFilter';
 import patientObjByVisitLocationFilter from './domain/patient/filters/patientObjByVisitLocationFilter';
@@ -126,6 +133,16 @@ const sagas = function*() {
 };
 
 module.exports = {
+  Input,
+  RangePicker, 
+  Switch, 
+  Slider,
+  Select, 
+  Option,
+  InputNumber,
+  DynamicFieldSet,
+  Autocomplete,
+  Upload,
   Accordion,
   addLocaleMessages,
   AuthenticatedRoute,
