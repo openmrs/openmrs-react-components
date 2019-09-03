@@ -94,6 +94,7 @@ const withLocalization = (WrappedComponent) => {
       return (
         <LocalizationContext.Provider value={ {intlProviderAvailable: true} }>
           <IntlProvider
+            key={ locale }
             locale={ locale.replace("_","-") }
             messages={messages}
           >
