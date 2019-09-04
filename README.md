@@ -4,34 +4,34 @@
 Steps to the react component within your React project
 
 ### Add @openmrs/react-components as a dependency
-
+```
 npm install @openmrs/react-components
-
+```
 ### Add babel-polyfill as a dependency and import it
 
 Saga requires that babel-polyfill be installed and configured for your project:
-
+```
 npm install babel-polyfill
-
+```
 Then make you you import 'babel-polyfill' in your entry file (ie index.js)
 
 ### Add react-redux, redux-saga and redux-form as dependencies
-
+```
 npm install react-redux
 npm install redux-saga
 npm install redux-form
-
+```
 Also recommended, redux-logger:
-
+```
 npm install redux-logger
-
+```
 ### Create or update a redux-store that injects the reducers and sagas provided by @openmrs/react-components
 
 They should be injected under the "openmrs" namespace.
 
-See example store at samples/redux-store.js
+See example store at `samples/redux-store.js`
 
-For an example of how to inject a Redux store, see samples/App.jsx
+For an example of how to inject a Redux store, see `samples/App.jsx`
 
 For a documentation of how to use the components check out the [readme](https://github.com/openmrs/openmrs-react-components/tree/master/src/components) for components
 
@@ -83,16 +83,16 @@ const LocalizedBreadCrumb = withLocalization(myComponent);
 
 Note that we only currently support language-based translations, not language and country based translations. For instance we don't support providing custom translations for "en_GB" like en_GB.json.
 
-However, the component can handle parsing locales with a country. Component... ie. if the locale is "en_GB" the en.json translations wil be used, and if the locale is "es_MX" the the es.json translations will be used.  See withLocalization.test.jsx if you want a greater understanding of the supported use cases. 
+However, the component can handle parsing locales with a country. Component... ie. if the locale is "en_GB" the en.json translations wil be used, and if the locale is "es_MX" the es.json translations will be used.  See `withLocalization.test.jsx` if you want a greater understanding of the supported use cases. 
 
 # Publishing a new version
 
 Set the version number you want to release in the pom, and then run:
-
+```
 npm run pack
 
 npm publish --access public
-
+```
 
 # Other tips
 
