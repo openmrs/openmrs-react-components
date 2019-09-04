@@ -16,10 +16,11 @@ const formSubmitted = (data) => ( {
   ...data,
 });
 
-const formSubmitSucceeded = (formInstanceId,formSubmittedActionCreator) => ( {
+const formSubmitSucceeded = (formInstanceId,formSubmittedActionCreator, updatedEncounter) => ( {
   type: FORM_TYPES.SUBMIT_SUCCEEDED,
   formInstanceId: formInstanceId,
-  formSubmittedActionCreator: formSubmittedActionCreator
+  formSubmittedActionCreator: formSubmittedActionCreator,
+  encounter: updatedEncounter
 });
 
 
