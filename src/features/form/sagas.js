@@ -213,7 +213,7 @@ function* submit(action) {
     updatedEncounter = yield call(encounterRest.getEncounter, updatedEncounter.uuid);
 
     yield put(formActions.formBackingEncounterLoaded(action.formInstanceId, updatedEncounter));
-    yield put(formActions.formSubmitSucceeded(action.formInstanceId, action.formSubmittedActionCreator));
+    yield put(formActions.formSubmitSucceeded(action.formInstanceId, action.formSubmittedActionCreator, updatedEncounter));
 
     if (!action.manuallyExitSubmitMode) {
       yield put(formActions.setFormState(action.formInstanceId, FORM_STATES.VIEWING));
@@ -226,13 +226,18 @@ function* submit(action) {
 }
 
 function* submitSucceeded(action) {
+
+  const payload = {
+    encounter: action.encounter
+  };
+
   if (action.formSubmittedActionCreator) {
     if (typeof action.formSubmittedActionCreator === "function") {
-      yield put(action.formSubmittedActionCreator());
+      yield put(action.formSubmittedActionCreator(payload));
     }
     else if (Array.isArray(action.formSubmittedActionCreator)) {
       for (let i = 0; i < action.formSubmittedActionCreator.length; i++) {
-        yield put(action.formSubmittedActionCreator[i]());
+        yield put(action.formSubmittedActionCreator[i](payload));
       }
     }
   }
