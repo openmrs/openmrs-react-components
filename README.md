@@ -13,7 +13,7 @@ Saga requires that babel-polyfill be installed and configured for your project:
 ```
 npm install babel-polyfill
 ```
-Then make you you import 'babel-polyfill' in your entry file (ie index.js)
+Then make you import 'babel-polyfill' in your entry file (ie index.js)
 
 ### Add react-redux, redux-saga and redux-form as dependencies
 ```
