@@ -26,6 +26,7 @@ describe('form sagas', () => {
     encounterRest.createEncounter = jest.fn(encounterRest.createEncounter);   // for some reason, we need to wrap this in jest.fn here, not in the mock itself
     encounterRest.updateEncounter = jest.fn(encounterRest.updateEncounter);
     obsRest.deleteObs = jest.fn(obsRest.deleteObs);
+    obsRest.getObs = jest.fn(obsRest.getObs);
   });
 
   it('should create an encounter and issue formSubmittedActionCreator', () => {
@@ -321,6 +322,86 @@ describe('form sagas', () => {
     expect(encounterRest.updateEncounter.mock.calls[0][0]).toMatchObject(expectedEncounterPost);
     expect(obsRest.deleteObs).toHaveBeenCalledTimes(1);
     expect(obsRest.deleteObs.mock.calls[0][0].uuid).toBe("existing_obs_uuid");
+
+    expect(sagaTester.getCalledActions()).toContainEqual(formActions.formSubmitSucceeded(formInstanceId, formSubmittedActionCreator, encounterReturnedByEncounterRestMock));
+    expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitFailed(formInstanceId));
+    expect(formSubmittedActionCreator.mock.calls.length).toBe(1);
+    expect(sagaTester.getCalledActions()).toContainEqual(formSubmittedActionCreator({ encounter: encounterReturnedByEncounterRestMock }));
+  });
+
+  it('should delete empty parent obs', () => {
+
+    const formInstanceId = "form-instance-id";
+
+    const values =  {
+      'obs|path=first-obs|conceptPath=first-obs-uuid': 'canceled',
+      'obs|path=second-obs|conceptPath=second-obs-uuid': "",
+      'obs|path=third-obs|conceptPath=third-obs-uuid': ""
+    };
+
+    const patient = {
+      uuid: "some_patient_uuid"
+    };
+
+    const encounterType = {
+      uuid: "some_encounter_type_uuid"
+    };
+
+    const visit = {
+      uuid: "some_visit_uuid"
+    };
+
+    const encounter = {
+      "uuid": "existing_encounter_uuid",
+      "obs": [
+        {
+          "uuid": "existing_obs_uuid",
+          "concept": {
+            "uuid": "existing-obs-concept-uuid"
+          },
+          "comment": "form-id^second-obs"
+        },
+        {
+          "uuid": "child-obs-uuid",
+          "concept": {
+            "uuid": "existing-third_obs-concept-uuid"
+          },
+          "comment": "form-id^third-obs"
+        }
+      ]
+    };
+
+    const expectedEncounterPost = {
+      "uuid": "existing_encounter_uuid",
+      "obs": [
+        { "comment": "form-id^first-obs",
+          "concept": "first-obs-uuid",
+          "value": "canceled"
+        }
+      ],
+    };
+
+
+    sagaTester.dispatch(formActions.formSubmitted( {
+      values: values,
+      formId: "form-id",
+      formInstanceId: formInstanceId,
+      patient: patient,
+      encounter: encounter,
+      encounterType: encounterType,
+      visit: visit,
+      formSubmittedActionCreator:
+      formSubmittedActionCreator
+    } ));
+    expect(encounterRest.updateEncounter).toHaveBeenCalledTimes(1);
+    expect(encounterRest.updateEncounter.mock.calls[0][0]).toMatchObject(expectedEncounterPost);
+    expect(obsRest.deleteObs).toHaveBeenCalledTimes(3); // delete existing_obs_uuid, child-obs-uuid and parent-obs-uuid
+    expect(obsRest.getObs).toHaveBeenCalledTimes(4);
+    expect(obsRest.deleteObs.mock.calls[0][0].uuid).toBe("existing_obs_uuid");
+    expect(obsRest.getObs.mock.calls[0][0]).toBe("existing_obs_uuid");
+    expect(obsRest.deleteObs.mock.calls[1][0].uuid).toBe("child-obs-uuid");
+    expect(obsRest.getObs.mock.calls[1][0]).toBe("child-obs-uuid");
+    expect(obsRest.deleteObs.mock.calls[2][0].uuid).toBe("parent-obs-uuid");
 
     expect(sagaTester.getCalledActions()).toContainEqual(formActions.formSubmitSucceeded(formInstanceId, formSubmittedActionCreator, encounterReturnedByEncounterRestMock));
     expect(sagaTester.getCalledActions()).not.toContainEqual(formActions.formSubmitFailed(formInstanceId));

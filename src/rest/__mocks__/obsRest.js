@@ -1,4 +1,17 @@
+const childObs = {
+  uuid: "child-obs-uuid",
+  voided: true,
+  obsGroup: {
+    uuid: "parent-obs-uuid",
+    voided: false
+  }
+};
 
+const parentObs = {
+  uuid: "parent-obs-uuid",
+  voided: false,
+  groupMembers: null
+};
 
 const api = {
 
@@ -9,7 +22,9 @@ const api = {
         message: 'Unable to Delete'
       };
     }
-    else {
+    else if (obs.uuid === 'parent-obs-uuid') {
+      parentObs.voided = true;
+    } else {
       return;
     }
   },
@@ -21,7 +36,11 @@ const api = {
         message: 'Unable to Retrieve Obs'
       };
     }
-    else {
+    else if (uuid === 'child-obs-uuid') {
+      return childObs;
+    } else if(uuid === 'parent-obs-uuid') {
+      return parentObs;
+    }else {
       return;
     }
   },
