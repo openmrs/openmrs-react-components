@@ -14,6 +14,17 @@ const api = {
     }
   },
 
+  getObs: (uuid, representation) => {
+    if (!uuid) {
+      throw {
+        name: 'Mock Exception',
+        message: 'Unable to Retrieve Obs'
+      };
+    }
+    else {
+      return;
+    }
+  },
 };
 
 

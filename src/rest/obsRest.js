@@ -1,6 +1,7 @@
 
 import { axiosInstance } from '../config';
-import {DEFAULT_OBS_REP} from "../domain/obs/constants";
+import { DEFAULT_OBS_REP } from "../domain/obs/constants";
+
 
 const api = {
 
@@ -9,6 +10,21 @@ const api = {
       .then((response) => {
         if (response.status != 204) {
           throw response;
+        } else {
+          return response.data;
+        }
+      });
+  },
+
+  getObs: (uuid, representation) => {
+    let getRequest = `obs/${uuid}?v=custom:${representation || DEFAULT_OBS_REP}`;
+
+    return axiosInstance.get(getRequest)
+      .then((response) => {
+        if (response.status != 200) {
+          throw response;
+        } else {
+          return response.data;
         }
       });
   },

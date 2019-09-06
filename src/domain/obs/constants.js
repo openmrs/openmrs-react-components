@@ -6,3 +6,4 @@
 export const DEFAULT_OBS_REP = '(id,uuid,display,obsDatetime,comment,value:(id,uuid,display,name:(uuid,name)),' +
   'concept:(uuid),encounter:(id,uuid,encounterDatetime,encounterType:(uuid)),groupMembers:(uuid),obsGroup:(uuid))';
 
+export const DELETED_OBS_REP='(id,uuid,obsGroup:(uuid,id,voided),groupMembers:(id,uuid,voided),voided)';

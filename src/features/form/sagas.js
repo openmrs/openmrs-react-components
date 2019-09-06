@@ -3,6 +3,7 @@ import { format, parse, isSameDay, isToday } from 'date-fns';
 import FORM_TYPES from './types';
 import formActions from './actions';
 import formUtil from './util';
+import { DELETED_OBS_REP } from "../../domain/obs/constants";
 import encounterRest from '../../rest/encounterRest';
 import obsRest from '../../rest/obsRest';
 import { FORM_STATES } from "./constants";
@@ -108,6 +109,22 @@ function determineEncounterDatetime(submittedEncounterDatetime, existingEncounte
   }
 }
 
+function* cleanParentObs(childObs) {
+  const deletedObs = yield call(obsRest.getObs, childObs.uuid, DELETED_OBS_REP);
+  if (deletedObs && deletedObs.voided === true) {
+    if (deletedObs.obsGroup && deletedObs.obsGroup.voided === false) {
+      // check if deleted obs has a parent
+      const parentObs = yield call(obsRest.getObs, deletedObs.obsGroup.uuid, DELETED_OBS_REP);
+      if (parentObs && parentObs.groupMembers === null && parentObs.voided === false) {
+        //the parent obs is empty, so delete it
+        yield call(obsRest.deleteObs, parentObs);
+        // recursively, check if the parentObs is a child of another Obs
+        yield call(cleanParentObs, parentObs);
+      }
+    }
+  }
+}
+
 function* submit(action) {
 
   // TODO double submits, correct form, state, etc
@@ -163,7 +180,7 @@ function* submit(action) {
 
     // create an array of the obs we received from the form
     const obsFromForm = Object.entries(action.values)
-      .filter(value => value[0].startsWith('obs'))  // only form names that start with obs
+      .filter(value => value[0].startsWith('obs'));  // only form names that start with obs
 
     // create the obs to add to the encounter
     let allObs = [];
@@ -199,7 +216,7 @@ function* submit(action) {
     // first search obsFromForm for any that are in the submitted form, but have a value set to null/0
     const obsToDelete =
       obsFromForm
-        .filter(value => !value[1])  // any ones without a value
+        .filter(value => !value[1])  // only the ones with a value
         .map(value => ({ uuid: findExistingObsUuid(action.formId, formUtil.parseObsFieldName(value[0]).path, existingFlattenedObs ) }))  // match to any existing obs
         .filter(obs => obs.uuid);  // only ones with matching uuid
 
@@ -207,6 +224,7 @@ function* submit(action) {
     if (obsToDelete && obsToDelete.length > 0) {
       for (let i = 0; i < obsToDelete.length; i++) {
         yield call(obsRest.deleteObs, obsToDelete[i]);
+        yield call(cleanParentObs, obsToDelete[i]);
       }
     }
     // we should refetch the encounter to because create and update only return minimal representations
