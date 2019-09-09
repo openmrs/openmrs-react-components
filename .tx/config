@@ -1,0 +1,9 @@
+[main]
+host = https://www.transifex.com/
+
+[OpenMRS.react-components]
+file_filter = src/localization/translations/<lang>.json
+source_file = src/localization/translations/en.json
+source_lang = en
+type = KEYVALUEJSON
+

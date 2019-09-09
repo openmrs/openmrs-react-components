@@ -216,7 +216,7 @@ function* submit(action) {
     // first search obsFromForm for any that are in the submitted form, but have a value set to null/0
     const obsToDelete =
       obsFromForm
-        .filter(value => !value[1])  // only the ones with a value
+        .filter(value => !value[1])  // only the ones without a value
         .map(value => ({ uuid: findExistingObsUuid(action.formId, formUtil.parseObsFieldName(value[0]).path, existingFlattenedObs ) }))  // match to any existing obs
         .filter(obs => obs.uuid);  // only ones with matching uuid
 
