@@ -46,7 +46,7 @@ import SystemAlert from './components/system/SystemAlert';
 import Tabs from './components/tabs/Tabs';
 import TaskList from './components/task/TaskList';
 import ToolTip from './components/tooltip/ToolTip';
-import withLocalization, { initializeLocalization, setDefaultLocale, addLocaleMessages } from './components/localization/withLocalization';
+import withLocalization, { initializeLocalization, setDefaultLocale, addLocaleMessages, getIntl } from './components/localization/withLocalization';
 
 import patientObjByEncounterTypeAndObsFilter from './domain/patient/filters/patientObjByEncounterTypeAndObsFilter';
 import patientObjByEncounterTypeFilter from './domain/patient/filters/patientObjByEncounterTypeFilter';
@@ -149,6 +149,7 @@ module.exports = {
   Header,
   HeaderAlt,
   HomePage,
+  getIntl,
   initializeLocalization,
   LineChart,
   List,

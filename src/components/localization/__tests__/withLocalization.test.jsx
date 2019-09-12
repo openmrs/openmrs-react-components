@@ -4,7 +4,7 @@ import configureMockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { IntlProvider } from "react-intl";
 
-import withLocalization, { initializeLocalization, setDefaultLocale } from '../withLocalization';
+import withLocalization, { initializeLocalization, setDefaultLocale, getIntl } from '../withLocalization';
 
 let store;
 let mountedComponent;
@@ -212,6 +212,13 @@ describe("withLocalization", () => {
 
     expect(localizedComponent().find(IntlProvider).props().messages).toHaveProperty(["reactcomponents.submit"],  "Soumèt");
     expect(localizedComponent().find(IntlProvider).props().locale).toBe('ht');
+  });
+
+  it("should return intl API given a locale", () => {
+    initializeLocalization();
+    expect(getIntl().formatMessage({ id: "reactcomponents.submit" })).toBe("Submit");
+    expect(getIntl('en').formatMessage({ id: "reactcomponents.submit" })).toBe("Submit");
+    expect(getIntl('ht').formatMessage({ id: "reactcomponents.submit" })).toBe("Soumèt");
   });
 
 });
