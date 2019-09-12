@@ -72,6 +72,19 @@ export const initializeLocalization = (messages) => {
 
 };
 
+const getMessagesForLocale = (locale) => {
+  const localeWithoutRegionCode = locale.toLowerCase().split(/[_-]+/)[0];
+  const defaultLocaleWithoutRegionCode = defaultLocale.toLowerCase().split(/[_-]+/)[0];
+  return merge({}, localeMessages[defaultLocaleWithoutRegionCode], localeMessages[localeWithoutRegionCode]);
+};
+
+export const getIntl = (locale = defaultLocale) => {
+  const messages = getMessagesForLocale(locale);
+  const { intl } = new IntlProvider({ locale, messages }).getChildContext();
+  return intl;
+};
+
+
 const withLocalization = (WrappedComponent) => {
   class Localization extends React.PureComponent {
 
@@ -82,10 +95,7 @@ const withLocalization = (WrappedComponent) => {
     render() {
 
       const locale = this.props.locale ? this.props.locale : defaultLocale;
-
-      const localeWithoutRegionCode = locale.toLowerCase().split(/[_-]+/)[0];
-      const defaultLocaleWithoutRegionCode = defaultLocale.toLowerCase().split(/[_-]+/)[0];
-      const messages = merge({}, localeMessages[defaultLocaleWithoutRegionCode], localeMessages[localeWithoutRegionCode]);
+      const messages = getMessagesForLocale(locale);
 
       // the underlying locale-data tables provided by react-intl use "-" as a delimiter instead of "_"
       // the LocalizationContext is currently *only* used to alert consumers if IntlProvider is available
