@@ -13,6 +13,7 @@ import Cancel from './Cancel';
 import EncounterForm from './EncounterForm';
 import Loader from './../widgets/Loader';
 import {format, isSameDay, parse} from "date-fns";
+import LocalizedMessage from '../localization/LocalizedMessage';
 
 /**
  * Provides a basic wrapper around an Encounter Form with a title, toast success message, and afterSubmitLink
@@ -181,13 +182,21 @@ class EncounterFormPanel extends React.PureComponent {
                   <Row>
                     <Col xs={6}>
                       {this.getForm().state === FORM_STATES.EDITING ?
-                        <Cancel onClick={this.handleCancel} /> : <Button onClick={this.handleBack}>Back</Button>
+                        <Cancel onClick={this.handleCancel} /> : <Button onClick={this.handleBack}>
+                          <LocalizedMessage
+                            id="reactcomponents.back"
+                            defaultMessage="Back" />
+                        </Button>
                       }
                     </Col>
                     {!this.props.hideSubmitActionButtons &&  <Col xs={6}>
                       {this.getForm().state === FORM_STATES.EDITING ?
                         (<Submit style={this.floatRight} onClick={this.exitEditMode}/>) :
-                        (<Button style={this.floatRight} onClick={this.enterEditMode}>Edit</Button>)}
+                        (<Button style={this.floatRight} onClick={this.enterEditMode}>
+                          <LocalizedMessage
+                            id="reactcomponents.edit"
+                            defaultMessage="Edit" />
+                        </Button>)}
                     </Col>
                     }
                   </Row>

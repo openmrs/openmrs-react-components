@@ -4,6 +4,8 @@
     "reactcomponents.date": "Date",
     "reactcomponents.all": "All",
     "reactcomponents.status": "Status",
+    "reactcomponents.back": "Back",
+    "reactcomponents.edit": "Edit",
     "reactcomponents.select.from.list": "Select from the list",
     "reactcomponents.value.abnormal": "Abnormal value",
     "reactcomponents.value.mustBeAtLeast": "Must be at least",
