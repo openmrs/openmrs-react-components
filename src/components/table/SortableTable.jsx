@@ -53,7 +53,7 @@ class SortableTable extends PureComponent {
   }
 
   renderPaginationBottom() {
-    if (this.getTableData().length === 0) {
+    if (this.getTableData() !== null && this.getTableData().length === 0) {
       return false;
     }
 
