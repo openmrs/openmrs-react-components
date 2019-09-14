@@ -5,6 +5,7 @@ import '../../../assets/css/header.css';
 import { sessionActions } from '../../features/session';
 import { loginActions } from '../../features/login';
 import { headerActions } from '../../features/header';
+import LocalizedMessage from "../localization/LocalizedMessage";
 
 export class Header extends React.Component {
   constructor(props) {
@@ -101,7 +102,9 @@ export class Header extends React.Component {
             </li>
             <li className="logout">
               <a href={`/${contextPath}/appui/header/logout.action?successUrl=${contextPath}`}>
-                Logout
+                <LocalizedMessage
+                  id="reactcomponents.logout"
+                  defaultMessage="Logout"/>
                 <i className="icon-signout small" />
               </a>
             </li>

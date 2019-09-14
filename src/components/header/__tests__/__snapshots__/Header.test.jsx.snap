@@ -71,7 +71,9 @@ exports[`header should render correctly 1`] = `
         <a
           href="//appui/header/logout.action?successUrl="
         >
-          Logout
+          <span>
+            Logout
+          </span>
           <i
             className="icon-signout small"
           />
