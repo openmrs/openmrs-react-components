@@ -1,9 +1,9 @@
 {
-    "reactcomponents.logout": "Connectez Out",
+    "reactcomponents.logout": "Déconnexion",
     "reactcomponents.submit": "Soumettre",
     "reactcomponents.cancel": "Terminer",
     "reactcomponents.date": "Date",
-    "reactcomponents.all": "Tous",
+    "reactcomponents.all": "Tout",
     "reactcomponents.status": "Statut",
     "reactcomponents.back": "Retour",
     "reactcomponents.edit": "Modifier",

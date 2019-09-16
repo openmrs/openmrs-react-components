@@ -1,8 +1,12 @@
 {
+    "reactcomponents.logout": "Logout",
     "reactcomponents.submit": "Guardar",
     "reactcomponents.cancel": "Cancelar",
     "reactcomponents.date": "Fecha",
+    "reactcomponents.all": "All",
     "reactcomponents.status": "Estado",
+    "reactcomponents.back": "Back",
+    "reactcomponents.edit": "Edit",
     "reactcomponents.select.from.list": "Seleccionar desde la lista",
     "reactcomponents.value.abnormal": "Valor anormal",
     "reactcomponents.value.mustBeAtLeast": "Al menos debe ser",
@@ -10,5 +14,15 @@
     "reactcomponents.value.critical": "Valor crítico",
     "reactcomponents.value.required": "Necesario",
     "reactcomponents.value.date.shouldBeEarlier": "La fecha debe ser anterior o igual",
-    "reactcomponents.value.date.shouldBeLater": "La fecha debe ser posterior o igual"
+    "reactcomponents.value.date.shouldBeLater": "La fecha debe ser posterior o igual",
+    "reactcomponents.table.previous": "Previous",
+    "reactcomponents.table.next": "Next",
+    "reactcomponents.table.page": "Page",
+    "reactcomponents.table.of": "of",
+    "reactcomponents.table.rows": "rows",
+    "reactcomponents.table.loading": "Loading...",
+    "reactcomponents.table.noDataText": "No results found",
+    "reactcomponents.male": "Male",
+    "reactcomponents.female": "Female",
+    "reactcomponents.patient.id": "Patient ID"
 }
