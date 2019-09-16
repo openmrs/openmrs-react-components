@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import {PatientHeader} from '../PatientHeader';
+import { mountWithIntl } from "../../localization/test/helpers/intl-test";
 
 
 let props;
@@ -631,7 +632,7 @@ const patient =
 
 const patientHeader = () => {
   if (!mountedComponent) {
-    mountedComponent = mount(
+    mountedComponent = mountWithIntl(
       <PatientHeader {...props} />
     );
   }

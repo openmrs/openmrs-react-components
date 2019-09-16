@@ -21,5 +21,8 @@
     "reactcomponents.table.of": "de",
     "reactcomponents.table.rows": "ranje",
     "reactcomponents.table.loading": "Chaje...",
-    "reactcomponents.table.noDataText": "Pa gen rezilta yo te jwenn"
+    "reactcomponents.table.noDataText": "Pa gen rezilta yo te jwenn",
+    "reactcomponents.male": "Gason",
+    "reactcomponents.female": "Fi",
+    "reactcomponents.patient.id": "Idantifikasyon Pasyan"
 }

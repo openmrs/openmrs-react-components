@@ -21,5 +21,8 @@
     "reactcomponents.table.of": "de",
     "reactcomponents.table.rows": "lignes",
     "reactcomponents.table.loading": "Chargement...",
-    "reactcomponents.table.noDataText": "Aucun résultat trouvé"
+    "reactcomponents.table.noDataText": "Aucun résultat trouvé",
+    "reactcomponents.male": "Masculin",
+    "reactcomponents.female": "Féminin",
+    "reactcomponents.patient.id": "ID patient"
 }

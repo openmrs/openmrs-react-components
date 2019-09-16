@@ -21,5 +21,8 @@
     "reactcomponents.table.of": "of",
     "reactcomponents.table.rows": "rows",
     "reactcomponents.table.loading": "Loading...",
-    "reactcomponents.table.noDataText": "No results found"
+    "reactcomponents.table.noDataText": "No results found",
+    "reactcomponents.male": "Male",
+    "reactcomponents.female": "Female",
+    "reactcomponents.patient.id": "Patient ID"
 }

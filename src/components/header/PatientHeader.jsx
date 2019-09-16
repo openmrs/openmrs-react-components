@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import dateFns from 'date-fns';
 import { Glyphicon } from 'react-bootstrap';
 import { withRouter } from "react-router";
+import { injectIntl } from 'react-intl';
 import { selectors } from '../../store';
 import { DATE_FORMAT } from "../../constants";
 import patientUtil from '../../domain/patient/patientUtil';
@@ -70,6 +71,9 @@ export class PatientHeader extends PureComponent {
 
   renderDemographics() {
     const { age } = formatAge(this.state.patient.birthdate);
+    const { intl } = this.props;
+    const maleMsg = intl.formatMessage({ id: "reactcomponents.male", defaultMessage: "Male" });
+    const femaleMsg = intl.formatMessage({ id: "reactcomponents.female", defaultMessage: "Female" });
     return (
       <div className="demographics" onClick={this.handlePatientLink}>
         <h2 className="name">
@@ -90,7 +94,7 @@ export class PatientHeader extends PureComponent {
 
           &nbsp;
           <span className="gender-age">
-            <span className="gender">{this.state.patient.gender === 'M' ? "Male" : "Female"}</span>
+            <span className="gender">{this.state.patient.gender === 'M' ? maleMsg : femaleMsg}</span>
             <span className="age">
               {age}
               { this.state.patient.birthdate && ('(' + dateFns.format(this.state.patient.birthdate, DATE_FORMAT) + ')') }
@@ -103,9 +107,11 @@ export class PatientHeader extends PureComponent {
 
   renderPatientIdentifier() {
     const { shouldDisplayAdditionalPatientIdentifier, additionalPatientIdentifiers, patientIdentifiers } = this.state;
+    const { intl } = this.props;
+    const patientId = intl.formatMessage({ id: "reactcomponents.patient.id", defaultMessage: "Patient ID" });
     return (
       <div className="identifiers">
-        <em onClick={this.handlePatientLink}>Patient ID</em>
+        <em onClick={this.handlePatientLink}>{ patientId }</em>
         <div className="identifiers-number">
           { patientIdentifiers.map(identifier => <span key={identifier}>{identifier}</span>)}
           { shouldDisplayAdditionalPatientIdentifier && additionalPatientIdentifiers.map(identifier => <span key={identifier}>{identifier}</span>)}
@@ -165,4 +171,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default withRouter(connect(mapStateToProps)(PatientHeader));
+export default withRouter(connect(mapStateToProps)(injectIntl(PatientHeader)));
