@@ -14,5 +14,12 @@
     "reactcomponents.value.critical": "Critical value",
     "reactcomponents.value.required": "Required",
     "reactcomponents.value.date.shouldBeEarlier": "Date should be earlier or equal",
-    "reactcomponents.value.date.shouldBeLater": "Date should be later or equal"
+    "reactcomponents.value.date.shouldBeLater": "Date should be later or equal",
+    "reactcomponents.table.previous": "Previous",
+    "reactcomponents.table.next": "Next",
+    "reactcomponents.table.page": "Page",
+    "reactcomponents.table.of": "of",
+    "reactcomponents.table.rows": "rows",
+    "reactcomponents.table.loading": "Loading...",
+    "reactcomponents.table.noDataText": "No results found"
 }

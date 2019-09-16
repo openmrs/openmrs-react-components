@@ -2,6 +2,7 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
+import LocalizedMessage from "../localization/LocalizedMessage";
 
 
 class SortableTable extends PureComponent {
@@ -145,14 +146,30 @@ SortableTable.defaultProps = {
   isResizeable: true,
   isSortable: true,
   minRows: 0,
-  noDataMessage: "No results found",
-  previousText: "Previous",
-  nextText: "Next",
-  loadingText: "Loading...",
-  noDataText: "No results found",
-  pageText: "Page",
-  ofText: "of",
-  rowsText: "rows",
+  noDataMessage: <LocalizedMessage
+    id="reactcomponents.table.noDataText"
+    defaultMessage="No results found" />,
+  previousText: <LocalizedMessage
+    id="reactcomponents.table.previous"
+    defaultMessage="Previous" />,
+  nextText: <LocalizedMessage
+    id="reactcomponents.table.next"
+    defaultMessage="Next" />,
+  loadingText: <LocalizedMessage
+    id="reactcomponents.table.loading"
+    defaultMessage="Loading..." />,
+  noDataText: <LocalizedMessage
+    id="reactcomponents.table.noDataText"
+    defaultMessage="No results found" />,
+  pageText: <LocalizedMessage
+    id="reactcomponents.table.page"
+    defaultMessage="Page" />,
+  ofText: <LocalizedMessage
+    id="reactcomponents.table.of"
+    defaultMessage="of" />,
+  rowsText: <LocalizedMessage
+    id="reactcomponents.table.rows"
+    defaultMessage="rows" />,
   selectedRows: [],
 };
 

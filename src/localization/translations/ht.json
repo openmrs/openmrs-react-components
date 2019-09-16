@@ -14,5 +14,12 @@
     "reactcomponents.value.critical": "Valè kritik",
     "reactcomponents.value.required": "Obligatwa",
     "reactcomponents.value.date.shouldBeEarlier": "Dat yo ta dwe pi bonè oswa egal",
-    "reactcomponents.value.date.shouldBeLater": "Dat yo ta dwe pita oswa egal"
+    "reactcomponents.value.date.shouldBeLater": "Dat yo ta dwe pita oswa egal",
+    "reactcomponents.table.previous": "Anvan yo",
+    "reactcomponents.table.next": "Pwochen",
+    "reactcomponents.table.page": "Paj",
+    "reactcomponents.table.of": "de",
+    "reactcomponents.table.rows": "ranje",
+    "reactcomponents.table.loading": "Chaje...",
+    "reactcomponents.table.noDataText": "Pa gen rezilta yo te jwenn"
 }
