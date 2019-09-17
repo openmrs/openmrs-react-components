@@ -10,8 +10,8 @@ const minValue = min => value =>
 
 const maxValue = max => value =>
   value && value > max ? ( <span><LocalizedMessage
-    id="reactcomponents.value.mustBeLessThan"
-    defaultMessage="Must be less than" />&nbsp;{max}</span> ) : undefined ;
+    id="reactcomponents.value.mustBeLessThanOrEqualTo"
+    defaultMessage="Must be less than or equal to" />&nbsp;{max}</span> ) : undefined ;
 
 const abnormalMaxValue = max => value =>
   value && value > max ? <LocalizedMessage

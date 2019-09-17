@@ -11,6 +11,7 @@
     "reactcomponents.value.abnormal": "Abnormal value",
     "reactcomponents.value.mustBeAtLeast": "Must be at least",
     "reactcomponents.value.mustBeLessThan": "Must be less than",
+    "reactcomponents.value.mustBeLessThanOrEqualTo": "Must be less than or equal to",
     "reactcomponents.value.critical": "Critical value",
     "reactcomponents.value.required": "Required",
     "reactcomponents.value.date.shouldBeEarlier": "Date should be earlier or equal",
