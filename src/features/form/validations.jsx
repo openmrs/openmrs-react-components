@@ -3,7 +3,7 @@ import { format } from "date-fns";
 
 import LocalizedMessage from "../../components/localization/LocalizedMessage";
 
-const minValue = min => value => 
+const minValue = min => value =>
   value && value < min ? ( <span><LocalizedMessage
     id="reactcomponents.value.mustBeAtLeast"
     defaultMessage="Must be at least" />&nbsp;{min}</span> ) : undefined;
@@ -11,7 +11,7 @@ const minValue = min => value =>
 const maxValue = max => value =>
   value && value > max ? ( <span><LocalizedMessage
     id="reactcomponents.value.mustBeLessThan"
-    defaultMessage="Must be less than" />&nbsp;{max + 1}</span> ) : undefined ;
+    defaultMessage="Must be less than" />&nbsp;{max}</span> ) : undefined ;
 
 const abnormalMaxValue = max => value =>
   value && value > max ? <LocalizedMessage
@@ -61,7 +61,7 @@ const minDateValue = (minDate, reference, customText) => value => {
 
 const generateAbsoluteRangeValidators = concept => {
   const {
-    hiAbsolute,	
+    hiAbsolute,
     lowAbsolute,
   } = concept;
   let hiAbsoluteRange, lowAbsoluteRange;
@@ -77,13 +77,13 @@ const generateAbsoluteRangeValidators = concept => {
 
 const generateAbnormalAndCriticalWarningFunctions = concept => {
   const {
-    hiNormal,	
+    hiNormal,
     hiCritical,
-    lowCritical,	
+    lowCritical,
     lowNormal,
   } = concept;
   let hiNormalRange, lowNormalRange, hiCriticalRange, lowCriticalRange;
-  
+
   if (hiNormal || hiCritical || lowCritical || lowNormal) {
     hiNormalRange = hiNormal ? abnormalMaxValue(hiNormal) : undefined;
     lowNormalRange = lowNormal ? abnormalMinValue(lowNormal) : undefined;
