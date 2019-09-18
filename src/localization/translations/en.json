@@ -1,4 +1,6 @@
 {
+    "reactcomponents.yes": "YES",
+    "reactcomponents.no": "NO",
     "reactcomponents.logout": "Logout",
     "reactcomponents.submit": "Submit",
     "reactcomponents.cancel": "Cancel",

@@ -1,5 +1,7 @@
 {
     "reactcomponents.logout": "Déconnexion",
+    "reactcomponents.yes": "OUI",
+    "reactcomponents.no": "NON",
     "reactcomponents.submit": "Soumettre",
     "reactcomponents.cancel": "Terminer",
     "reactcomponents.date": "Date",

@@ -1,4 +1,6 @@
 {
+    "reactcomponents.yes": "WI",
+    "reactcomponents.no": "NON",
     "reactcomponents.logout": "Dekonekte",
     "reactcomponents.submit": "Soumèt",
     "reactcomponents.cancel": "Anile",
