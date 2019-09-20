@@ -9,7 +9,7 @@ const LocalizedMessage = (props) => {
 
     <LocalizationContext.Consumer>
       {context =>
-        context.intlProviderAvailable ?
+        context && context.hasOwnProperty('intlProviderAvailable') && context.intlProviderAvailable ?
           (
             <FormattedMessage
               defaultMessage={props.defaultMessage}
