@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import dateFns from 'date-fns';
 import { Glyphicon } from 'react-bootstrap';
 import { withRouter } from "react-router";
-import { injectIntl } from 'react-intl';
 import { selectors } from '../../store';
 import { DATE_FORMAT } from "../../constants";
 import patientUtil from '../../domain/patient/patientUtil';
 import { formatAge } from '../../features/patient/utils';
 import '../../../assets/css/patientHeader.css';
+import { getIntl } from "../localization/withLocalization";
 
 export class PatientHeader extends PureComponent {
   constructor(props) {
@@ -22,6 +22,7 @@ export class PatientHeader extends PureComponent {
       shouldDisplayAdditionalPatientIdentifier: false
     };
 
+    this.intl = getIntl(props.locale);
     this.togglePatientIdentifierDisplay = this.togglePatientIdentifierDisplay.bind(this);
     this.handlePatientLink = this.handlePatientLink.bind(this);
   };
@@ -42,7 +43,7 @@ export class PatientHeader extends PureComponent {
       } else {
         identifiers = patientUtil.getIdentifiers(this.state.patient);
       }
-    
+
       this.setState({ patientIdentifiers: identifiers });
       this.setState({ additionalPatientIdentifiers: additionalIdentifiers });
     }
@@ -71,9 +72,8 @@ export class PatientHeader extends PureComponent {
 
   renderDemographics() {
     const { age } = formatAge(this.state.patient.birthdate);
-    const { intl } = this.props;
-    const maleMsg = intl.formatMessage({ id: "reactcomponents.male", defaultMessage: "Male" });
-    const femaleMsg = intl.formatMessage({ id: "reactcomponents.female", defaultMessage: "Female" });
+    const maleMsg = this.intl.formatMessage({ id: "reactcomponents.male", defaultMessage: "Male" });
+    const femaleMsg = this.intl.formatMessage({ id: "reactcomponents.female", defaultMessage: "Female" });
     return (
       <div className="demographics" onClick={this.handlePatientLink}>
         <h2 className="name">
@@ -106,9 +106,8 @@ export class PatientHeader extends PureComponent {
   }
 
   renderPatientIdentifier() {
-    const { shouldDisplayAdditionalPatientIdentifier, additionalPatientIdentifiers, patientIdentifiers } = this.state;
-    const { intl } = this.props;
-    const patientId = intl.formatMessage({ id: "reactcomponents.patient.id", defaultMessage: "Patient ID" });
+    const { shouldDisplayAdditionalPatientIdentifier, additionalPatientIdentifiers, patientIdentifiers } = this.state;;
+    const patientId = this.intl.formatMessage({ id: "reactcomponents.patient.id", defaultMessage: "Patient ID" });
     return (
       <div className="identifiers">
         <em onClick={this.handlePatientLink}>{ patientId }</em>
@@ -116,7 +115,7 @@ export class PatientHeader extends PureComponent {
           { patientIdentifiers.map(identifier => <span key={identifier}>{identifier}</span>)}
           { shouldDisplayAdditionalPatientIdentifier && additionalPatientIdentifiers.map(identifier => <span key={identifier}>{identifier}</span>)}
           { additionalPatientIdentifiers.length > 0 && <a
-            className="identifier-toggle-anchor" 
+            className="identifier-toggle-anchor"
             onClick={this.togglePatientIdentifierDisplay}
           >
             Show {shouldDisplayAdditionalPatientIdentifier ? 'less' : 'more'}&nbsp;
@@ -138,8 +137,8 @@ export class PatientHeader extends PureComponent {
       return (
         <div>
           <div className="patient-header ">
-            {this.props.showBackButton && <span 
-              className="back-button" 
+            {this.props.showBackButton && <span
+              className="back-button"
               onClick={() => this.props.history.push(this.props.backLink || '/')}
             >
               <Glyphicon
@@ -165,10 +164,11 @@ PatientHeader.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
+    locale: selectors.getSession(state).locale,
     sessionLocation: selectors.getSessionLocation(state),
     identifierTypes: state.openmrs.metadata.patientIdentifierTypes,
     locations: state.openmrs.metadata.locations,
   };
 };
 
-export default withRouter(connect(mapStateToProps)(injectIntl(PatientHeader)));
+export default withRouter(connect(mapStateToProps)(PatientHeader));

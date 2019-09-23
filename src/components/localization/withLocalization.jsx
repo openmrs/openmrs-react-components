@@ -80,7 +80,7 @@ const getMessagesForLocale = (locale) => {
 
 export const getIntl = (locale = defaultLocale) => {
   const messages = getMessagesForLocale(locale);
-  const { intl } = new IntlProvider({ locale, messages }).getChildContext();
+  const { intl } = new IntlProvider({ locale: locale.replace("_","-"), messages }).getChildContext();
   return intl;
 };
 
