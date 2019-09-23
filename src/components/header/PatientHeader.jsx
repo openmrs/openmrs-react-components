@@ -22,7 +22,9 @@ export class PatientHeader extends PureComponent {
       shouldDisplayAdditionalPatientIdentifier: false
     };
 
+    // because we are instantiating this here, we probably need to do a full reload when changing locale?
     this.intl = getIntl(props.locale);
+
     this.togglePatientIdentifierDisplay = this.togglePatientIdentifierDisplay.bind(this);
     this.handlePatientLink = this.handlePatientLink.bind(this);
   };

@@ -1,16 +1,18 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { injectIntl } from 'react-intl';
 import PropTypes from 'prop-types';
+import LocalizedMessage from '../localization/LocalizedMessage';
 
-const Head = ({ intl, id, defaultTitle }) => {  
-  const translatedTitle = intl.formatMessage({ id });
+const Head = ({ id, defaultTitle }) => {
   return (
     <span>
       <Helmet>
         <meta charSet="utf-8" />
         <title>
-          {translatedTitle || defaultTitle}
+          <LocalizedMessage
+            defaultMessage={defaultTitle}
+            id={id}
+          />
         </title>
       </Helmet>
     </span>
@@ -20,10 +22,9 @@ const Head = ({ intl, id, defaultTitle }) => {
 Head.propTypes = {
   defaultTitle: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  intl: PropTypes.object,
 };
 
 
-export default injectIntl(Head);
+export default Head;
 
 
