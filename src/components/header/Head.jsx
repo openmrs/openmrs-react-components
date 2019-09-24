@@ -8,11 +8,12 @@ const Head = ({ id, defaultTitle }) => {
     <span>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>
+        <title>{`
           <LocalizedMessage
             defaultMessage={defaultTitle}
             id={id}
           />
+          `}
         </title>
       </Helmet>
     </span>
