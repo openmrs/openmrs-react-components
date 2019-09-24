@@ -73,7 +73,7 @@ export class PatientHeader extends PureComponent {
   }
 
   renderDemographics() {
-    const { age } = formatAge(this.state.patient.birthdate);
+    const { age } = formatAge(this.state.patient.birthdate, this.intl);
     const maleMsg = this.intl.formatMessage({ id: "reactcomponents.male", defaultMessage: "Male" });
     const femaleMsg = this.intl.formatMessage({ id: "reactcomponents.female", defaultMessage: "Female" });
     return (

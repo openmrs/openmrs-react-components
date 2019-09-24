@@ -26,5 +26,8 @@
     "reactcomponents.table.noDataText": "Aucun résultat trouvé",
     "reactcomponents.male": "Masculin",
     "reactcomponents.female": "Féminin",
-    "reactcomponents.patient.id": "ID patient"
+    "reactcomponents.patient.id": "ID patient",
+    "reactcomponents.months": "mois",
+    "reactcomponents.year": "année",
+    "reactcomponents.years": "ans"
 }

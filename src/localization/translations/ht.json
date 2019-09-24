@@ -26,5 +26,8 @@
     "reactcomponents.table.noDataText": "Pa gen rezilta yo te jwenn",
     "reactcomponents.male": "Gason",
     "reactcomponents.female": "Fi",
-    "reactcomponents.patient.id": "Idantifikasyon Pasyan"
+    "reactcomponents.patient.id": "Idantifikasyon Pasyan",
+    "reactcomponents.months": "mwa",
+    "reactcomponents.year": "ane",
+    "reactcomponents.years": "ane"
 }
