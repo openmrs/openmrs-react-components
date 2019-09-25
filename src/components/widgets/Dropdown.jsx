@@ -17,7 +17,8 @@ class Dropdown extends PureComponent {
 
   getListData() {
     const { list, defaultValue } = this.props;
-    if (list) {
+    
+    if (Array.isArray(list)) {
       if (defaultValue) {
         return [defaultValue].concat(list);
       }
