@@ -14,7 +14,9 @@ const LocalizedMessage = (props) => {
             <FormattedMessage
               defaultMessage={props.defaultMessage}
               id={props.id}
-            />
+            >
+              {props.children}
+            </FormattedMessage>
           ) : (
             <span>
               {props.defaultMessage}

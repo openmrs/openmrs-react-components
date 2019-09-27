@@ -8,13 +8,12 @@ const Head = ({ id, defaultTitle }) => {
     <span>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{`
-          <LocalizedMessage
-            defaultMessage={defaultTitle}
-            id={id}
-          />
-          `}
-        </title>
+        <LocalizedMessage
+          defaultMessage={defaultTitle}
+          id={id}
+        >
+          { text => <title>{text}</title>}
+        </LocalizedMessage>
       </Helmet>
     </span>
   );
