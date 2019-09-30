@@ -35,6 +35,19 @@ const isRequired = value => value ? undefined : <LocalizedMessage
   id="reactcomponents.value.required"
   defaultMessage="Required" />;
 
+const allowDecimals = value => value => {
+  let parsedValue = value ? value.toString().trim() : value;
+  // if the value is empty OR
+  // if the value contains any non-whitespace(\S) characters
+  // and if no non-Digits(\D) characters are present
+  // and if the value is a whole number
+  if ( !parsedValue || (/\S/.test(parsedValue) && !(/\D/.test(parsedValue)) && parseInt(parsedValue,10) && ((parsedValue - Math.floor(parsedValue)) === 0))) {
+    return undefined;
+  } else {
+    return `Decimals not allowed`;
+  }
+};
+
 const dateToInt = dateStr => new Date(dateStr).getTime();
 
 const maxDateValue = (maxDate, reference, customText) => value => {
@@ -56,6 +69,26 @@ const minDateValue = (minDate, reference, customText) => value => {
     return reference ? `Date should be later or equal to ${reference} date` : customText;
   } else {
     return undefined;
+  }
+};
+
+const generateAllowDecimalsValidator = concept => {
+  const {
+    allowDecimal,
+    datatype,
+  } = concept;
+  let allowDecimalValidation;
+
+  if (typeof datatype !== 'undefined'
+    && datatype !== null
+    && typeof datatype.name !== 'undefined'
+    && datatype.name === 'Numeric'
+    && allowDecimal === false) {
+
+    allowDecimalValidation = allowDecimals();
+    return [allowDecimalValidation].filter(Boolean);
+  } else {
+    return [];
   }
 };
 
@@ -99,5 +132,6 @@ export default {
   minDateValue,
   generateAbsoluteRangeValidators,
   generateAbnormalAndCriticalWarningFunctions,
+  generateAllowDecimalsValidator,
   isRequired
 };
