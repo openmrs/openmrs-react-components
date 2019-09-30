@@ -87,7 +87,7 @@ However, the component can handle parsing locales with a country. Component... i
 
 # Publishing a new version
 
-Set the version number you want to release in the pom, and then run:
+Set the version number you want to release in the package.json, and then run:
 ```
 npm run pack
 
