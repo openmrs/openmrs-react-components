@@ -66,13 +66,9 @@ const generateAbsoluteRangeValidators = concept => {
   } = concept;
   let hiAbsoluteRange, lowAbsoluteRange;
 
-  if ((typeof hiAbsolute !== 'undefined' && hiAbsolute !== null)  || (typeof lowAbsolute !== 'undefined' && lowAbsolute !== null)) {
-    hiAbsoluteRange = (typeof hiAbsolute !== 'undefined' && hiAbsolute !== null) ? maxValue(hiAbsolute) : undefined;
-    lowAbsoluteRange = (typeof lowAbsolute !== 'undefined' && lowAbsolute !== null) ? minValue(lowAbsolute) : undefined;
-    return [hiAbsoluteRange, lowAbsoluteRange].filter(Boolean);
-  } else {
-    return [];
-  }
+  hiAbsoluteRange = (typeof hiAbsolute !== 'undefined' && hiAbsolute !== null) ? maxValue(hiAbsolute) : undefined;
+  lowAbsoluteRange = (typeof lowAbsolute !== 'undefined' && lowAbsolute !== null) ? minValue(lowAbsolute) : undefined;
+  return [hiAbsoluteRange, lowAbsoluteRange].filter(Boolean);
 };
 
 const generateAbnormalAndCriticalWarningFunctions = concept => {
