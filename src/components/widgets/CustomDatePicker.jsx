@@ -119,8 +119,7 @@ class CustomDatePicker extends PureComponent {
     const { input, usePortalMode } = otherProps;
     const { selectedDate } = this.state;
     let error;
-    const parts = selectedDate.split('-');
-    let selected = new Date(parts[0], parts[1] - 1, parts[2]); 
+    let selected = parse(selectedDate); 
     let validations = "";
 
     const hasInput = typeof input !== 'undefined';
