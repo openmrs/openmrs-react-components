@@ -29,5 +29,6 @@
     "reactcomponents.patient.id": "ID patient",
     "reactcomponents.months": "mois",
     "reactcomponents.year": "année",
-    "reactcomponents.years": "ans"
+    "reactcomponents.years": "ans",
+    "reactcomponents.value.disallow.decimals": "Les nombres avec virgule ne sont pas permis."
 }

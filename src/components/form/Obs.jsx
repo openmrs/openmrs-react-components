@@ -25,7 +25,7 @@ class Obs extends React.PureComponent {
     this.state = {
       getValidationAbnormalRange: formValidations.generateAbnormalAndCriticalWarningFunctions(this.props.concept),
       getValidationAbsoluteRange: formValidations.generateAbsoluteRangeValidators(this.props.concept),
-      getValidationAllowDecimals: formValidations.generateAllowDecimalsValidator(this.props.concept)
+      getValidationDisallowDecimals: formValidations.generateDisallowDecimalsValidator(this.props.concept)
     }; 
   }
 
@@ -42,7 +42,7 @@ class Obs extends React.PureComponent {
       this.setState({
         getValidationAbnormalRange: formValidations.generateAbnormalAndCriticalWarningFunctions(this.props.concept),
         getValidationAbsoluteRange: formValidations.generateAbsoluteRangeValidators(this.props.concept),
-        getValidationAllowDecimals: formValidations.generateAllowDecimalsValidator(this.props.concept)
+        getValidationDisallowDecimals: formValidations.generateDisallowDecimalsValidator(this.props.concept)
       });
     }
   }
@@ -61,11 +61,11 @@ class Obs extends React.PureComponent {
 
   render() {
     const { required, value } = this.props;
-    
-    const defaultValidations = this.props.validate || this.state.getValidationAbsoluteRange;
-    const allowDecimalsValidations = this.state.getValidationAllowDecimals.length > 0 ? defaultValidations.concat(this.state.getValidationAllowDecimals) : defaultValidations;
+
+    let validations = this.props.validate || this.state.getValidationAbsoluteRange;
+    validations = this.state.getValidationDisallowDecimals.length > 0 ? validations.concat(this.state.getValidationDisallowDecimals) : validations;
+    validations = required ? validations.concat(formValidations.isRequired) : validations;
     const defaultWarnings = this.props.warn || this.state.getValidationAbnormalRange;
-    const validations = required ? allowDecimalsValidations.concat(formValidations.isRequired) : allowDecimalsValidations;
     const warnings = required && !value ? defaultWarnings.concat(formValidations.isRequired) : defaultWarnings;
 
     if (this.props.datatype === 'date') {
