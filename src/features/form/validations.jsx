@@ -41,7 +41,7 @@ const disallowDecimals = value => value => {
   // if the value contains any non-whitespace(\S) characters
   // and if no non-Digits(\D) characters are present
   // and if the value is a whole number
-  if ( parsedValue == 0  || !parsedValue || (/\S/.test(parsedValue) && !(/\D/.test(parsedValue)) && parseInt(parsedValue,10) && ((parsedValue - Math.floor(parsedValue)) === 0))) {
+  if ( parsedValue == "0"  || !parsedValue || ( /\S/.test(parsedValue) && !(/\D/.test(parsedValue)) && parseInt(parsedValue,10) && ((parsedValue - Math.floor(parsedValue)) === 0))) {
     return undefined;
   } else {
     return ( <LocalizedMessage
