@@ -28,7 +28,7 @@ describe('Validation functions', () => {
 
   it('allowDecimals when input value is 0', () => {
 
-    expect(formValidations.disallowDecimals()("0")).toEqual(localizedErrorMessage);
+    expect(formValidations.disallowDecimals()("0")).toEqual(undefined);
   });
 
   it('allowDecimals when input value is an integer', () => {
