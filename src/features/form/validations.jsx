@@ -35,6 +35,21 @@ const isRequired = value => value ? undefined : <LocalizedMessage
   id="reactcomponents.value.required"
   defaultMessage="Required" />;
 
+const disallowDecimals = value => value => {
+  let parsedValue = value ? value.toString().trim() : value;
+  // if the value is empty OR
+  // if the value contains any non-whitespace(\S) characters
+  // and if no non-Digits(\D) characters are present
+  // and if the value is a whole number
+  if ( parsedValue == "0"  || !parsedValue || ( /\S/.test(parsedValue) && !(/\D/.test(parsedValue)) && parseInt(parsedValue,10) && ((parsedValue - Math.floor(parsedValue)) === 0))) {
+    return undefined;
+  } else {
+    return ( <LocalizedMessage
+      id="reactcomponents.value.disallow.decimals"
+      defaultMessage="Decimals not allowed" /> );
+  }
+};
+
 const dateToInt = dateStr => new Date(dateStr).getTime();
 
 const maxDateValue = (maxDate, reference, customText) => value => {
@@ -56,6 +71,26 @@ const minDateValue = (minDate, reference, customText) => value => {
     return reference ? `Date should be later or equal to ${reference} date` : customText;
   } else {
     return undefined;
+  }
+};
+
+const generateDisallowDecimalsValidator = concept => {
+  const {
+    allowDecimal,
+    datatype,
+  } = concept;
+  let disallowDecimalValidation;
+
+  if (typeof datatype !== 'undefined'
+    && datatype !== null
+    && typeof datatype.name !== 'undefined'
+    && datatype.name === 'Numeric'
+    && allowDecimal === false) {
+
+    disallowDecimalValidation = disallowDecimals();
+    return [disallowDecimalValidation];
+  } else {
+    return [];
   }
 };
 
@@ -97,7 +132,9 @@ export default {
   criticalMaxValue,
   maxDateValue,
   minDateValue,
+  disallowDecimals,
   generateAbsoluteRangeValidators,
   generateAbnormalAndCriticalWarningFunctions,
+  generateDisallowDecimalsValidator,
   isRequired
 };

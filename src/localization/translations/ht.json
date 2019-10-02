@@ -29,5 +29,6 @@
     "reactcomponents.patient.id": "Idantifikasyon Pasyan",
     "reactcomponents.months": "mwa",
     "reactcomponents.year": "ane",
-    "reactcomponents.years": "ane"
+    "reactcomponents.years": "ane",
+    "reactcomponents.value.disallow.decimals": "Nomb lan pa dwe gen vigil."
 }

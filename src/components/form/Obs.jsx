@@ -24,7 +24,8 @@ class Obs extends React.PureComponent {
 
     this.state = {
       getValidationAbnormalRange: formValidations.generateAbnormalAndCriticalWarningFunctions(this.props.concept),
-      getValidationAbsoluteRange: formValidations.generateAbsoluteRangeValidators(this.props.concept)
+      getValidationAbsoluteRange: formValidations.generateAbsoluteRangeValidators(this.props.concept),
+      getValidationDisallowDecimals: formValidations.generateDisallowDecimalsValidator(this.props.concept)
     }; 
   }
 
@@ -40,7 +41,8 @@ class Obs extends React.PureComponent {
     if ((!prevProps.concept._openmrsClass && this.props.concept._openmrsClass) || this.validationRangesChanged(prevProps)) {
       this.setState({
         getValidationAbnormalRange: formValidations.generateAbnormalAndCriticalWarningFunctions(this.props.concept),
-        getValidationAbsoluteRange: formValidations.generateAbsoluteRangeValidators(this.props.concept)
+        getValidationAbsoluteRange: formValidations.generateAbsoluteRangeValidators(this.props.concept),
+        getValidationDisallowDecimals: formValidations.generateDisallowDecimalsValidator(this.props.concept)
       });
     }
   }
@@ -59,10 +61,11 @@ class Obs extends React.PureComponent {
 
   render() {
     const { required, value } = this.props;
-    
-    const defaultValidations = this.props.validate || this.state.getValidationAbsoluteRange;
+
+    let validations = this.props.validate || this.state.getValidationAbsoluteRange;
+    validations = this.state.getValidationDisallowDecimals.length > 0 ? validations.concat(this.state.getValidationDisallowDecimals) : validations;
+    validations = required ? validations.concat(formValidations.isRequired) : validations;
     const defaultWarnings = this.props.warn || this.state.getValidationAbnormalRange;
-    const validations = required ? defaultValidations.concat(formValidations.isRequired) : defaultValidations;
     const warnings = required && !value ? defaultWarnings.concat(formValidations.isRequired) : defaultWarnings;
 
     if (this.props.datatype === 'date') {
