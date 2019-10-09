@@ -36,10 +36,10 @@ class SortableTable extends PureComponent {
   }
 
   renderData() {
-    const { filters, data, getDataWithFilters } = this.props;
+    const { filters, data, locale, getDataWithFilters } = this.props;
 
     if (typeof getDataWithFilters !== 'undefined') {
-      return getDataWithFilters(filters, data);
+      return getDataWithFilters(filters, data, locale);
     }
     return data;
   }
