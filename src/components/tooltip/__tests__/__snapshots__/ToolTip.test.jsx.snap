@@ -9,13 +9,13 @@ exports[`Component: TestsToolTip should render correctly 1`] = `
   </p>
   <div>
     <span>
-      samplea
+      sampleA
     </span>
     <span>
-      sampleb
+      sampleB
     </span>
     <span>
-      samplec
+      sampleC
     </span>
   </div>
 </span>
@@ -38,13 +38,13 @@ exports[`Component: TestsToolTip should render without toolTipHeader 1`] = `
 >
   <div>
     <span>
-      samplea
+      sampleA
     </span>
     <span>
-      sampleb
+      sampleB
     </span>
     <span>
-      samplec
+      sampleC
     </span>
   </div>
 </span>

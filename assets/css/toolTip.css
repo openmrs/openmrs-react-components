@@ -30,7 +30,6 @@
   margin: 0 5px 7px 0;
   text-align: left;
   width: 31.5%;
-  text-transform: capitalize;
 }
 .tooltip .tooltip-text::after {
   content: "";

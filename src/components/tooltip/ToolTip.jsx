@@ -7,7 +7,7 @@ const ToolTip = ({ toolTipHeader, toolTipBody }) => (
     {toolTipHeader && <p>{ toolTipHeader }</p>}
     <div>
       {toolTipBody && toolTipBody.map((message, index) => (
-        <span key={index}>{message.toLowerCase()}</span>
+        <span key={index}>{message}</span>
       ))}
     </div>
   </span>
