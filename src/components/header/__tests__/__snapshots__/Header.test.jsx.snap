@@ -49,7 +49,6 @@ exports[`header should render correctly 1`] = `
         className="change-location"
       >
         <a
-          href="#"
           onClick={[Function]}
         >
           <i
