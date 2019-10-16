@@ -71,8 +71,7 @@ export class Header extends React.Component {
 
             </li>
             <li className="change-location">
-              <a 
-                href="#"
+              <a
                 onClick={() => { this.toggleState("locationDropdown"); }}
               >
                 <i className="icon-map-marker small" />
