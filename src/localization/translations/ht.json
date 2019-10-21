@@ -30,5 +30,6 @@
     "reactcomponents.months": "mwa",
     "reactcomponents.year": "ane",
     "reactcomponents.years": "ane",
-    "reactcomponents.value.disallow.decimals": "Nomb lan pa dwe gen vigil."
+    "reactcomponents.value.disallow.decimals": "Nomb lan pa dwe gen vigil.",
+    "reactcomponents.print": "Enprime"
 }

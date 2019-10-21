@@ -31,5 +31,6 @@
     "reactcomponents.months": "month(s)",
     "reactcomponents.year": "year",
     "reactcomponents.years": "years",
-     "reactcomponents.value.disallow.decimals": "Decimals not allowed"
+    "reactcomponents.value.disallow.decimals": "Decimals not allowed",
+    "reactcomponents.print": "Print"
 }

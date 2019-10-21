@@ -129,7 +129,6 @@ Dropdown.defaultProps = {
 
 Dropdown.propTypes = {
   className: PropTypes.string,
-  defaultValue: PropTypes.string,
   field: PropTypes.string,
   handleSelect: PropTypes.func,
   input: PropTypes.object,

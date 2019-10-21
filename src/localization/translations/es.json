@@ -24,5 +24,6 @@
     "reactcomponents.table.noDataText": "No results found",
     "reactcomponents.male": "Male",
     "reactcomponents.female": "Female",
-    "reactcomponents.patient.id": "Patient ID"
+    "reactcomponents.patient.id": "Patient ID",
+    "reactcomponents.print": "Print"
 }
