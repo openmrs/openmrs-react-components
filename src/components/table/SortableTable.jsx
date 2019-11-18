@@ -73,6 +73,8 @@ class SortableTable extends PureComponent {
           collapseOnDataChange={false}
           columns={this.renderColumns()}
           data={this.renderData()}
+          manual={otherProps.manual ? otherProps.manual : false}
+          pages={otherProps.pages ? otherProps.pages : null}
           defaultPageSize={otherProps.defaultPageSize}
           filterable={this.renderColumnFilter()}
           getPaginationProps={otherProps.getPaginationProps}
@@ -137,6 +139,8 @@ SortableTable.propTypes = {
   previousText: PropTypes.string,
   rowsText: PropTypes.string,
   selectedRows: PropTypes.array,
+  manual: PropTypes.bool,
+  pages: PropTypes.number,
 };
 
 SortableTable.defaultProps = {
