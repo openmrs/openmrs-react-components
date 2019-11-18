@@ -11,7 +11,7 @@ import '../../../assets/css/cardList.css';
 class CardList extends React.Component {
   constructor(props) {
     super(props);
-    
+
 
     this.state = {
       searchValue: props.activeSearchType === 'patient-name' ? props.searchValue : "",
@@ -33,7 +33,7 @@ class CardList extends React.Component {
       this.props.onMountOtherActionCreators.forEach((action) =>action());
     }
   }
-  
+
   componentWillUnmount() {
     clearInterval(this.interval);
   }
@@ -123,14 +123,13 @@ class CardList extends React.Component {
       this.setState({ customMatchSorterConfigs });
     }
   }
-  
+
   handleSearchClear() {
     this.setState({ searchValue: '' });
   }
 
   handleKeyPress(e) {
-    const isServerSearch = this.props.searchType === 'server';
-    if (isServerSearch && e.key === 'Enter') {
+    if (e.key === 'Enter') {
       this.handleSubmit(e);
     }
   }
@@ -146,36 +145,55 @@ class CardList extends React.Component {
       AdditionalSearchFilters,
       getPatientIdentifiers,
       noDataMessage,
+      placeholder,
       searchType,
+      selectRowAutomaticallyIfOnlyOneRow,
+      showEmptyListContainer,
+      showRefreshButton,
+      showPatientCount,
+      showSearchButton,
     } = this.props;
+
+    // TODO what is this actually doing?
     const isServerSearch = searchType === 'server';
     const filtersClassName = isServerSearch ? "server-search": '';
 
     const filteredRowData = this.applyFiltersToList(rowData);
+
+    // automatically trigger a click on a row if only one result and "selectRowAutomaticallyIfOnlyOneRow" has been set true
+    if (filteredRowData && filteredRowData.length === 1 && selectRowAutomaticallyIfOnlyOneRow) {
+      this.onRowSelected(filteredRowData[0]);
+    }
+
     return (
       <div className="cardlist-search-container">
-        <div className="refresh-button-container">
-          <h3><Label>{this.props.title}</Label></h3>
-          <Glyphicon
-            className="refresh-button"
-            glyph="refresh"
-            onClick={() => this.handleFetchData()}
-          />
-        </div>
-        <div className={filtersClassName}>
-          {AdditionalSearchFilters && <AdditionalSearchFilters
-            handleSearchChange={this.handleSearchChange}
-            onKeyPress={this.handleKeyPress}
-            value={this.state.additionalSearchValue}
-            searchType={searchType ? searchType : ''}
-          />}
-          {isServerSearch &&
-          <button
-            className=""
-            onClick={this.handleSubmit}
-          >search</button>
-          }
-        </div>
+        <h3><Label>{this.props.title}</Label></h3>
+        {showRefreshButton &&
+          <div className="refresh-button-container">
+            <Glyphicon
+              className="refresh-button"
+              glyph="refresh"
+              onClick={() => this.handleFetchData()}
+            />
+          </div>
+        }
+
+        {(AdditionalSearchFilters || showSearchButton) &&
+          <div className={filtersClassName}>
+            {AdditionalSearchFilters && <AdditionalSearchFilters
+              handleSearchChange={this.handleSearchChange}
+              onKeyPress={this.handleKeyPress}
+              searchType={searchType ? searchType : ''}
+              value={this.state.additionalSearchValue}
+            />}
+            {showSearchButton &&
+            <button
+              className=""
+              onClick={this.handleSubmit}
+            >search</button>
+            }
+          </div>
+        }
 
         {<div className="search-by-name-container">
           <div className="name-filter-container">
@@ -189,32 +207,34 @@ class CardList extends React.Component {
                 name="patient-name"
                 onChange={this.handleSearchChange}
                 onKeyPress={this.handleKeyPress}
-                placeholder="search by name"
+                placeholder={placeholder}
                 type="text"
                 value={this.state.searchValue}
-              />           
-              <Glyphicon 
+              />
+              <Glyphicon
                 className="right-icon"
-                glyph="remove-sign" 
+                glyph="remove-sign"
                 onClick={this.handleSearchClear}
               />
             </span>
           </div>
           <div>
-            { !loading && !error &&
+            { !loading && !error && showPatientCount &&
             (<span className="no-of-patients">{`${filteredRowData.length} Patient${filteredRowData.length === 1? '' : 's'}`}</span>)}
           </div>
         </div>
         }
-        <div className="card-list-container">
-          { loading ? <Loader /> :
-            (error ? <h2 className="text-center">{errorMessage}</h2> :
-              (filteredRowData.length > 0 ? filteredRowData.map((patientData, index) =>
-                card(patientData, index, this.onRowSelected, getPatientIdentifiers)
-              ) : <h2 className="text-center">{noDataMessage || 'No Data to display'}</h2>)
-            )
-          }
-        </div>
+        {(loading || filteredRowData.length > 0 || showEmptyListContainer) &&
+          <div className="card-list-container">
+            {loading ? <Loader/> :
+              (error ? <h2 className="text-center">{errorMessage}</h2> :
+                (filteredRowData.length > 0 ? filteredRowData.map((patientData, index) =>
+                  card(patientData, index, this.onRowSelected, getPatientIdentifiers)
+                ) : <h2 className="text-center">{noDataMessage || 'No Data to display'}</h2>)
+              )
+            }
+          </div>
+        }
       </div>
     );
   }
@@ -235,12 +255,18 @@ CardList.propTypes = {
   loading: PropTypes.bool,
   noDataMessage: PropTypes.string,
   onMountOtherActionCreators: PropTypes.array,
+  placeholder: PropTypes.string,
   rowData: PropTypes.array.isRequired,
   rowSelectedActionCreators: PropTypes.array,
   searchFilterFields: PropTypes.array,
+  showEmptyListContainer: PropTypes.bool,
+  showSearchButton: PropTypes.bool,
+  showPatientCount: PropTypes.bool,
+  showRefreshButton: PropTypes.bool,
   sortFields: PropTypes.array,
   title: PropTypes.string.isRequired,
-  
+  selectRowAutomaticallyIfOnlyOneRow: PropTypes.bool,
+
 };
 
 CardList.defaultProps = {
@@ -248,6 +274,12 @@ CardList.defaultProps = {
   errorMessage: 'Error',
   title: 'List',
   filters: [],
+  placeholder: "Search by name",
+  selectRowAutomaticallyIfOnlyOneRow: false,
+  showEmptyListContainer: true,
+  showPatientCount: true,
+  showRefreshButton: true,
+  showSearchButton: true,
   sortFields: []
 };
 

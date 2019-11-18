@@ -39,7 +39,7 @@ class PatientSearch extends React.Component {
         () => this.props.dispatch(patientActions.clearSelectedPatient())
       ];
 
-    return (
+    const cardList =
       <div>
         <CardList
           AdditionalSearchFilters={this.props.AdditionalFilters}
@@ -58,10 +58,15 @@ class PatientSearch extends React.Component {
           searchFilterFields={null}
           searchType="server"
           searchValue={this.props.searchValue}
+          showEmptyListContainer={this.props.showEmptyListContainer}
+          showPatientCount={this.props.showPatientCount}
+          showRefreshButton={this.props.showRefreshButton}
+          showSearchButton={this.props.showSearchButton}
           title={this.props.title}
         />
       </div>
-    );
+
+    return cardList;
   };
 }
 
@@ -77,6 +82,10 @@ PatientSearch.propTypes = {
   rowData: PropTypes.array,
   rowSelectedActionCreators: PropTypes.array.isRequired,
   searchValue: PropTypes.string,
+  showEmptyListContainer: PropTypes.bool,
+  showPatientCount: PropTypes.bool,
+  showRefreshButton: PropTypes.bool,
+  showSearchButton: PropTypes.bool,
   title: PropTypes.string,
 };
 
@@ -90,8 +99,12 @@ PatientSearch.defaultProps = {
       return patientUtil.createFromRestRep(result);
     });
   },
+  getPatientIdentifiers: (patient) => {
+    return patientUtil.getPreferredIdentifier(patient);
+  },
   representation: "custom:" + DEFAULT_PATIENT_REP,
-  rowSelectedActionCreators: []
+  rowSelectedActionCreators: [],
+  type: "cardList"
 };
 
 const mapStateToProps = (state) => {
