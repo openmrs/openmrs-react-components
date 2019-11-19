@@ -260,12 +260,12 @@ CardList.propTypes = {
   rowSelectedActionCreators: PropTypes.array,
   searchFilterFields: PropTypes.array,
   showEmptyListContainer: PropTypes.bool,
+  selectRowAutomaticallyIfOnlyOneRow: PropTypes.bool,
   showSearchButton: PropTypes.bool,
   showPatientCount: PropTypes.bool,
   showRefreshButton: PropTypes.bool,
   sortFields: PropTypes.array,
   title: PropTypes.string.isRequired,
-  selectRowAutomaticallyIfOnlyOneRow: PropTypes.bool,
 
 };
 

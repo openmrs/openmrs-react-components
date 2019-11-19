@@ -58,6 +58,7 @@ class PatientSearch extends React.Component {
           searchFilterFields={null}
           searchType="server"
           searchValue={this.props.searchValue}
+          selectRowAutomaticallyIfOnlyOneRow={this.props.selectRowAutomaticallyIfOnlyOneRow}
           showEmptyListContainer={this.props.showEmptyListContainer}
           showPatientCount={this.props.showPatientCount}
           showRefreshButton={this.props.showRefreshButton}
@@ -82,6 +83,7 @@ PatientSearch.propTypes = {
   rowData: PropTypes.array,
   rowSelectedActionCreators: PropTypes.array.isRequired,
   searchValue: PropTypes.string,
+  selectRowAutomaticallyIfOnlyOneRow: PropTypes.bool,
   showEmptyListContainer: PropTypes.bool,
   showPatientCount: PropTypes.bool,
   showRefreshButton: PropTypes.bool,
