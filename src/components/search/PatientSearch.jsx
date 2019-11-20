@@ -54,6 +54,7 @@ class PatientSearch extends React.Component {
           loading={this.props.isUpdating}
           noDataMessage="No patients to display"
           onMountOtherActionCreators={[ ...actionCreators, ...this.props.onMountOtherActionCreators]}
+          placeholder={this.props.placeholder}
           rowData={this.props.rowData}
           rowSelectedActionCreators={[patientActions.setSelectedPatient, patientActions.updatePatientInStore, ...this.props.rowSelectedActionCreators]}
           searchFilterFields={null}
@@ -81,6 +82,7 @@ PatientSearch.propTypes = {
   isUpdating: PropTypes.bool,
   onMountOtherActionCreators: PropTypes.array.isRequired,
   parseResults: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
   representation: PropTypes.string.isRequired,
   rowData: PropTypes.array,
   rowSelectedActionCreators: PropTypes.array.isRequired,
