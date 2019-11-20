@@ -79,6 +79,11 @@ const patientUtil = {
 
   getFamilyName: (patient) => { return R.path(['name', 'familyName'], patient); },
 
+  getFullName: (patient)  => {
+    return [patientUtil.getGivenName(patient), patientUtil.getMiddleName(patient), patientUtil.getFamilyName(patient)]
+      .filter((elem) => elem).join(" ");
+  },
+
   addIdentifier: (patient, identifier, identifierType, preferred = false) => {
     if (R.path(['identifiers'], patient)){
       if (!patient.identifiers.some((i) => i.identifier === identifier && i.identifierType.uuid === identifierType.uuid)) {
