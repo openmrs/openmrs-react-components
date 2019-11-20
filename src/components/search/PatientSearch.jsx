@@ -5,7 +5,7 @@ import { patientSearchActions } from '../../features/search';
 import { patientActions } from "../../features/patient/index";
 import { DEFAULT_PATIENT_REP } from "../../domain/patient/constants";
 import patientUtil from '../../domain/patient/patientUtil';
-import CardList from "../cardList/CardList";
+import CardList from "./CardList";
 import PatientCard from '../patient/PatientCard';
 
 

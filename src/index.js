@@ -3,7 +3,7 @@ import AuthenticatedRoute from './components/routes/AuthenticatedRoute';
 import BasicLayout from './components/layout/BasicLayout';
 import ButtonGroup from './components/widgets/ButtonGroup';
 import Cancel from './components/form/Cancel';
-import CardList from './components/cardList/CardList';
+import CardList from './components/search/CardList';
 import createListReducer from './features/list/createListReducer';
 import CustomDatePicker from './components/widgets/CustomDatePicker';
 import DataGrid from './components/grid/DataGrid';
