@@ -45,6 +45,7 @@ class PatientSearch extends React.Component {
           AdditionalSearchFilters={this.props.AdditionalFilters}
           activeSearchType={this.props.activeSearchType}
           card={PatientCard}
+          clearListActionCreators={this.props.clearSearchResultsWhenClearingSearchBox ? [patientSearchActions.clearPatientSearch] : []}
           delayInterval={0}
           dispatch={this.props.dispatch}
           getPatientIdentifiers={this.props.getPatientIdentifiers}
@@ -75,6 +76,7 @@ PatientSearch.propTypes = {
   AdditionalFilters: PropTypes.func,
   activeSearchType: PropTypes.string,
   cacheSearchResults: PropTypes.bool,
+  clearSearchResultsWhenClearingSearchBox: PropTypes.bool,
   getPatientIdentifiers: PropTypes.func,
   isUpdating: PropTypes.bool,
   onMountOtherActionCreators: PropTypes.array.isRequired,
@@ -92,8 +94,9 @@ PatientSearch.propTypes = {
 };
 
 PatientSearch.defaultProps = {
-  loading: false,
   cacheSearchResults: false,
+  clearSearchResultsWhenClearingSearchBox: false,
+  loading: false,
   onMountOtherActionCreators: [],
   parseResults:(results) => {
     // convert results to the patient domain object
@@ -106,6 +109,11 @@ PatientSearch.defaultProps = {
   },
   representation: "custom:" + DEFAULT_PATIENT_REP,
   rowSelectedActionCreators: [],
+  selectRowAutomaticallyIfOnlyOneRow: false,
+  showEmptyListContainer: true,
+  showPatientCount: true,
+  showRefreshButton: true,
+  showSearchButton: true,
   type: "cardList"
 };
 

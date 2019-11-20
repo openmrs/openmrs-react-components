@@ -27,6 +27,10 @@ class CardList extends React.Component {
     this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
+  // TODO VERY CONFUSING:
+  // TODO the clearListActionCreators and rowSelectedActionCreators are called and then dispatched,
+  // TODO but the onMountOtherActionCreators aren't dispatched, they are just called, and so need
+  // TODO to be wrapped in dispatch... there should be consistency... the onMountOtherActionCreators should really dispatch actions as well
   componentDidMount() {
     this.handleFetchData();
     if (this.props.onMountOtherActionCreators !== undefined) {
@@ -36,6 +40,12 @@ class CardList extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.interval);
+  }
+
+  handleClearData() {
+    if (this.props.clearListActionCreators !== undefined) {
+      this.props.clearListActionCreators.forEach((action) => this.props.dispatch(action()));
+    }
   }
 
   handleFetchData() {
@@ -126,6 +136,7 @@ class CardList extends React.Component {
 
   handleSearchClear() {
     this.setState({ searchValue: '' });
+    this.handleClearData();
   }
 
   handleKeyPress(e) {
@@ -245,6 +256,7 @@ CardList.propTypes = {
   AdditionalSearchFilters: PropTypes.func,
   additionalSearchFilterFields: PropTypes.array,
   card: PropTypes.func.isRequired,
+  clearListActionCreators: PropTypes.array,
   delayInterval: PropTypes.number.isRequired,
   error: PropTypes.bool,
   errorMessage: PropTypes.string,
@@ -259,11 +271,11 @@ CardList.propTypes = {
   rowData: PropTypes.array.isRequired,
   rowSelectedActionCreators: PropTypes.array,
   searchFilterFields: PropTypes.array,
-  showEmptyListContainer: PropTypes.bool,
   selectRowAutomaticallyIfOnlyOneRow: PropTypes.bool,
-  showSearchButton: PropTypes.bool,
+  showEmptyListContainer: PropTypes.bool,
   showPatientCount: PropTypes.bool,
   showRefreshButton: PropTypes.bool,
+  showSearchButton: PropTypes.bool,
   sortFields: PropTypes.array,
   title: PropTypes.string.isRequired,
 
