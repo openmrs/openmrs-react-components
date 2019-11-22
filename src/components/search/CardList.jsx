@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import matchSorter from 'match-sorter';
 import * as R from "ramda";
@@ -36,6 +37,7 @@ class CardList extends React.Component {
     if (this.props.onMountOtherActionCreators !== undefined) {
       this.props.onMountOtherActionCreators.forEach((action) =>action());
     }
+    this.setFocus(this.refs.patientName);
   }
 
   componentWillUnmount() {
@@ -137,11 +139,19 @@ class CardList extends React.Component {
   handleSearchClear() {
     this.setState({ searchValue: '' });
     this.handleClearData();
+    this.setFocus(this.refs.patientName);
   }
 
   handleKeyPress(e) {
     if (e.key === 'Enter') {
       this.handleSubmit(e);
+    }
+  }
+
+  setFocus(ref) {
+    let node = ReactDOM.findDOMNode(ref);
+    if (node && node.focus instanceof Function) {
+      node.focus();
     }
   }
 
@@ -219,6 +229,7 @@ class CardList extends React.Component {
                 onChange={this.handleSearchChange}
                 onKeyPress={this.handleKeyPress}
                 placeholder={placeholder}
+                ref="patientName"
                 type="text"
                 value={this.state.searchValue}
               />
