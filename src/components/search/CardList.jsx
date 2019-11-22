@@ -26,6 +26,8 @@ class CardList extends React.Component {
     this.handleSearchClear = this.handleSearchClear.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
+
+    this.patientName = React.createRef();
   }
 
   // TODO VERY CONFUSING:
@@ -37,7 +39,7 @@ class CardList extends React.Component {
     if (this.props.onMountOtherActionCreators !== undefined) {
       this.props.onMountOtherActionCreators.forEach((action) =>action());
     }
-    this.setFocus(this.refs.patientName);
+    this.setFocus(this.patientName.current);
   }
 
   componentWillUnmount() {
@@ -139,7 +141,7 @@ class CardList extends React.Component {
   handleSearchClear() {
     this.setState({ searchValue: '' });
     this.handleClearData();
-    this.setFocus(this.refs.patientName);
+    this.setFocus(this.patientName.current);
   }
 
   handleKeyPress(e) {
@@ -229,7 +231,7 @@ class CardList extends React.Component {
                 onChange={this.handleSearchChange}
                 onKeyPress={this.handleKeyPress}
                 placeholder={placeholder}
-                ref="patientName"
+                ref={this.patientName}
                 type="text"
                 value={this.state.searchValue}
               />
