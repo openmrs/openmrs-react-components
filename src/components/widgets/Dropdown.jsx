@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import formUtil from "../../features/form/util";
+import { defineMessages, injectIntl } from "react-intl";
 import LocalizedMessage from "../localization/LocalizedMessage";
 import '../../../assets/css/widgets.css';
 
@@ -8,6 +9,13 @@ const dropDownStyle = {
   width: '100%',
   height: '45px',
 };
+
+const msg = defineMessages({
+  placeholder: {
+    id: "reactcomponents.select.from.list",
+    defaultMessage: "Select from the list"
+  }
+});
 
 class Dropdown extends PureComponent {
   constructor() {
@@ -63,7 +71,11 @@ class Dropdown extends PureComponent {
         </div>
       );
     }
-    
+
+    const placeholder = typeof otherProps.placeholder === "undefined" ? 
+      this.props.intl.formatMessage(msg.placeholder) :
+      otherProps.placeholder;
+
     const edit = (
       <span className={otherProps.className}>
         <span className={otherProps.labelClassName}>{otherProps.label}</span>
@@ -75,10 +87,10 @@ class Dropdown extends PureComponent {
           style={otherProps.dropDownStyle || dropDownStyle}
           value={dropDownValue || otherProps.dropdownValue}
         >
-          { otherProps.placeholder && <option
+          { placeholder && <option
             key={0}
             value={''}
-          >{otherProps.placeholder}</option> }
+          >{placeholder}</option> }
           {this.getListData().map(
             item => !!item.uuid ? (
               <option
@@ -121,10 +133,7 @@ Dropdown.defaultProps = {
   className: "",
   defaultValue: null,
   label: "",
-  labelClassName: "",
-  placeholder: <LocalizedMessage
-    id="reactcomponents.select.from.list"
-    defaultMessage="Select from the list" />
+  labelClassName: ""
 };
 
 Dropdown.propTypes = {
@@ -141,4 +150,4 @@ Dropdown.propTypes = {
   placeholder: PropTypes.string,
 };
 
-export default Dropdown;
+export default injectIntl(Dropdown);
