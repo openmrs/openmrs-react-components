@@ -4,19 +4,14 @@
 
 This repository contains React components Built to support the development of OpenMRS Open Web App (OWA) using ReactJS 
 
-## Installing React Components
+## Installing
 
-Steps to install the react component within your React project
+### Add OpenMRS React Components as a dependency
 
-### Add @openmrs/react-components as a dependency and import it
-
-On your terminal or IDE integrated terminal
+In your project, execute
 ```
-cd projectName
-npm install @openmrs/react-components
-
+npm install --save @openmrs/react-components
 ```
-Then make sure you import any component you want to use form '@openmrs/react-component'
 
 ### Add babel-polyfill as a dependency and import it
 
