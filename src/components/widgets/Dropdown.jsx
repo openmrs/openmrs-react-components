@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import formUtil from "../../features/form/util";
 import { defineMessages, injectIntl } from "react-intl";
-import LocalizedMessage from "../localization/LocalizedMessage";
 import '../../../assets/css/widgets.css';
 
 const dropDownStyle = {
