@@ -1,16 +1,39 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import ReactTable from "react-table";
+import { defineMessages, injectIntl } from 'react-intl';
 import "react-table/react-table.css";
-import LocalizedMessage from "../localization/LocalizedMessage";
 
+const msg = defineMessages({
+  previousText: {
+    id: "reactcomponents.table.previous",
+    defaultMessage: "Previous" },
+  nextText: {
+    id: "reactcomponents.table.next",
+    defaultMessage: "Next" },
+  loadingText: {
+    id: "reactcomponents.table.loading",
+    defaultMessage: "Loading..." },
+  noDataText: {
+    id: "reactcomponents.table.noDataText",
+    defaultMessage: "No results found" },
+  pageText: {
+    id: "reactcomponents.table.page",
+    defaultMessage: "Page" },
+  ofText: {
+    id: "reactcomponents.table.of",
+    defaultMessage: "of" },
+  rowsText: {
+    id: "reactcomponents.table.rows",
+    defaultMessage: "rows" }
+});
 
 class SortableTable extends PureComponent {
+  
   getTableData() {
     const { data } = this.props;
     return data;
   }
-
 
   selectedRowsClassName(rowInfo) {
     const { selectedRows } = this.props;
@@ -95,16 +118,16 @@ class SortableTable extends PureComponent {
               className: this.selectedRowsClassName(rowInfo)
             };
           }}
-          loadingText={otherProps.loadingText}
+          loadingText={otherProps.loadingText || this.props.intl.formatMessage(msg.loadingText)}
           minRows={otherProps.minRows}
-          nextText={otherProps.nextText}
-          noDataText={<span className="sortableTable-noDataText">{this.props.noDataMessage}</span>}
-          ofText={otherProps.ofText}
+          nextText={otherProps.nextText || this.props.intl.formatMessage(msg.nextText)}
+          noDataText={<span className="sortableTable-noDataText">{this.props.noDataMessage || this.props.intl.formatMessage(msg.noDataText)}</span>}
+          ofText={otherProps.ofText || this.props.intl.formatMessage(msg.ofText)}
           page={otherProps.page}
           pageSizeOptions={[10, 20, 25, 50, 100]}
-          pageText={otherProps.pageText}
-          previousText={otherProps.previousText}
-          rowsText={otherProps.rowsText}
+          pageText={otherProps.pageText || this.props.intl.formatMessage(msg.pageText)}
+          previousText={otherProps.previousText || this.props.intl.formatMessage(msg.previousText)}
+          rowsText={otherProps.rowsText || this.props.intl.formatMessage(msg.rowsText)}
           showPagination={otherProps.showPagination}
           showPaginationBottom={this.renderPaginationBottom()}
           showPaginationTop={otherProps.showPaginationTop}
@@ -133,7 +156,6 @@ SortableTable.propTypes = {
   minRows: PropTypes.number,
   nextText: PropTypes.string,
   noDataMessage: PropTypes.string,
-  noDataText: PropTypes.string,
   ofText: PropTypes.string,
   pageText: PropTypes.string,
   previousText: PropTypes.string,
@@ -150,31 +172,7 @@ SortableTable.defaultProps = {
   isResizeable: true,
   isSortable: true,
   minRows: 0,
-  noDataMessage: <LocalizedMessage
-    id="reactcomponents.table.noDataText"
-    defaultMessage="No results found" />,
-  previousText: <LocalizedMessage
-    id="reactcomponents.table.previous"
-    defaultMessage="Previous" />,
-  nextText: <LocalizedMessage
-    id="reactcomponents.table.next"
-    defaultMessage="Next" />,
-  loadingText: <LocalizedMessage
-    id="reactcomponents.table.loading"
-    defaultMessage="Loading..." />,
-  noDataText: <LocalizedMessage
-    id="reactcomponents.table.noDataText"
-    defaultMessage="No results found" />,
-  pageText: <LocalizedMessage
-    id="reactcomponents.table.page"
-    defaultMessage="Page" />,
-  ofText: <LocalizedMessage
-    id="reactcomponents.table.of"
-    defaultMessage="of" />,
-  rowsText: <LocalizedMessage
-    id="reactcomponents.table.rows"
-    defaultMessage="rows" />,
   selectedRows: [],
 };
 
-export default SortableTable;
+export default injectIntl(SortableTable);
