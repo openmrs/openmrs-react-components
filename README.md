@@ -1,19 +1,25 @@
+<img src="https://cloud.githubusercontent.com/assets/668093/12567089/0ac42774-c372-11e5-97eb-00baf0fccc37.jpg" alt="OpenMRS"/>
 
-# Using React Components
+# OpenMRS React Components
 
-Steps to the react component within your React project
+This repository contains React components Built to support the development of OpenMRS Open Web App (OWA) using ReactJS 
 
-### Add @openmrs/react-components as a dependency
+## Installing
+
+### Add OpenMRS React Components as a dependency
+
+In your project, execute
 ```
-npm install @openmrs/react-components
+npm install --save @openmrs/react-components
 ```
+
 ### Add babel-polyfill as a dependency and import it
 
 Saga requires that babel-polyfill be installed and configured for your project:
 ```
 npm install babel-polyfill
 ```
-Then make you you import 'babel-polyfill' in your entry file (ie index.js)
+Then make sure you import 'babel-polyfill' in your entry file (ie index.js)
 
 ### Add react-redux, redux-saga and redux-form as dependencies
 ```
@@ -38,14 +44,14 @@ For a documentation of how to use the components check out the [readme](https://
 ## Bootstrap
 
 UI components within the library generally use Bootstrap styles.  *However* the bootstrap css files are not included
-in the released bundle.  Library consumers must provide the Bootstrap styles (or their own alternatives) within there
+in the released bundle.  Library consumers must provide the Bootstrap styles (or their own alternatives) within their
 own app.
 
 For information on including the stylesheet, see:
 
 https://react-bootstrap.github.io/getting-started/introduction
 
-Note that you may also need to include react-bootstrap and react-dom as dependencies in the app that uses react components
+Note that you may also need to include react-bootstrap and react-dom as dependencies in your app that uses react components
 (TODO: confirm this?)
 
 If you are using the create-react-app template, you can install and use the Bootstrap CSS by following the steps here:
@@ -53,9 +59,9 @@ If you are using the create-react-app template, you can install and use the Boot
 https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/[README]().md#adding-bootstrap
 
 ## Localization
+For localization in your OWA with the react-intl HOC, wrap a component with the withLocalization HOC
 
-To localization your OWA with the react-intl HOC, wrap a component with the withLocalization HOC
-
+for example
 ```
 import { initializeLocalization, withLocalization } from '@openmrs/react-components';
 
@@ -83,7 +89,7 @@ const LocalizedBreadCrumb = withLocalization(myComponent);
 
 Note that we only currently support language-based translations, not language and country based translations. For instance we don't support providing custom translations for "en_GB" like en_GB.json.
 
-However, the component can handle parsing locales with a country. Component... ie. if the locale is "en_GB" the en.json translations wil be used, and if the locale is "es_MX" the es.json translations will be used.  See `withLocalization.test.jsx` if you want a greater understanding of the supported use cases. 
+However, component can handle parsing locales with a country. Component... ie. if the locale is "en_GB" the en.json translations wil be used, and if the locale is "es_MX" the es.json translations will be used.  See `withLocalization.test.jsx` if you want a greater understanding of the supported use cases. 
 
 # Publishing a new version
 
