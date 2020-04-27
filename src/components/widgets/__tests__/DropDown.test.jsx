@@ -1,13 +1,14 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import Dropdown from '../Dropdown';
+import { IntlProvider } from 'react-intl';
 
 let props;
 let mountedComponent;
 
 const getComponent = () => {
   if (!mountedComponent) {
-    mountedComponent = renderer.create(<Dropdown {...props} />);
+    mountedComponent = renderer.create(<IntlProvider locale="en"><Dropdown {...props} /></IntlProvider>);
   }
   return mountedComponent;
 };

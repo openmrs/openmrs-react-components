@@ -26,9 +26,7 @@ exports[`Component: Dropdown renders properly 1`] = `
       <option
         value=""
       >
-        <span>
-          Select from the list
-        </span>
+        Select from the list
       </option>
     </select>
   </span>
