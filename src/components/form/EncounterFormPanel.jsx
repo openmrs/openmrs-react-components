@@ -131,7 +131,7 @@ class EncounterFormPanel extends React.PureComponent {
   render() {
     return (
       <div style={this.divContainer}>
-        <Grid style={this.divContainer}>
+        <Grid fluid="true" style={this.divContainer}>
           {this.props.title &&
             <Row style={this.rowStyles}>
               <Col style={this.littlePaddingLeft}>
@@ -178,7 +178,7 @@ class EncounterFormPanel extends React.PureComponent {
               {this.props.formContent}
 
               {!this.props.hideActionButtons &&
-                (<Grid>
+                (<Grid fluid={true}>
                   <Row>
                     <Col xs={6}>
                       {this.getForm().state === FORM_STATES.EDITING ?
