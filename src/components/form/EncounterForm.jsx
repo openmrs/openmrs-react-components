@@ -120,7 +120,7 @@ EncounterForm.propTypes = {
   formSubmittedActionCreator: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.func]),
-  handleSubmit: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,  // injected by redux-form
   location: PropTypes.object,
   manuallyExitSubmitMode: PropTypes.bool,   // defaults to false, if set to true, upon form submittal, submit mode will not exit automatically but becomes
                                             // the responsibly of the consuming app to set this (usually in some middleware triggered by a form submitted action creator)
@@ -141,13 +141,13 @@ EncounterForm.defaultProps = {
 };
 
 const mapStateToProps = (state, props) => {
-
+  
   const sessionLocation = R.path(['openmrs', 'session', 'sessionLocation'], state);
-  const currentProvider =  R.path(['openmrs', 'session', 'currentProvider'], state);
-
+  const currentProvider = R.path(['openmrs', 'session', 'currentProvider'], state);
   return {
     // note that this actually just maps a prop within the form, doesn't interact with state
-    form: props.formInstanceId ? props.formInstanceId : 'openmrs-form',
+    // these props are consumed by Redux-Form, which is why they are defined here
+    form: props.formInstanceId || 'openmrs-form',
     onSubmit: (values, dispatch) => {
       dispatch(formActions.formSubmitted({
         values: values,
@@ -155,27 +155,22 @@ const mapStateToProps = (state, props) => {
         formInstanceId: props.formInstanceId,
         patient: props.patient,
         encounter: props.encounter,
-        encounterRole: props.encounterRole ? props.encounterRole : null,
+        encounterRole: props.encounterRole || null,
         encounterType: props.encounterType,
-        location: props.location ? props.location :
-          sessionLocation ? sessionLocation : null,
+        location: props.location || sessionLocation || null,
         manuallyExitSubmitMode: props.manuallyExitSubmitMode,
         orderForObs: props.orderForObs,
-        provider: props.provider ? props.provider :
-          currentProvider ? currentProvider : null,
+        provider: props.provider || currentProvider || null,
         timestampNewEncounterIfCurrentDay: props.timestampNewEncounterIfCurrentDay,
         visit: props.visit,
         visitType: props.visitType,
         formSubmittedActionCreator: props.formSubmittedActionCreator
       }));
     },
-    sessionLocation: sessionLocation,
-    currentProvider: currentProvider
-
-  };
-
+    sessionLocation,
+    currentProvider 
+  }
 };
-
 
 
 export default connect(mapStateToProps)(reduxForm()(EncounterForm));
