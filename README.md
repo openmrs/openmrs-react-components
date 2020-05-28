@@ -2,7 +2,7 @@
 
 # OpenMRS React Components
 
-This repository contains React components Built to support the development of OpenMRS Open Web App (OWA) using ReactJS 
+This repository contains React components built to support the development of OpenMRS Open Web App (OWA) using ReactJS 
 
 ## Installing
 
@@ -19,7 +19,7 @@ Saga requires that babel-polyfill be installed and configured for your project:
 ```
 npm install babel-polyfill
 ```
-Then make sure you import 'babel-polyfill' in your entry file (ie index.js)
+Then make sure you import 'babel-polyfill' in your entry file (i.e. index.js)
 
 ### Add react-redux, redux-saga and redux-form as dependencies
 ```
