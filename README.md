@@ -2,7 +2,7 @@
 
 # OpenMRS React Components
 
-This repository contains React components Built to support the development of OpenMRS Open Web App (OWA) using ReactJS 
+This repository contains React components built to support the development of OpenMRS Open Web App (OWA) using ReactJS 
 
 ## Installing
 
