@@ -1,13 +1,14 @@
 import { axiosInstance } from '../config';
 
+// TODO this makes things depend on appui
 
 const api = {
   fetchCurrentSession: () => {
-    return axiosInstance.get('session')
+    return axiosInstance.get('appui/session')
       .then((response) => response.data);
   },
   setCurrentSessionLocation: (params) => {
-    return axiosInstance.post('session', {
+    return axiosInstance.post('appui/session', {
       location: params.location
     })
       .then( (response) => {
