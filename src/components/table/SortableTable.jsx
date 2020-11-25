@@ -97,7 +97,7 @@ class SortableTable extends PureComponent {
           columns={this.renderColumns()}
           data={this.renderData()}
           manual={otherProps.manual ? otherProps.manual : false}
-          pages={otherProps.pages ? otherProps.pages : null}
+          pages={otherProps.pages ? otherProps.pages : undefined}
           defaultPageSize={otherProps.defaultPageSize}
           filterable={this.renderColumnFilter()}
           getPaginationProps={otherProps.getPaginationProps}
