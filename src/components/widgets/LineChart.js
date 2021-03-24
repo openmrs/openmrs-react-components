@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {format} from 'date-fns';
 import {
   LineChart,
   Line,
@@ -24,8 +25,14 @@ const CustomLineChart = (props) => {
       />
       <XAxis
         dataKey={otherProps.xAxisKey}
+        domain={['dataMin', 'dataMax']}
+        tickFormatter={(unixTime) => format(unixTime, 'DD MMM YYYY')}
+        type='number'
       />
-      <Tooltip position={{ y: 200 }} />
+      <Tooltip
+        labelFormatter={(unixTime) => format(unixTime,'DD MMM YYYY')}
+        position={{ y: 200 }}
+      />
       <CartesianGrid
         horizontal
         vertical
@@ -35,7 +42,7 @@ const CustomLineChart = (props) => {
         type={otherProps.type}
       />
     </LineChart>
-    
+
   );
 };
 
