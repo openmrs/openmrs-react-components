@@ -28,6 +28,10 @@ const msg = defineMessages({
     defaultMessage: "rows" }
 });
 
+/**
+ * Props are mostly just passed through to ReactTable. See
+ * https://github.com/TanStack/react-table/tree/4a4d2245fd264ae7eee9e87928113dfed59532a5#props
+ */
 class SortableTable extends PureComponent {
   
   getTableData() {
@@ -87,8 +91,8 @@ class SortableTable extends PureComponent {
   render() {
     const { ...otherProps } = this.props;
     const defaultClassName = otherProps.defaultClassName || "-striped -highlight";
-
-    // All available props: https://github.com/tannerlinsley/react-table#props
+    
+    // All available props: https://github.com/TanStack/react-table/tree/4a4d2245fd264ae7eee9e87928113dfed59532a5#props
     return (
       <div>
         <ReactTable
