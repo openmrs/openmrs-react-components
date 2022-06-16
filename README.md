@@ -93,7 +93,14 @@ However, component can handle parsing locales with a country. Component... ie. i
 
 # Publishing a new version
 
-Set the version number you want to release in the package.json, and then run:
+NOTE: Github actions are not configured to publish new versions to npm.
+
+On push:  A new version is published with a suffix of "-pre.${buildNumber}", and a tag of "next"
+On release:  A new version is published
+
+After any release, one must increase the version number in package.json and commit in order to start 
+publishing pre-releases of the next version.
+
 ```
 npm run pack
 
