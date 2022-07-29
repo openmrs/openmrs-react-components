@@ -107,6 +107,7 @@ npm run pack
 npm publish --access public
 ```
 
+
 # Other tips
 
 ### To get around CORS issues when developing:
