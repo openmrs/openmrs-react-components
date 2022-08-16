@@ -15,7 +15,6 @@ import { conceptActions } from "../../features/concept";
 import { selectors } from "../../store";
 import formValidations from '../../features/form/validations';
 
-// TODO change datatype to be be driven by concept.datatype (need to test in lab workflow module)
 // TODO perhaps a little refactoring to have all these if/thens... maybe make underlying ObsDate, ObsCoded, ObsNumeric, worth it?
 class Obs extends React.PureComponent {
 
@@ -60,7 +59,7 @@ class Obs extends React.PureComponent {
   }
 
   render() {
-    const { required, value } = this.props;
+    const { concept, required, value } = this.props;
 
     let validations = this.props.validate || this.state.getValidationAbsoluteRange;
     validations = this.state.getValidationDisallowDecimals.length > 0 ? validations.concat(this.state.getValidationDisallowDecimals) : validations;
@@ -68,7 +67,26 @@ class Obs extends React.PureComponent {
     const defaultWarnings = this.props.warn || this.state.getValidationAbnormalRange;
     const warnings = required && !value ? defaultWarnings.concat(formValidations.isRequired) : defaultWarnings;
 
-    if (this.props.datatype === 'date') {
+    // if an explicit datatype is passed in as a prop, use that, otherwise attempt to derive from concept datatype
+    // TODO: this only handles numeric, date, datetime, and text datatype (the default) at this time
+    // TODO: (coded is handled by the fact that concept answers have also been passed in... in the
+    // TODO  future we could potentially have default behavior that uses default concept answers)
+    let datatype = this.props.datatype;
+    if (datatype == null) {
+      if (concept.datatype != null) {
+        if (concept.datatype.name === 'Numeric') {
+          datatype ='number';
+        }
+        else if (concept.datatype.name === 'Date' || concept.datatype.name === 'Datetime') {
+          datatype = 'date';
+        }
+        else {
+          datatype ='text';
+        }
+      }
+    }
+
+    if (datatype === 'date') {
       return (
         <Field
           component={CustomDatePicker}
@@ -149,7 +167,7 @@ class Obs extends React.PureComponent {
             mode={this.props.formContext.mode}
             name={this.props.name}
             placeholder={this.props.placeholder}
-            type={this.props.datatype}
+            type={datatype}
             validate={validations}
             warn={warnings}
           />
@@ -165,7 +183,7 @@ Obs.propTypes = {
     PropTypes.string]).isRequired,
   conceptAnswers: PropTypes.array,
   conceptUuid: PropTypes.string.isRequired,
-  datatype: PropTypes.string.isRequired,
+  datatype: PropTypes.string,
   justified: PropTypes.bool,
   placeholder: PropTypes.string,
   required: PropTypes.bool,
@@ -181,9 +199,6 @@ Obs.propTypes = {
   widget: PropTypes.string
 };
 
-Obs.defaultProps = {	
-  datatype: 'number',
-};
 
 // utility method to allow us to accept a string uuid or an object for a concept
 const getUuid = (concept) => {
