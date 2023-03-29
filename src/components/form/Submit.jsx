@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import LocalizedMessage from '../localization/LocalizedMessage';
 import withFormContext from './withFormContext';
+import PropTypes from "prop-types";
 
 const Submit = (props) => {
 
@@ -14,10 +15,18 @@ const Submit = (props) => {
       type="submit"
     >
       <LocalizedMessage
-        id="reactcomponents.submit"
+        id={props.labelCode}
         defaultMessage="Submit" />
     </Button>
   );
+};
+
+Submit.propTypes = {
+  submitLabelCode: PropTypes.string,
+};
+
+Submit.defaultProps = {
+  labelCode: "reactcomponents.submit"
 };
 
 export default withFormContext(Submit);

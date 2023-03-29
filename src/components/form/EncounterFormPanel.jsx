@@ -191,7 +191,7 @@ class EncounterFormPanel extends React.PureComponent {
                     </Col>
                     {!this.props.hideSubmitActionButtons &&  <Col xs={6}>
                       {this.getForm().state === FORM_STATES.EDITING ?
-                        (<Submit style={this.floatRight} onClick={this.exitEditMode}/>) :
+                        (<Submit labelCode={this.props.submitButtonLabelCode} style={this.floatRight} onClick={this.exitEditMode}/>) :
                         (<Button style={this.floatRight} onClick={this.enterEditMode}>
                           <LocalizedMessage
                             id="reactcomponents.edit"
@@ -231,6 +231,7 @@ EncounterFormPanel.propTypes = {
   patient: PropTypes.object.isRequired,
   provider: PropTypes.object,
   showDate: PropTypes.bool.isRequired,
+  submitButtonLabelCode: PropTypes.string,
   timestampNewEncounterIfCurrentDay: PropTypes.bool,
   title: PropTypes.string,
   toastMessage: PropTypes.string,
