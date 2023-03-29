@@ -94,6 +94,7 @@ However, component can handle parsing locales with a country. Component... ie. i
 # Publishing a new version
 
 NOTE: Github actions are not configured to publish new versions to npm.
+(TOOD: confirm the above?  actions do seem to publish new pre-release versions, does this just mean it doesn't public full release versions automatically?)
 
 On push:  A new version is published with a suffix of "-pre.${buildNumber}", and a tag of "next"
 On release:  A new version is published
