@@ -11,10 +11,17 @@ import { sessionActions } from "../session";
 // we export this for testing
 function* login(action) {
   try {
-
     // kind of strange/confusing here that the authorization var equals the whole 'authorization' key-pair, and not just the authorization code
     var authorization = { 'authorization' : "Basic " + btoa(action.username + ':' + action.password) };
-    let response = yield call(loginRest.login, authorization);
+
+    let response = null;
+    try {
+      response = yield call(loginRest.login, authorization);
+    }
+    catch (e) {
+      console.log("login failed. probably because the JSESSION was invalidated, re-attempt");
+      response = yield call(loginRest.login, authorization);
+    }
 
     if (response.authenticated === true) {
       let sessionResponse = yield call(sessionRest.setCurrentSessionLocation, { location: action.location });
