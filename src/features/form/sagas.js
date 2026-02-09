@@ -8,6 +8,7 @@ import encounterRest from '../../rest/encounterRest';
 import obsRest from '../../rest/obsRest';
 import { FORM_STATES } from "./constants";
 import visitRest from '../../rest/visitRest';
+import { DATETIME_CONCEPTS } from "../../constants";
 
 // TODO need to handle fields that aren't obs!
 // TODO this should really pass back something... the id of the created encounter, etc?
@@ -73,6 +74,19 @@ function createObs(val, path, concept, formId, orderUuid, existingObsFlattened) 
   };
 
   if (val) {
+    // If the value is a date, re-format so it is compatible with date (yyyy-MM-dd) and datetime (yyyy-MM-dd HH:mm) formats expected by REST module
+    // Really this seems like something that should be fixed in the REST module, but doing it here to keep changes contained
+    // We don't have any access to concept metadata at this point, and so we are just hacking in an array of DATETIME_CONCEPTS that should use this handling
+    const dateTimeRegex = new RegExp("^([0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{3}-[0-9]{2}:[0-9]{2})$");
+    if (dateTimeRegex.test(val)) {
+      if (DATETIME_CONCEPTS.indexOf(concept) !== -1) {
+        val = val.substring(0, 16).replace("T", " ");
+      }
+      else {
+        val = val.substring(0, 10)
+      }
+    }
+
     obs.value = val;
   }
 
