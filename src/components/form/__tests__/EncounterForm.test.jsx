@@ -4,13 +4,11 @@ import {mount} from 'enzyme';
 import {Provider} from 'react-redux';
 import {Form} from 'react-bootstrap';
 import EncounterForm from '../EncounterForm';
+import formUtil from '../../../features/form/util';
 
 let props, store;
 let mountedComponent;
 
-// this is a 2018-era vitals encounter fixture, predating the formFieldNamespace/formFieldPath migration -
-// its obs have formFieldPath: null (i.e. not tracked by this app) and its "comment" values are unrelated
-// leftover data with no bearing on this code path, which now keys off formFieldNamespace/formFieldPath
 const encounter = {
   "uuid": "581837a9-75b4-4233-8456-9635983b5eab",
   "display": "Signes vitaux 21/03/2018",
@@ -682,6 +680,59 @@ describe("EncounterForm", () => {
 
     expect(encounterForm().find('form').length).toBe(1);
     expect(encounterForm().find(Form).props().onSubmit.length).toBe(1);
+  });
+
+  it("should default formNamespace to formUtil.DEFAULT_FORM_NAMESPACE when the consumer doesn't supply one", () => {
+
+    const existingObsValuesSpy = jest.spyOn(formUtil, 'existingObsValues');
+
+    props = {
+      formId: "some_form_id",
+      formInstanceId: "some_form_instance_id",
+      patient: {
+        uuid: "some_patient_uuid"
+      },
+      encounterType: {
+        uuid: "some_encounter_type_uuid"
+      },
+      visit: {
+        uuid: "some_visit_uuid"
+      },
+      encounter: encounter
+    };
+
+    encounterForm();
+
+    expect(existingObsValuesSpy).toHaveBeenCalledWith(encounter.obs, formUtil.DEFAULT_FORM_NAMESPACE);
+
+    existingObsValuesSpy.mockRestore();
+  });
+
+  it("should use a consumer-supplied formNamespace instead of the default", () => {
+
+    const existingObsValuesSpy = jest.spyOn(formUtil, 'existingObsValues');
+
+    props = {
+      formId: "some_form_id",
+      formInstanceId: "some_form_instance_id",
+      formNamespace: "some-consumer-app",
+      patient: {
+        uuid: "some_patient_uuid"
+      },
+      encounterType: {
+        uuid: "some_encounter_type_uuid"
+      },
+      visit: {
+        uuid: "some_visit_uuid"
+      },
+      encounter: encounter
+    };
+
+    encounterForm();
+
+    expect(existingObsValuesSpy).toHaveBeenCalledWith(encounter.obs, "some-consumer-app");
+
+    existingObsValuesSpy.mockRestore();
   });
 
 });

@@ -14,32 +14,32 @@ import { DATETIME_CONCEPTS } from "../../constants";
 // TODO this should really pass back something... the id of the created encounter, etc?
 // TODO clear out hanging obs groups?
 
-function findExistingObsUuid(formId, path, flattenedObs) {
+function findExistingObsUuid(formNamespace, formId, path, flattenedObs) {
 
   if (!flattenedObs) {
     return null;
   }
   else {
-    const existingObs = flattenedObs.find(o => formUtil.hasMatchingFormAndPath(o, formId, path));
+    const existingObs = flattenedObs.find(o => formUtil.hasMatchingFormAndPath(o, formNamespace, formId, path));
     return existingObs ? existingObs.uuid : undefined;
   }
 
 }
 
-function addObs(allObs, value, formId, orderUuid, existingObsFlattened) {
+function addObs(allObs, value, formNamespace, formId, orderUuid, existingObsFlattened) {
 
   const { path, concepts } = formUtil.parseObsFieldName(value[0]);
   let val = value[1];
 
   // create the obs
-  const obs = createObs(val, path, concepts[concepts.length - 1], formId, orderUuid, existingObsFlattened);
+  const obs = createObs(val, path, concepts[concepts.length - 1], formNamespace, formId, orderUuid, existingObsFlattened);
 
   // figure out where to add it in the tree
-  addObsHelper(allObs, 0, obs, path, concepts, formId, orderUuid, existingObsFlattened);
+  addObsHelper(allObs, 0, obs, path, concepts, formNamespace, formId, orderUuid, existingObsFlattened);
 }
 
 // add the obs to the obs tree, creating any intermediate obs groups as necessary
-function addObsHelper(obsAtLevel, currentLevel, obs, path, concepts, formId, orderUuid, existingObsFlattened) {
+function addObsHelper(obsAtLevel, currentLevel, obs, path, concepts, formNamespace, formId, orderUuid, existingObsFlattened) {
 
   // if at the lowest level, just add
   if (currentLevel + 1 == path.length) {
@@ -47,28 +47,28 @@ function addObsHelper(obsAtLevel, currentLevel, obs, path, concepts, formId, ord
   }
   else {
     // try to find the existing grouping at current level
-    let obsGroup = obsAtLevel.find(o => formUtil.hasMatchingFormAndPath(o, formId, path.slice(0, currentLevel + 1)));
+    let obsGroup = obsAtLevel.find(o => formUtil.hasMatchingFormAndPath(o, formNamespace, formId, path.slice(0, currentLevel + 1)));
 
     // if the obsGrouping concept doesn't exist, create it
     if (!obsGroup) {
-      obsGroup = createObs(null, path.slice(0, currentLevel + 1), concepts[currentLevel], formId, orderUuid,existingObsFlattened);
+      obsGroup = createObs(null, path.slice(0, currentLevel + 1), concepts[currentLevel], formNamespace, formId, orderUuid,existingObsFlattened);
       obsGroup.groupMembers = [];
       obsAtLevel.push(obsGroup);
     }
 
     // go to the next level
-    addObsHelper(obsGroup.groupMembers, currentLevel + 1, obs, path, concepts, formId, orderUuid, existingObsFlattened);
+    addObsHelper(obsGroup.groupMembers, currentLevel + 1, obs, path, concepts, formNamespace, formId, orderUuid, existingObsFlattened);
   }
 }
 
-function createObs(val, path, concept, formId, orderUuid, existingObsFlattened) {
+function createObs(val, path, concept, formNamespace, formId, orderUuid, existingObsFlattened) {
 
-  let existingObsUuid = findExistingObsUuid(formId, path, existingObsFlattened);
+  let existingObsUuid = findExistingObsUuid(formNamespace, formId, path, existingObsFlattened);
 
   let obs = {
     concept: concept
   };
-  formUtil.setFormAndPathOnObs(obs, formId, path);
+  formUtil.setFormAndPathOnObs(obs, formNamespace, formId, path);
 
   if (val) {
     // If the value is a date, re-format so it is compatible with date (yyyy-MM-dd) and datetime (yyyy-MM-dd HH:mm) formats expected by REST module
@@ -146,6 +146,7 @@ function* submit(action) {
     let updatedEncounter = {};
     let existingFlattenedObs = [];
     let existingEncounter = action.encounter;
+    const formNamespace = action.formNamespace || formUtil.DEFAULT_FORM_NAMESPACE;
 
     yield put(formActions.setFormState(action.formInstanceId, FORM_STATES.SUBMITTING));
 
@@ -198,7 +199,7 @@ function* submit(action) {
     obsFromForm
       .filter(value => value[1])  // filter out any ones with no value
       .forEach((value) => {
-        addObs(allObs, value, action.formId, action.orderForObs ? action.orderForObs.uuid : null, existingFlattenedObs);
+        addObs(allObs, value, formNamespace, action.formId, action.orderForObs ? action.orderForObs.uuid : null, existingFlattenedObs);
       });
 
     encounter.obs = allObs;
@@ -228,7 +229,7 @@ function* submit(action) {
     const obsToDelete =
       obsFromForm
         .filter(value => !value[1])  // only the ones without a value
-        .map(value => ({ uuid: findExistingObsUuid(action.formId, formUtil.parseObsFieldName(value[0]).path, existingFlattenedObs ) }))  // match to any existing obs
+        .map(value => ({ uuid: findExistingObsUuid(formNamespace, action.formId, formUtil.parseObsFieldName(value[0]).path, existingFlattenedObs ) }))  // match to any existing obs
         .filter(obs => obs.uuid);  // only ones with matching uuid
 
     // we do this in a standard for instead of for-each because haven't figured out how to handle nested generator functions yet

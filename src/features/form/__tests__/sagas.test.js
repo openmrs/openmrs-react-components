@@ -78,13 +78,13 @@ describe('form sagas', () => {
       ],
       "encounterType": "some_encounter_type_uuid",
       "obs": [
-        { "formFieldNamespace": "labworkflow",
+        { "formFieldNamespace": "some-app",
           "formFieldPath": "form-id/first-obs",
           "concept": "first-obs-uuid",
           "order": "some_order_uuid",
           "value": 100
         },
-        { "formFieldNamespace": "labworkflow",
+        { "formFieldNamespace": "some-app",
           "formFieldPath": "form-id/second-obs",
           "concept": "second-obs-uuid",
           "order": "some_order_uuid",
@@ -98,6 +98,7 @@ describe('form sagas', () => {
     sagaTester.dispatch(formActions.formSubmitted( {
       values: values,
       formId: "form-id",
+      formNamespace: "some-app",
       formInstanceId: formInstanceId,
       patient: patient,
       encounterRole: encounterRole,
@@ -117,6 +118,48 @@ describe('form sagas', () => {
     expect(formSubmittedActionCreator.mock.calls.length).toBe(1);
     expect(sagaTester.getCalledActions()).toContainEqual(formSubmittedActionCreator({ encounter: encounterReturnedByEncounterRestMock }));
     expect(sagaTester.getCalledActions()).toContainEqual(formActions.setFormState(formInstanceId, FORM_STATES.VIEWING));
+  });
+
+  it('should default to DEFAULT_FORM_NAMESPACE when no formNamespace is dispatched', () => {
+
+    const formInstanceId = "form-instance-id";
+
+    const values =  { 'obs|path=first-obs|conceptPath=first-obs-uuid': 100 };
+
+    const patient = {
+      uuid: "some_patient_uuid"
+    };
+
+    const encounterType = {
+      uuid: "some_encounter_type_uuid"
+    };
+
+    const visit = {
+      uuid: "some_visit_uuid"
+    };
+
+    const expectedEncounterPost = {
+      "obs": [
+        { "formFieldNamespace": "openmrs-react-components",
+          "formFieldPath": "form-id/first-obs",
+          "concept": "first-obs-uuid",
+          "value": 100
+        }
+      ]
+    };
+
+    sagaTester.dispatch(formActions.formSubmitted( {
+      values: values,
+      formId: "form-id",
+      formInstanceId: formInstanceId,
+      patient: patient,
+      encounterType: encounterType,
+      visit: visit,
+      formSubmittedActionCreator:
+      formSubmittedActionCreator
+    } ));
+    expect(encounterRest.createEncounter).toHaveBeenCalledTimes(1);
+    expect(encounterRest.createEncounter.mock.calls[0][0]).toMatchObject(expectedEncounterPost);
   });
 
   it('should issue failure if invalid submit', () => {
@@ -141,6 +184,7 @@ describe('form sagas', () => {
     sagaTester.dispatch(formActions.formSubmitted({
       values: values,
       formId: "form-id",
+      formNamespace: "some-app",
       formInstanceId: formInstanceId,
       patient: patient,
       encounterType: encounterType,
@@ -178,6 +222,7 @@ describe('form sagas', () => {
     sagaTester.dispatch(formActions.formSubmitted( {
       values: values,
       formId: "form-id",
+      formNamespace: "some-app",
       formInstanceId: formInstanceId,
       patient: patient,
       encounterType: encounterType,
@@ -226,7 +271,7 @@ describe('form sagas', () => {
           "concept": {
             "uuid": "existing-obs-concept-uuid"
           },
-          "formFieldNamespace": "labworkflow",
+          "formFieldNamespace": "some-app",
           "formFieldPath": "form-id/second-obs"
         }
       ]
@@ -236,12 +281,12 @@ describe('form sagas', () => {
       "uuid": "existing_encounter_uuid",
       "encounterDatetime": date,
       "obs": [
-        { "formFieldNamespace": "labworkflow",
+        { "formFieldNamespace": "some-app",
           "formFieldPath": "form-id/first-obs",
           "concept": "first-obs-uuid",
           "value": 100
         },
-        { "formFieldNamespace": "labworkflow",
+        { "formFieldNamespace": "some-app",
           "formFieldPath": "form-id/second-obs",
           "concept": "second-obs-uuid",
           "value": 200,
@@ -253,6 +298,7 @@ describe('form sagas', () => {
     sagaTester.dispatch(formActions.formSubmitted( {
       values: values,
       formId: "form-id",
+      formNamespace: "some-app",
       formInstanceId: formInstanceId,
       patient: patient,
       encounter: encounter,
@@ -297,7 +343,7 @@ describe('form sagas', () => {
           "concept": {
             "uuid": "existing-obs-concept-uuid"
           },
-          "formFieldNamespace": "labworkflow",
+          "formFieldNamespace": "some-app",
           "formFieldPath": "form-id/second-obs"
         }
       ]
@@ -306,7 +352,7 @@ describe('form sagas', () => {
     const expectedEncounterPost = {
       "uuid": "existing_encounter_uuid",
       "obs": [
-        { "formFieldNamespace": "labworkflow",
+        { "formFieldNamespace": "some-app",
           "formFieldPath": "form-id/first-obs",
           "concept": "first-obs-uuid",
           "value": 100
@@ -317,6 +363,7 @@ describe('form sagas', () => {
     sagaTester.dispatch(formActions.formSubmitted( {
       values: values,
       formId: "form-id",
+      formNamespace: "some-app",
       formInstanceId: formInstanceId,
       patient: patient,
       encounter: encounter,
@@ -366,7 +413,7 @@ describe('form sagas', () => {
           "concept": {
             "uuid": "existing-obs-concept-uuid"
           },
-          "formFieldNamespace": "labworkflow",
+          "formFieldNamespace": "some-app",
           "formFieldPath": "form-id/second-obs"
         },
         {
@@ -374,7 +421,7 @@ describe('form sagas', () => {
           "concept": {
             "uuid": "existing-third_obs-concept-uuid"
           },
-          "formFieldNamespace": "labworkflow",
+          "formFieldNamespace": "some-app",
           "formFieldPath": "form-id/third-obs"
         }
       ]
@@ -383,7 +430,7 @@ describe('form sagas', () => {
     const expectedEncounterPost = {
       "uuid": "existing_encounter_uuid",
       "obs": [
-        { "formFieldNamespace": "labworkflow",
+        { "formFieldNamespace": "some-app",
           "formFieldPath": "form-id/first-obs",
           "concept": "first-obs-uuid",
           "value": "canceled"
@@ -395,6 +442,7 @@ describe('form sagas', () => {
     sagaTester.dispatch(formActions.formSubmitted( {
       values: values,
       formId: "form-id",
+      formNamespace: "some-app",
       formInstanceId: formInstanceId,
       patient: patient,
       encounter: encounter,
@@ -441,7 +489,7 @@ describe('form sagas', () => {
     const expectedEncounterPost = {
       "uuid": "existing_encounter_uuid",
       "obs": [
-        { "formFieldNamespace": "labworkflow",
+        { "formFieldNamespace": "some-app",
           "formFieldPath": "form-id/first-obs",
           "concept": "first-obs-uuid",
           "value": 100
@@ -452,6 +500,7 @@ describe('form sagas', () => {
     sagaTester.dispatch(formActions.formSubmitted( {
       values: values,
       formId: "form-id",
+      formNamespace: "some-app",
       formInstanceId: formInstanceId,
       patient: patient,
       encounterType: encounterType,
@@ -505,12 +554,12 @@ describe('form sagas', () => {
       "location": "some_location_uuid",
       "encounterType": "some_encounter_type_uuid",
       "obs": [
-        { "formFieldNamespace": "labworkflow",
+        { "formFieldNamespace": "some-app",
           "formFieldPath": "form-id/first-obs",
           "concept": "first-obs-uuid",
           "value": 100
         },
-        { "formFieldNamespace": "labworkflow",
+        { "formFieldNamespace": "some-app",
           "formFieldPath": "form-id/second-obs",
           "concept": "second-obs-uuid",
           "value": 200
@@ -523,6 +572,7 @@ describe('form sagas', () => {
     sagaTester.dispatch(formActions.formSubmitted( {
       values: values,
       formId: "form-id",
+      formNamespace: "some-app",
       formInstanceId: formInstanceId,
       patient: patient,
       encounterType: encounterType,
@@ -572,16 +622,16 @@ describe('form sagas', () => {
       "encounterType": "some_encounter_type_uuid",
       "obs": [
         {
-          "formFieldNamespace": "labworkflow",
+          "formFieldNamespace": "some-app",
           "formFieldPath": "form-id/grouping",
           "concept": "grouping_uuid",
           "groupMembers":  [
-            { "formFieldNamespace": "labworkflow",
+            { "formFieldNamespace": "some-app",
               "formFieldPath": "form-id/grouping/first-nested-obs",
               "concept": "first-obs-uuid",
               "value": 100
             },
-            { "formFieldNamespace": "labworkflow",
+            { "formFieldNamespace": "some-app",
               "formFieldPath": "form-id/grouping/second-nested-obs",
               "concept": "second-obs-uuid",
               "value": 200
@@ -589,16 +639,16 @@ describe('form sagas', () => {
           ]
         },
         {
-          "formFieldNamespace": "labworkflow",
+          "formFieldNamespace": "some-app",
           "formFieldPath": "form-id/second_grouping",
           "concept": "second_grouping_uuid",
           "groupMembers":  [
-            { "formFieldNamespace": "labworkflow",
+            { "formFieldNamespace": "some-app",
               "formFieldPath": "form-id/second_grouping/first-nested-obs",
               "concept": "first-obs-uuid",
               "value": 300
             },
-            { "formFieldNamespace": "labworkflow",
+            { "formFieldNamespace": "some-app",
               "formFieldPath": "form-id/second_grouping/second-nested-obs",
               "concept": "second-obs-uuid",
               "value": 400
@@ -613,6 +663,7 @@ describe('form sagas', () => {
     sagaTester.dispatch(formActions.formSubmitted( {
       values: values,
       formId: "form-id",
+      formNamespace: "some-app",
       formInstanceId: formInstanceId,
       patient: patient,
       encounterType: encounterType,
@@ -678,13 +729,13 @@ describe('form sagas', () => {
       ],
       "encounterType": "some_encounter_type_uuid",
       "obs": [
-        { "formFieldNamespace": "labworkflow",
+        { "formFieldNamespace": "some-app",
           "formFieldPath": "form-id/first-obs",
           "concept": "first-obs-uuid",
           "order": "some_order_uuid",
           "value": 100
         },
-        { "formFieldNamespace": "labworkflow",
+        { "formFieldNamespace": "some-app",
           "formFieldPath": "form-id/second-obs",
           "concept": "second-obs-uuid",
           "order": "some_order_uuid",
@@ -699,6 +750,7 @@ describe('form sagas', () => {
       manuallyExitSubmitMode: true,
       values: values,
       formId: "form-id",
+      formNamespace: "some-app",
       formInstanceId: formInstanceId,
       patient: patient,
       encounterRole: encounterRole,
@@ -751,6 +803,7 @@ describe('form sagas', () => {
     sagaTester.dispatch(formActions.formSubmitted( {
       values: values,
       formId: "form-id",
+      formNamespace: "some-app",
       formInstanceId: formInstanceId,
       patient: patient,
       encounter: encounter,
@@ -798,6 +851,7 @@ describe('form sagas', () => {
     sagaTester.dispatch(formActions.formSubmitted( {
       values: values,
       formId: "form-id",
+      formNamespace: "some-app",
       formInstanceId: formInstanceId,
       patient: patient,
       encounter: encounter,
@@ -832,6 +886,7 @@ describe('form sagas', () => {
     sagaTester.dispatch(formActions.formSubmitted( {
       values: values,
       formId: "form-id",
+      formNamespace: "some-app",
       formInstanceId: formInstanceId,
       patient: patient,
       encounterType: encounterType,
@@ -871,6 +926,7 @@ describe('form sagas', () => {
     sagaTester.dispatch(formActions.formSubmitted( {
       values: values,
       formId: "form-id",
+      formNamespace: "some-app",
       formInstanceId: formInstanceId,
       patient: patient,
       encounterType: encounterType,

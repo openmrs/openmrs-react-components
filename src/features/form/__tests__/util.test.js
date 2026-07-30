@@ -142,14 +142,14 @@ describe('form util', () => {
 
   });
 
-  it('should extract form and path from obs formFieldPath', () => {
+  it('should extract form and path from obs formFieldPath, given the caller\'s namespace', () => {
 
     const obs = {
-      formFieldNamespace: "labworkflow",
+      formFieldNamespace: "some-app",
       formFieldPath: "form-id/second_grouping/first-nested-obs/double-nested-obs"
     };
 
-    const { form, path } = formUtil.getFormAndPathFromObs(obs);
+    const { form, path } = formUtil.getFormAndPathFromObs(obs, "some-app");
     expect(form).toEqual("form-id");
     expect(path).toEqual(["second_grouping", "first-nested-obs", "double-nested-obs"]);
 
@@ -166,37 +166,51 @@ describe('form util', () => {
       formFieldPath: "someForm/someField"
     };
 
-    expect(formUtil.getFormAndPathFromObs(obsWithForeignNamespace)).toEqual({});
-    expect(formUtil.getFormAndPathFromObs(obsWithMissingNamespace)).toEqual({});
-    expect(formUtil.hasFormAndPath(obsWithForeignNamespace)).toEqual(false);
-    expect(formUtil.hasFormAndPath(obsWithMissingNamespace)).toEqual(false);
+    expect(formUtil.getFormAndPathFromObs(obsWithForeignNamespace, "some-app")).toEqual({});
+    expect(formUtil.getFormAndPathFromObs(obsWithMissingNamespace, "some-app")).toEqual({});
+    expect(formUtil.hasFormAndPath(obsWithForeignNamespace, "some-app")).toEqual(false);
+    expect(formUtil.hasFormAndPath(obsWithMissingNamespace, "some-app")).toEqual(false);
 
   });
 
-  it('should set form and path on obs formFieldPath and formFieldNamespace', () => {
+  it('should set form and path on obs formFieldPath, using the namespace the caller provides', () => {
 
     let obs = {};
 
     const form = "form-id";
     const path = ["second_grouping", "first-nested-obs", "double-nested-obs"];
 
-    formUtil.setFormAndPathOnObs(obs, form, path);
+    formUtil.setFormAndPathOnObs(obs, "some-app", form, path);
 
-    expect(obs.formFieldNamespace).toEqual("labworkflow");
+    expect(obs.formFieldNamespace).toEqual("some-app");
     expect(obs.formFieldPath).toEqual("form-id/second_grouping/first-nested-obs/double-nested-obs");
+
+  });
+
+  it('should default to DEFAULT_FORM_NAMESPACE when the caller uses that constant', () => {
+
+    let obs = {};
+
+    formUtil.setFormAndPathOnObs(obs, formUtil.DEFAULT_FORM_NAMESPACE, "form-id", ["some-field"]);
+
+    expect(obs.formFieldNamespace).toEqual("openmrs-react-components");
+    expect(formUtil.getFormAndPathFromObs(obs, formUtil.DEFAULT_FORM_NAMESPACE)).toEqual({
+      form: "form-id",
+      path: ["some-field"]
+    });
 
   });
 
   it('should properly compare obs with form and path', () => {
 
     const obs = {
-      formFieldNamespace: "labworkflow",
+      formFieldNamespace: "some-app",
       formFieldPath: "form-id/second_grouping/first-nested-obs/double-nested-obs"
     };
 
-    expect(formUtil.hasMatchingFormAndPath(obs, "form-id", ["second_grouping", "first-nested-obs", "double-nested-obs"])).toEqual(true);
-    expect(formUtil.hasMatchingFormAndPath(obs, "another-form-id", ["second_grouping", "first-nested-obs", "double-nested-obs"])).toEqual(false);
-    expect(formUtil.hasMatchingFormAndPath(obs, "form-id", ["different_second_grouping", "first-nested-obs", "double-nested-obs"])).toEqual(false);
+    expect(formUtil.hasMatchingFormAndPath(obs, "some-app", "form-id", ["second_grouping", "first-nested-obs", "double-nested-obs"])).toEqual(true);
+    expect(formUtil.hasMatchingFormAndPath(obs, "some-app", "another-form-id", ["second_grouping", "first-nested-obs", "double-nested-obs"])).toEqual(false);
+    expect(formUtil.hasMatchingFormAndPath(obs, "some-app", "form-id", ["different_second_grouping", "first-nested-obs", "double-nested-obs"])).toEqual(false);
   });
 
   it('should not match obs with form and path if formFieldNamespace does not match (belongs to another app)', () => {
@@ -206,28 +220,28 @@ describe('form util', () => {
       formFieldPath: "form-id/second_grouping/first-nested-obs/double-nested-obs"
     };
 
-    expect(formUtil.hasMatchingFormAndPath(obs, "form-id", ["second_grouping", "first-nested-obs", "double-nested-obs"])).toEqual(false);
+    expect(formUtil.hasMatchingFormAndPath(obs, "some-app", "form-id", ["second_grouping", "first-nested-obs", "double-nested-obs"])).toEqual(false);
   });
 
   it ('hasFormAndPath should return true if obs has form and path', () => {
 
     const obs = {
-      formFieldNamespace: "labworkflow",
+      formFieldNamespace: "some-app",
       formFieldPath: "form-id/second_grouping/first-nested-obs/double-nested-obs"
     };
 
-    expect(formUtil.hasFormAndPath(obs)).toEqual(true);
+    expect(formUtil.hasFormAndPath(obs, "some-app")).toEqual(true);
 
   });
 
   it ('hasFormAndPath should return false if formFieldPath has no path segment beyond the form', () => {
 
     const obs = {
-      formFieldNamespace: "labworkflow",
+      formFieldNamespace: "some-app",
       formFieldPath: "just-a-form-id-no-path"
     };
 
-    expect(formUtil.hasFormAndPath(obs)).toEqual(false);
+    expect(formUtil.hasFormAndPath(obs, "some-app")).toEqual(false);
 
   });
 
@@ -237,7 +251,7 @@ describe('form util', () => {
       formFieldPath: ""
     };
 
-    expect(formUtil.hasFormAndPath(obs)).toEqual(false);
+    expect(formUtil.hasFormAndPath(obs, "some-app")).toEqual(false);
 
   });
 
@@ -245,7 +259,7 @@ describe('form util', () => {
 
     const obs = {};
 
-    expect(formUtil.hasFormAndPath(obs)).toEqual(false);
+    expect(formUtil.hasFormAndPath(obs, "some-app")).toEqual(false);
 
   });
 
@@ -255,14 +269,14 @@ describe('form util', () => {
 
       const obs = [
         {
-          formFieldNamespace: "labworkflow",
+          formFieldNamespace: "some-app",
           formFieldPath: "form-id/some-field",
           concept: { uuid: "some-concept-uuid" },
           value: 100
         }
       ];
 
-      const existingValues = formUtil.existingObsValues(obs);
+      const existingValues = formUtil.existingObsValues(obs, "some-app");
 
       expect(existingValues).toEqual({
         [formUtil.obsFieldName(["some-field"], "some-concept-uuid")]: 100
@@ -280,7 +294,22 @@ describe('form util', () => {
         }
       ];
 
-      expect(formUtil.existingObsValues(obs)).toEqual({});
+      expect(formUtil.existingObsValues(obs, "some-app")).toEqual({});
+
+    });
+
+    it('should exclude obs written under a different namespace', () => {
+
+      const obs = [
+        {
+          formFieldNamespace: "some-other-app",
+          formFieldPath: "form-id/some-field",
+          concept: { uuid: "some-concept-uuid" },
+          value: 100
+        }
+      ];
+
+      expect(formUtil.existingObsValues(obs, "some-app")).toEqual({});
 
     });
 
@@ -288,13 +317,13 @@ describe('form util', () => {
 
       const obs = [
         {
-          formFieldNamespace: "labworkflow",
+          formFieldNamespace: "some-app",
           formFieldPath: "form-id/some-field",
           concept: { uuid: "some-concept-uuid" }
         }
       ];
 
-      expect(formUtil.existingObsValues(obs)).toEqual({});
+      expect(formUtil.existingObsValues(obs, "some-app")).toEqual({});
 
     });
 
@@ -302,20 +331,20 @@ describe('form util', () => {
 
       const obs = [
         {
-          formFieldNamespace: "labworkflow",
+          formFieldNamespace: "some-app",
           formFieldPath: "form-id/coded-field",
           concept: { uuid: "coded-concept-uuid", datatype: DATA_TYPES['coded'] },
           value: { uuid: "answer-concept-uuid" }
         },
         {
-          formFieldNamespace: "labworkflow",
+          formFieldNamespace: "some-app",
           formFieldPath: "form-id/boolean-field",
           concept: { uuid: "boolean-concept-uuid", datatype: DATA_TYPES['boolean'] },
           value: { uuid: "true-concept-uuid" }
         }
       ];
 
-      const existingValues = formUtil.existingObsValues(obs);
+      const existingValues = formUtil.existingObsValues(obs, "some-app");
 
       expect(existingValues).toEqual({
         [formUtil.obsFieldName(["coded-field"], "coded-concept-uuid")]: "answer-concept-uuid",

@@ -1,20 +1,24 @@
 import generalUtil from '../../util/generalUtil';
 import { DATA_TYPES } from '../../domain/concept/constants';
 
-const FORM_NAMESPACE = 'labworkflow';
+// Namespace used when a consumer of this library doesn't supply its own via the
+// formNamespace prop on EncounterForm. react-components is a shared library with
+// potentially many downstream consumers, so the namespace identifying "who wrote
+// this obs" must come from the consumer, not be hardcoded to any one of them.
+const DEFAULT_FORM_NAMESPACE = 'openmrs-react-components';
 
 const util = {
 
-  FORM_NAMESPACE,
+  DEFAULT_FORM_NAMESPACE,
 
   // given an obs, finds the form and path it was recorded from, via formNamespaceAndPath
-  // only obs written by this app (formFieldNamespace === FORM_NAMESPACE) are considered "ours" -
-  // formFieldPath is shared across OpenMRS applications, so an obs written by another app
-  // (e.g. HTML Form Entry) must not be mistaken for one of ours just because its path happens
-  // to have multiple segments
-  getFormAndPathFromObs: (obs) => {
+  // only obs written under the given namespace are considered "ours" - formFieldPath is
+  // shared across OpenMRS applications, so an obs written by another app (e.g. HTML Form
+  // Entry, or a different react-components consumer) must not be mistaken for one of ours
+  // just because its path happens to have multiple segments
+  getFormAndPathFromObs: (obs, namespace) => {
 
-    if (!obs.formFieldPath || obs.formFieldNamespace !== FORM_NAMESPACE) { return {}; }
+    if (!obs.formFieldPath || obs.formFieldNamespace !== namespace) { return {}; }
 
     const [form, ...path] = obs.formFieldPath.split("/");
 
@@ -25,18 +29,18 @@ const util = {
 
   },
 
-  setFormAndPathOnObs: (obs, form, path) => {
-    obs.formFieldNamespace = FORM_NAMESPACE;
+  setFormAndPathOnObs: (obs, namespace, form, path) => {
+    obs.formFieldNamespace = namespace;
     obs.formFieldPath = [form, ...path].join("/");
   },
 
-  hasFormAndPath: (obs) => {
-    const { form, path } = util.getFormAndPathFromObs(obs);
+  hasFormAndPath: (obs, namespace) => {
+    const { form, path } = util.getFormAndPathFromObs(obs, namespace);
     return (typeof form !== 'undefined' && typeof path !== 'undefined' && path.length > 0);
   },
 
-  hasMatchingFormAndPath: (obs, testForm, testPath) => {
-    const { form, path } = util.getFormAndPathFromObs(obs);
+  hasMatchingFormAndPath: (obs, namespace, testForm, testPath) => {
+    const { form, path } = util.getFormAndPathFromObs(obs, namespace);
     return form === testForm && generalUtil.areEqualArrays(path, testPath);
   },
 
@@ -98,14 +102,15 @@ const util = {
   },
 
   // given the (possibly nested) obs off an encounter, returns a flat { fieldName: value } object of the
-  // obs that belong to this app (per hasFormAndPath) and have a value, suitable for use as redux-form
-  // initial values. coded/boolean obs are unwrapped to their answer concept uuid.
-  existingObsValues: (obs) => {
+  // obs that belong to this app under the given namespace (per hasFormAndPath) and have a value,
+  // suitable for use as redux-form initial values. coded/boolean obs are unwrapped to their answer
+  // concept uuid.
+  existingObsValues: (obs, namespace) => {
 
     return util.flattenObs(obs)
-      .filter((o) => util.hasFormAndPath(o) && o.concept && o.concept.uuid && o.value)  // filter out any obs with missing information
+      .filter((o) => util.hasFormAndPath(o, namespace) && o.concept && o.concept.uuid && o.value)  // filter out any obs with missing information
       .map((o) => ({                                                                    // map to the key/value pair
-        [util.obsFieldName(util.getFormAndPathFromObs(o).path, o.conceptPath)]:
+        [util.obsFieldName(util.getFormAndPathFromObs(o, namespace).path, o.conceptPath)]:
           (o.concept.datatype && (o.concept.datatype.uuid === DATA_TYPES['coded'].uuid || o.concept.datatype.uuid === DATA_TYPES['boolean'].uuid)
             ? o.value.uuid : o.value)
       }))

@@ -40,7 +40,7 @@ class EncounterForm extends React.PureComponent {
     // if there is an existing encounter, create object of existing obs values
     if (this.props.encounter && this.props.encounter.obs) {
 
-      existingValues = formUtil.existingObsValues(this.props.encounter.obs);
+      existingValues = formUtil.existingObsValues(this.props.encounter.obs, this.props.formNamespace);
 
       // add in the encounter date
       existingValues["encounter-datetime"] = this.props.encounter.encounterDatetime;
@@ -104,6 +104,10 @@ EncounterForm.propTypes = {
   encounterType: PropTypes.object,
   formId: PropTypes.string.isRequired,
   formInstanceId: PropTypes.string.isRequired,
+  formNamespace: PropTypes.string,  // identifies which app recorded an obs' form/path (see formUtil.DEFAULT_FORM_NAMESPACE);
+                                    // defaults to identifying this library itself, but a consuming app should normally
+                                    // pass its own distinct namespace so its obs aren't confused with another consumer's
+                                    // or with react-components' own default
   formSubmittedActionCreator: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.func]),
@@ -122,6 +126,7 @@ EncounterForm.propTypes = {
 };
 
 EncounterForm.defaultProps = {
+  formNamespace: formUtil.DEFAULT_FORM_NAMESPACE,
   manuallyExitSubmitMode: false,
   mode: 'edit',
   timestampNewEncounterIfCurrentDay: false
@@ -139,6 +144,7 @@ const mapStateToProps = (state, props) => {
       dispatch(formActions.formSubmitted({
         values: values,
         formId: props.formId,
+        formNamespace: props.formNamespace,
         formInstanceId: props.formInstanceId,
         patient: props.patient,
         encounter: props.encounter,
