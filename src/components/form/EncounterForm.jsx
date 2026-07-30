@@ -6,7 +6,6 @@ import { Form } from 'react-bootstrap';
 import * as R from 'ramda';
 import FormContext from './FormContext';
 import { formActions } from '../../features/form';
-import { DATA_TYPES } from '../../domain/concept/constants';
 import formUtil from '../../features/form/util';
 import util from '../../util/generalUtil';
 
@@ -41,19 +40,7 @@ class EncounterForm extends React.PureComponent {
     // if there is an existing encounter, create object of existing obs values
     if (this.props.encounter && this.props.encounter.obs) {
 
-      // TODO update this to handle using form and namespacing
-      existingValues = formUtil.flattenObs(this.props.encounter.obs)
-        .filter((o) => o.comment && o.comment.includes("^") && o.concept && o.concept.uuid && o.value)      // filter out any obs with missing information
-        .map((o) => ({                                                                                      // map to the key/value pair
-          [formUtil.obsFieldName(o.comment.split('^').slice(1), o.conceptPath)]:
-            (o.concept.datatype && (o.concept.datatype.uuid === DATA_TYPES['coded'].uuid || o.concept.datatype.uuid === DATA_TYPES['boolean'].uuid)
-              ? o.value.uuid : o.value)
-        }))
-        .reduce((acc, item) => {                                                                  // reduce array to single object
-          var key = Object.keys(item)[0];
-          acc[key] = item[key];
-          return acc;
-        }, {});
+      existingValues = formUtil.existingObsValues(this.props.encounter.obs, this.props.formNamespace);
 
       // add in the encounter date
       existingValues["encounter-datetime"] = this.props.encounter.encounterDatetime;
@@ -117,6 +104,10 @@ EncounterForm.propTypes = {
   encounterType: PropTypes.object,
   formId: PropTypes.string.isRequired,
   formInstanceId: PropTypes.string.isRequired,
+  formNamespace: PropTypes.string,  // identifies which app recorded an obs' form/path (see formUtil.DEFAULT_FORM_NAMESPACE);
+                                    // defaults to identifying this library itself, but a consuming app should normally
+                                    // pass its own distinct namespace so its obs aren't confused with another consumer's
+                                    // or with react-components' own default
   formSubmittedActionCreator: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.func]),
@@ -135,6 +126,7 @@ EncounterForm.propTypes = {
 };
 
 EncounterForm.defaultProps = {
+  formNamespace: formUtil.DEFAULT_FORM_NAMESPACE,
   manuallyExitSubmitMode: false,
   mode: 'edit',
   timestampNewEncounterIfCurrentDay: false
@@ -152,6 +144,7 @@ const mapStateToProps = (state, props) => {
       dispatch(formActions.formSubmitted({
         values: values,
         formId: props.formId,
+        formNamespace: props.formNamespace,
         formInstanceId: props.formInstanceId,
         patient: props.patient,
         encounter: props.encounter,

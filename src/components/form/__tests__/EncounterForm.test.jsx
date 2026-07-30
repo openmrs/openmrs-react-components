@@ -4,6 +4,7 @@ import {mount} from 'enzyme';
 import {Provider} from 'react-redux';
 import {Form} from 'react-bootstrap';
 import EncounterForm from '../EncounterForm';
+import formUtil from '../../../features/form/util';
 
 let props, store;
 let mountedComponent;
@@ -415,7 +416,7 @@ const encounter = {
       "obsGroup": null,
       "valueCodedName": null,
       "groupMembers": null,
-      "comment": "form^path",
+      "comment": "another_unrelated_comment",
       "location": {
         "uuid": "199e7d87-92a0-4398-a0f8-11d012178164",
         "display": "Klinik Ekstèn",
@@ -679,6 +680,59 @@ describe("EncounterForm", () => {
 
     expect(encounterForm().find('form').length).toBe(1);
     expect(encounterForm().find(Form).props().onSubmit.length).toBe(1);
+  });
+
+  it("should default formNamespace to formUtil.DEFAULT_FORM_NAMESPACE when the consumer doesn't supply one", () => {
+
+    const existingObsValuesSpy = jest.spyOn(formUtil, 'existingObsValues');
+
+    props = {
+      formId: "some_form_id",
+      formInstanceId: "some_form_instance_id",
+      patient: {
+        uuid: "some_patient_uuid"
+      },
+      encounterType: {
+        uuid: "some_encounter_type_uuid"
+      },
+      visit: {
+        uuid: "some_visit_uuid"
+      },
+      encounter: encounter
+    };
+
+    encounterForm();
+
+    expect(existingObsValuesSpy).toHaveBeenCalledWith(encounter.obs, formUtil.DEFAULT_FORM_NAMESPACE);
+
+    existingObsValuesSpy.mockRestore();
+  });
+
+  it("should use a consumer-supplied formNamespace instead of the default", () => {
+
+    const existingObsValuesSpy = jest.spyOn(formUtil, 'existingObsValues');
+
+    props = {
+      formId: "some_form_id",
+      formInstanceId: "some_form_instance_id",
+      formNamespace: "some-consumer-app",
+      patient: {
+        uuid: "some_patient_uuid"
+      },
+      encounterType: {
+        uuid: "some_encounter_type_uuid"
+      },
+      visit: {
+        uuid: "some_visit_uuid"
+      },
+      encounter: encounter
+    };
+
+    encounterForm();
+
+    expect(existingObsValuesSpy).toHaveBeenCalledWith(encounter.obs, "some-consumer-app");
+
+    existingObsValuesSpy.mockRestore();
   });
 
 });
