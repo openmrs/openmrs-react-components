@@ -8,6 +8,9 @@ import EncounterForm from '../EncounterForm';
 let props, store;
 let mountedComponent;
 
+// this is a 2018-era vitals encounter fixture, predating the formFieldNamespace/formFieldPath migration -
+// its obs have formFieldPath: null (i.e. not tracked by this app) and its "comment" values are unrelated
+// leftover data with no bearing on this code path, which now keys off formFieldNamespace/formFieldPath
 const encounter = {
   "uuid": "581837a9-75b4-4233-8456-9635983b5eab",
   "display": "Signes vitaux 21/03/2018",
@@ -415,7 +418,7 @@ const encounter = {
       "obsGroup": null,
       "valueCodedName": null,
       "groupMembers": null,
-      "comment": "form^path",
+      "comment": "another_unrelated_comment",
       "location": {
         "uuid": "199e7d87-92a0-4398-a0f8-11d012178164",
         "display": "Klinik Ekstèn",

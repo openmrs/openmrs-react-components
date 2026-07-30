@@ -1,5 +1,6 @@
 
 import formUtil from '../util';
+import { DATA_TYPES } from '../../../domain/concept/constants';
 
 describe('form util', () => {
 
@@ -248,5 +249,81 @@ describe('form util', () => {
 
   });
 
+  describe('existingObsValues', () => {
+
+    it('should include obs with formFieldNamespace/formFieldPath and a value, keyed by the computed field name', () => {
+
+      const obs = [
+        {
+          formFieldNamespace: "labworkflow",
+          formFieldPath: "form-id/some-field",
+          concept: { uuid: "some-concept-uuid" },
+          value: 100
+        }
+      ];
+
+      const existingValues = formUtil.existingObsValues(obs);
+
+      expect(existingValues).toEqual({
+        [formUtil.obsFieldName(["some-field"], "some-concept-uuid")]: 100
+      });
+
+    });
+
+    it('should exclude obs with no formFieldPath (never tracked, or foreign-namespace obs)', () => {
+
+      const obs = [
+        {
+          formFieldPath: null,
+          concept: { uuid: "some-concept-uuid" },
+          value: 100
+        }
+      ];
+
+      expect(formUtil.existingObsValues(obs)).toEqual({});
+
+    });
+
+    it('should exclude obs with formFieldPath set but no value', () => {
+
+      const obs = [
+        {
+          formFieldNamespace: "labworkflow",
+          formFieldPath: "form-id/some-field",
+          concept: { uuid: "some-concept-uuid" }
+        }
+      ];
+
+      expect(formUtil.existingObsValues(obs)).toEqual({});
+
+    });
+
+    it('should unwrap coded and boolean values to the answer concept uuid', () => {
+
+      const obs = [
+        {
+          formFieldNamespace: "labworkflow",
+          formFieldPath: "form-id/coded-field",
+          concept: { uuid: "coded-concept-uuid", datatype: DATA_TYPES['coded'] },
+          value: { uuid: "answer-concept-uuid" }
+        },
+        {
+          formFieldNamespace: "labworkflow",
+          formFieldPath: "form-id/boolean-field",
+          concept: { uuid: "boolean-concept-uuid", datatype: DATA_TYPES['boolean'] },
+          value: { uuid: "true-concept-uuid" }
+        }
+      ];
+
+      const existingValues = formUtil.existingObsValues(obs);
+
+      expect(existingValues).toEqual({
+        [formUtil.obsFieldName(["coded-field"], "coded-concept-uuid")]: "answer-concept-uuid",
+        [formUtil.obsFieldName(["boolean-field"], "boolean-concept-uuid")]: "true-concept-uuid"
+      });
+
+    });
+
+  });
 
 });

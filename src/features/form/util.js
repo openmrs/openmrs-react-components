@@ -1,4 +1,5 @@
 import generalUtil from '../../util/generalUtil';
+import { DATA_TYPES } from '../../domain/concept/constants';
 
 const FORM_NAMESPACE = 'labworkflow';
 
@@ -93,6 +94,26 @@ const util = {
       obsWithGroupMembersRemoved.conceptPath = [...path, obs.concept.uuid].join('^');
       return [...util.flattenObs(groupMembers, acc, [...path, obs.concept.uuid]), obsWithGroupMembersRemoved];
     }, acc);
+
+  },
+
+  // given the (possibly nested) obs off an encounter, returns a flat { fieldName: value } object of the
+  // obs that belong to this app (per hasFormAndPath) and have a value, suitable for use as redux-form
+  // initial values. coded/boolean obs are unwrapped to their answer concept uuid.
+  existingObsValues: (obs) => {
+
+    return util.flattenObs(obs)
+      .filter((o) => util.hasFormAndPath(o) && o.concept && o.concept.uuid && o.value)  // filter out any obs with missing information
+      .map((o) => ({                                                                    // map to the key/value pair
+        [util.obsFieldName(util.getFormAndPathFromObs(o).path, o.conceptPath)]:
+          (o.concept.datatype && (o.concept.datatype.uuid === DATA_TYPES['coded'].uuid || o.concept.datatype.uuid === DATA_TYPES['boolean'].uuid)
+            ? o.value.uuid : o.value)
+      }))
+      .reduce((acc, item) => {                                                          // reduce array to single object
+        const key = Object.keys(item)[0];
+        acc[key] = item[key];
+        return acc;
+      }, {});
 
   }
 

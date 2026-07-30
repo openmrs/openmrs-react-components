@@ -6,7 +6,6 @@ import { Form } from 'react-bootstrap';
 import * as R from 'ramda';
 import FormContext from './FormContext';
 import { formActions } from '../../features/form';
-import { DATA_TYPES } from '../../domain/concept/constants';
 import formUtil from '../../features/form/util';
 import util from '../../util/generalUtil';
 
@@ -41,18 +40,7 @@ class EncounterForm extends React.PureComponent {
     // if there is an existing encounter, create object of existing obs values
     if (this.props.encounter && this.props.encounter.obs) {
 
-      existingValues = formUtil.flattenObs(this.props.encounter.obs)
-        .filter((o) => formUtil.hasFormAndPath(o) && o.concept && o.concept.uuid && o.value)      // filter out any obs with missing information
-        .map((o) => ({                                                                                      // map to the key/value pair
-          [formUtil.obsFieldName(formUtil.getFormAndPathFromObs(o).path, o.conceptPath)]:
-            (o.concept.datatype && (o.concept.datatype.uuid === DATA_TYPES['coded'].uuid || o.concept.datatype.uuid === DATA_TYPES['boolean'].uuid)
-              ? o.value.uuid : o.value)
-        }))
-        .reduce((acc, item) => {                                                                  // reduce array to single object
-          var key = Object.keys(item)[0];
-          acc[key] = item[key];
-          return acc;
-        }, {});
+      existingValues = formUtil.existingObsValues(this.props.encounter.obs);
 
       // add in the encounter date
       existingValues["encounter-datetime"] = this.props.encounter.encounterDatetime;
