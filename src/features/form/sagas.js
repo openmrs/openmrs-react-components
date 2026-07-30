@@ -14,8 +14,6 @@ import { DATETIME_CONCEPTS } from "../../constants";
 // TODO this should really pass back something... the id of the created encounter, etc?
 // TODO clear out hanging obs groups?
 
-// TODO update to use form field and namespace instead of comment when running OpenMRS 1.11+
-
 function findExistingObsUuid(formId, path, flattenedObs) {
 
   if (!flattenedObs) {
@@ -49,7 +47,7 @@ function addObsHelper(obsAtLevel, currentLevel, obs, path, concepts, formId, ord
   }
   else {
     // try to find the existing grouping at current level
-    let obsGroup = obsAtLevel.find(o => o.comment === formId + "^" + path.slice(0, currentLevel + 1).join('^'));
+    let obsGroup = obsAtLevel.find(o => formUtil.hasMatchingFormAndPath(o, formId, path.slice(0, currentLevel + 1)));
 
     // if the obsGrouping concept doesn't exist, create it
     if (!obsGroup) {
@@ -67,11 +65,10 @@ function createObs(val, path, concept, formId, orderUuid, existingObsFlattened) 
 
   let existingObsUuid = findExistingObsUuid(formId, path, existingObsFlattened);
 
-  // TODO make this support the new form/namespace pattern
   let obs = {
-    concept: concept,
-    comment: formId + '^' + path.join('^')
+    concept: concept
   };
+  formUtil.setFormAndPathOnObs(obs, formId, path);
 
   if (val) {
     // If the value is a date, re-format so it is compatible with date (yyyy-MM-dd) and datetime (yyyy-MM-dd HH:mm) formats expected by REST module

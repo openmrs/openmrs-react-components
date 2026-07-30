@@ -78,12 +78,14 @@ describe('form sagas', () => {
       ],
       "encounterType": "some_encounter_type_uuid",
       "obs": [
-        { "comment": "form-id^first-obs",
+        { "formFieldNamespace": "labworkflow",
+          "formFieldPath": "form-id/first-obs",
           "concept": "first-obs-uuid",
           "order": "some_order_uuid",
           "value": 100
         },
-        { "comment": "form-id^second-obs",
+        { "formFieldNamespace": "labworkflow",
+          "formFieldPath": "form-id/second-obs",
           "concept": "second-obs-uuid",
           "order": "some_order_uuid",
           "value": 200
@@ -224,7 +226,8 @@ describe('form sagas', () => {
           "concept": {
             "uuid": "existing-obs-concept-uuid"
           },
-          "comment": "form-id^second-obs"
+          "formFieldNamespace": "labworkflow",
+          "formFieldPath": "form-id/second-obs"
         }
       ]
     };
@@ -233,11 +236,13 @@ describe('form sagas', () => {
       "uuid": "existing_encounter_uuid",
       "encounterDatetime": date,
       "obs": [
-        { "comment": "form-id^first-obs",
+        { "formFieldNamespace": "labworkflow",
+          "formFieldPath": "form-id/first-obs",
           "concept": "first-obs-uuid",
           "value": 100
         },
-        { "comment": "form-id^second-obs",
+        { "formFieldNamespace": "labworkflow",
+          "formFieldPath": "form-id/second-obs",
           "concept": "second-obs-uuid",
           "value": 200,
           "uuid": "existing_obs_uuid"
@@ -292,7 +297,8 @@ describe('form sagas', () => {
           "concept": {
             "uuid": "existing-obs-concept-uuid"
           },
-          "comment": "form-id^second-obs"
+          "formFieldNamespace": "labworkflow",
+          "formFieldPath": "form-id/second-obs"
         }
       ]
     };
@@ -300,7 +306,8 @@ describe('form sagas', () => {
     const expectedEncounterPost = {
       "uuid": "existing_encounter_uuid",
       "obs": [
-        { "comment": "form-id^first-obs",
+        { "formFieldNamespace": "labworkflow",
+          "formFieldPath": "form-id/first-obs",
           "concept": "first-obs-uuid",
           "value": 100
         }
@@ -359,14 +366,16 @@ describe('form sagas', () => {
           "concept": {
             "uuid": "existing-obs-concept-uuid"
           },
-          "comment": "form-id^second-obs"
+          "formFieldNamespace": "labworkflow",
+          "formFieldPath": "form-id/second-obs"
         },
         {
           "uuid": "child-obs-uuid",
           "concept": {
             "uuid": "existing-third_obs-concept-uuid"
           },
-          "comment": "form-id^third-obs"
+          "formFieldNamespace": "labworkflow",
+          "formFieldPath": "form-id/third-obs"
         }
       ]
     };
@@ -374,7 +383,8 @@ describe('form sagas', () => {
     const expectedEncounterPost = {
       "uuid": "existing_encounter_uuid",
       "obs": [
-        { "comment": "form-id^first-obs",
+        { "formFieldNamespace": "labworkflow",
+          "formFieldPath": "form-id/first-obs",
           "concept": "first-obs-uuid",
           "value": "canceled"
         }
@@ -431,7 +441,8 @@ describe('form sagas', () => {
     const expectedEncounterPost = {
       "uuid": "existing_encounter_uuid",
       "obs": [
-        { "comment": "form-id^first-obs",
+        { "formFieldNamespace": "labworkflow",
+          "formFieldPath": "form-id/first-obs",
           "concept": "first-obs-uuid",
           "value": 100
         }
@@ -494,11 +505,13 @@ describe('form sagas', () => {
       "location": "some_location_uuid",
       "encounterType": "some_encounter_type_uuid",
       "obs": [
-        { "comment": "form-id^first-obs",
+        { "formFieldNamespace": "labworkflow",
+          "formFieldPath": "form-id/first-obs",
           "concept": "first-obs-uuid",
           "value": 100
         },
-        { "comment": "form-id^second-obs",
+        { "formFieldNamespace": "labworkflow",
+          "formFieldPath": "form-id/second-obs",
           "concept": "second-obs-uuid",
           "value": 200
         }
@@ -559,28 +572,34 @@ describe('form sagas', () => {
       "encounterType": "some_encounter_type_uuid",
       "obs": [
         {
-          "comment": "form-id^grouping",
+          "formFieldNamespace": "labworkflow",
+          "formFieldPath": "form-id/grouping",
           "concept": "grouping_uuid",
           "groupMembers":  [
-            { "comment": "form-id^grouping^first-nested-obs",
+            { "formFieldNamespace": "labworkflow",
+              "formFieldPath": "form-id/grouping/first-nested-obs",
               "concept": "first-obs-uuid",
               "value": 100
             },
-            { "comment": "form-id^grouping^second-nested-obs",
+            { "formFieldNamespace": "labworkflow",
+              "formFieldPath": "form-id/grouping/second-nested-obs",
               "concept": "second-obs-uuid",
               "value": 200
             }
           ]
         },
         {
-          "comment": "form-id^second_grouping",
+          "formFieldNamespace": "labworkflow",
+          "formFieldPath": "form-id/second_grouping",
           "concept": "second_grouping_uuid",
           "groupMembers":  [
-            { "comment": "form-id^second_grouping^first-nested-obs",
+            { "formFieldNamespace": "labworkflow",
+              "formFieldPath": "form-id/second_grouping/first-nested-obs",
               "concept": "first-obs-uuid",
               "value": 300
             },
-            { "comment": "form-id^second_grouping^second-nested-obs",
+            { "formFieldNamespace": "labworkflow",
+              "formFieldPath": "form-id/second_grouping/second-nested-obs",
               "concept": "second-obs-uuid",
               "value": 400
             }
@@ -659,12 +678,14 @@ describe('form sagas', () => {
       ],
       "encounterType": "some_encounter_type_uuid",
       "obs": [
-        { "comment": "form-id^first-obs",
+        { "formFieldNamespace": "labworkflow",
+          "formFieldPath": "form-id/first-obs",
           "concept": "first-obs-uuid",
           "order": "some_order_uuid",
           "value": 100
         },
-        { "comment": "form-id^second-obs",
+        { "formFieldNamespace": "labworkflow",
+          "formFieldPath": "form-id/second-obs",
           "concept": "second-obs-uuid",
           "order": "some_order_uuid",
           "value": 200
