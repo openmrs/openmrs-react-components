@@ -41,11 +41,10 @@ class EncounterForm extends React.PureComponent {
     // if there is an existing encounter, create object of existing obs values
     if (this.props.encounter && this.props.encounter.obs) {
 
-      // TODO update this to handle using form and namespacing
       existingValues = formUtil.flattenObs(this.props.encounter.obs)
-        .filter((o) => o.comment && o.comment.includes("^") && o.concept && o.concept.uuid && o.value)      // filter out any obs with missing information
+        .filter((o) => formUtil.hasFormAndPath(o) && o.concept && o.concept.uuid && o.value)      // filter out any obs with missing information
         .map((o) => ({                                                                                      // map to the key/value pair
-          [formUtil.obsFieldName(o.comment.split('^').slice(1), o.conceptPath)]:
+          [formUtil.obsFieldName(formUtil.getFormAndPathFromObs(o).path, o.conceptPath)]:
             (o.concept.datatype && (o.concept.datatype.uuid === DATA_TYPES['coded'].uuid || o.concept.datatype.uuid === DATA_TYPES['boolean'].uuid)
               ? o.value.uuid : o.value)
         }))
