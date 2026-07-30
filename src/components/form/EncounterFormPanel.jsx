@@ -163,6 +163,7 @@ class EncounterFormPanel extends React.PureComponent {
               encounterRole={this.props.encounterRole}
               encounterType={this.props.encounterType}
               formId={this.props.formId}
+              formNamespace={this.props.formNamespace}
               formInstanceId={this.formInstanceId}
               formSubmittedActionCreator={this.formSubmittedActionCreators}
               location={this.props.location}
@@ -222,6 +223,7 @@ EncounterFormPanel.propTypes = {
   formContent: PropTypes.object.isRequired,
   formId: PropTypes.string.isRequired,
   formInstanceId: PropTypes.string,
+  formNamespace: PropTypes.string,  // forwarded through to EncounterForm; see EncounterForm.propTypes for details
   formSubmittedActionCreators: PropTypes.array,
   hideActionButtons: PropTypes.bool,
   hideSubmitActionButtons: PropTypes.bool,
