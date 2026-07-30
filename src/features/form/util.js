@@ -7,9 +7,13 @@ const util = {
   FORM_NAMESPACE,
 
   // given an obs, finds the form and path it was recorded from, via formNamespaceAndPath
+  // only obs written by this app (formFieldNamespace === FORM_NAMESPACE) are considered "ours" -
+  // formFieldPath is shared across OpenMRS applications, so an obs written by another app
+  // (e.g. HTML Form Entry) must not be mistaken for one of ours just because its path happens
+  // to have multiple segments
   getFormAndPathFromObs: (obs) => {
 
-    if (!obs.formFieldPath) { return {}; }
+    if (!obs.formFieldPath || obs.formFieldNamespace !== FORM_NAMESPACE) { return {}; }
 
     const [form, ...path] = obs.formFieldPath.split("/");
 

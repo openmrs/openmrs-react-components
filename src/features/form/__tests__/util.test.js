@@ -144,12 +144,31 @@ describe('form util', () => {
   it('should extract form and path from obs formFieldPath', () => {
 
     const obs = {
+      formFieldNamespace: "labworkflow",
       formFieldPath: "form-id/second_grouping/first-nested-obs/double-nested-obs"
     };
 
     const { form, path } = formUtil.getFormAndPathFromObs(obs);
     expect(form).toEqual("form-id");
     expect(path).toEqual(["second_grouping", "first-nested-obs", "double-nested-obs"]);
+
+  });
+
+  it('should return empty object if formFieldPath is set but formFieldNamespace does not match (obs belongs to another app)', () => {
+
+    const obsWithForeignNamespace = {
+      formFieldNamespace: "HtmlFormEntry",
+      formFieldPath: "someForm/someField"
+    };
+
+    const obsWithMissingNamespace = {
+      formFieldPath: "someForm/someField"
+    };
+
+    expect(formUtil.getFormAndPathFromObs(obsWithForeignNamespace)).toEqual({});
+    expect(formUtil.getFormAndPathFromObs(obsWithMissingNamespace)).toEqual({});
+    expect(formUtil.hasFormAndPath(obsWithForeignNamespace)).toEqual(false);
+    expect(formUtil.hasFormAndPath(obsWithMissingNamespace)).toEqual(false);
 
   });
 
@@ -170,6 +189,7 @@ describe('form util', () => {
   it('should properly compare obs with form and path', () => {
 
     const obs = {
+      formFieldNamespace: "labworkflow",
       formFieldPath: "form-id/second_grouping/first-nested-obs/double-nested-obs"
     };
 
@@ -178,9 +198,20 @@ describe('form util', () => {
     expect(formUtil.hasMatchingFormAndPath(obs, "form-id", ["different_second_grouping", "first-nested-obs", "double-nested-obs"])).toEqual(false);
   });
 
+  it('should not match obs with form and path if formFieldNamespace does not match (belongs to another app)', () => {
+
+    const obs = {
+      formFieldNamespace: "HtmlFormEntry",
+      formFieldPath: "form-id/second_grouping/first-nested-obs/double-nested-obs"
+    };
+
+    expect(formUtil.hasMatchingFormAndPath(obs, "form-id", ["second_grouping", "first-nested-obs", "double-nested-obs"])).toEqual(false);
+  });
+
   it ('hasFormAndPath should return true if obs has form and path', () => {
 
     const obs = {
+      formFieldNamespace: "labworkflow",
       formFieldPath: "form-id/second_grouping/first-nested-obs/double-nested-obs"
     };
 
@@ -191,6 +222,7 @@ describe('form util', () => {
   it ('hasFormAndPath should return false if formFieldPath has no path segment beyond the form', () => {
 
     const obs = {
+      formFieldNamespace: "labworkflow",
       formFieldPath: "just-a-form-id-no-path"
     };
 
