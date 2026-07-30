@@ -1,14 +1,17 @@
 import generalUtil from '../../util/generalUtil';
 
+const FORM_NAMESPACE = 'labworkflow';
+
 const util = {
 
-  // TODO update this next two methods to use form field and namespace instead of comment when running OpenMRS 1.11+
-  // given an obs, finds the form field and and path for that obs (currently stored in comment, but will be expanded)
+  FORM_NAMESPACE,
+
+  // given an obs, finds the form and path it was recorded from, via formNamespaceAndPath
   getFormAndPathFromObs: (obs) => {
 
-    if (!obs.comment) { return {}; }
+    if (!obs.formFieldPath) { return {}; }
 
-    const [form, ...path] = obs.comment.split("^");
+    const [form, ...path] = obs.formFieldPath.split("/");
 
     return {
       form,
@@ -18,7 +21,8 @@ const util = {
   },
 
   setFormAndPathOnObs: (obs, form, path) => {
-    obs.comment = form + "^" + path.join("^");
+    obs.formFieldNamespace = FORM_NAMESPACE;
+    obs.formFieldPath = [form, ...path].join("/");
   },
 
   hasFormAndPath: (obs) => {

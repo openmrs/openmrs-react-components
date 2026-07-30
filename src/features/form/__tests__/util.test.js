@@ -31,20 +31,6 @@ describe('form util', () => {
 
   });
 
-  /*it('should create field name with extra parameters', () => {
-
-    const fieldName = formUtil.obsFieldName(["some_path"], ["some_concept_path"], ["inverted", "special"]);
-    expect(fieldName).toEqual("obs|path=some_path|conceptPath=some_concept_path|inverted^special");
-
-  });
-
-  it('should create field name with extra parameters as string', () => {
-
-    const fieldName = formUtil.obsFieldName(["some_path"], ["some_concept_path"], ["inverted^special"]);
-    expect(fieldName).toEqual("obs|path=some_path|conceptPath=some_concept_path|inverted^special");
-
-  });*/
-
   it('should parse field name with single path elements', () => {
     const { path, concepts } = formUtil.parseObsFieldName("obs|path=some_path|conceptPath=some_concept_path");
     expect(path).toEqual(["some_path"]);
@@ -61,18 +47,18 @@ describe('form util', () => {
 
     const obs =   [
       {
-        "comment": "form-id^grouping",
+        "formFieldPath": "form-id/grouping",
         "concept": {
           "uuid": "grouping_uuid"
         },
         "groupMembers":  [
-          { "comment": "form-id^grouping^first-nested-obs",
+          { "formFieldPath": "form-id/grouping/first-nested-obs",
             "concept": {
               "uuid": "first-obs-uuid"
             },
             "value": 100
           },
-          { "comment": "form-id^grouping^second-nested-obs",
+          { "formFieldPath": "form-id/grouping/second-nested-obs",
             "concept": {
               "uuid": "second-obs-uuid"
             },
@@ -81,18 +67,18 @@ describe('form util', () => {
         ]
       },
       {
-        "comment": "form-id^second_grouping",
+        "formFieldPath": "form-id/second_grouping",
         "concept": {
           "uuid": "second_grouping_uuid"
         },
         "groupMembers":  [
-          { "comment": "form-id^second_grouping^first-nested-obs",
+          { "formFieldPath": "form-id/second_grouping/first-nested-obs",
             "concept": {
               "uuid": "first-obs-uuid"
             },
             "groupMembers": [
               {
-                "comment": "form-id^second_grouping^first-nested-obs^double-nested-obs",
+                "formFieldPath": "form-id/second_grouping/first-nested-obs/double-nested-obs",
                 "concept": {
                   "uuid": "second-obs-uuid"
                 },
@@ -106,14 +92,14 @@ describe('form util', () => {
 
     const expectedFlattened = [
       {
-        "comment": "form-id^grouping^first-nested-obs",
+        "formFieldPath": "form-id/grouping/first-nested-obs",
         "concept": {
           "uuid": "first-obs-uuid"
         },
         "conceptPath": "grouping_uuid^first-obs-uuid",
         "value": 100
       },
-      { "comment": "form-id^grouping^second-nested-obs",
+      { "formFieldPath": "form-id/grouping/second-nested-obs",
         "concept": {
           "uuid": "second-obs-uuid"
         },
@@ -121,14 +107,14 @@ describe('form util', () => {
         "value": 200
       },
       {
-        "comment": "form-id^grouping",
+        "formFieldPath": "form-id/grouping",
         "concept": {
           "uuid": "grouping_uuid"
         },
         "conceptPath": "grouping_uuid",
       },
       {
-        "comment": "form-id^second_grouping^first-nested-obs^double-nested-obs",
+        "formFieldPath": "form-id/second_grouping/first-nested-obs/double-nested-obs",
         "concept": {
           "uuid": "second-obs-uuid"
         },
@@ -136,14 +122,14 @@ describe('form util', () => {
         "value": 400
       },
       {
-        "comment": "form-id^second_grouping^first-nested-obs",
+        "formFieldPath": "form-id/second_grouping/first-nested-obs",
         "concept": {
           "uuid": "first-obs-uuid"
         },
         "conceptPath": "second_grouping_uuid^first-obs-uuid",
       },
       {
-        "comment": "form-id^second_grouping",
+        "formFieldPath": "form-id/second_grouping",
         "concept": {
           "uuid": "second_grouping_uuid"
         },
@@ -155,10 +141,10 @@ describe('form util', () => {
 
   });
 
-  it('should extract form and path from obs comment', () => {
+  it('should extract form and path from obs formFieldPath', () => {
 
     const obs = {
-      comment: "form-id^second_grouping^first-nested-obs^double-nested-obs"
+      formFieldPath: "form-id/second_grouping/first-nested-obs/double-nested-obs"
     };
 
     const { form, path } = formUtil.getFormAndPathFromObs(obs);
@@ -167,25 +153,24 @@ describe('form util', () => {
 
   });
 
-  it('should set form and path on obs comment', () => {
+  it('should set form and path on obs formFieldPath and formFieldNamespace', () => {
 
-    let obs = {
-      comment: ""
-    };
+    let obs = {};
 
     const form = "form-id";
     const path = ["second_grouping", "first-nested-obs", "double-nested-obs"];
 
     formUtil.setFormAndPathOnObs(obs, form, path);
 
-    expect(obs.comment).toEqual("form-id^second_grouping^first-nested-obs^double-nested-obs");
+    expect(obs.formFieldNamespace).toEqual("labworkflow");
+    expect(obs.formFieldPath).toEqual("form-id/second_grouping/first-nested-obs/double-nested-obs");
 
   });
 
   it('should properly compare obs with form and path', () => {
 
     const obs = {
-      comment: "form-id^second_grouping^first-nested-obs^double-nested-obs"
+      formFieldPath: "form-id/second_grouping/first-nested-obs/double-nested-obs"
     };
 
     expect(formUtil.hasMatchingFormAndPath(obs, "form-id", ["second_grouping", "first-nested-obs", "double-nested-obs"])).toEqual(true);
@@ -196,34 +181,34 @@ describe('form util', () => {
   it ('hasFormAndPath should return true if obs has form and path', () => {
 
     const obs = {
-      comment: "form-id^second_grouping^first-nested-obs^double-nested-obs"
+      formFieldPath: "form-id/second_grouping/first-nested-obs/double-nested-obs"
     };
 
     expect(formUtil.hasFormAndPath(obs)).toEqual(true);
 
   });
 
-  it ('hasFormAndPath should return false if does not have form and path', () => {
+  it ('hasFormAndPath should return false if formFieldPath has no path segment beyond the form', () => {
 
     const obs = {
-      comment: "just a typical comment"
+      formFieldPath: "just-a-form-id-no-path"
     };
 
     expect(formUtil.hasFormAndPath(obs)).toEqual(false);
 
   });
 
-  it ('hasFormAndPath should return false if empty comment', () => {
+  it ('hasFormAndPath should return false if empty formFieldPath', () => {
 
     const obs = {
-      comment: ""
+      formFieldPath: ""
     };
 
     expect(formUtil.hasFormAndPath(obs)).toEqual(false);
 
   });
 
-  it ('hasFormAndPath should return false if no comment', () => {
+  it ('hasFormAndPath should return false if no formFieldPath', () => {
 
     const obs = {};
 
