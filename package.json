@@ -29,7 +29,7 @@
     "intl": "^1.2.5",
     "lodash": "^4.17.10",
     "match-sorter": "^2.3.0",
-    "npm": "^6.4.0",
+    "npm": "^9.4.1",
     "postcss-cssnext": "^2.11.0",
     "postcss-each": "^0.10.0",
     "postcss-import": "^10.0.0",
